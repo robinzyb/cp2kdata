@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import glob
 
-class pdos():
+class Pdos():
     def __init__(self, file_name):
         self.file = file_name
         self.element = self.read_dos_element()
@@ -146,7 +146,7 @@ def quick_plot_uks(pdos_dir):
     alpha_dos = []
     beta_dos = []
     for i in pdos_files:
-        tmp = pdos(i)
+        tmp = Pdos(i)
         if tmp.spin == "ALPHA" and tmp.ldos == False:
             alpha_dos.append(tmp)
         elif tmp.spin == "BETA" and tmp.ldos == False:
@@ -240,7 +240,7 @@ def quick_plot_rks(pdos_dir):
     #
     rks_dos = []
     for i in pdos_files:
-        tmp = pdos(i)
+        tmp = Pdos(i)
         if tmp.ldos == False:
             rks_dos.append(tmp)
         else:
