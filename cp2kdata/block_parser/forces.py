@@ -19,12 +19,14 @@ ATOMIC_FORCES_RE = re.compile(
     re.VERBOSE
 )
 
-def parse_atomic_forces(output_file):
-    atomic_forces = []
+def parse_atomic_forces_list(output_file):
+    atomic_forces_list = []
     for match in ATOMIC_FORCES_RE.finditer(output_file):
+        atomic_forces = []
         for x, y, z in zip(*match.captures("x", "y", "z")):
             atomic_forces.append([x, y, z])
-    if atomic_forces:
-        return np.array(atomic_forces, dtype=float)
+        atomic_forces_list.append(atomic_forces)
+    if atomic_forces_list:
+        return np.array(atomic_forces_list, dtype=float)
     else:
         return None

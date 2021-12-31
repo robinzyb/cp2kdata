@@ -20,9 +20,10 @@ MULLIKEN_RE = re.compile(
     re.VERBOSE
 )
 
-def parse_mulliken_pop(output_file):
-    mulliken_pop = []
+def parse_mulliken_pop_list(output_file):
+    mulliken_pop_list = []
     for match in MULLIKEN_RE.finditer(output_file):
+        mulliken_pop = []
         for element, alpha, beta, net_charge, spin_moment in zip(*match.captures("element", "alpha", "beta", "net_charge", "spin_moment")):
             mulliken_pop.append(
                 {
@@ -33,7 +34,8 @@ def parse_mulliken_pop(output_file):
                     "spin_moment": float(spin_moment)
                 }
             )
-    if  mulliken_pop:
-        return  mulliken_pop
+        mulliken_pop_list.append(mulliken_pop)
+    if  mulliken_pop_list:
+        return  mulliken_pop_list
     else:
         return None

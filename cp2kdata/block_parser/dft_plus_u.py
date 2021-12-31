@@ -28,7 +28,8 @@ PLUS_U_RE = re.compile(
 def parse_dft_plus_u_occ(output_file):
     dft_plus_u_occ = []
     for match in PLUS_U_RE.finditer(output_file):
-        print(match)
+        pass
+#        print(match)
 #        for element, alpha, beta, net_charge, spin_moment in zip(*match.captures("element", "alpha", "beta", "net_charge", "spin_moment")):
 #            dft_plus_u_occ.append(
 #                {

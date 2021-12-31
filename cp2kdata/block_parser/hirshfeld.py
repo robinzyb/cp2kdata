@@ -21,9 +21,10 @@ HIRSHFELD_RE = re.compile(
     re.VERBOSE
 )
 
-def parse_hirshfeld_pop(output_file):
-    hirshfeld_pop = []
+def parse_hirshfeld_pop_list(output_file):
+    hirshfeld_pop_list = []
     for match in HIRSHFELD_RE.finditer(output_file):
+        hirshfeld_pop = []
         for element, alpha, beta, net_charge, spin_moment in zip(*match.captures("element", "alpha", "beta", "net_charge", "spin_moment")):
             hirshfeld_pop.append(
                 {
@@ -34,7 +35,8 @@ def parse_hirshfeld_pop(output_file):
                     "spin_moment": float(spin_moment)
                 }
             )
-    if  hirshfeld_pop:
-        return  hirshfeld_pop
+        hirshfeld_pop_list.append(hirshfeld_pop)
+    if  hirshfeld_pop_list:
+        return  hirshfeld_pop_list
     else:
         return None
