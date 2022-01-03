@@ -2,7 +2,7 @@ import regex as re
 import numpy as np
 
 ATOMIC_FORCES_RE = re.compile(
-    """
+    r"""
     \sATOMIC\sFORCES\sin\s\[a\.u\.\]\s*\n
     \n
     \s\#.+\n
