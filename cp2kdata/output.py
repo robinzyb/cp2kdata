@@ -36,7 +36,9 @@ class Cp2kOutput:
             sys.exit()
         if self.global_info["run_type"] == "GEO_OPT":
             # parse global info
-            self.geo_opt_info = parse_geo_opt(self.output_file) 
+            self.geo_opt_info = parse_geo_opt(self.output_file)
+        else:
+            self.geo_opt_info = None
 
         self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
         self.mulliken_pop_list = parse_mulliken_pop_list(self.output_file, self.dft_info)
@@ -63,3 +65,6 @@ class Cp2kOutput:
     
     def get_geo_opt_info(self):
         return self.geo_opt_info
+
+    def to_ase_atoms(self):
+        pass
