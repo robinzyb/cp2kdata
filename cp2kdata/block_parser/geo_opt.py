@@ -8,6 +8,8 @@ GEO_OPT_INFO_FIRST_RE = re.compile(
     """,
     re.VERBOSE
 )
+
+# valid for 7.1
 GEO_OPT_INFO_REST_RE = re.compile(
     r"""
     \s+-+\s+Informations\sat\sstep\s=\s+(?P<step>\d+)\s+-+\n
@@ -41,7 +43,7 @@ GEO_OPT_INFO_REST_RE = re.compile(
         \s+Conv\.\sfor\sgradients # two pattern in context ..
         | \s+Conv\.\sin\sRMS\sgradients
     )
-    \s+=\s+\w+\s*\n
+   \s+=\s+\w+\s*\n
     """,
     re.VERBOSE
 )
@@ -49,7 +51,7 @@ GEO_OPT_INFO_REST_RE = re.compile(
 
 def parse_geo_opt(output_file) -> float:
     geo_opt_info = []
-    
+
     for match in GEO_OPT_INFO_FIRST_RE.finditer(output_file):
         geo_opt_info.append(
             {
@@ -59,18 +61,17 @@ def parse_geo_opt(output_file) -> float:
             }
         )
     for match in GEO_OPT_INFO_REST_RE.finditer(output_file):
-#        print(match)
-       geo_opt_info.append(
-           {
-               "step": int(match["step"]),
-               "total_energy": float(match["total_energy"]),
-               "used_time": float(match["used_time"]),
-               "max_step_size": float(match["max_step_size"]),
-               "rms_step_size": float(match["rms_step_size"]),
-               "max_gradient": float(match["max_gradient"]),
-               "rms_gradient": float(match["rms_gradient"])
-           }
-       )
+        geo_opt_info.append(
+            {
+                "step": int(match["step"]),
+                "total_energy": float(match["total_energy"]),
+                "used_time": float(match["used_time"]),
+                "max_step_size": float(match["max_step_size"]),
+                "rms_step_size": float(match["rms_step_size"]),
+                "max_gradient": float(match["max_gradient"]),
+                "rms_gradient": float(match["rms_gradient"])
+            }
+        )
     if geo_opt_info:
         return geo_opt_info
     else:

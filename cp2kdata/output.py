@@ -1,10 +1,14 @@
 import sys
-from .block_parser.header_info import parse_header, parse_global, parse_dft
-from .block_parser.forces import parse_atomic_forces_list
-from .block_parser.mulliken import parse_mulliken_pop_list
-from .block_parser.hirshfeld import parse_hirshfeld_pop_list, parse_hirshfeld_pop_list
+
+import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
+
 from .block_parser.dft_plus_u import parse_dft_plus_u_occ
+from .block_parser.forces import parse_atomic_forces_list
 from .block_parser.geo_opt import parse_geo_opt
+from .block_parser.header_info import parse_dft, parse_global, parse_header
+from .block_parser.hirshfeld import parse_hirshfeld_pop_list
+from .block_parser.mulliken import parse_mulliken_pop_list
 
 
 def check_run_type(run_type):
@@ -30,7 +34,8 @@ class Cp2kOutput:
         except ValueError:
             print(
                 (
-                "Parser for Run Type {0} Haven't Been Implemented Yet!".format(self.global_info["run_type"])
+                    "Parser for Run Type {0} Haven't Been Implemented Yet!".format(
+                        self.global_info["run_type"])
                 )
             )
             sys.exit()
@@ -41,7 +46,8 @@ class Cp2kOutput:
             self.geo_opt_info = None
 
         self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
-        self.mulliken_pop_list = parse_mulliken_pop_list(self.output_file, self.dft_info)
+        self.mulliken_pop_list = parse_mulliken_pop_list(
+            self.output_file, self.dft_info)
         self.hirshfeld_pop_list = parse_hirshfeld_pop_list(self.output_file)
         self.dft_plus_u_occ = parse_dft_plus_u_occ(self.output_file)
 
@@ -62,9 +68,62 @@ class Cp2kOutput:
 
     def get_dft_plus_u_occ(self):
         return self.dft_plus_u_occ
-    
+
     def get_geo_opt_info(self):
         return self.geo_opt_info
+
+    def get_geo_opt_info_plot(self):
+        plt.rcParams.update(
+            {
+                'font.size': 20,
+                'axes.linewidth': 2,
+                'lines.marker': 'o',
+                'lines.markeredgecolor': 'black',
+                'lines.markeredgewidth': '0.5',
+                'lines.markersize': 13,
+                'xtick.major.size': 5,
+                'xtick.major.width': 2,
+                'ytick.major.width': 2
+            }
+        )
+        geo_opt_steps = [one_geo_opt_info["step"]
+                         for one_geo_opt_info in self.get_geo_opt_info()[1:]]
+        max_step_size = [one_geo_opt_info["max_step_size"]
+                         for one_geo_opt_info in self.get_geo_opt_info()[1:]]
+        rms_step_size = [one_geo_opt_info["rms_step_size"]
+                         for one_geo_opt_info in self.get_geo_opt_info()[1:]]
+        max_grad = [one_geo_opt_info["max_gradient"]
+                    for one_geo_opt_info in self.get_geo_opt_info()[1:]]
+        rms_grad = [one_geo_opt_info["rms_gradient"]
+                    for one_geo_opt_info in self.get_geo_opt_info()[1:]]
+
+        fig = plt.figure(figsize=(24, 16), dpi=300)
+
+        gs = GridSpec(2, 2, figure=fig)
+        color = 'black'
+        ax_max_step = fig.add_subplot(gs[0])
+        ax_max_step.plot(geo_opt_steps, max_step_size,
+                         color=color, markerfacecolor="#F2F2F2")
+        ax_max_step.set_ylabel("Max Step Size")
+        ax_max_step.set_xlabel("Optimzation Steps")
+        ax_rms_step = fig.add_subplot(gs[1])
+        ax_rms_step.plot(geo_opt_steps, rms_step_size,
+                         color=color, markerfacecolor="#C6E070")
+        ax_rms_step.set_ylabel("RMS Step Size")
+        ax_rms_step.set_xlabel("Optimzation Steps")
+        ax_max_grad = fig.add_subplot(gs[2])
+        ax_max_grad.plot(geo_opt_steps, max_grad, color=color,
+                         markerfacecolor="#91C46C")
+        ax_max_grad.set_xlabel("Optimzation Steps")
+        ax_max_grad.set_ylabel("Max Gradient")
+        ax_rms_grad = fig.add_subplot(gs[3])
+        ax_rms_grad.plot(geo_opt_steps, rms_grad, color=color,
+                         markerfacecolor="#5C832F")
+        ax_rms_grad.set_ylabel("RMS Gradient")
+        ax_rms_grad.set_xlabel("Optimzation Steps")
+        fig.suptitle("Geometry Optimization Information", fontsize=30)
+        fig.tight_layout()
+        fig.savefig("geo_opt_info.png")
 
     def to_ase_atoms(self):
         pass
