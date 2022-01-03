@@ -9,7 +9,8 @@ from .block_parser.geo_opt import parse_geo_opt
 from .block_parser.header_info import parse_dft, parse_global, parse_header
 from .block_parser.hirshfeld import parse_hirshfeld_pop_list
 from .block_parser.mulliken import parse_mulliken_pop_list
-
+from .block_parser.energies import parse_energies_list
+from .block_parser.coordinates import parse_init_atomic_coordinates
 
 def check_run_type(run_type):
     implemented_run_type_parsers = ["ENERGY_FORCE", "ENERGY", "MD", "GEO_OPT"]
@@ -45,6 +46,8 @@ class Cp2kOutput:
         else:
             self.geo_opt_info = None
 
+        self.energies_list = parse_energies_list(self.output_file)
+        self.init_atomic_coordinates = parse_init_atomic_coordinates(self.output_file)
         self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
         self.mulliken_pop_list = parse_mulliken_pop_list(
             self.output_file, self.dft_info)
@@ -56,6 +59,12 @@ class Cp2kOutput:
 
     def get_run_type(self) -> float:
         return self.global_info["run_type"]
+
+    def get_energies_list(self):
+        return self.energies_list
+
+    def get_init_atomic_coordinates(self):
+        return self.init_atomic_coordinates
 
     def get_atomic_forces_list(self):
         return self.atomic_forces_list
