@@ -23,12 +23,17 @@ INIT_ATOMIC_COORDINATES_RE = re.compile(
     re.VERBOSE
 )
 
+
 def parse_init_atomic_coordinates(output_file):
     init_atomic_coordinates = []
+    atom_kind_list = []
+    chemical_symbols = []
     for match in INIT_ATOMIC_COORDINATES_RE.finditer(output_file):
         for x, y, z in zip(*match.captures("x", "y", "z")):
             init_atomic_coordinates.append([x, y, z])
+        atom_kind_list = [int(kind) for kind in match.captures("kind")]
+        chemical_symbols = match.captures("element")
     if init_atomic_coordinates:
-        return np.array(init_atomic_coordinates, dtype=float)
+        return np.array(init_atomic_coordinates, dtype=float), np.array(atom_kind_list, dtype=int), chemical_symbols
     else:
         return None

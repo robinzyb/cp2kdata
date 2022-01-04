@@ -11,6 +11,8 @@ from .block_parser.hirshfeld import parse_hirshfeld_pop_list
 from .block_parser.mulliken import parse_mulliken_pop_list
 from .block_parser.energies import parse_energies_list
 from .block_parser.coordinates import parse_init_atomic_coordinates
+from .block_parser.atomic_kind import parse_atomic_kinds
+
 
 def check_run_type(run_type):
     implemented_run_type_parsers = ["ENERGY_FORCE", "ENERGY", "MD", "GEO_OPT"]
@@ -47,7 +49,9 @@ class Cp2kOutput:
             self.geo_opt_info = None
 
         self.energies_list = parse_energies_list(self.output_file)
-        self.init_atomic_coordinates = parse_init_atomic_coordinates(self.output_file)
+        self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
+            self.output_file)
+        self.atomic_kind = parse_atomic_kinds(self.output_file)
         self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
         self.mulliken_pop_list = parse_mulliken_pop_list(
             self.output_file, self.dft_info)
@@ -62,6 +66,18 @@ class Cp2kOutput:
 
     def get_energies_list(self):
         return self.energies_list
+
+    def get_atomic_kind(self):
+        return self.atomic_kind
+
+    def get_atom_kinds_list(self):
+        return self.atom_kind_list
+
+    def get_chemical_symbols(self):
+        return self.chemical_symbols
+
+    def get_chemical_symbols_fake(self):
+        return self.atomic_kind[self.atom_kind_list-1]
 
     def get_init_atomic_coordinates(self):
         return self.init_atomic_coordinates
@@ -135,4 +151,5 @@ class Cp2kOutput:
         fig.savefig("geo_opt_info.png")
 
     def to_ase_atoms(self):
+        print("haven't implemented yet")
         pass
