@@ -4,6 +4,16 @@ Python Package to postprocess cp2k data.
 
 including cube file, pdos file, output file
 
+- [CP2KDATA](#cp2kdata)
+  - [Installation](#installation)
+  - [Processing Output File](#processing-output-file)
+    - [Processing ENERGY and FORCE Calculation](#processing-energy-and-force-calculation)
+    - [Processing GEOMETRY OPTIMIZATION Calculation](#processing-geometry-optimization-calculation)
+  - [Processing Cube File](#processing-cube-file)
+  - [Processing PDOS File](#processing-pdos-file)
+    - [Processing Single PDOS File](#processing-single-pdos-file)
+    - [Quickplot of  PDOS Files in Single Point Energy Calculation](#quickplot-of--pdos-files-in-single-point-energy-calculation)
+
 ## Installation
 
 ```bash
@@ -30,10 +40,10 @@ print(cp2koutput.get_chemical_symbols_fake())
 
 ```
 
-### Processing GEOMETRY OPTIMIZATION
+### Processing GEOMETRY OPTIMIZATION Calculation
 ```python
 from cp2kdata.output import Cp2kOutput
-cp2k_output_file = "output_get_opt"
+cp2k_output_file = "output_geo_opt"
 cp2koutput=Cp2kOutput(cp2k_output_file)
 # get the version of cp2k
 print(cp2koutput.get_version_string())
@@ -70,7 +80,7 @@ mycube.quick_plot(axis="z", interpolate=False, output_dir="./")
 
 ## Processing PDOS File
 
-### Process Single PDOS File
+### Processing Single PDOS File
 
 ```python
 from cp2kdata.pdos import Pdos
