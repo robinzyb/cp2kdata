@@ -39,6 +39,10 @@ cp2koutput=Cp2kOutput(cp2k_output_file)
 print(cp2koutput.get_version_string())
 # get the run type
 print(cp2koutput.get_run_type())
+# get potential energy
+print(cp2koutput.get_energies_list())
+# get initial coordinates
+print(cp2koutput.get_init_atomic_coordinates())
 # symbols with true element
 print(cp2koutput.get_chemical_symbols())
 # symbols with your set in input
