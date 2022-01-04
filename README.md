@@ -12,6 +12,44 @@ pip install .
 
 
 
+## Processing Output File
+
+### Processing ENERGY and FORCE Calculation
+```python
+from cp2kdata.output import Cp2kOutput
+cp2k_output_file = "output_energy_force"
+cp2koutput=Cp2kOutput(cp2k_output_file)
+# get the version of cp2k
+print(cp2koutput.get_version_string())
+# get the run type
+print(cp2koutput.get_run_type())
+# symbols with true element
+print(cp2koutput.get_chemical_symbols())
+# symbols with your set in input
+print(cp2koutput.get_chemical_symbols_fake())
+
+```
+
+### Processing GEOMETRY OPTIMIZATION
+```python
+from cp2kdata.output import Cp2kOutput
+cp2k_output_file = "output_get_opt"
+cp2koutput=Cp2kOutput(cp2k_output_file)
+# get the version of cp2k
+print(cp2koutput.get_version_string())
+# get the run type
+print(cp2koutput.get_run_type())
+# symbols with true element
+print(cp2koutput.get_chemical_symbols())
+# symbols with your set in input
+print(cp2koutput.get_chemical_symbols_fake())
+# get the geometry optimization information
+print(cp2koutput.get_geo_opt_info())
+# quick plot of geometry optimization information 
+cp2koutput.get_geo_opt_info_plot()
+```
+![geo_opt_plot](./figures/geo_opt_info.png)
+
 ## Processing Cube File
 
 ```python
