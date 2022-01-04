@@ -2,9 +2,26 @@ from cp2kdata.output import Cp2kOutput
 
 
 
-# x=Cp2kOutput("output_energy_force")
-x = Cp2kOutput("output_geo_opt")
-x.get_geo_opt_info_plot()
+cp2koutput=Cp2kOutput("output_geo_opt")
+#x = Cp2kOutput("output_geo_opt")
+#print(x.get_init_atomic_coordinates())
+#print(x.get_init_atomic_coordinates().shape)
+#print(x.get_atom_kinds_list())
+print(cp2koutput.get_version_string())
+# get the run type
+print(cp2koutput.get_run_type())
+# symbols with true element
+print(cp2koutput.get_chemical_symbols())
+# symbols with your set in input
+print(cp2koutput.get_chemical_symbols_fake())
+# get the geometry optimization information
+print(cp2koutput.get_geo_opt_info())
+# quick plot of geometry optimization information 
+print(cp2koutput.get_geo_opt_info_plot())
+#print(x.get_atomic_kind())
+#print(x.get_chemical_symbols())
+#print(x.get_chemical_symbols_fake())
+#print(len(x.get_energies_list()))
 # x=Cp2kOutput("output")
 # y=Cp2kOutput("output_aimd")
 
