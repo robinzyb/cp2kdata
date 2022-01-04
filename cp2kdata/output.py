@@ -25,10 +25,19 @@ def check_run_type(run_type):
 class Cp2kOutput:
     """Class for parsing cp2k output"""
 
-    def __init__(self, output_file) -> None:
+    def __init__(self, output_file):
         with open(output_file, 'r') as fp:
-            self.output_file = "".join(fp.readlines())
-
+            header_idx = []
+            for idx, ii in enumerate(fp):
+                if 'Multiplication driver' in ii:
+                    header_idx.append(idx)
+            fp.seek(0)
+            all_lines = []
+            for idx, ii in enumerate(fp):
+                if idx >= header_idx[-1]:
+                    all_lines.append(ii)
+            self.output_file = "".join(all_lines)
+        
         self.header_info = parse_header(self.output_file)
         self.global_info = parse_global(self.output_file)
         self.dft_info = parse_dft(self.output_file)
