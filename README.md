@@ -9,6 +9,7 @@ including cube file, pdos file, output file
   - [Processing Output File](#processing-output-file)
     - [Processing ENERGY and FORCE Calculation](#processing-energy-and-force-calculation)
     - [Processing GEOMETRY OPTIMIZATION Calculation](#processing-geometry-optimization-calculation)
+    - [Error Handing](#error-handing)
   - [Processing Cube File](#processing-cube-file)
   - [Processing PDOS File](#processing-pdos-file)
     - [Processing Single PDOS File](#processing-single-pdos-file)
@@ -63,7 +64,13 @@ print(cp2koutput.get_geo_opt_info())
 cp2koutput.get_geo_opt_info_plot()
 ```
 ![geo_opt_plot](./figures/geo_opt_info.png)
-
+### Error Handing
+if cp2k output contains exceed execution time, the Cp2kOutput class won't read it.
+Instead, to ignore the error, set 'ignore_error=True'
+```python
+cp2k_output_file = "output_geo_opt"
+cp2koutput=Cp2kOutput(cp2k_output_file, ignore_error=True)
+```
 ## Processing Cube File
 
 ```python

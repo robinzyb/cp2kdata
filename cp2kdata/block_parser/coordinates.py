@@ -25,10 +25,12 @@ INIT_ATOMIC_COORDINATES_RE = re.compile(
 
 
 def parse_init_atomic_coordinates(output_file):
-    init_atomic_coordinates = []
-    atom_kind_list = []
-    chemical_symbols = []
+
     for match in INIT_ATOMIC_COORDINATES_RE.finditer(output_file):
+        #print(match)
+        # only get the last match
+        init_atomic_coordinates = []
+        chemical_symbols = []
         for x, y, z in zip(*match.captures("x", "y", "z")):
             init_atomic_coordinates.append([x, y, z])
         atom_kind_list = [int(kind) for kind in match.captures("kind")]

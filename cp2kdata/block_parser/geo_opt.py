@@ -16,10 +16,11 @@ GEO_OPT_INFO_REST_RE = re.compile(
     \s+Optimization\sMethod\s+=\s+\w+\s*\n
     \s+Total\sEnergy\s+=\s+(?P<total_energy>[\s-]\d+\.\d+)\s*\n
     \s+Real\senergy\schange\s+=\s+[\s-]\d+\.\d+\s*\n
-    \s+Predicted\schange\sin\senergy\s+=\s+[\s-]\d+\.\d+\s*\n
-    \s+Scaling\s+factor\s+=\s+[\s-]\d+\.\d+\s*\n
-    \s+Step\s+size\s+=\s+[\s-]\d+\.\d+\s*\n
-    \s+Trust\s+radius\s+=\s+[\s-]\d+\.\d+\s*\n
+    # match once or zero for ?
+    (\s+Predicted\schange\sin\senergy\s+=\s+[\s-]\d+\.\d+\s*\n)?
+    (\s+Scaling\s+factor\s+=\s+[\s-]\d+\.\d+\s*\n)?
+    (\s+Step\s+size\s+=\s+[\s-]\d+\.\d+\s*\n)?
+    (\s+Trust\s+radius\s+=\s+[\s-]\d+\.\d+\s*\n)?
     \s+Decrease\sin\senergy\s+=\s+\w+\s*\n
     \s+Used\stime\s+=\s+(?P<used_time>[\s-]\d+\.\d+)\n
     \n
@@ -43,7 +44,7 @@ GEO_OPT_INFO_REST_RE = re.compile(
         \s+Conv\.\sfor\sgradients # two pattern in context ..
         | \s+Conv\.\sin\sRMS\sgradients
     )
-   \s+=\s+\w+\s*\n
+    \s+=\s+\w+\s*\n
     """,
     re.VERBOSE
 )
@@ -61,15 +62,20 @@ def parse_geo_opt(output_file) -> float:
             }
         )
     for match in GEO_OPT_INFO_REST_RE.finditer(output_file):
+        print(match)
         geo_opt_info.append(
             {
                 "step": int(match["step"]),
                 "total_energy": float(match["total_energy"]),
                 "used_time": float(match["used_time"]),
                 "max_step_size": float(match["max_step_size"]),
+                "limit_step_size": float(match["limit_step_size"]),
                 "rms_step_size": float(match["rms_step_size"]),
+                "limit_rms_step": float(match["limit_rms_step"]),
                 "max_gradient": float(match["max_gradient"]),
-                "rms_gradient": float(match["rms_gradient"])
+                "limit_gradient": float(match["limit_gradient"]),
+                "rms_gradient": float(match["rms_gradient"]),
+                "limit_rms_gradient": float(match["limit_rms_gradient"])
             }
         )
     if geo_opt_info:
