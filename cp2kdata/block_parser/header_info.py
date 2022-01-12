@@ -1,7 +1,9 @@
 import regex as re
 HEADER_INFO_RE = re.compile(
     r"""
-    \s+CP2K\|\sversion\sstring:\s+CP2K\sversion\s(?P<version_string>\S+)\n
+    \s+CP2K\|\sversion\sstring:\s+CP2K\sversion\s(?P<version_string>\d\.\d)
+    # some tailing
+    (\s+\(Development\sVersion\))?\n
     #(\s+CP2K\|.+\n)+
     """,
     re.VERBOSE

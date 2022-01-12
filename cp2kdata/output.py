@@ -2,6 +2,7 @@ import sys
 
 import matplotlib.pyplot as plt
 import time
+import numpy as np
 from matplotlib.gridspec import GridSpec
 
 from .block_parser.dft_plus_u import parse_dft_plus_u_occ
@@ -15,6 +16,7 @@ from .block_parser.coordinates import parse_init_atomic_coordinates
 from .block_parser.atomic_kind import parse_atomic_kinds
 from .block_parser.errors_handle import parse_errors
 from .block_parser.stress import parse_stress_tensor_list
+from .block_parser.cells import parse_init_cell
 
 def check_run_type(run_type):
     implemented_run_type_parsers = ["ENERGY_FORCE", "ENERGY", "MD", "GEO_OPT"]
@@ -71,9 +73,11 @@ class Cp2kOutput:
             self.num_frames = len(self.geo_opt_info)
         else:
             self.geo_opt_info = None
-        self.energies_list = parse_energies_list(self.output_file)
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
             self.output_file)
+        self.init_cell = parse_init_cell(self.output_file)
+        self.energies_list = parse_energies_list(self.output_file)
+
         self.atomic_kind = parse_atomic_kinds(self.output_file)
         self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
         self.stress_tensor_list = parse_stress_tensor_list(self.output_file)
@@ -103,7 +107,14 @@ class Cp2kOutput:
         txt += "\n"
         txt += "Stress in Output   : {0:s}\n".format(self.get_stress_status())
         txt += "\n"
-        txt += "Element List       : {0:s}\n".format(" ".join(map(str, self.get_atomic_kind())))
+        txt += "Element List       : "
+        for ii in self.get_atomic_kind():
+            txt += "{0:5s}".format(str(ii))
+        txt += "\n"*2
+        txt += "Element Numb       : "
+        for ii in self.get_atom_num():
+            txt += "{0:5s}".format(str(ii))
+        txt += "\n"
         txt += "--------------------------------------\n"
         return txt
 
@@ -113,11 +124,23 @@ class Cp2kOutput:
     def get_run_type(self) -> float:
         return self.global_info["run_type"]
 
+    def get_init_cell(self):
+        return self.init_cell
+
     def get_energies_list(self):
         return self.energies_list
 
     def get_atomic_kind(self):
         return self.atomic_kind
+    
+    def get_atom_num(self):
+        # kind idx is arrange from low to high
+        kind_idx, counts = np.unique(
+            self.get_atom_kinds_list(), 
+            return_counts=True
+            )
+        return counts
+            
 
     def get_atom_kinds_list(self):
         return self.atom_kind_list

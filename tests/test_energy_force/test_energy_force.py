@@ -39,6 +39,9 @@ class TestEnergyForce():
         run_type = a_test_output.get_run_type()
         assert run_type == 'ENERGY_FORCE'
 
+    def test_atomic_symbol(self, output_and_answer_path):
+        pass
+    
     def test_atomic_kind(self):
         pass
 

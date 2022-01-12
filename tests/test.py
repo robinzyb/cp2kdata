@@ -5,7 +5,21 @@ from cp2kdata.output import Cp2kOutput
 #print(cp2koutput.get_geo_opt_info())
 #cp2koutput=Cp2kOutput("v7.1/output-GEO-CG", ignore_error=True)
 #cp2koutput=Cp2kOutput("v7.1/exceed_wall_time", ignore_error=True)
-cp2koutput=Cp2kOutput("v7.1/geo_opt")
+cp2koutput=Cp2kOutput("test_energy_force/v6.1/normal/output")
+
+print(cp2koutput.get_init_cell())
+print(cp2koutput.get_atom_num())
+# get the version of cp2k
+print(cp2koutput.get_version_string())
+# get the run type
+print(cp2koutput.get_run_type())
+# symbols with true element
+print(cp2koutput.get_chemical_symbols())
+# symbols with your set in input
+print(cp2koutput.get_atomic_forces_list())
+print(cp2koutput.get_init_atomic_coordinates())
+print(cp2koutput.get_chemical_symbols_fake())
+print(cp2koutput.get_stress_tensor_list())
 print(cp2koutput)
 #print(cp2koutput.get_geo_opt_info())
 #print(cp2koutput.get_geo_opt_info_plot())

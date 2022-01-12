@@ -6,7 +6,7 @@ INIT_ATOMIC_COORDINATES_RE = re.compile(
     \sMODULE\sQUICKSTEP:\s\sATOMIC\sCOORDINATES\sIN\sangstrom\s*\n
     \n
     \s+Atom\s+Kind\s+Element\s+X\s+Y\s+Z\s+Z\(eff\)\s+Mass\s*\n
-    \n
+    (\n)?
     (
         \s+(?P<atom>\d+)
         \s+(?P<kind>\d+)
