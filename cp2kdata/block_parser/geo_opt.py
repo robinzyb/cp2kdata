@@ -62,7 +62,7 @@ def parse_geo_opt(output_file) -> float:
             }
         )
     for match in GEO_OPT_INFO_REST_RE.finditer(output_file):
-        print(match)
+
         geo_opt_info.append(
             {
                 "step": int(match["step"]),

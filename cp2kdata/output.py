@@ -136,7 +136,7 @@ class Cp2kOutput:
 
     def get_num_atoms(self):
         return len(self.chemical_symbols)
-    
+
     def get_num_frames(self):
         return self.num_frames
 

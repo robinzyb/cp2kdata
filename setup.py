@@ -19,7 +19,9 @@ setuptools.setup(
     install_requires=[
         "numpy",
         "matplotlib",
-        "ase"
+        "ase",
+        "pytest",
+        "pytest-cov"
   ]
 #    entry_points={
 #        'console_scripts': [
