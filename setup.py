@@ -20,6 +20,7 @@ setuptools.setup(
         "numpy",
         "matplotlib",
         "ase",
+        "regex",
         "pytest",
         "pytest-cov"
   ]
