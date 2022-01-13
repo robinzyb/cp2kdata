@@ -56,13 +56,14 @@ class Cp2kOutput:
                 )
             )
             sys.exit()
-        self.errors_info = parse_errors(self.output_file)
-        if ignore_error:
-            pass
-        else:
-            if self.errors_info:
-                if self.errors_info.get("exceed_wall_time", None):
-                    raise ValueError("Your output exceeds wall time, it might be incomplete, if you want to continue, please add set Cp2kOutput(output, ignore_error=True)")
+            
+        #self.errors_info = parse_errors(self.output_file)
+        #if ignore_error:
+        #    pass
+        #else:
+        #    if self.errors_info:
+        #        if self.errors_info.get("exceed_wall_time", None):
+        #            raise ValueError("Your output exceeds wall time, it might be incomplete, if you want to continue, please add set Cp2kOutput(output, ignore_error=True)")
         
         if self.global_info["run_type"] == "ENERGY_FORCE":
             self.num_frames = 1
