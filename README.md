@@ -7,6 +7,7 @@ including cube file, pdos file, output file
 - [CP2KDATA](#cp2kdata)
   - [Installation](#installation)
   - [Processing Output File](#processing-output-file)
+    - [Basick Usage](#basick-usage)
     - [Processing ENERGY and FORCE Calculation](#processing-energy-and-force-calculation)
     - [Processing GEOMETRY OPTIMIZATION Calculation](#processing-geometry-optimization-calculation)
     - [Error Handing](#error-handing)
@@ -24,6 +25,38 @@ pip install .
 
 
 ## Processing Output File
+
+### Basick Usage
+```python
+from cp2kdata.output import Cp2kOutput
+cp2k_output_file = "output_energy_force"
+cp2koutput=Cp2kOutput(cp2k_output_file)
+# show the brief summary on stdout
+print(cp2koutput)
+```
+
+```stdout
+Cp2k Output Summary
+
+--------------------------------------
+
+Cp2k Version       : 6.1
+
+Run Type           : ENERGY_FORCE
+
+Atom Numbers       : 30
+
+Frame Numbers      : 1
+
+Force in Output    : Yes
+
+Stress in Output   : Yes
+
+Element List       : Fe1  Fe2  O    
+
+Element Numb       : 6    6    18   
+--------------------------------------
+```
 
 ### Processing ENERGY and FORCE Calculation
 ```python
