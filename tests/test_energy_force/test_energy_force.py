@@ -23,7 +23,6 @@ energy_force_output_list = [
     Cp2kOutput(os.path.join(path, 'output')) for path in energy_force_output_path_list
 ]
 
-print(energy_force_output_list)
 
 test_params = list(zip(energy_force_output_list,
                    energy_force_output_path_list))
