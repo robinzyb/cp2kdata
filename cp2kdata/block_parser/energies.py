@@ -9,10 +9,9 @@ ENERGIES_RE = re.compile(
 )
 
 def parse_energies_list(output_file):
-    
+
     energies_list = []
     for match in ENERGIES_RE.finditer(output_file):
-        print(match)
         energies_list.append(match["energy"])
     if energies_list:
         return np.array(energies_list, dtype=float)
