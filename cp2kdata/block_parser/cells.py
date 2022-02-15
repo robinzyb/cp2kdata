@@ -1,7 +1,7 @@
 import regex as re
 import numpy as np
 
-INIT_CELL_RE = re.compile(
+ALL_CELL_RE = re.compile(
     r"""
     \s+CELL\|\sVector\sa\s\[angstrom\]:
     \s+(?P<xx>[\s-]\d+\.\d+) 
@@ -25,16 +25,18 @@ INIT_CELL_RE = re.compile(
     re.VERBOSE
 )
 
-def parse_init_cell(output_file):
-    init_cell = []
-    for match in INIT_CELL_RE.finditer(output_file):
-        init_cell = [
+def parse_all_cells(output_file):
+    all_cells = []
+    for match in ALL_CELL_RE.finditer(output_file):
+        print(match)
+        cell = [
             [match["xx"], match["xy"], match["xz"]],
             [match["yx"], match["yy"], match["yz"]],
             [match["zx"], match["zy"], match["zz"]]
         ]
+        all_cells.append(cell)
 
-    if init_cell:
-        return np.array(init_cell, dtype=float)
+    if all_cells:
+        return np.array(all_cells, dtype=float)
     else:
         return None

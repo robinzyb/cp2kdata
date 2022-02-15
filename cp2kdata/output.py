@@ -16,10 +16,10 @@ from .block_parser.coordinates import parse_init_atomic_coordinates
 from .block_parser.atomic_kind import parse_atomic_kinds
 from .block_parser.errors_handle import parse_errors
 from .block_parser.stress import parse_stress_tensor_list
-from .block_parser.cells import parse_init_cell
+from .block_parser.cells import parse_all_cells
 
 def check_run_type(run_type):
-    implemented_run_type_parsers = ["ENERGY_FORCE", "ENERGY", "MD", "GEO_OPT"]
+    implemented_run_type_parsers = ["ENERGY_FORCE", "ENERGY", "MD", "GEO_OPT", "CELL_OPT"]
     if run_type in implemented_run_type_parsers:
         pass
     else:
@@ -74,9 +74,11 @@ class Cp2kOutput:
             self.num_frames = len(self.geo_opt_info)
         else:
             self.geo_opt_info = None
+            self.num_frames = 1
+
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
             self.output_file)
-        self.init_cell = parse_init_cell(self.output_file)
+        self.all_cells = parse_all_cells(self.output_file)
         self.energies_list = parse_energies_list(self.output_file)
 
         self.atomic_kind = parse_atomic_kinds(self.output_file)
@@ -126,7 +128,10 @@ class Cp2kOutput:
         return self.global_info["run_type"]
 
     def get_init_cell(self):
-        return self.init_cell
+        return self.all_cells[0]
+
+    def get_all_cells(self):
+        return self.all_cells
 
     def get_energies_list(self):
         return self.energies_list

@@ -1,7 +1,10 @@
 """
 this script put misc function here.
 """
+from turtle import pos
 from ase.geometry.analysis import Analysis
+from ase.io import read, write
+from cp2kdata import Cp2kOutput
 import numpy as np
 
 # frequently used unit convertion
@@ -83,3 +86,12 @@ def file_content(file, num):
             return content
         else:
             raise ValueError("The length of range is wrong!")
+
+
+def get_opt_cell_stc(output_file, pos_file):
+    op = Cp2kOutput(output_file)
+    opt_cell = op.get_all_cells()[-1]
+    opt_pos = read(pos_file, index="-1")
+    opt_pos.set_cell(opt_cell)
+    opt_pos.set_pbc(True)
+    write("opt_stc.cif", opt_pos, format="cif")
