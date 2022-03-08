@@ -28,7 +28,7 @@ ALL_CELL_RE = re.compile(
 def parse_all_cells(output_file):
     all_cells = []
     for match in ALL_CELL_RE.finditer(output_file):
-        print(match)
+        #print(match)
         cell = [
             [match["xx"], match["xy"], match["xz"]],
             [match["yx"], match["yy"], match["yz"]],
