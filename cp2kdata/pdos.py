@@ -17,7 +17,8 @@ class Pdos():
     def read_dos_element(self):
         with open(self.file) as f:
             first_line = f.readline()
-            element = first_line.split()[6]
+            self.kind = first_line.split()[6]
+        element = ''.join([i for i in self.kind if not i.isdigit()])
         return element
 
     def read_dos_fermi(self):
