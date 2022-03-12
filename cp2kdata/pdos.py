@@ -1,10 +1,14 @@
-from .utils import au2eV
-from scipy.ndimage import gaussian_filter1d
-import numpy as np
-import os
-import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
 import glob
+import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+import regex as re
+from matplotlib.gridspec import GridSpec
+from scipy.ndimage import gaussian_filter1d
+
+from .utils import au2eV
+
 
 class Pdos():
     def __init__(self, file_name):
@@ -12,7 +16,7 @@ class Pdos():
         self.element = self.read_dos_element()
         self.fermi = self.read_dos_fermi()
         self.energies = self.read_dos_energies()
-        self.project_name, self.spin, self.timestep, self.ldos = pdos_name_parser(self.file)
+        self.project_name, self.spin, self.listidx, self.kind, self.timestep =  pdos_name_parser(self.file)
 
     def read_dos_element(self):
         with open(self.file) as f:
@@ -34,6 +38,19 @@ class Pdos():
         energies = np.loadtxt(self.file, usecols=1)
         energies = energies * au2eV
         return energies
+
+    @property
+    def occupation(self):
+        occupation = np.loadtxt(self.file, usecols=2)
+        return occupation
+
+    def get_homo_ener(self):
+        homo_ener = self.energies[self.occupation == 1][-1]
+        return homo_ener
+
+    def get_lumo_ener(self):
+        lumo_ener = self.energies[self.occupation == 0][0]
+        return lumo_ener
 
     def get_raw_dos(self, dos_type="total"):
 
@@ -73,65 +90,98 @@ class Pdos():
         return smth_dos, ener
 
 
+PDOS_NAME_RE = re.compile(
+    r"""
+    (?P<project_name>\S+)-((?P<spin>(ALPHA|BETA))_)?(list(?P<listidx>\d+))?(k(?P<kind>\d+))?-1(_(?P<step>\d+))?.pdos$
+    """
+    ,
+    re.VERBOSE
+)
 def pdos_name_parser(filename):
     # used to parse pdos filename
     filename = os.path.basename(filename)
+    match = PDOS_NAME_RE.match(filename)
 
-    project_name, tmp_1, tmp_2 = filename.split(sep="-")
-    try:
-        spin, species = tmp_1.split(sep="_")
-    except:
-        species = tmp_1
-        spin = None
-    # check spin
-    spin_list = ["ALPHA", "BETA"]
-    if spin in spin_list:
-        pass
-    elif spin == None:
-        pass
-    else:
-        print("file name is not standard, spin is set to None")
-        spin = None
-    # check ldos
-    if "k" in species:
-        ldos = False
-    elif "list" in species:
-        ldos = True
-    # remove suffix/extension
-    tmp_3, _ = tmp_2.split(sep=".")
-    # get step number
-    _, step = tmp_3.split(sep="_")
-    return project_name, spin, float(step), ldos
+    project_name = match["project_name"]
+    spin = match["spin"]
+    listidx = match["listidx"]
+    kind = match["kind"]
+    step = match["step"]
+
+    return project_name, spin, listidx, kind, step
 
 def typical_orbital(element):
     # input the element and return typical orbital in dos
     # for example d for Ti, s for H, p for O
-    s_orb_list = ["H", "Li", "Na", "K", "Rb", "Cs", "Be", "Mg", "Ca", "Sr", "Ba"]
-    p_orb_list = [
-            "O", "S", "Se", "Te", "N", "P", "As", "Sb", "Bi",
-            "C", "Si", "Ge", "Sn", "Pb",
-            "B", "Al", "Ga", "In", "Tl",
-            "F", "Cl", "Br", "I"
-            ]
-    d_orb_list = [
-            "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn",
-            "Y", "Zr", "Nb", "Mo", "Te", "Ru", "Rh", "Pd", "Ag", "Cd",
-            "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg"
-            ]
-    f_orb_list = [
-            "La", "Ce", "Pr"
-            ]
-    if element in s_orb_list:
-        return "s"
-    elif element in p_orb_list:
-        return "p"
-    elif element in d_orb_list:
-        return "d"
-    elif element in f_orb_list:
-        return "f"
-    else:
-        print("Typical orbital for this element is not known yet")
-        return None
+    typical_oribital = {
+        "H" : "s",
+        "He": "s",
+        "Na": "s", 
+        "K" : "s", 
+        "Rb": "s", 
+        "Cs": "s", 
+        "Be": "s", 
+        "Mg": "s", 
+        "Ca": "s", 
+        "Sr": "s", 
+        "Ba": "s",
+        "O" : "p", 
+        "S" : "p", 
+        "Se": "p", 
+        "Te": "p", 
+        "N" : "p", 
+        "P" : "p", 
+        "As": "p", 
+        "Sb": "p", 
+        "Bi": "p",
+        "C" : "p", 
+        "Si": "p", 
+        "Ge": "p", 
+        "Sn": "p", 
+        "Pb": "p",
+        "B" : "p", 
+        "Al": "p", 
+        "Ga": "p", 
+        "In": "p", 
+        "Tl": "p",
+        "F" : "p", 
+        "Cl": "p", 
+        "Br": "p", 
+        "I" : "p",
+        "Sc": "d", 
+        "Ti": "d", 
+        "V" : "d", 
+        "Cr": "d", 
+        "Mn": "d", 
+        "Fe": "d", 
+        "Co": "d", 
+        "Ni": "d", 
+        "Cu": "d", 
+        "Zn": "d",
+        "Y" : "d", 
+        "Zr": "d", 
+        "Nb": "d", 
+        "Mo": "d", 
+        "Te": "d", 
+        "Ru": "d", 
+        "Rh": "d", 
+        "Pd": "d", 
+        "Ag": "d", 
+        "Cd": "d",
+        "Hf": "d", 
+        "Ta": "d", 
+        "W" : "d", 
+        "Re": "d", 
+        "Os": "d", 
+        "Ir": "d", 
+        "Pt": "d", 
+        "Au": "d", 
+        "Hg": "d",
+        "La": "f", 
+        "Ce": "f", 
+        "Pr": "f"
+    }
+    return typical_oribital.get(element)
 
 def quick_plot_uks(pdos_dir):
     # parameter setting
