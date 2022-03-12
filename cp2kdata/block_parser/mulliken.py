@@ -66,6 +66,6 @@ def parse_mulliken_pop_list(output_file, dft_info):
                 )
             mulliken_pop_list.append(mulliken_pop)      
     if  mulliken_pop_list:
-        return  mulliken_pop_list
+        return  mulliken_pop_list[:-1]
     else:
         return None

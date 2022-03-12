@@ -37,6 +37,6 @@ def parse_hirshfeld_pop_list(output_file):
             )
         hirshfeld_pop_list.append(hirshfeld_pop)
     if  hirshfeld_pop_list:
-        return  hirshfeld_pop_list
+        return  hirshfeld_pop_list[:-1]
     else:
         return None
