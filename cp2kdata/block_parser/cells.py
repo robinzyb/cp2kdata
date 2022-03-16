@@ -37,6 +37,6 @@ def parse_all_cells(output_file):
         all_cells.append(cell)
 
     if all_cells:
-        return np.array(all_cells, dtype=float)[1:-1]
+        return np.array(all_cells, dtype=float)
     else:
         return None
