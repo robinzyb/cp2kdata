@@ -115,13 +115,29 @@ cp2koutput=Cp2kOutput(cp2k_output_file, ignore_error=True)
 from cp2kdata.cube import Cp2kCube
 cube_file = "xxx.cube"
 mycube = Cp2kCube(cube_file)
-# get Planar average data
-mycube.get_pav(axis="z")
+# get Planar average data without interpolation.
+pav_x, pav = mycube.get_pav(axis="z", interpolate=False)
+# get Planar average data  with interpolation. the number of interpolation point is 4096
+pav_x, pav = mycube.get_pav(axis="z", interpolate=True)
+
+l1 = 4.8 # length for first periodicity
+l2 = 4.8 # length for second periodicity
+ncov = 1 # set 1 if the system is slab-vacuum system.
+ncov = 2 # set 2 if the system is interface.
+# get Macro average data without interpolation of the original data.
+mav_x, mav = mycube.get_pav(l1=l1, l2=l2, ncov=ncov, interpolate=False)
+# get Macro average data without interpolation of the original data.
+mav_x, mav = mycube.get_pav(l1=l1, l2=l2, ncov=ncov, interpolate=True)
+
 # quick plot
 mycube.quick_plot(axis="z", interpolate=False, output_dir="./")
 ```
+The Planar Average and Macro Average results are benchmarked from MACROAVE used in 
+[Siesta and Abinit](https://docs.siesta-project.org/projects/siesta/reference/macroave.html)
+and shown in the following figures
 
-
+![pav_plot](./figures/PAV_compare.png)
+![mav_plot](./figures/MAV_compare.png)
 
 ## Processing PDOS File
 

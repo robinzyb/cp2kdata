@@ -13,7 +13,7 @@ au2A = 0.529177210903
 
 def interpolate_spline(old_x, old_y, new_x):
     from scipy import interpolate
-    f = interpolate.splrep(old_x, old_y, s=0)
+    f = interpolate.splrep(old_x, old_y, s=0, per=True)
     new_y = interpolate.splev(new_x, f)
     return new_x, new_y
 

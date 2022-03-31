@@ -3,7 +3,16 @@ from .utils import au2A, au2eV
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from scipy import fft
 
+
+def square_wave_filter(x, l, cell_z):
+    half_l = l/2
+    x_1st, x_2nd = np.array_split(x, 2)
+    y_1st = np.heaviside(half_l - np.abs(x_1st),0)/l
+    y_2nd = np.heaviside(half_l - np.abs(x_2nd-cell_z),0)/l
+    y = np.concatenate([y_1st, y_2nd])
+    return y
 
 # parse cp2kcube
 class Cp2kCube:
@@ -14,6 +23,9 @@ class Cp2kCube:
         self.file = cube_file_name
         self.timestep = timestep
         self.cube_vals = self.read_cube_vals()
+        self.cell_x = self.grid_size[0]*self.grid_space[0]
+        self.cell_y = self.grid_size[1]*self.grid_space[1]
+        self.cell_z = self.grid_size[2]*self.grid_space[2]
 
     @property
     def num_atoms(self):
@@ -69,11 +81,27 @@ class Cp2kCube:
 
         # interpolate or note
         if interpolate:
-            new_points = np.linspace(0, length, len(points)*10)
+            # set the last point same as first point
+            points = np.append(points, length)
+            vals = np.append(vals, vals[0])
+            new_points = np.linspace(0, length, 4097)[:-1]
             new_points, new_vals = interpolate_spline(points, vals, new_points)
             return new_points, new_vals
         else:
             return points, vals
+    
+    def get_mav(self, l1, l2=0, ncov=1, interpolate=False):
+        axis="z"
+        pav_x, pav = self.get_pav(axis=axis, interpolate=interpolate)
+        theta_1_fft = fft.fft(square_wave_filter(pav_x, l1, self.cell_z))
+        pav_fft = fft.fft(pav)
+        mav_fft = pav_fft*theta_1_fft*self.cell_z/len(pav_x)
+        if ncov == 2:
+            theta_2_fft = fft.fft(square_wave_filter(pav_x, l2, self.cell_z))
+            mav_fft = mav_fft*theta_2_fft*self.cell_z/len(pav_x)
+        mav = fft.ifft(mav_fft)
+        return pav_x, mav
+
 
     def quick_plot(self, axis="z", interpolate=False, output_dir="./"):
         x, y = self.get_pav(axis=axis, interpolate=interpolate)
