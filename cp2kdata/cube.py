@@ -100,7 +100,7 @@ class Cp2kCube:
             theta_2_fft = fft.fft(square_wave_filter(pav_x, l2, self.cell_z))
             mav_fft = mav_fft*theta_2_fft*self.cell_z/len(pav_x)
         mav = fft.ifft(mav_fft)
-        return pav_x, mav
+        return pav_x, np.real(mav)
 
 
     def quick_plot(self, axis="z", interpolate=False, output_dir="./"):
