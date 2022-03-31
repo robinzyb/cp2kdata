@@ -125,9 +125,9 @@ l2 = 4.8 # length for second periodicity
 ncov = 1 # set 1 if the system is slab-vacuum system.
 ncov = 2 # set 2 if the system is interface.
 # get Macro average data without interpolation of the original data.
-mav_x, mav = mycube.get_pav(l1=l1, l2=l2, ncov=ncov, interpolate=False)
+mav_x, mav = mycube.get_mav(l1=l1, l2=l2, ncov=ncov, interpolate=False)
 # get Macro average data without interpolation of the original data.
-mav_x, mav = mycube.get_pav(l1=l1, l2=l2, ncov=ncov, interpolate=True)
+mav_x, mav = mycube.get_mav(l1=l1, l2=l2, ncov=ncov, interpolate=True)
 
 # quick plot
 mycube.quick_plot(axis="z", interpolate=False, output_dir="./")
