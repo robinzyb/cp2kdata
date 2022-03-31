@@ -20,7 +20,7 @@ setuptools.setup(
     python_requires='>=3.6',
     install_requires=[
         "numpy",
-        "scipy >= 1.7.3",
+        "scipy",
         "matplotlib",
         "ase",
         "regex",
