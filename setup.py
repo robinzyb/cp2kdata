@@ -19,10 +19,10 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        "numpy",
-        "scipy",
-        "matplotlib",
-        "ase",
+        "numpy >= 1.19.5",
+        "scipy >= 1.5.4",
+        "matplotlib >= 3.3.2",
+        "ase >= 3.20.1",
         "regex",
         "pytest",
         "pytest-cov"
