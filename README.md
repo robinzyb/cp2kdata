@@ -115,6 +115,12 @@ cp2koutput=Cp2kOutput(cp2k_output_file, ignore_error=True)
 from cp2kdata.cube import Cp2kCube
 cube_file = "xxx.cube"
 mycube = Cp2kCube(cube_file)
+
+# structure is include in cube file
+# you can obtain ASE atoms from cube
+stc = mycube.get_stc()
+print(stc)
+
 # get Planar average data without interpolation.
 pav_x, pav = mycube.get_pav(axis="z", interpolate=False)
 # get Planar average data  with interpolation. the number of interpolation point is 4096
@@ -126,7 +132,7 @@ ncov = 1 # set 1 if the system is slab-vacuum system.
 ncov = 2 # set 2 if the system is interface.
 # get Macro average data without interpolation of the original data.
 mav_x, mav = mycube.get_mav(l1=l1, l2=l2, ncov=ncov, interpolate=False)
-# get Macro average data without interpolation of the original data.
+# get Macro average data with interpolation of the original data.
 mav_x, mav = mycube.get_mav(l1=l1, l2=l2, ncov=ncov, interpolate=True)
 
 # quick plot
