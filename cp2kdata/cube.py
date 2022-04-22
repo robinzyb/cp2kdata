@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from scipy import fft
+from ase import Atom, Atoms
 
 
 def square_wave_filter(x, l, cell_z):
@@ -53,6 +54,22 @@ class Cp2kCube:
         step_z = float(content_list[11])*au2A
         return step_x, step_y, step_z
 
+
+    def get_stc(self):
+        atom_list = []
+        for i in range(self.num_atoms):
+            stc_vals = file_content(self.file, (6+i, 6+i+1))
+            stc_vals = stc_vals.split()
+            atom = Atom(
+                symbol=int(stc_vals[0]), 
+                position=(float(stc_vals[2])*au2A, float(stc_vals[3])*au2A, float(stc_vals[4])*au2A)
+                )
+            atom_list.append(atom)
+
+        stc = Atoms(atom_list)
+        stc.set_cell([self.cell_x, self.cell_y, self.cell_z])
+        return stc
+        
     def read_cube_vals(self):
         # read the cube value from file
         cube_vals = file_content(self.file, (6+self.num_atoms,))
