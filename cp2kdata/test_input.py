@@ -53,7 +53,7 @@ def write_cutoff_test_inp(
 
     cutoff_test_dir = os.path.join(target_dir, "cutoff_test")
     create_path(cutoff_test_dir)
-    for idx, param in enumerate(cutoff_range):
+    for idx, param in enumerate(range(cutoff_range)):
 
         DFT.MGRID.Cutoff = param
 
