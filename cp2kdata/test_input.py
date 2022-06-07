@@ -19,13 +19,13 @@ def remove_section(sec_obj):
         remove_section(value)
 
 
-def write_eps_pgf_orb_test_inp(
+def write_cutoff_test_inp(
     pycp2k_inobj, 
     target_dir: str=".",
     cutoff_range: tuple=(300, 601, 50)):
     """_summary_
 
-    _extended_summary_
+    
 
     Args:
         pycp2k_inobj (_type_): _description_
@@ -45,14 +45,14 @@ def write_eps_pgf_orb_test_inp(
     GLOBAL = pycp2k_inobj.CP2K_INPUT.GLOBAL
     GLOBAL.Run_type = "ENERGY_FORCE"
 
-    create_path(os.path.join(target_dir, "cutoff_test"))
-    for param in cutoff_range:
+    cutoff_test_dir = os.path.join(target_dir, "cutoff_test")
+    create_path(cutoff_test_dir)
+    for idx, param in enumerate(cutoff_range):
+
         DFT.MGRID.CUTOFF = param
-        create_path(f"cutoff_test/param_{param}")
-        input_path = os.path.join(
-            target_dir,
-            "cutoff_test",
-            f"param_{param}",
-            "input.inp"
-            )
+
+        cutoff_test_sub_dir = os.path.join(cutoff_test_dir, f"{idx:03d}.param_{param}")
+        create_path(cutoff_test_sub_dir)
+
+        input_path = os.path.join(cutoff_test_sub_dir, "input.inp")
         pycp2k_inobj.write_input_file(input_path)
