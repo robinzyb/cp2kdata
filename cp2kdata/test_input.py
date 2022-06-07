@@ -32,9 +32,15 @@ def write_cutoff_test_inp(
         cutoff_range (tuple, optional): _description_. Defaults to (300, 601, 50).
     """  
     FORCE_EVAL = pycp2k_inobj.CP2K_INPUT.FORCE_EVAL_list[0]
+
+    FORCE_EVAL.Stress_tensor = "ANALYTICAL"
+
+    FORCE_EVAL.PRINT.STRESS_TENSOR.Section_parameters = "ON"
+    FORCE_EVAL.PRINT.FORCES.Section_parameters  = "ON"
+
     DFT = FORCE_EVAL.DFT
-    DFT.MGRID.REL_CUTOFF = 60
-    DFT.MGRID.NGRIDS = 4
+    DFT.MGRID.Rel_cutoff = 60
+    DFT.MGRID.Ngrids = 4
 
     SCF = DFT.SCF
     SCF.Max_scf = 1
@@ -49,7 +55,7 @@ def write_cutoff_test_inp(
     create_path(cutoff_test_dir)
     for idx, param in enumerate(cutoff_range):
 
-        DFT.MGRID.CUTOFF = param
+        DFT.MGRID.Cutoff = param
 
         cutoff_test_sub_dir = os.path.join(cutoff_test_dir, f"{idx:03d}.param_{param}")
         create_path(cutoff_test_sub_dir)
