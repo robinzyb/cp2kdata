@@ -23,7 +23,10 @@ def copy_file_list(file_list, target_dir):
     for file in file_list:
         src = file
         dst = os.path.join(target_dir, file)
-        shutil.copytree(src, dst, symlinks=True)
+        if os.path.isdir(src):
+            shutil.copytree(src, dst, symlinks=True)
+        elif os.path.isfile(src):
+            shutil.copy2(src, dst)
 
 
 
