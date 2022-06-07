@@ -1,5 +1,6 @@
 from .utils import create_path
 import os
+import shutil
 
 
 def remove_section(sec_obj):
@@ -18,11 +19,20 @@ def remove_section(sec_obj):
         value = sec_obj.__dict__[attname]
         remove_section(value)
 
+def copy_file_list(file_list, target_dir):
+    for file in file_list:
+        src = file
+        dst = os.path.join(target_dir, file)
+        shutil.copytree(src, dst, symlinks=True)
+
+
 
 def write_cutoff_test_inp(
     pycp2k_inobj, 
     target_dir: str=".",
-    cutoff_range: tuple=(300, 601, 50)):
+    cutoff_range: tuple=(300, 601, 50),
+    other_file_list: list=[]
+    ):
     """_summary_
 
     
@@ -59,6 +69,13 @@ def write_cutoff_test_inp(
 
         cutoff_test_sub_dir = os.path.join(cutoff_test_dir, f"{idx:03d}.param_{param}")
         create_path(cutoff_test_sub_dir)
+        
+        copy_file_list(file_list=other_file_list, target_dir=cutoff_test_sub_dir)
 
         input_path = os.path.join(cutoff_test_sub_dir, "input.inp")
         pycp2k_inobj.write_input_file(input_path)
+
+
+
+
+    
