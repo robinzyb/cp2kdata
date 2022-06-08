@@ -60,6 +60,7 @@ def write_batch_inp(
 
     for idx, cp2k in enumerate(cp2k_list):
         calc_sub_dir = os.path.join(target_dir, f"{idx:03d}.{sub_dir_name_list[idx]}")
+        create_path(calc_sub_dir)
         input_path = os.path.join(calc_sub_dir, "input.inp")
         
         cp2k.write_input_file(input_path)
