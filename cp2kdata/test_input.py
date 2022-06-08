@@ -34,16 +34,21 @@ def write_cutoff_test_inp(
     pycp2k_inobj, 
     target_dir: str=".",
     cutoff_range: tuple=(300, 601, 50),
-    other_file_list: list=[]
+    rel_cutoff: int=60,
+    other_file_list: list=[],
+    scf_converge: bool = False
+    
     ):
     """_summary_
 
-    
+    _extended_summary_
 
     Args:
         pycp2k_inobj (_type_): _description_
+        target_dir (str, optional): _description_. Defaults to ".".
         cutoff_range (tuple, optional): _description_. Defaults to (300, 601, 50).
-    """  
+        other_file_list (list, optional): _description_. Defaults to [].
+    """    
     FORCE_EVAL = pycp2k_inobj.CP2K_INPUT.FORCE_EVAL_list[0]
 
     FORCE_EVAL.Stress_tensor = "ANALYTICAL"
@@ -52,14 +57,17 @@ def write_cutoff_test_inp(
     FORCE_EVAL.PRINT.FORCES.Section_parameters  = "ON"
 
     DFT = FORCE_EVAL.DFT
-    DFT.MGRID.Rel_cutoff = 60
+    DFT.MGRID.Rel_cutoff = rel_cutoff
     DFT.MGRID.Ngrids = 4
 
-    SCF = DFT.SCF
-    SCF.Max_scf = 1
+    if scf_converge:
+        pass
+    else:
+        SCF = DFT.SCF
+        SCF.Max_scf = 1
+        remove_section(SCF.OUTER_SCF)
     #SCF.Scf_guess = "RESTART"
 
-    remove_section(SCF.OUTER_SCF)
 
     GLOBAL = pycp2k_inobj.CP2K_INPUT.GLOBAL
     GLOBAL.Run_type = "ENERGY_FORCE"
