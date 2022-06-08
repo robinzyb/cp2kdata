@@ -1,6 +1,8 @@
 from .utils import create_path
+from pycp2k import CP2K
 import os
 import shutil
+import copy
 
 
 def remove_section(sec_obj):
@@ -29,9 +31,44 @@ def copy_file_list(file_list, target_dir):
             shutil.copy2(src, dst)
 
 
+def get_batch_inp(
+    cp2k: CP2K,
+    stc_list: list
+    ):
+
+    FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
+    SUBSYS = FORCE_EVAL.SUBSYS
+
+    cp2k_list = []
+    for stc in stc_list:
+        new_cp2k = copy.deepcopy(cp2k)
+        new_cp2k.create_cell(SUBSYS, stc)
+        new_cp2k.create_coord(SUBSYS, stc)
+        cp2k_list.append(new_cp2k)
+    
+    return cp2k_list
+
+def write_batch_inp(
+    cp2k_list: list,
+    target_dir: str=".",
+    dir_name: str= "calc",
+    suffix_list: list=None
+    ):
+    if suffix_list is None:
+        suffix_list = [ str(i) for i in range(len(cp2k_list)) ]
+    sub_dir_name_list = [ dir_name+"_"+suffix  for suffix in suffix_list ]
+
+    for idx, cp2k in enumerate(cp2k_list):
+        calc_sub_dir = os.path.join(target_dir, f"{idx:03d}.{sub_dir_name_list[idx]}")
+        input_path = os.path.join(calc_sub_dir, "input.inp")
+        
+        cp2k.write_input_file(input_path)
+
+        
+
 
 def write_cutoff_test_inp(
-    pycp2k_inobj, 
+    cp2k: CP2K, 
     target_dir: str=".",
     cutoff_range: tuple=(300, 601, 50),
     rel_cutoff: int=60,
@@ -44,12 +81,12 @@ def write_cutoff_test_inp(
     _extended_summary_
 
     Args:
-        pycp2k_inobj (_type_): _description_
+        cp2k (_type_): _description_
         target_dir (str, optional): _description_. Defaults to ".".
         cutoff_range (tuple, optional): _description_. Defaults to (300, 601, 50).
         other_file_list (list, optional): _description_. Defaults to [].
     """    
-    FORCE_EVAL = pycp2k_inobj.CP2K_INPUT.FORCE_EVAL_list[0]
+    FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
 
     FORCE_EVAL.Stress_tensor = "ANALYTICAL"
 
@@ -69,7 +106,7 @@ def write_cutoff_test_inp(
     #SCF.Scf_guess = "RESTART"
 
 
-    GLOBAL = pycp2k_inobj.CP2K_INPUT.GLOBAL
+    GLOBAL = cp2k.CP2K_INPUT.GLOBAL
     GLOBAL.Run_type = "ENERGY_FORCE"
 
     cutoff_test_dir = os.path.join(target_dir, "cutoff_test")
@@ -84,7 +121,7 @@ def write_cutoff_test_inp(
         copy_file_list(file_list=other_file_list, target_dir=cutoff_test_sub_dir)
 
         input_path = os.path.join(cutoff_test_sub_dir, "input.inp")
-        pycp2k_inobj.write_input_file(input_path)
+        cp2k.write_input_file(input_path)
 
 
 
