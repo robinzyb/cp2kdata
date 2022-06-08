@@ -3,6 +3,7 @@ from pycp2k import CP2K
 import os
 import shutil
 import copy
+import glob
 
 
 def remove_section(sec_obj):
@@ -51,6 +52,22 @@ def get_batch_inp(
         cp2k_list.append(new_cp2k)
     
     return cp2k_list
+
+def batch_sub(
+    sub_cmd: str="bsub<cp2k", 
+    target_dir: str = ".",
+    sub_dir_name_list: list=None
+    ):
+    target_dir = os.path.abspath(target_dir)
+    if sub_dir_name_list is None:
+        sub_dir_list = glob.glob(os.path.join(target_dir, "*"))
+    else:
+        sub_dir_list = [ os.path.join(target_dir, sub_dir_name) for sub_dir_name in sub_dir_name_list]
+
+    for sub_dir in sub_dir_list:
+        os.chdir(sub_dir)
+        os.system(sub_cmd)
+
 
 def write_batch_inp(
     cp2k_list: list,
