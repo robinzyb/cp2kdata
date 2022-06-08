@@ -38,6 +38,8 @@ def get_batch_inp(
 
     FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
     SUBSYS = FORCE_EVAL.SUBSYS
+    remove_section(SUBSYS.CELL)
+    remove_section(SUBSYS.COORD)
 
     cp2k_list = []
     for stc in stc_list:
@@ -52,7 +54,8 @@ def write_batch_inp(
     cp2k_list: list,
     target_dir: str=".",
     dir_name: str= "calc",
-    suffix_list: list=None
+    suffix_list: list=None,
+    other_file_list: list=[]
     ):
     if suffix_list is None:
         suffix_list = [ str(i) for i in range(len(cp2k_list)) ]
@@ -61,6 +64,8 @@ def write_batch_inp(
     for idx, cp2k in enumerate(cp2k_list):
         calc_sub_dir = os.path.join(target_dir, f"{idx:03d}.{sub_dir_name_list[idx]}")
         create_path(calc_sub_dir)
+        copy_file_list(file_list=other_file_list, target_dir=calc_sub_dir)
+
         input_path = os.path.join(calc_sub_dir, "input.inp")
         
         cp2k.write_input_file(input_path)
