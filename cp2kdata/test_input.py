@@ -44,7 +44,7 @@ def get_batch_inp(
     cp2k_list = []
     for stc in stc_list:
         new_cp2k = copy.deepcopy(cp2k)
-        FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
+        FORCE_EVAL = new_cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
         SUBSYS = FORCE_EVAL.SUBSYS
         new_cp2k.create_cell(SUBSYS, stc)
         new_cp2k.create_coord(SUBSYS, stc)
