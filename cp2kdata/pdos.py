@@ -446,10 +446,11 @@ def quick_plot_rks(pdos_dir):
     rks_dos = []
     for i in pdos_files:
         tmp = Pdos(i)
-        if tmp.ldos == False:
-            rks_dos.append(tmp)
-        else:
-            pass
+        rks_dos.append(tmp)
+        #if tmp.ldos == False:
+        #    rks_dos.append(tmp)
+        #else:
+        #    pass
 
     # plot
     ax_num = len(rks_dos) + 1
@@ -471,7 +472,7 @@ def quick_plot_rks(pdos_dir):
     for i in range(1, ax_num):
         ax = fig.add_subplot(gs[i])
         dos_obj = rks_dos[i-1]
-        typical_orb = typical_orbital(dos_obj.element)
+        typical_orb = typical_orbital.get(dos_obj.element)
         dos, ener = dos_obj.get_dos(dos_type=typical_orb)
         ax.plot(ener, dos, label = dos_obj.element + " " + typical_orb, color = "C{0}".format(int(i)), lw=lw)
         if i == ax_num - 1:
