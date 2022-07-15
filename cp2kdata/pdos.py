@@ -212,10 +212,13 @@ class Pdos():
     @property
     def occupation(self):
         occupation = np.loadtxt(self.file, usecols=2)
+
         return occupation
 
     def get_homo_ener(self):
-        homo_ener = self.energies[self.occupation == 1][-1]
+        homo_idx = np.where(self.occupation == 0)[0][0]-1
+        homo_ener = self.energies[homo_idx]
+
         return homo_ener
 
     def get_lumo_ener(self):
