@@ -10,7 +10,9 @@ Python Package to postprocess cp2k data.
 including cube file, pdos file, output file
 
 - [CP2KDATA](#cp2kdata)
-  - [Installation](#installation)
+- [Idea List](#idea-list)
+- [TO DO](#to-do)
+- [Installation](#installation)
   - [Processing Output File](#processing-output-file)
     - [Basick Usage](#basick-usage)
     - [Processing ENERGY and FORCE Calculation](#processing-energy-and-force-calculation)
@@ -21,7 +23,17 @@ including cube file, pdos file, output file
     - [Processing Single PDOS File](#processing-single-pdos-file)
     - [Quickplot of  PDOS Files in Single Point Energy Calculation](#quickplot-of--pdos-files-in-single-point-energy-calculation)
 
-## Installation
+# Idea List
+1. manipulate cube, pdos data
+2. extract information from output
+3. generate standard test input and directory
+4. generate nice figures 
+5. plugin for dpdata
+   
+# TO DO
+cli interface
+
+# Installation
 
 ```bash
 pip install .

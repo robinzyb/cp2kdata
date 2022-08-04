@@ -31,6 +31,10 @@ def copy_file_list(file_list, target_dir):
         elif os.path.isfile(src):
             shutil.copy2(src, dst)
 
+def get_CP2K(cp2k_input_file):
+    inp = CP2K()
+    inp.parse(cp2k_input_file)
+    return inp
 
 def get_batch_inp(
     cp2k: CP2K,
@@ -96,7 +100,6 @@ def write_cutoff_test_inp(
     cp2k: CP2K, 
     target_dir: str=".",
     cutoff_range: tuple=(300, 601, 50),
-    rel_cutoff: int=60,
     other_file_list: list=[],
     scf_converge: bool = False
     
@@ -119,7 +122,7 @@ def write_cutoff_test_inp(
     FORCE_EVAL.PRINT.FORCES.Section_parameters  = "ON"
 
     DFT = FORCE_EVAL.DFT
-    DFT.MGRID.Rel_cutoff = rel_cutoff
+    #DFT.MGRID.Rel_cutoff = rel_cutoff
     DFT.MGRID.Ngrids = 4
 
     if scf_converge:
@@ -134,13 +137,13 @@ def write_cutoff_test_inp(
     GLOBAL = cp2k.CP2K_INPUT.GLOBAL
     GLOBAL.Run_type = "ENERGY_FORCE"
 
-    cutoff_test_dir = os.path.join(target_dir, "cutoff_test")
-    create_path(cutoff_test_dir)
+    # cutoff_test_dir = os.path.join(target_dir, "cutoff_test")
+    # create_path(cutoff_test_dir)
     for idx, param in enumerate(range(*cutoff_range)):
 
         DFT.MGRID.Cutoff = param
 
-        cutoff_test_sub_dir = os.path.join(cutoff_test_dir, f"{idx:03d}.param_{param}")
+        cutoff_test_sub_dir = os.path.join(target_dir, f"cutoff_{param:04d}")
         create_path(cutoff_test_sub_dir)
         
         copy_file_list(file_list=other_file_list, target_dir=cutoff_test_sub_dir)
