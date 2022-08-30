@@ -178,7 +178,7 @@ typical_orbital = {
     "Pr": "f"
 }
 
-class Pdos():
+class Cp2kPdos():
     def __init__(self, file_name, parse_file_name=True):
         self.file = file_name
         self.element = self.read_dos_element()
@@ -309,7 +309,7 @@ def quick_plot_uks(pdos_dir, style = 0, replace_dict = None):
         }
     #
     for i in pdos_files:
-        tmp = Pdos(i)
+        tmp = Cp2kPdos(i)
         if tmp.listidx is None:
             data[tmp.spin].append(tmp)
 
@@ -448,7 +448,7 @@ def quick_plot_rks(pdos_dir):
     #
     rks_dos = []
     for i in pdos_files:
-        tmp = Pdos(i)
+        tmp = Cp2kPdos(i)
         rks_dos.append(tmp)
         #if tmp.ldos == False:
         #    rks_dos.append(tmp)

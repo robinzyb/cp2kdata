@@ -1,70 +1,81 @@
 import regex as re
-HEADER_INFO_RE = re.compile(
-    r"""
-    \s+CP2K\|\sversion\sstring:\s+CP2K\sversion\s(?P<version_string>\d\.\d)
-    # some tailing
-    (\s+\(Development\sVersion\))?\n
-    #(\s+CP2K\|.+\n)+
-    """,
-    re.VERBOSE
-)
+from dataclasses import dataclass
+from monty.re import regrep
 
-def parse_header(output_file) -> float:
-    header_info = {}
-    
-    for match in HEADER_INFO_RE.finditer(output_file):
 
-        header_info = {
-            "version_string": float(match["version_string"])
-        }
+@dataclass
+class Cp2kInfo:
+    version: str = None
 
-    if header_info:
-        return header_info
-    else:
-        return None
+CP2K_INFO_VERSION_PATTERN = \
+    r"""(?xm)
+    ^\sCP2K\|\sversion\sstring:\s{20,42}
+    CP2K\sversion\s(\d\.\d)(?:\s\(Development\sVersion\))?$
+    """
 
-GLOBAL_INFO_RE = re.compile(
-    r"""
-    \s+GLOBAL\|\sRun\stype\s+(?P<run_type>\w+)\n
-    (\s+GLOBAL\|.+\n)+
-    """,
-    re.VERBOSE
-)
+def parse_cp2k_info(filename) -> Cp2kInfo:
 
-def parse_global(output_file) -> float:
+    cp2k_info = regrep(
+        filename=filename, 
+        patterns={"version": CP2K_INFO_VERSION_PATTERN}, 
+        terminate_on_match=True
+        )
+
+    return Cp2kInfo(version=cp2k_info["version"][0][0][0])
+
+
+@dataclass
+class GlobalInfo:
+    run_type: str = None
+
+GLOBAL_INFO_RUN_TYPE_PATTERN = \
+    r"""(?xm)
+    ^\sGLOBAL\|\sRun\stype\s+(?P<run_type>\w+)\n
+    #(\s+GLOBAL\|.+\n)+
+    """
+
+def parse_global_info(filename) -> GlobalInfo:
     global_info = {}
     
-    for match in GLOBAL_INFO_RE.finditer(output_file):
+    global_info = regrep(
+        filename=filename, 
+        patterns={"run_type": GLOBAL_INFO_RUN_TYPE_PATTERN}, 
+        terminate_on_match=True
+        )
 
-        global_info = {
-            "run_type": match["run_type"]
-        }
+    return GlobalInfo(run_type=global_info["run_type"][0][0][0])
 
-    if global_info:
-        return global_info
-    else:
-        return None
-DFT_INFO_RE = re.compile(
-    r"""
-    (
-        \s+DFT\|\sSpin\srestricted\sKohn-Sham\s\(RKS\)\scalculation\s+(?P<ks_type>\w+)\n
-        |
-        \s+DFT\|\sSpin\sunrestricted\s\(spin-polarized\)\sKohn-Sham\scalculation\s+(?P<ks_type>\w+)\n
+
+@dataclass
+class DFTInfo:
+    ks_type: str = None
+    multiplicity: str = None
+
+
+DFT_INFO_KS_TYPE_PATTERN = \
+    r"""(?xm)
+    ^\sDFT\|\sSpin\s
+    (?:
+        restricted\sKohn-Sham\s\(RKS\) | unrestricted\s\(spin-polarized\)\sKohn-Sham
     )
-   (\s+DFT\|.+\n)+
-    """,
-    re.VERBOSE
-)
+    \scalculation\s+(?P<ks_type>\w{3,4})$
+    """
 
-def parse_dft(output_file) -> float:
+DFT_INFO_MULTIPLICITY_PATTERN = \
+    r"""(?xm)
+    ^\sDFT\|\sMultiplicity\s{57,}(\d{1,4})$
+    """
+
+def parse_dft_info(filename) -> DFTInfo:
     dft_info = {}
     
-    for match in DFT_INFO_RE.finditer(output_file):
-        dft_info = {
-            "ks_type": match["ks_type"]
-        }
+    dft_info = regrep(
+        filename=filename, 
+        patterns={
+            "ks_type": DFT_INFO_KS_TYPE_PATTERN,
+            "multiplicity": DFT_INFO_MULTIPLICITY_PATTERN
+        }, 
+        terminate_on_match=True
+        )
 
-    if dft_info:
-        return dft_info
-    else:
-        return None
+    return DFTInfo(ks_type=dft_info["ks_type"][0][0][0], multiplicity=dft_info["multiplicity"][0][0][0])

@@ -26,15 +26,15 @@ INIT_ATOMIC_COORDINATES_RE = re.compile(
 
 def parse_init_atomic_coordinates(output_file):
 
-    for match in INIT_ATOMIC_COORDINATES_RE.finditer(output_file):
-        #print(match)
-        # only get the last match
-        init_atomic_coordinates = []
-        chemical_symbols = []
-        for x, y, z in zip(*match.captures("x", "y", "z")):
-            init_atomic_coordinates.append([x, y, z])
-        atom_kind_list = [int(kind) for kind in match.captures("kind")]
-        chemical_symbols = match.captures("element")
+    match = INIT_ATOMIC_COORDINATES_RE.search(output_file)
+        # only get the first match
+    init_atomic_coordinates = []
+    chemical_symbols = []
+    for x, y, z in zip(*match.captures("x", "y", "z")):
+        init_atomic_coordinates.append([x, y, z])
+    atom_kind_list = [int(kind) for kind in match.captures("kind")]
+    chemical_symbols = match.captures("element")
+    
     if init_atomic_coordinates:
         return np.array(init_atomic_coordinates, dtype=float), np.array(atom_kind_list, dtype=int), chemical_symbols
     else:

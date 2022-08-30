@@ -23,6 +23,7 @@ setuptools.setup(
         "scipy >= 1.5.4",
         "matplotlib >= 3.3.2",
         "ase >= 3.20.1",
+        "dpdata",
         "click",
         "regex",
         "pytest",
