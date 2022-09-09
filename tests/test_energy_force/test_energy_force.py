@@ -51,7 +51,7 @@ class TestEnergyForce():
         )
         assert chemical_symbols == answer["chemical_symbols"]
 
-    def test_chemical_symbols_fak(self, output_and_answer_path):
+    def test_chemical_symbols_fake(self, output_and_answer_path):
         a_test_output = output_and_answer_path[0]
         chemical_symbols_fake = a_test_output.get_chemical_symbols_fake()
         answer = json_to_dict(

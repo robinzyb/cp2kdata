@@ -340,6 +340,14 @@ class Cp2kOutput:
         pass
 
     def parse_md(self):
+
+        if self.filename:
+            self.all_cells = parse_all_cells(self.output_file)
+            print(f"You are reading cell information from {self.filename}")
+            self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
+            self.output_file)
+            self.atomic_kind = parse_atomic_kinds(self.output_file)
+
         ener_file_list = glob.glob(os.path.join(self.path_prefix, "*.ener"))
         if ener_file_list:
             self.energies_list = parse_md_ener(ener_file_list[0])
@@ -355,6 +363,8 @@ class Cp2kOutput:
         stress_file_list = glob.glob(os.path.join(self.path_prefix,"*.stress"))
         if stress_file_list:
             self.stress_tensor_list = parse_md_stress(stress_file_list[0])
+        else:
+            self.stress_tensor_list = None
         
         self.num_frames = len(self.energies_list)
         

@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="Cp2kData",
-    version="0.3.0",
+    version="0.4.0",
     author="Yongbin Zhuang",
     author_email="robinzhuang@stu.xmu.edu.com",
     description="Small Package to Postprocessing Cp2k Output",
@@ -31,6 +31,9 @@ setuptools.setup(
   ],
    entry_points={
        'console_scripts': [
-           'cp2kdata=cp2kdata.cli.cmd:cli']
+           'cp2kdata=cp2kdata.cli.cmd:cli'],
+       'dpdata.plugins':[
+           'cp2kdata/md = cp2kdata.dpdata_plugin:CP2KMDFormat'
+           ]
        }
 )

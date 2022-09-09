@@ -62,4 +62,6 @@ def parse_md_stress(stress_file):
         usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10), 
         dtype=np.float64
         )
-    return stresses_list
+    numb_frames = stresses_list.shape[0]
+
+    return stresses_list.reshape(numb_frames, 3, 3)
