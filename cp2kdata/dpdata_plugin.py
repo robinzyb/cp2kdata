@@ -1,6 +1,7 @@
 from dpdata.unit import EnergyConversion, LengthConversion, ForceConversion, PressureConversion
 from dpdata.format import Format
 from . import Cp2kOutput
+from .block_parser.converge import parse_e_f_converge
 import numpy as np
 
 AU_TO_EV = EnergyConversion("hartree", "eV").value()
@@ -19,6 +20,19 @@ class CP2KEnergyForceFormat(Format):
 
         # -- start parsing --
         print(WRAPPER)
+        converge_info = parse_e_f_converge(file_name)
+        if not converge_info.converge:
+            data = {
+                'atom_names': [],
+                'atom_numbs': [],
+                'atom_types': [],
+                'energies': [],
+                'cells': [],
+                'coords': [],
+                'forces': []
+            }
+            return data
+
         cp2k_e_f = Cp2kOutput(file_name)
         
         chemical_symbols = get_chemical_symbols_from_cp2kdata(

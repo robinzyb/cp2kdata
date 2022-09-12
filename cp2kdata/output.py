@@ -62,6 +62,9 @@ class Cp2kOutput:
             "Currently, mannual setup of run_type only supports 'MD'.\n"
             "Other run_types, such as 'ENERGY_FORCE', \n"
             "require output file as well.\n"
+            "\n"
+            " Σ(っ °Д °;)っ \n"
+            "\n"
             "---------------------------------------------\n"
             )
             sys.exit()
@@ -334,7 +337,10 @@ class Cp2kOutput:
         self.stress_tensor_list = parse_stress_tensor_list(self.output_file)
 
     def parse_geo_opt(self):
-        pass
+        self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
+            self.output_file)
+        self.geo_opt_info = parse_geo_opt(self.output_file)
+        self.num_frames = len(self.geo_opt_info)
 
     def parse_cell_opt(self):
         pass
