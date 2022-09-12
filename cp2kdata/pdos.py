@@ -112,79 +112,80 @@ atomic_color_map = {'Ac': (0.39344, 0.62101, 0.45034),
 typical_orbital = {
     "H" : "s",
     "He": "s",
-    "Na": "s", 
-    "K" : "s", 
-    "Rb": "s", 
-    "Cs": "s", 
-    "Be": "s", 
-    "Mg": "s", 
-    "Ca": "s", 
-    "Sr": "s", 
+    "Na": "s",
+    "K" : "s",
+    "Rb": "s",
+    "Cs": "s",
+    "Be": "s",
+    "Mg": "s",
+    "Ca": "s",
+    "Sr": "s",
     "Ba": "s",
-    "O" : "p", 
-    "S" : "p", 
-    "Se": "p", 
-    "Te": "p", 
-    "N" : "p", 
-    "P" : "p", 
-    "As": "p", 
-    "Sb": "p", 
+    "O" : "p",
+    "S" : "p",
+    "Se": "p",
+    "Te": "p",
+    "N" : "p",
+    "P" : "p",
+    "As": "p",
+    "Sb": "p",
     "Bi": "p",
-    "C" : "p", 
-    "Si": "p", 
-    "Ge": "p", 
-    "Sn": "p", 
+    "C" : "p",
+    "Si": "p",
+    "Ge": "p",
+    "Sn": "p",
     "Pb": "p",
-    "B" : "p", 
-    "Al": "p", 
-    "Ga": "p", 
-    "In": "p", 
+    "B" : "p",
+    "Al": "p",
+    "Ga": "p",
+    "In": "p",
     "Tl": "p",
-    "F" : "p", 
-    "Cl": "p", 
-    "Br": "p", 
+    "F" : "p",
+    "Cl": "p",
+    "Br": "p",
     "I" : "p",
-    "Sc": "d", 
-    "Ti": "d", 
-    "V" : "d", 
-    "Cr": "d", 
-    "Mn": "d", 
-    "Fe": "d", 
-    "Co": "d", 
-    "Ni": "d", 
-    "Cu": "d", 
+    "Sc": "d",
+    "Ti": "d",
+    "V" : "d",
+    "Cr": "d",
+    "Mn": "d",
+    "Fe": "d",
+    "Co": "d",
+    "Ni": "d",
+    "Cu": "d",
     "Zn": "d",
-    "Y" : "d", 
-    "Zr": "d", 
-    "Nb": "d", 
-    "Mo": "d", 
-    "Te": "d", 
-    "Ru": "d", 
-    "Rh": "d", 
-    "Pd": "d", 
-    "Ag": "d", 
+    "Y" : "d",
+    "Zr": "d",
+    "Nb": "d",
+    "Mo": "d",
+    "Te": "d",
+    "Ru": "d",
+    "Rh": "d",
+    "Pd": "d",
+    "Ag": "d",
     "Cd": "d",
-    "Hf": "d", 
-    "Ta": "d", 
-    "W" : "d", 
-    "Re": "d", 
-    "Os": "d", 
-    "Ir": "d", 
-    "Pt": "d", 
-    "Au": "d", 
+    "Hf": "d",
+    "Ta": "d",
+    "W" : "d",
+    "Re": "d",
+    "Os": "d",
+    "Ir": "d",
+    "Pt": "d",
+    "Au": "d",
     "Hg": "d",
-    "La": "f", 
-    "Ce": "f", 
+    "La": "f",
+    "Ce": "f",
     "Pr": "f"
 }
 
-class Pdos():
-    def __init__(self, file_name):
+class Cp2kPdos():
+    def __init__(self, file_name, parse_file_name=True):
         self.file = file_name
         self.element = self.read_dos_element()
         self.fermi = self.read_dos_fermi()
         self.energies = self.read_dos_energies()
-        self.project_name, self.spin, self.listidx, self.kind, self.timestep =  pdos_name_parser(self.file)
+        if parse_file_name:
+            self.project_name, self.spin, self.listidx, self.kind, self.timestep =  pdos_name_parser(self.file)
 
     def read_dos_element(self):
         with open(self.file) as f:
@@ -211,10 +212,13 @@ class Pdos():
     @property
     def occupation(self):
         occupation = np.loadtxt(self.file, usecols=2)
+
         return occupation
 
     def get_homo_ener(self):
-        homo_ener = self.energies[self.occupation == 1][-1]
+        homo_idx = np.where(self.occupation == 0)[0][0]-1
+        homo_ener = self.energies[homo_idx]
+
         return homo_ener
 
     def get_lumo_ener(self):
@@ -293,19 +297,19 @@ def quick_plot_uks(pdos_dir, style = 0, replace_dict = None):
 
     plt.rc('axes', linewidth=2)
     plt.rc('xtick.major', size=10, width=2)
-    plt.rc('ytick.major', size=10, width=2)    
+    plt.rc('ytick.major', size=10, width=2)
 
     # find pdos files
     pdos_files = glob.glob(os.path.join(pdos_dir, "*pdos"))
     pdos_files.sort()
 
     data = {
-        'ALPHA': [], 
+        'ALPHA': [],
         'BETA':[]
         }
     #
     for i in pdos_files:
-        tmp = Pdos(i)
+        tmp = Cp2kPdos(i)
         if tmp.listidx is None:
             data[tmp.spin].append(tmp)
 
@@ -425,7 +429,7 @@ def plot_single_pdos(pdosobj, ax, true_element, spin=1, raw=True):
         pdos, ener = pdosobj.get_raw_dos(dos_type=to)
     else:
         pdos, ener = pdosobj.get_dos(dos_type=to, sigma=0.5)
-    
+
     pdos *= spin
     color = atomic_color_map.get(true_element)
     l1, = ax.plot(ener, pdos, color=color, lw=2., label=label)
@@ -444,11 +448,12 @@ def quick_plot_rks(pdos_dir):
     #
     rks_dos = []
     for i in pdos_files:
-        tmp = Pdos(i)
-        if tmp.ldos == False:
-            rks_dos.append(tmp)
-        else:
-            pass
+        tmp = Cp2kPdos(i)
+        rks_dos.append(tmp)
+        #if tmp.ldos == False:
+        #    rks_dos.append(tmp)
+        #else:
+        #    pass
 
     # plot
     ax_num = len(rks_dos) + 1
@@ -470,7 +475,7 @@ def quick_plot_rks(pdos_dir):
     for i in range(1, ax_num):
         ax = fig.add_subplot(gs[i])
         dos_obj = rks_dos[i-1]
-        typical_orb = typical_orbital(dos_obj.element)
+        typical_orb = typical_orbital.get(dos_obj.element)
         dos, ener = dos_obj.get_dos(dos_type=typical_orb)
         ax.plot(ener, dos, label = dos_obj.element + " " + typical_orb, color = "C{0}".format(int(i)), lw=lw)
         if i == ax_num - 1:

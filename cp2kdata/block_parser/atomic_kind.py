@@ -10,7 +10,7 @@ NUM_ATOMIC_KINDS_RE = re.compile(
 )
 ATOMIC_KINDS_RE = re.compile(
     r"""
-    \s+\d+\.\sAtomic\skind:\s+(?P<atomic_kind>\S+)
+    \s{2}\d+\.\sAtomic\skind:\s+(?P<atomic_kind>\S+)
     """,
     re.VERBOSE
 )

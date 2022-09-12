@@ -10,18 +10,31 @@ Python Package to postprocess cp2k data.
 including cube file, pdos file, output file
 
 - [CP2KDATA](#cp2kdata)
-  - [Installation](#installation)
+- [Idea List](#idea-list)
+- [TO DO](#to-do)
+- [Installation](#installation)
   - [Processing Output File](#processing-output-file)
     - [Basick Usage](#basick-usage)
-    - [Processing ENERGY and FORCE Calculation](#processing-energy-and-force-calculation)
-    - [Processing GEOMETRY OPTIMIZATION Calculation](#processing-geometry-optimization-calculation)
-    - [Error Handing](#error-handing)
+    - [Parse ENERGY_FORCE Outputs](#parse-energy_force-outputs)
+    - [Parse GEO_OPT Outputs](#parse-geo_opt-outputs)
+    - [Parse MD outputs](#parse-md-outputs)
+  - [Plug-in for `dpdata`](#plug-in-for-dpdata)
   - [Processing Cube File](#processing-cube-file)
   - [Processing PDOS File](#processing-pdos-file)
     - [Processing Single PDOS File](#processing-single-pdos-file)
     - [Quickplot of  PDOS Files in Single Point Energy Calculation](#quickplot-of--pdos-files-in-single-point-energy-calculation)
 
-## Installation
+# Idea List
+1. manipulate cube, pdos data
+2. extract information from output
+3. generate standard test input and directory
+4. generate nice figures 
+5. plugin for dpdata
+   
+# TO DO
+cli interface
+
+# Installation
 
 ```bash
 pip install .
@@ -32,10 +45,13 @@ pip install .
 ## Processing Output File
 
 ### Basick Usage
+One can use `Cp2kOutput` class to parse cp2k `output file`, which is the standard output from cp2k code. Depending on run types, required files may be more than a standard output. For example, if you parse `md` outputs, you may ask to provide additional `Project-1.ener`, `Project-pos-1.xyz`, and `Project-frc-1.xyz` files to obtain `energies`, `position`, and `forces` information. Detail usages are provided in the following subsections.
+
 ```python
-from cp2kdata.output import Cp2kOutput
-cp2k_output_file = "output_energy_force"
-cp2koutput=Cp2kOutput(cp2k_output_file)
+from cp2kdata import Cp2kOutput
+cp2k_output_file = "cp2k_output"
+cp2koutput = Cp2kOutput(cp2k_output_file, path_prefix=".")
+# path_prefix is the directory where the cp2k_output is
 # show the brief summary on stdout
 print(cp2koutput)
 ```
@@ -63,9 +79,9 @@ Element Numb       : 6    6    18
 --------------------------------------
 ```
 
-### Processing ENERGY and FORCE Calculation
+### Parse ENERGY_FORCE Outputs
 ```python
-from cp2kdata.output import Cp2kOutput
+from cp2kdata import Cp2kOutput
 cp2k_output_file = "output_energy_force"
 cp2koutput=Cp2kOutput(cp2k_output_file)
 # get the version of cp2k
@@ -79,9 +95,9 @@ print(cp2koutput.get_chemical_symbols_fake())
 
 ```
 
-### Processing GEOMETRY OPTIMIZATION Calculation
+### Parse GEO_OPT Outputs
 ```python
-from cp2kdata.output import Cp2kOutput
+from cp2kdata import Cp2kOutput
 cp2k_output_file = "output_geo_opt"
 cp2koutput=Cp2kOutput(cp2k_output_file)
 # get the version of cp2k
@@ -102,13 +118,49 @@ print(cp2koutput.get_geo_opt_info())
 cp2koutput.get_geo_opt_info_plot()
 ```
 ![geo_opt_plot](./figures/geo_opt_info.png)
-### Error Handing
-if cp2k output contains exceed execution time, the Cp2kOutput class won't read it.
-Instead, to ignore the error, set 'ignore_error=True'
+
+### Parse MD outputs
+On parsing MD outputs, you can choose parse *with* or *without* standard outputs. Three additional files, `Project-1.ener`, `Project-pos-1.xyz`, and `Project-frc-1.xyz` files, are required to obtain `energies`, `position`, and `forces` information. 
+
+If you parse with standard outputs, `Cp2kOutput` can collect full information from outputs. In specific, cell information and kind symbols can be obtained. 
+
 ```python
-cp2k_output_file = "output_geo_opt"
-cp2koutput=Cp2kOutput(cp2k_output_file, ignore_error=True)
+from cp2kdata import Cp2kOutput
+cp2k_output_file = "output_md"
+cp2koutput=Cp2kOutput(cp2k_output_file)
 ```
+
+Alternatively, you may parse without standard outputs. Consequently, you will loss the `cell` and `atomic kind` infromations. When parsing without standard outputs, you must manually set the optional argument `run_type` as `md`, otherwise it will raise error.
+
+```python
+from cp2kdata import Cp2kOutput
+cp2k_output_file = "output_md"
+cp2koutput=Cp2kOutput(run_type="md")
+```
+
+## Plug-in for `dpdata`
+`Cp2kData` support plug in for dpdata. When installed with `pip`, `Cp2kData` automatically installs plug in for `dpdata`.
+
+For usages of `dpdata`, we refer to https://github.com/deepmodeling/dpdata. 
+
+Currently, we only support two flavors of format for `dpdata`. One is `cp2kdata/e_f` for parsing `ENERGY_FORCE` outputs, the other is `cp2kdata/md` for parsing `MD` outputs. 
+
+An Example for parsing `ENERGY_FORCE` outputs:
+```python
+import dpdata
+
+dp = dpdata.LabeledSystem("cp2k_e_f_output", fmt="cp2kdata/e_f")
+print(dp)
+```
+
+An Example for parsing `MD` outputs:
+```python
+import dpdata
+dp = dpdata.LabeledSystem(".", cp2k_output_name="output", fmt="cp2kdata/e_f")
+print(dp)
+
+```
+
 ## Processing Cube File
 
 ```python
