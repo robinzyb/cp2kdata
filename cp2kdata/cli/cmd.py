@@ -13,6 +13,7 @@ def gen():
 
 cli.add_command(gen)
 
+#-- Cutoff --#
 @click.command()
 @click.option(
     '--target_dir', 
@@ -52,3 +53,48 @@ def cutoff(cp2k_input_file, target_dir, cutoff_range, other_file_list, scf_conve
 
 
 gen.add_command(cutoff)
+#-- Cutoff --#
+
+#-- Basis --#
+@click.command()
+@click.option(
+    '--target_dir', 
+    type=str, 
+    default=".", 
+    help='test directories are generated under target directory'
+    )
+@click.option(
+    '--test_element', 
+    '-e', 
+    type=str,
+    default="O", 
+    help='test element for basis set'
+    )
+@click.option(
+    '--short_range',
+    '-sr', 
+    type=bool, 
+    default=True,
+    help="whether use short range basis set"
+    )
+@click.argument('cp2k_input_file', type=str, nargs=1)
+@click.argument(
+    'other_file_list', 
+    type=str, 
+    nargs=-1,
+    default=None
+    )
+def basis(cp2k_input_file, target_dir, test_element, other_file_list, short_range):
+    inp = get_CP2K(cp2k_input_file)
+    #click.echo(other_file_list)
+    write_basis_test_inp(
+        inp, 
+        target_dir=target_dir, 
+        test_element=test_element,
+        other_file_list=other_file_list,
+        short_range=short_range)
+
+
+gen.add_command(basis)
+#-- Cutoff --#
+

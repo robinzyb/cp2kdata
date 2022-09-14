@@ -153,5 +153,62 @@ def write_cutoff_test_inp(
 
 
 
+basis_molopt_test_suit = {
+    "H": ["SZV-MOLOPT-GTH", "DZVP-MOLOPT-GTH", "TZVP-MOLOPT-GTH", "TZV2P-MOLOPT-GTH", "TZV2PX-MOLOPT-GTH"],
+    "O": ["SZV-MOLOPT-GTH", "DZVP-MOLOPT-GTH", "TZVP-MOLOPT-GTH", "TZV2P-MOLOPT-GTH", "TZV2PX-MOLOPT-GTH"],
+    "Fe": ["DZVP-MOLOPT-PBE-GTH-q16", "TZVP-MOLOPT-PBE-GTH-q16", "TZV2P-MOLOPT-PBE-GTH-q16"]
+}
 
-    
+basis_molopt_sr_test_suit = {
+    "H": ["SZV-MOLOPT-SR-GTH", "DZVP-MOLOPT-SR-GTH"],
+    "O": ["SZV-MOLOPT-SR-GTH", "DZVP-MOLOPT-SR-GTH"],
+    "Fe": ["SZV-MOLOPT-SR-GTH", "DZVP-MOLOPT-SR-GTH", "TZVP-MOLOPT-SR-GTH", "TZV2P-MOLOPT-SR-GTH"],
+}
+
+def write_basis_test_inp(
+    cp2k: CP2K, 
+    target_dir: str=".",
+    test_element: str= "O",
+    short_range: bool=True,
+    other_file_list: list=[]
+    ):
+    FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
+
+    FORCE_EVAL.Stress_tensor = "ANALYTICAL"
+    FORCE_EVAL.PRINT.STRESS_TENSOR.Section_parameters = "ON"
+    FORCE_EVAL.PRINT.FORCES.Section_parameters  = "ON"
+    DFT = FORCE_EVAL.DFT
+    #DFT.MGRID.Rel_cutoff = rel_cutoff
+    DFT.MGRID.Ngrids = 4
+
+    DFT.Basis_set_file_name = \
+        [
+            "BASIS_MOLOPT", 
+            "BASIS_MOLOPT_AcPP1", 
+            "BASIS_MOLOPT_LnPP1", 
+            "BASIS_MOLOPT_UCL",
+            "BASIS_MOLOPT_UZH"
+        ]
+
+    GLOBAL = cp2k.CP2K_INPUT.GLOBAL
+    GLOBAL.Run_type = "ENERGY_FORCE"
+
+    if short_range:
+        basis_set_suit = basis_molopt_sr_test_suit
+    else:
+        basis_set_suit = basis_molopt_test_suit
+
+    for basis_set in basis_set_suit[test_element]:
+
+        for KIND in FORCE_EVAL.SUBSYS.KIND_list:
+            if (KIND.Element is None) and (KIND.Section_parameters == test_element):
+                KIND.Basis_set= [basis_set]
+            elif (KIND.Element == test_element): 
+                KIND.Basis_set= [basis_set]
+            else:
+                pass
+        basis_test_sub_dir = os.path.join(target_dir, f"basis_{basis_set}")
+        create_path(basis_test_sub_dir)
+        copy_file_list(file_list=other_file_list, target_dir=basis_test_sub_dir)
+        input_path = os.path.join(basis_test_sub_dir, "input.inp")
+        cp2k.write_input_file(input_path)
