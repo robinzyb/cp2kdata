@@ -96,5 +96,55 @@ def basis(cp2k_input_file, target_dir, test_element, other_file_list, short_rang
 
 
 gen.add_command(basis)
-#-- Cutoff --#
+#-- Basis --#
 
+#-- U --#
+@click.command()
+@click.option(
+    '--target_dir', 
+    type=str, 
+    default=".", 
+    help='test directories are generated under target directory'
+    )
+@click.option(
+    '--u_range', 
+    '-ur', 
+    type=(float, float, float), 
+    default=(0, 8, 1), 
+    help='Hubbard U range: min, max, stepsize'
+    )
+@click.option(
+    '--test_element', 
+    '-e', 
+    type=str,
+    default="O", 
+    help='test element for Hubbard U test'
+    )
+@click.option(
+    '--test_orbital', 
+    '-orb', 
+    type=str,
+    default="p", 
+    help='test orbital for Hubbard U test'
+    )
+@click.argument('cp2k_input_file', type=str, nargs=1)
+@click.argument(
+    'other_file_list', 
+    type=str, 
+    nargs=-1,
+    default=None
+    )
+def hubbardU(cp2k_input_file, target_dir, u_range, test_element, test_orbital, other_file_list):
+    inp = get_CP2K(cp2k_input_file)
+    #click.echo(other_file_list)
+    write_hubbard_U_test_inp(
+        inp, 
+        target_dir=target_dir, 
+        u_range=u_range,
+        test_element=test_element,
+        test_orbital=test_orbital,
+        other_file_list=other_file_list)
+
+
+gen.add_command(hubbardU)
+#-- U --#

@@ -1,9 +1,11 @@
+# Generate Cp2k Test Inputs
 from .utils import create_path
 from pycp2k import CP2K
 import os
 import shutil
 import copy
 import glob
+import numpy as np
 
 
 def remove_section(sec_obj):
@@ -215,4 +217,54 @@ def write_basis_test_inp(
         create_path(basis_test_sub_dir)
         copy_file_list(file_list=other_file_list, target_dir=basis_test_sub_dir)
         input_path = os.path.join(basis_test_sub_dir, "input.inp")
+        cp2k.write_input_file(input_path)
+
+def write_hubbard_U_test_inp(
+    cp2k: CP2K, 
+    target_dir: str=".",
+    u_range: tuple=(0, 8, 1),
+    test_element: str= "O",
+    test_orbital: str="p",
+    other_file_list: list=[]
+    ):
+    FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
+    
+    FORCE_EVAL.Stress_tensor = "ANALYTICAL"
+    FORCE_EVAL.PRINT.STRESS_TENSOR.Section_parameters = "ON"
+    FORCE_EVAL.PRINT.FORCES.Section_parameters  = "ON"
+    DFT = FORCE_EVAL.DFT
+
+    DFT.MGRID.Ngrids = 4
+    DFT.Plus_u_method = "mulliken"
+
+    GLOBAL = cp2k.CP2K_INPUT.GLOBAL
+    GLOBAL.Run_type = "CELL_OPT"
+
+    MOTION = cp2k.CP2K_INPUT.MOTION
+    MOTION.CELL_OPT.Optimizer = "LBFGS"
+    MOTION.CELL_OPT.Keep_angles = True
+    
+
+    ang_quant_num_dict = {
+        "s": 0,
+        "p": 1,
+        "d": 2,
+        "f": 3
+    }
+
+    for U in np.arange(*u_range):
+        for KIND in FORCE_EVAL.SUBSYS.KIND_list:
+            if (KIND.Element is None) and (KIND.Section_parameters == test_element):
+                KIND.DFT_PLUS_U.L = ang_quant_num_dict[test_orbital]
+                KIND.DFT_PLUS_U.U_minus_j = f"[eV] {U}"
+            elif (KIND.Element == test_element): 
+                KIND.DFT_PLUS_U.L = ang_quant_num_dict[test_orbital]
+                KIND.DFT_PLUS_U.U_minus_j = f"[eV] {U}"
+            else:
+                pass
+
+        U_test_sub_dir = os.path.join(target_dir, f"U_{U:04.2f}")
+        create_path(U_test_sub_dir)
+        copy_file_list(file_list=other_file_list, target_dir=U_test_sub_dir)
+        input_path = os.path.join(U_test_sub_dir, "input.inp")
         cp2k.write_input_file(input_path)
