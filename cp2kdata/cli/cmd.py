@@ -13,6 +13,13 @@ def gen():
 
 cli.add_command(gen)
 
+@click.group("plot")
+def plot():
+    click.echo('Plot CP2K Testing Results')
+
+cli.add_command(plot)
+
+#-- for gen test --# 
 #-- Cutoff --#
 @click.command()
 @click.option(
@@ -148,3 +155,18 @@ def hubbardU(cp2k_input_file, target_dir, u_range, test_element, test_orbital, o
 
 gen.add_command(hubbardU)
 #-- U --#
+
+#-- for plot -- # 
+@click.command()
+@click.option(
+    '--target_dir', 
+    type=str, 
+    default=".", 
+    help='plot ther results under target directory'
+    )
+
+def hubbardU(target_dir):
+    #click.echo(other_file_list)
+    plot_U_test(target_dir=target_dir)
+
+plot.add_command(hubbardU)

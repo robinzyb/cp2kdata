@@ -42,7 +42,7 @@ pip install .
 ```
 
 # Generate Standard Test Inputs
-You can using command line tools to generate standard test input with provided template `input.inp` and other files.
+One can use command line tools to generate standard test input with provided template `input.inp` and other files.
 ```bash
 # generate cutoff test files
 cp2kdata gen cutoff <template input> <a list of other neccessary files> -crange <cutoff range: min, max, step> --scf_converge <whether scf converge>
@@ -175,8 +175,11 @@ print(dp)
 
 An Example for parsing `MD` outputs:
 ```python
+
 import dpdata
-dp = dpdata.LabeledSystem(".", cp2k_output_name="output", fmt="cp2kdata/e_f")
+cp2kmd_dir = "."
+cp2kmd_output_name = "output"
+dp = dpdata.LabeledSystem(cp2kmd_dir, cp2k_output_name=cp2kmd_output_name, fmt="cp2kdata/md")
 print(dp)
 
 ```
