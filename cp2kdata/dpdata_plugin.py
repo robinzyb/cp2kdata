@@ -6,7 +6,7 @@ import numpy as np
 
 AU_TO_EV = EnergyConversion("hartree", "eV").value()
 AU_TO_ANG = LengthConversion("bohr", "angstrom").value()
-GPa_TO_EV_ANG_m3 = PressureConversion("eV/angstrom^3", "GPa").value()
+EV_ANG_m3_TO_GPa = PressureConversion("eV/angstrom^3", "GPa").value()
 
 
 WRAPPER = "--- You are parsing data using package Cp2kData ---"
@@ -50,7 +50,7 @@ class CP2KEnergyForceFormat(Format):
         data['coords'] = cp2k_e_f.init_atomic_coordinates[np.newaxis, :, :]
         data['forces'] = cp2k_e_f.atomic_forces_list * AU_TO_EV/AU_TO_ANG
         if cp2k_e_f.has_stress():
-            data['virials'] = cp2k_e_f.stress_tensor_list/GPa_TO_EV_ANG_m3
+            data['virials'] = cp2k_e_f.stress_tensor_list/EV_ANG_m3_TO_GPa
 
         print(WRAPPER)
         return data
@@ -105,7 +105,7 @@ class CP2KMDFormat(Format):
         data['coords'] = cp2kmd.atomic_frames_list
         data['forces'] = cp2kmd.atomic_forces_list * AU_TO_EV/AU_TO_ANG
         if cp2kmd.has_stress():
-            data['virials'] = cp2kmd.stress_tensor_list/GPa_TO_EV_ANG_m3
+            data['virials'] = cp2kmd.stress_tensor_list/EV_ANG_m3_TO_GPa
 
         print(WRAPPER)
         return data

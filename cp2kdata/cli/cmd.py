@@ -157,6 +157,36 @@ gen.add_command(hubbardU)
 #-- U --#
 
 #-- for plot -- # 
+
+#--cutoff --#
+@click.command()
+@click.option(
+    '--target_dir', 
+    type=str, 
+    default=".", 
+    help='plot ther results under target directory'
+    )
+def cutoff(target_dir):
+    #click.echo(other_file_list)
+    plot_cutoff_test(target_dir=target_dir)
+
+plot.add_command(cutoff)
+
+#--basis --#
+@click.command()
+@click.option(
+    '--target_dir', 
+    type=str, 
+    default=".", 
+    help='plot ther results under target directory'
+    )
+def basis(target_dir):
+    #click.echo(other_file_list)
+    plot_basis_test(target_dir=target_dir)
+    
+plot.add_command(basis)
+
+#--U --#
 @click.command()
 @click.option(
     '--target_dir', 

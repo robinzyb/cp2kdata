@@ -14,6 +14,7 @@ including cube file, pdos file, output file
 - [TO DO](#to-do)
 - [Installation](#installation)
 - [Generate Standard Test Inputs](#generate-standard-test-inputs)
+- [Plot Standard Test Output](#plot-standard-test-output)
 - [Processing Output File](#processing-output-file)
   - [Basick Usage](#basick-usage)
   - [Parse ENERGY_FORCE Outputs](#parse-energy_force-outputs)
@@ -61,6 +62,8 @@ cp2kdata gen hubbardu <template input> <a list of other neccessary files> -ur u 
 # example
 cp2kdata gen hubbardu input.inp coord.xyz cp2k.lsf -ur 0 8.1 1 -e Fe -orb d  
 ```
+# Plot Standard Test Output
+After you finished the above tests, you readily plot the result using command `cp2kdata plot cutoff`, `cp2kdata plot basis`, `cp2kdata plot hubbardu` 
 
 # Processing Output File
 
