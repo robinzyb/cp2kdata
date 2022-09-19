@@ -4,6 +4,7 @@ import glob
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import yaml
 
 def get_U_list(U_test_sub_dir_list):
     U_list = [
@@ -145,3 +146,20 @@ def plot_U_test(
 
     fig.tight_layout()
     fig.savefig("results_U_test.pdf")
+
+
+def get_exp_collect_from_yaml(yaml_file):
+    with open(yaml_file, "r") as fp:
+        exp_dict = yaml.safe_load(fp)
+    exp_collect = (
+        exp_dict.get("gap", None),
+        exp_dict.get("prop1", None),
+        exp_dict.get("prop2", None),
+        exp_dict.get("cell", {}).get("a", None),
+        exp_dict.get("cell", {}).get("b", None),
+        exp_dict.get("cell", {}).get("c", None),
+        exp_dict.get("cell", {}).get("alpha", None),
+        exp_dict.get("cell", {}).get("beta", None),
+        exp_dict.get("cell", {}).get("gamma", None)
+    )
+    return exp_collect

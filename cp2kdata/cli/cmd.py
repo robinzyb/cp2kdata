@@ -164,9 +164,18 @@ gen.add_command(hubbardU)
     default=".", 
     help='plot ther results under target directory'
     )
-
-def hubbardU(target_dir):
+@click.option(
+    '--exp_yaml', 
+    type=str,
+    default="No",
+    help='experimental values'
+    )
+def hubbardU(target_dir, exp_yaml):
     #click.echo(other_file_list)
-    plot_U_test(target_dir=target_dir)
+    if exp_yaml == "No":
+        exp_collect=(None, None, None, None, None, None, None, None, None)
+    else:
+        exp_collect = get_exp_collect_from_yaml(exp_yaml)
+    plot_U_test(target_dir=target_dir, exp_collect=exp_collect)
 
 plot.add_command(hubbardU)
