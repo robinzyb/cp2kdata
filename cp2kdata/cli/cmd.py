@@ -209,3 +209,16 @@ def hubbardU(target_dir, exp_yaml):
     plot_U_test(target_dir=target_dir, exp_collect=exp_collect)
 
 plot.add_command(hubbardU)
+
+@click.command()
+@click.option(
+    '--fig_name',
+    '-fn',
+    type=str, 
+    default="pKa.pdf", 
+    help='name of fep figure'
+    )
+def ti(fig_name):
+    plot_ti(fig_name=fig_name)
+
+plot.add_command(ti)
