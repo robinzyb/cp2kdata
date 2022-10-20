@@ -343,7 +343,22 @@ class Cp2kOutput:
         self.num_frames = len(self.geo_opt_info)
 
     def parse_cell_opt(self):
-        pass
+        # initial information
+        self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
+            self.output_file)
+        self.atomic_kind = parse_atomic_kinds(self.output_file)
+
+        
+        pos_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*pos*.xyz"))
+        if pos_xyz_file_list:
+            self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(pos_xyz_file_list[0])
+            self.energies_list = energies_list_from_pos
+
+        self.all_cells = parse_all_cells(self.output_file)
+        self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
+        self.stress_tensor_list = parse_stress_tensor_list(self.output_file)
+
+        self.num_frames = len(self.energies_list)
 
     def parse_md(self):
 

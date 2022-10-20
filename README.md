@@ -13,6 +13,8 @@ including cube file, pdos file, output file
 - [Idea List](#idea-list)
 - [TO DO](#to-do)
 - [Installation](#installation)
+- [Generate Standard Test Inputs](#generate-standard-test-inputs)
+- [Plot Standard Test Output](#plot-standard-test-output)
 - [Processing Output File](#processing-output-file)
   - [Basick Usage](#basick-usage)
   - [Parse ENERGY_FORCE Outputs](#parse-energy_force-outputs)
@@ -40,7 +42,28 @@ cli interface
 pip install .
 ```
 
+# Generate Standard Test Inputs
+One can use command line tools to generate standard test input with provided template `input.inp` and other files.
+```bash
+# generate cutoff test files
+cp2kdata gen cutoff <template input> <a list of other neccessary files> -crange <cutoff range: min, max, step> --scf_converge <whether scf converge>
 
+# example
+cp2kdata gen cutoff input.inp coord.xyz cp2k.lsf -crange 100 800 100 --scf_converge True
+
+# generate basis test files
+cp2kdata gen basis <template input> <a list of other neccessary files> -e <test element> -sr <whether test short range basis>
+
+# example
+cp2kdata gen basis input.inp coord.xyz cp2k.lsf -e Fe -sr True
+
+# generate Hubbard U test files
+cp2kdata gen hubbardu <template input> <a list of other neccessary files> -ur u <test value: min, max, step> -e <test element> -orb <test orbital>  
+# example
+cp2kdata gen hubbardu input.inp coord.xyz cp2k.lsf -ur 0 8.1 1 -e Fe -orb d  
+```
+# Plot Standard Test Output
+After you finished the above tests, you readily plot the result using command `cp2kdata plot cutoff`, `cp2kdata plot basis`, `cp2kdata plot hubbardu` 
 
 # Processing Output File
 
@@ -155,8 +178,11 @@ print(dp)
 
 An Example for parsing `MD` outputs:
 ```python
+
 import dpdata
-dp = dpdata.LabeledSystem(".", cp2k_output_name="output", fmt="cp2kdata/e_f")
+cp2kmd_dir = "."
+cp2kmd_output_name = "output"
+dp = dpdata.LabeledSystem(cp2kmd_dir, cp2k_output_name=cp2kmd_output_name, fmt="cp2kdata/md")
 print(dp)
 
 ```
