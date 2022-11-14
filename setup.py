@@ -26,13 +26,16 @@ setuptools.setup(
         "dpdata",
         "click",
         "regex",
-        "pytest",
-        "pytest-cov"
+        "monty"
   ],
+    extras_require={
+        "debug": ["pytest", "pytest-cov"]
+    },
    entry_points={
        'console_scripts': [
            'cp2kdata=cp2kdata.cli.cmd:cli'],
        'dpdata.plugins':[
+           'cp2kdata/e_f = cp2kdata.dpdata_plugin:CP2KEnergyForceFormat',
            'cp2kdata/md = cp2kdata.dpdata_plugin:CP2KMDFormat'
            ]
        }
