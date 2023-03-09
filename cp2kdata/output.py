@@ -261,7 +261,7 @@ class Cp2kOutput:
     def get_geo_opt_info(self):
         return self.geo_opt_info
 
-    def get_geo_opt_info_plot(self, logscale=True):
+    def get_geo_opt_info_plot(self, logscale=True, dst="."):
         plt.rcParams.update(
             {
                 'font.size': 20,
@@ -320,7 +320,7 @@ class Cp2kOutput:
         ax_rms_grad.hlines(self.get_geo_opt_info()[-1]["limit_rms_gradient"], 0, geo_opt_steps[-1], color='lightcoral', ls='dashed')
         fig.suptitle("Geometry Optimization Information", fontsize=30)
         fig.tight_layout()
-        fig.savefig("geo_opt_info.png")
+        fig.savefig(os.path.join(dst, "geo_opt_info.png"))
 
     def to_ase_atoms(self):
         print("haven't implemented yet")
