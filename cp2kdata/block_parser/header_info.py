@@ -27,11 +27,16 @@ def parse_cp2k_info(filename) -> Cp2kInfo:
 @dataclass
 class GlobalInfo:
     run_type: str = None
+    print_level: str = None
 
 GLOBAL_INFO_RUN_TYPE_PATTERN = \
     r"""(?xm)
     ^\sGLOBAL\|\sRun\stype\s+(?P<run_type>\w+)\n
     #(\s+GLOBAL\|.+\n)+
+    """
+GLOBAL_INFO_PRINT_LEVEL_PATTERN = \
+    r"""(?xm)
+    ^\sGLOBAL\|\sGlobal\sprint\slevel\s+(?P<print_level>\w+)\n
     """
 
 def parse_global_info(filename) -> GlobalInfo:
@@ -39,11 +44,15 @@ def parse_global_info(filename) -> GlobalInfo:
     
     global_info = regrep(
         filename=filename, 
-        patterns={"run_type": GLOBAL_INFO_RUN_TYPE_PATTERN}, 
+        patterns={"run_type": GLOBAL_INFO_RUN_TYPE_PATTERN, 
+                  "print_level": GLOBAL_INFO_PRINT_LEVEL_PATTERN
+                  },
         terminate_on_match=True
         )
 
-    return GlobalInfo(run_type=global_info["run_type"][0][0][0])
+    return GlobalInfo(run_type=global_info["run_type"][0][0][0],
+                      print_level=global_info["print_level"][0][0][0]
+                      )
 
 
 @dataclass

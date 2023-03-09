@@ -54,7 +54,7 @@ class Cp2kOutput:
             print(
             "---------------------------------------------\n"
             "Cannot Obtain CP2K RUN_TYPE information.\n"
-            "Please check if you have provided a existing cp2k output file.\n"
+            "Please check if you have provided an existing cp2k output file.\n"
             "If not, you can manually set RUN_TYPE through run_type argument\n" 
             "for md calculation.\n"
             "Example:\n"
@@ -69,6 +69,8 @@ class Cp2kOutput:
             )
             sys.exit()
 
+        if self.GlobalInfo.print_level == 'LOW':
+            raise ValueError("please provide cp2k output file with MEDIUM print level. Print Level Low doesn't provide necessary information for initialize the cp2kdata class.")
         # -- set some basic attribute -- 
         self.num_frames = None
         self.init_atomic_coordinates = None
