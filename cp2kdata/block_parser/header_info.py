@@ -29,14 +29,14 @@ class GlobalInfo:
     run_type: str = None
     print_level: str = None
 
+# PATTERNS
 GLOBAL_INFO_RUN_TYPE_PATTERN = \
     r"""(?xm)
-    ^\sGLOBAL\|\sRun\stype\s+(?P<run_type>\w+)\n
-    #(\s+GLOBAL\|.+\n)+
+    ^\sGLOBAL\|\sRun\stype\s{33,}(?P<run_type>\w+)\n
     """
 GLOBAL_INFO_PRINT_LEVEL_PATTERN = \
     r"""(?xm)
-    ^\sGLOBAL\|\sGlobal\sprint\slevel\s+(?P<print_level>\w+)\n
+    ^\sGLOBAL\|\sGlobal\sprint\slevel\s{42,}(?P<print_level>\w+)\n
     """
 
 def parse_global_info(filename) -> GlobalInfo:
