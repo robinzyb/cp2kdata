@@ -9,7 +9,7 @@ ENERGY_RE = re.compile(
 
 def parse_md_ener(ener_file):
     print(f"Obtian Energies From {ener_file}")
-    energies_list = np.loadtxt(ener_file, usecols=4, dtype=np.float64)
+    energies_list = np.loadtxt(ener_file, usecols=4, ndmin=1, dtype=np.float64)
     return energies_list
 
 def parse_pos_xyz(posxyz_file):
@@ -83,8 +83,10 @@ def parse_md_stress(stress_file):
     stresses_list = np.loadtxt(
         stress_file, 
         usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10), 
+        ndmin=2,
         dtype=np.float64
         )
+    
     numb_frames = stresses_list.shape[0]
 
     return stresses_list.reshape(numb_frames, 3, 3)

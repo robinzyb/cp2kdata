@@ -10,7 +10,7 @@ class Cp2kInfo:
 CP2K_INFO_VERSION_PATTERN = \
     r"""(?xm)
     ^\sCP2K\|\sversion\sstring:\s{20,42}
-    CP2K\sversion\s(\d\.\d)(?:\s\(Development\sVersion\))?$
+    CP2K\sversion\s(?P<version>\d{1,4}\.\d)(?:\s\(Development\sVersion\))?$
     """
 
 def parse_cp2k_info(filename) -> Cp2kInfo:

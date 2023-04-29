@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="Cp2kData",
-    version="0.4.1",
+    version="0.4.2",
     author="Yongbin Zhuang",
     author_email="robinzhuang@stu.xmu.edu.com",
     description="Small Package to Postprocessing Cp2k Output",
