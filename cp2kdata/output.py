@@ -311,6 +311,7 @@ class Cp2kOutput:
             self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
             self.output_file)
             self.atomic_kind = parse_atomic_kinds(self.output_file)
+        
 
         ener_file_list = glob.glob(os.path.join(self.path_prefix, "*.ener"))
         if ener_file_list:
@@ -319,7 +320,8 @@ class Cp2kOutput:
         pos_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*pos*.xyz"))
         if pos_xyz_file_list:
             self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(pos_xyz_file_list[0])
-        
+            if not hasattr(self, "energies_list"):
+                self.energies_list = energies_list_from_pos
         frc_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*frc*.xyz"))
         if frc_xyz_file_list:
             self.atomic_forces_list = parse_frc_xyz(frc_xyz_file_list[0])
