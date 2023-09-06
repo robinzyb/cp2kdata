@@ -10,31 +10,22 @@ Python Package to postprocess cp2k data.
 including cube file, pdos file, output file
 
 - [CP2KDATA](#cp2kdata)
-- [Idea List](#idea-list)
-- [TO DO](#to-do)
 - [Installation](#installation)
 - [Generate Standard Test Inputs](#generate-standard-test-inputs)
 - [Plot Standard Test Output](#plot-standard-test-output)
 - [Processing Output File](#processing-output-file)
   - [Basick Usage](#basick-usage)
-  - [Parse ENERGY_FORCE Outputs](#parse-energy_force-outputs)
-  - [Parse GEO_OPT Outputs](#parse-geo_opt-outputs)
+  - [Parse ENERGY\_FORCE Outputs](#parse-energy_force-outputs)
+  - [Parse GEO\_OPT Outputs](#parse-geo_opt-outputs)
   - [Parse MD outputs](#parse-md-outputs)
 - [Plug-in for `dpdata`](#plug-in-for-dpdata)
-- [Processing Cube File](#processing-cube-file)
 - [Processing PDOS File](#processing-pdos-file)
   - [Processing Single PDOS File](#processing-single-pdos-file)
   - [Quickplot of  PDOS Files in Single Point Energy Calculation](#quickplot-of--pdos-files-in-single-point-energy-calculation)
+- [Idea List](#idea-list)
+- [TO DO](#to-do)
 
-# Idea List
-1. manipulate cube, pdos data
-2. modify step information on cube files
-3. extract information from output
-4. generate standard test input and directory
-5. generate nice figures 
-   
-# TO DO
-cli interface
+
 
 # Installation
 
@@ -64,6 +55,8 @@ cp2kdata gen hubbardu input.inp coord.xyz cp2k.lsf -ur 0 8.1 1 -e Fe -orb d
 ```
 # Plot Standard Test Output
 After you finished the above tests, you readily plot the result using command `cp2kdata plot cutoff`, `cp2kdata plot basis`, `cp2kdata plot hubbardu` 
+
+[Process CP2K Cube Files](./docs/cube/README.md)
 
 # Processing Output File
 
@@ -187,42 +180,6 @@ print(dp)
 
 ```
 
-# Processing Cube File
-
-```python
-from cp2kdata.cube import Cp2kCube
-cube_file = "xxx.cube"
-mycube = Cp2kCube(cube_file)
-
-# structure is include in cube file
-# you can obtain ASE atoms from cube
-stc = mycube.get_stc()
-print(stc)
-
-# get Planar average data without interpolation.
-pav_x, pav = mycube.get_pav(axis="z", interpolate=False)
-# get Planar average data  with interpolation. the number of interpolation point is 4096
-pav_x, pav = mycube.get_pav(axis="z", interpolate=True)
-
-l1 = 4.8 # length for first periodicity
-l2 = 4.8 # length for second periodicity
-ncov = 1 # set 1 if the system is slab-vacuum system.
-ncov = 2 # set 2 if the system is interface.
-# get Macro average data without interpolation of the original data.
-mav_x, mav = mycube.get_mav(l1=l1, l2=l2, ncov=ncov, interpolate=False)
-# get Macro average data with interpolation of the original data.
-mav_x, mav = mycube.get_mav(l1=l1, l2=l2, ncov=ncov, interpolate=True)
-
-# quick plot
-mycube.quick_plot(axis="z", interpolate=False, output_dir="./")
-```
-The Planar Average and Macro Average results are benchmarked from MACROAVE used in 
-[Siesta and Abinit](https://docs.siesta-project.org/projects/siesta/reference/macroave.html)
-and shown in the following figures
-
-![pav_plot](./figures/PAV_compare.png)
-![mav_plot](./figures/MAV_compare.png)
-
 # Processing PDOS File
 
 ## Processing Single PDOS File
@@ -245,3 +202,13 @@ quick_plot_uks(Calculation_dir)
 quick_plot_rks(Calculation_dir)
 ```
 
+
+# Idea List
+1. manipulate cube, pdos data
+2. modify step information on cube files
+3. extract information from output
+4. generate standard test input and directory
+5. generate nice figures 
+   
+# TO DO
+cli interface

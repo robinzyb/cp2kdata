@@ -5,10 +5,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="Cp2kData",
-    version="0.4.2",
+    version="0.4.3",
     author="Yongbin Zhuang",
-    author_email="robinzhuang@stu.xmu.edu.com",
-    description="Small Package to Postprocessing Cp2k Output",
+    author_email="robinzhuang@outlook.com",
+    description="A Small Package to Postprocess Cp2k Output",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/robinzyb/cp2kdata",
@@ -19,7 +19,7 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        "numpy >= 1.19.5",
+        "numpy >= 1.24.3",
         "scipy >= 1.5.4",
         "matplotlib >= 3.3.2",
         "ase >= 3.20.1",
