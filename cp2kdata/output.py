@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import time
 import numpy as np
 import glob
-import os 
+import os
 import sys
 from monty.re import regrep
 from matplotlib.gridspec import GridSpec
@@ -46,7 +46,7 @@ class Cp2kOutput:
         elif os.path.isfile(os.path.join(self.path_prefix, output_file)):
             self.filename = os.path.join(self.path_prefix, output_file)
         else:
-            self.filename = None
+            raise FileNotFoundError(f'cp2k output file {output_file} is not found')
 
         try:
             self.GlobalInfo = get_run_type(run_type, self.filename)
@@ -55,7 +55,7 @@ class Cp2kOutput:
             "---------------------------------------------\n"
             "Cannot Obtain CP2K RUN_TYPE information.\n"
             "Please check if you have provided a existing cp2k output file.\n"
-            "If not, you can manually set RUN_TYPE through run_type argument\n" 
+            "If not, you can manually set RUN_TYPE through run_type argument\n"
             "for md calculation.\n"
             "Example:\n"
                 "Cp2kOutput(run_type='MD')\n"
@@ -69,13 +69,13 @@ class Cp2kOutput:
             )
             sys.exit()
 
-        # -- set some basic attribute -- 
+        # -- set some basic attribute --
         self.num_frames = None
         self.init_atomic_coordinates = None
         self.atomic_kind = None
         self.atom_kind_list = None
 
-        # -- start parse necessary information -- 
+        # -- start parse necessary information --
 
         if self.filename:
             with open(self.filename, 'r') as fp:
@@ -85,9 +85,9 @@ class Cp2kOutput:
         else:
             self.Cp2kInfo = Cp2kInfo(version="Unknown")
 
-        
+
         check_run_type(self.GlobalInfo.run_type)
-        
+
 
         Parse_Run_Type = {
             "ENERGY_FORCE": self.parse_energy_force,
@@ -105,7 +105,7 @@ class Cp2kOutput:
         #    if self.errors_info:
         #        if self.errors_info.get("exceed_wall_time", None):
         #            raise ValueError("Your output exceeds wall time, it might be incomplete, if you want to continue, please add set Cp2kOutput(output, ignore_error=True)")
-        
+
 
         # elif self.GlobalInfo.run_type == "GEO_OPT":
         #     # parse global info
@@ -176,14 +176,14 @@ class Cp2kOutput:
             return ["Unknown"]
         else:
             return self.atomic_kind
-    
+
     def get_atom_num(self):
         # kind idx is arrange from low to high
         if self.atom_kind_list is None:
             return ["Unknown"]
         else:
             kind_idx, counts = np.unique(
-                self.get_atom_kinds_list(), 
+                self.get_atom_kinds_list(),
                 return_counts=True
                 )
             return counts
@@ -193,14 +193,14 @@ class Cp2kOutput:
             return "Unknown"
         else:
             return self.atom_kind_list
-            
+
     def get_chemical_symbols(self):
         return self.chemical_symbols
 
     def get_chemical_symbols_fake(self):
         if (self.atom_kind_list is not None) and (self.atomic_kind is not None):
             return self.atomic_kind[self.atom_kind_list-1]
-        else: 
+        else:
             return "Unknown"
 
     def get_init_atomic_coordinates(self):
@@ -214,15 +214,15 @@ class Cp2kOutput:
 
     def get_num_frames(self):
         if self.num_frames is None:
-            return "Unknown"           
+            return "Unknown"
         else:
             return self.num_frames
 
     def get_atomic_forces_list(self):
         return self.atomic_forces_list
-    
+
     def has_force(self):
-        if self.atomic_forces_list is not None: 
+        if self.atomic_forces_list is not None:
             return True
         else:
             return False
@@ -236,7 +236,7 @@ class Cp2kOutput:
         return self.stress_tensor_list
 
     def has_stress(self):
-        if self.stress_tensor_list is not None: 
+        if self.stress_tensor_list is not None:
             return True
         else:
             return False
@@ -348,7 +348,7 @@ class Cp2kOutput:
             self.output_file)
         self.atomic_kind = parse_atomic_kinds(self.output_file)
 
-        
+
         pos_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*pos*.xyz"))
         if pos_xyz_file_list:
             self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(pos_xyz_file_list[0])
@@ -372,21 +372,21 @@ class Cp2kOutput:
         ener_file_list = glob.glob(os.path.join(self.path_prefix, "*.ener"))
         if ener_file_list:
             self.energies_list = parse_md_ener(ener_file_list[0])
-        
+
         pos_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*pos*.xyz"))
         if pos_xyz_file_list:
             self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(pos_xyz_file_list[0])
-        
+
         frc_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*frc*.xyz"))
         if frc_xyz_file_list:
             self.atomic_forces_list = parse_frc_xyz(frc_xyz_file_list[0])
-        
+
         stress_file_list = glob.glob(os.path.join(self.path_prefix,"*.stress"))
         if stress_file_list:
             self.stress_tensor_list = parse_md_stress(stress_file_list[0])
         else:
             self.stress_tensor_list = None
-        
+
         self.num_frames = len(self.energies_list)
-        
+
 
