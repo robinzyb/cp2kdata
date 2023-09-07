@@ -23,7 +23,9 @@ class Cp2kCube:
     timestep: unit ps
     """
     def __init__(self, cube_file_name, timestep=0):
-        print("Warning: Cp2kCube will be deprecated in version 0.6.x, use Cp2kCubeNew instead!")
+        print("Warning: This Cp2kCube will be deprecated in version 0.6.x, use Cp2kCubeNew instead!")
+        print("After version 0.6.x, Cp2kCube will be removed from cp2kdata.cube.cube")
+        print("Cp2kCubeNew will be renamed as Cp2kCube")
         print("Test Cp2kCubeNew in your old code before upgrade to 0.6.x")
         print("Usage: from cp2kdata.cube.cube import Cp2kCubeNew as Cp2kCube")
         self.file = cube_file_name
