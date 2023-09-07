@@ -1,5 +1,5 @@
-from .utils import file_content, interpolate_spline
-from .utils import au2A, au2eV
+from cp2kdata.utils import file_content, interpolate_spline
+from cp2kdata.utils import au2A, au2eV
 import numpy as np
 import matplotlib.pyplot as plt
 import os
