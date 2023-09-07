@@ -12,11 +12,11 @@ INIT_ATOMIC_COORDINATES_RE = re.compile(
         \s+(?P<kind>\d+)
         \s+(?P<element>\w+)
         \s+\d+
-        \s+(?P<x>[\s-]\d+\.\d+)
-        \s+(?P<y>[\s-]\d+\.\d+)
-        \s+(?P<z>[\s-]\d+\.\d+)
-        \s+[\s-]\d+\.\d+
-        \s+[\s-]\d+\.\d+
+        \s+(?P<x>[-]?\d+\.\d+)
+        \s+(?P<y>[-]?\d+\.\d+)
+        \s+(?P<z>[-]?\d+\.\d+)
+        \s+[-]?\d+\.\d+
+        \s+[-]?\d+\.\d+
         \n
     )+
     """,
