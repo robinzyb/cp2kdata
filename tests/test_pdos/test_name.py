@@ -1,4 +1,4 @@
-from cp2kdata.pdos import pdos_name_parser
+from cp2kdata.pdos.pdos import pdos_name_parser
 import pytest
 
 pdos_file_list = [

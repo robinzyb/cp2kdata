@@ -40,6 +40,26 @@ mav_x, mav = mycube.get_mav(l1=4.8, l2=4.8, ncov=2, interpolate=True)
 
 ```
 
+## Addition and Subtraction of Cp2kCubes
+The Cp2kCubeNew class provides a convenient way to perform addition and subtraction operations on CP2K cube files, allowing you to manipulate the data contained within them.
+```python
+from cp2kcube.cube.cube import Cp2kCubeNew as Cp2kCube
+
+# Load the first cube file
+cube1 = Cp2kCube("path/to/cube1.cube")
+
+# Load the second cube file
+cube2 = Cp2kCube("path/to/cube2.cube")
+```
+```python
+# Perform addition of two Cp2kCube objects, the values of two cubes are added
+result_cube = cube1 + cube2
+
+# Perform subtraction of two Cp2kCube objects, the values of two cubes are subtract
+result_cube = cube1 - cube2
+
+```
+
 ## Quick Plotting
 Easily create quick plots of your data with the quick_plot() method. You can specify the axis, interpolation, and output directory:
 

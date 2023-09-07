@@ -13,15 +13,13 @@ including cube file, pdos file, output file
 - [Installation](#installation)
 - [Generate Standard Test Inputs](#generate-standard-test-inputs)
 - [Plot Standard Test Output](#plot-standard-test-output)
-- [Processing Output File](#processing-output-file)
+- [Processing Other Files](#processing-other-files)
+- [Processing Output Files](#processing-output-files)
   - [Basick Usage](#basick-usage)
   - [Parse ENERGY\_FORCE Outputs](#parse-energy_force-outputs)
   - [Parse GEO\_OPT Outputs](#parse-geo_opt-outputs)
   - [Parse MD outputs](#parse-md-outputs)
 - [Plug-in for `dpdata`](#plug-in-for-dpdata)
-- [Processing PDOS File](#processing-pdos-file)
-  - [Processing Single PDOS File](#processing-single-pdos-file)
-  - [Quickplot of  PDOS Files in Single Point Energy Calculation](#quickplot-of--pdos-files-in-single-point-energy-calculation)
 - [Idea List](#idea-list)
 - [TO DO](#to-do)
 
@@ -56,9 +54,11 @@ cp2kdata gen hubbardu input.inp coord.xyz cp2k.lsf -ur 0 8.1 1 -e Fe -orb d
 # Plot Standard Test Output
 After you finished the above tests, you readily plot the result using command `cp2kdata plot cutoff`, `cp2kdata plot basis`, `cp2kdata plot hubbardu` 
 
-[Process CP2K Cube Files](./docs/cube/README.md)
+# Processing Other Files
+[Processing CP2K Cube Files](./docs/cube/README.md)
+[Processing CP2K Pdos Files](./docs/pdos/README.md)
 
-# Processing Output File
+# Processing Output Files
 
 ## Basick Usage
 One can use `Cp2kOutput` class to parse cp2k `output file`, which is the standard output from cp2k code. Depending on run types, required files may be more than a standard output. For example, if you parse `md` outputs, you may ask to provide additional `Project-1.ener`, `Project-pos-1.xyz`, and `Project-frc-1.xyz` files to obtain `energies`, `position`, and `forces` information. Detail usages are provided in the following subsections.
@@ -180,27 +180,7 @@ print(dp)
 
 ```
 
-# Processing PDOS File
 
-## Processing Single PDOS File
-
-```python
-from cp2kdata.pdos import Pdos
-dosfile = "Universality-ALPHA_k2-1_50.pdos"
-mypdos = Pdos(dosfile)
-dos, ener = mypdos.get_dos()
-```
-
-## Quickplot of  PDOS Files in Single Point Energy Calculation
-
-```python
-from cp2kdata.pdos import quick_plot_uks, quick_plot_rks
-Calculation_dir = "./"
-# if uks calculation use this
-quick_plot_uks(Calculation_dir)
-# if rks calculation use this 
-quick_plot_rks(Calculation_dir)
-```
 
 
 # Idea List
