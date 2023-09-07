@@ -41,9 +41,9 @@ mav_x, mav = mycube.get_mav(l1=4.8, l2=4.8, ncov=2, interpolate=True)
 ```
 
 ## Addition and Subtraction of Cp2kCubes
-The Cp2kCube Python package provides a convenient way to perform addition and subtraction operations on CP2K cube files, allowing you to manipulate the data contained within them.
+The Cp2kCubeNew class provides a convenient way to perform addition and subtraction operations on CP2K cube files, allowing you to manipulate the data contained within them.
 ```python
-from cp2kcube import Cp2kCube
+from cp2kcube.cube.cube import Cp2kCubeNew as Cp2kCube
 
 # Load the first cube file
 cube1 = Cp2kCube("path/to/cube1.cube")
