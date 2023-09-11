@@ -324,9 +324,13 @@ class Cp2kOutput:
 
             if not hasattr(self, "energies_list"):
                 self.energies_list = energies_list_from_pos
+
         frc_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*frc*.xyz"))
         if frc_xyz_file_list:
             self.atomic_forces_list = parse_frc_xyz(frc_xyz_file_list[0])
+        else:
+            print(f"Parsing Forces from the CP2K output/log file: {self.filename}")
+            self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
 
         stress_file_list = glob.glob(os.path.join(self.path_prefix,"*.stress"))
         if stress_file_list:

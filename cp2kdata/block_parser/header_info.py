@@ -9,7 +9,7 @@ class Cp2kInfo:
 
 CP2K_INFO_VERSION_PATTERN = \
     r"""(?xm)
-    ^\sCP2K\|\sversion\sstring:\s{20,42}
+    ^\sCP2K\|\sversion\sstring:\s{10,42}
     CP2K\sversion\s(?P<version>\d{1,4}\.\d)(?:\s\(Development\sVersion\))?$
     """
 
