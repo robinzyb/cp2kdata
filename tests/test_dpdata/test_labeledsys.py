@@ -14,7 +14,8 @@ e_f_output_path_list = [
 aimd_output_path_list = [
     "tests/test_dpdata/v7.1/aimd",
     "tests/test_dpdata/v7.1/aimd_virial",
-    "tests/test_dpdata/v2022.1/aimd"
+    "tests/test_dpdata/v2022.1/aimd",
+    "tests/test_dpdata/v2023.1/aimd_nvt"
 ]
 
 e_f_dpdata_list = [
