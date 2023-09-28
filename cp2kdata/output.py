@@ -284,6 +284,8 @@ class Cp2kOutput:
             self.output_file)
         self.geo_opt_info = parse_geo_opt_info(self.output_file)
         self.num_frames = len(self.geo_opt_info)
+        self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
+        self.stress_tensor_list = parse_stress_tensor_list(self.output_file)
 
     def parse_cell_opt(self):
         # initial information
