@@ -81,9 +81,10 @@ class CP2KMDFormat(Format):
 
         if cells is None:
             if cp2kmd.filename:
-                cells = cp2kmd.get_init_cell()
-                cells = cells[np.newaxis, :, :]
-                cells = np.repeat(cells, repeats=num_frames, axis=0)
+                # cells = cp2kmd.get_init_cell()
+                # cells = cells[np.newaxis, :, :]
+                # cells = np.repeat(cells, repeats=num_frames, axis=0)
+                cells = cp2kmd.get_all_cells()
             else:
                 print("No cell information, please check if your inputs are correct.")
         elif isinstance(cells, np.ndarray):
@@ -168,9 +169,10 @@ class CP2KMDWannierFormat(Format):
 
         if cells is None:
             if cp2kmd.filename:
-                cells = cp2kmd.get_init_cell()
-                cells = cells[np.newaxis, :, :]
-                cells = np.repeat(cells, repeats=num_frames, axis=0)
+                # cells = cp2kmd.get_init_cell()
+                # cells = cells[np.newaxis, :, :]
+                # cells = np.repeat(cells, repeats=num_frames, axis=0)
+                cells = cp2kmd.get_all_cells()
             else:
                 print("No cell information, please check if your inputs are correct.")
         elif isinstance(cells, np.ndarray):

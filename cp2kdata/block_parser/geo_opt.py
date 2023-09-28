@@ -50,7 +50,7 @@ GEO_OPT_INFO_REST_RE = re.compile(
 )
 
 
-def parse_geo_opt(output_file) -> float:
+def parse_geo_opt_info(output_file) -> float:
     geo_opt_info = []
 
     for match in GEO_OPT_INFO_FIRST_RE.finditer(output_file):
