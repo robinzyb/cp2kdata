@@ -1,0 +1,10 @@
+# .github/release.yml
+
+changelog:
+  categories:
+    - title: New Features
+      labels:
+        - New-Feature
+    - title: Other Changes
+      labels:
+        - "*"
