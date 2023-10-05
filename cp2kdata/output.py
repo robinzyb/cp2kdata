@@ -1,4 +1,3 @@
-from ast import parse
 import sys
 import time
 import numpy as np
@@ -66,7 +65,7 @@ class Cp2kOutput:
             with open(self.filename, 'r') as fp:
                 self.output_file = fp.read()
             self.cp2k_info = parse_cp2k_info(self.filename)
-            self.DFTInfo = parse_dft_info(self.filename)
+            self.dft_info = parse_dft_info(self.filename)
         else:
             self.cp2k_info = Cp2kInfo(version="Unknown")
         
@@ -105,7 +104,7 @@ class Cp2kOutput:
         #     self.output_file)
 
         # self.mulliken_pop_list = parse_mulliken_pop_list(
-        #     self.output_file, self.DFTInfo)
+        #     self.output_file, self.dft_info)
         # self.hirshfeld_pop_list = parse_hirshfeld_pop_list(self.output_file)
         # self.dft_plus_u_occ = parse_dft_plus_u_occ(self.output_file)
 
@@ -268,7 +267,7 @@ class Cp2kOutput:
             "atomic_kinds": parse_atomic_kinds,
             "cells": parse_all_cells
         }
-        # convert kwargs to flexible attribute! 
+        #TODO: convert kwargs to flexible attribute! 
         self.geo_opt_info = None
         self.num_frames = 1
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
@@ -283,8 +282,10 @@ class Cp2kOutput:
     def parse_geo_opt(self):
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
             self.output_file)
-        self.geo_opt_info = parse_geo_opt(self.output_file)
+        self.geo_opt_info = parse_geo_opt_info(self.output_file)
         self.num_frames = len(self.geo_opt_info)
+        self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
+        self.stress_tensor_list = parse_stress_tensor_list(self.output_file)
 
     def parse_cell_opt(self):
         # initial information
@@ -305,15 +306,9 @@ class Cp2kOutput:
         self.num_frames = len(self.energies_list)
 
     def parse_md(self):
-
-        if self.filename:
-            self.all_cells = parse_all_cells(self.output_file)
-            print(f"You are reading cell information from {self.filename}")
-            self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
-            self.output_file)
-            self.atomic_kind = parse_atomic_kinds(self.output_file)
+        self.md_info = parse_md_info(self.filename)
+        self.check_md_type(md_type=self.md_info.ensemble_type)
         
-
         ener_file_list = glob.glob(os.path.join(self.path_prefix, "*.ener"))
         if ener_file_list:
             self.energies_list = parse_md_ener(ener_file_list[0])
@@ -324,9 +319,13 @@ class Cp2kOutput:
 
             if not hasattr(self, "energies_list"):
                 self.energies_list = energies_list_from_pos
+
         frc_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*frc*.xyz"))
         if frc_xyz_file_list:
             self.atomic_forces_list = parse_frc_xyz(frc_xyz_file_list[0])
+        else:
+            print(f"Parsing Forces from the CP2K output/log file: {self.filename}")
+            self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
 
         stress_file_list = glob.glob(os.path.join(self.path_prefix,"*.stress"))
         if stress_file_list:
@@ -335,6 +334,35 @@ class Cp2kOutput:
             self.stress_tensor_list = None
 
         self.num_frames = len(self.energies_list)
+
+        # here parse cell information
+        if self.filename:
+            
+            if (self.md_info.ensemble_type == "NVT") or \
+                (self.md_info.ensemble_type == "NVE") or \
+                (self.md_info.ensemble_type == "REFTRAJ"):
+                # parse the first cell
+                first_cell = parse_all_cells(self.output_file)
+                assert first_cell.shape == (1, 3, 3), \
+                    "cp2kdata obtains more than one cell from the output file, please check if your output file has duplicated header information."
+                
+                self.all_cells = first_cell
+                self.all_cells = np.repeat(self.all_cells, repeats=self.num_frames, axis=0)
+
+            elif self.md_info.ensemble_type == "NPT_F":
+                # only parse the first cell
+                first_cell = parse_all_cells(self.output_file)
+                assert first_cell.shape == (1, 3, 3), \
+                    "cp2kdata obtains more than one cell from the output file, please check if your output file has duplicated header information."
+                # parse the rest of the cells
+                self.all_cells = parse_all_md_cells(self.output_file)
+                # prepend the first cell
+                self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)
+                
+            print(f"Parsing Cells Information from {self.filename}")
+            self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
+            self.output_file)
+            self.atomic_kind = parse_atomic_kinds(self.output_file)
 
     @staticmethod
     def get_global_info(run_type=None, filename=None):
@@ -350,11 +378,19 @@ class Cp2kOutput:
     def check_run_type(run_type):
         implemented_run_type_parsers = \
             ["ENERGY_FORCE", "ENERGY", "MD", "GEO_OPT", "CELL_OPT"]
-        if run_type in implemented_run_type_parsers:
-            pass
-        else:
+        if run_type not in implemented_run_type_parsers:
             raise ValueError(
-                f"Parser for Run Type {run_type} Haven't Been Implemented Yet!"
+                f"Parser for Run Type {run_type} haven't been implemented yet!"
+                "Please contact the developer for more information."
                 )
     
+    @staticmethod
+    def check_md_type(md_type):
+        implemented_ensemble_type_parsers = \
+            ["NVE", "NVT", "NPT_F", "REFTRAJ"]
+        if md_type not in implemented_ensemble_type_parsers:
+            raise ValueError(
+                f"Parser for MD Type {md_type} haven't been implemented yet!\n"
+                "Please contact the developer for more information."
+            )
         
