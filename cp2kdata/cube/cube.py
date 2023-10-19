@@ -18,7 +18,7 @@ def square_wave_filter(x, l, cell_z):
     return y
 
 # parse cp2kcube
-class Cp2kCube:
+class Cp2kCubeOld:
     """
     timestep: unit ps
     """
@@ -137,7 +137,7 @@ class Cp2kCube:
         plt.savefig(os.path.join(output_dir, "pav.png"), dpi=100)
 
 
-class Cp2kCubeNew(MSONable):
+class Cp2kCube(MSONable):
     # remove useless timestep argument
     # add MSONable use as_dict and from_dict
     # add copy method
@@ -149,6 +149,13 @@ class Cp2kCubeNew(MSONable):
 
     
     def __init__(self, file=None, cube_vals=None, grid_size=None, grid_space=None):
+        print("Warning: This is New Cp2kCube Class, if you want to use old Cp2kCube")
+        print("try, from cp2kdata.cube.cube import Cp2kCube")
+        print("New Cp2kCube return raw values in cp2k cube file")
+        print("that is, length in bohr and energy in hartree for potential file")
+        print("that is, length in bohr and density in e/bohr^3 for density file")
+        print("to convert unit: try from cp2kdata.utils import au2A, au2eV")
+
         self.file = file
         self.cube_vals = self.read_cube_vals()
         self.cell_x = self.grid_size[0]*self.grid_space[0]
@@ -176,9 +183,9 @@ class Cp2kCubeNew(MSONable):
         # read grid point and grid size, unit: angstrom
         content_list = file_content(self.file, (3,6))
         content_list = content_list.split()
-        step_x = float(content_list[1])*au2A
-        step_y = float(content_list[6])*au2A
-        step_z = float(content_list[11])*au2A
+        step_x = float(content_list[1])
+        step_y = float(content_list[6])
+        step_z = float(content_list[11])
         return step_x, step_y, step_z
     
     def as_dict(self):
@@ -196,7 +203,7 @@ class Cp2kCubeNew(MSONable):
     def __add__(self, others):
         """magic method for adding two Cp2kCube instances"""
         self_copy = self.copy()
-        if isinstance(others, Cp2kCubeNew):
+        if isinstance(others, Cp2kCube):
             other_copy = others.copy()
             self_copy.cube_vals += other_copy.cube_vals
         else:
@@ -206,7 +213,7 @@ class Cp2kCubeNew(MSONable):
     def __sub__(self, others):
         """magic method for subtracting two Cp2kCube instances"""
         self_copy = self.copy()
-        if isinstance(others, Cp2kCubeNew):
+        if isinstance(others, Cp2kCube):
             other_copy = others.copy()
             self_copy.cube_vals -= other_copy.cube_vals
         else:
@@ -269,8 +276,7 @@ class Cp2kCubeNew(MSONable):
         else:
             return points, vals
     
-    def get_mav(self, l1, l2=0, ncov=1, interpolate=False):
-        axis="z"
+    def get_mav(self, l1, l2=0, ncov=1, interpolate=False, axis="z"):
         pav_x, pav = self.get_pav(axis=axis, interpolate=interpolate)
         theta_1_fft = fft.fft(square_wave_filter(pav_x, l1, self.cell_z))
         pav_fft = fft.fft(pav)
