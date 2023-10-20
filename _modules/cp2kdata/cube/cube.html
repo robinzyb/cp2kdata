@@ -1,0 +1,751 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cp2kdata.cube.cube &#8212; CP2KData Reference</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/cp2kdata/cube/cube';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">CP2KData Reference</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    CP2KData
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/output.html">Manipulate CP2K Output/Log Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/cube/README.html">Manipulate CP2K Cube Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/pdos/README.html">Manipulate CP2K Pdos Files</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parameter Test</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/input_test.html">Generate Standard Test Inputs</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Plugin</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/dpdata_plugin.html">CP2KData Plugin for dpdata</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../_api/modules.html">cp2kdata</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../_api/cp2kdata.html">cp2kdata package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.html">cp2kdata.block_parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.atomic_kind.html">cp2kdata.block_parser.atomic_kind module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.cells.html">cp2kdata.block_parser.cells module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.converge.html">cp2kdata.block_parser.converge module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.coordinates.html">cp2kdata.block_parser.coordinates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.dft_plus_u.html">cp2kdata.block_parser.dft_plus_u module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.energies.html">cp2kdata.block_parser.energies module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.errors_handle.html">cp2kdata.block_parser.errors_handle module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.fep.html">cp2kdata.block_parser.fep module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.forces.html">cp2kdata.block_parser.forces module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.geo_opt.html">cp2kdata.block_parser.geo_opt module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.header_info.html">cp2kdata.block_parser.header_info module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.hirshfeld.html">cp2kdata.block_parser.hirshfeld module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.md_xyz.html">cp2kdata.block_parser.md_xyz module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.mulliken.html">cp2kdata.block_parser.mulliken module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.stress.html">cp2kdata.block_parser.stress module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.cli.html">cp2kdata.cli package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.cli.cmd.html">cp2kdata.cli.cmd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.cli.funcs.html">cp2kdata.cli.funcs module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.cube.html">cp2kdata.cube package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.cube.cube.html">cp2kdata.cube.cube module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.pdos.html">cp2kdata.pdos package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.pdos.pdos.html">cp2kdata.pdos.pdos module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.plots.html">cp2kdata.plots package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.plots.fep_plot.html">cp2kdata.plots.fep_plot module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.plots.geo_opt_plot.html">cp2kdata.plots.geo_opt_plot module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.plots.test_plot.html">cp2kdata.plots.test_plot module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.dpdata_plugin.html">cp2kdata.dpdata_plugin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.output.html">cp2kdata.output module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.paser_func.html">cp2kdata.paser_func module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.test_input.html">cp2kdata.test_input module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.units.html">cp2kdata.units module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.utils.html">cp2kdata.utils module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/chenggroup/cp2kdata" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chenggroup/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_modules/cp2kdata/cube/cube.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for cp2kdata.cube.cube</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">cp2kdata.utils</span> <span class="kn">import</span> <span class="n">file_content</span><span class="p">,</span> <span class="n">interpolate_spline</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.utils</span> <span class="kn">import</span> <span class="n">au2A</span><span class="p">,</span> <span class="n">au2eV</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">fft</span>
+<span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atom</span><span class="p">,</span> <span class="n">Atoms</span>
+<span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+
+
+<div class="viewcode-block" id="square_wave_filter"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.square_wave_filter">[docs]</a><span class="k">def</span> <span class="nf">square_wave_filter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">cell_z</span><span class="p">):</span>
+    <span class="n">half_l</span> <span class="o">=</span> <span class="n">l</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">x_1st</span><span class="p">,</span> <span class="n">x_2nd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">y_1st</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">heaviside</span><span class="p">(</span><span class="n">half_l</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_1st</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">l</span>
+    <span class="n">y_2nd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">heaviside</span><span class="p">(</span><span class="n">half_l</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_2nd</span><span class="o">-</span><span class="n">cell_z</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="n">l</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y_1st</span><span class="p">,</span> <span class="n">y_2nd</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">y</span></div>
+
+<span class="c1"># parse cp2kcube</span>
+<div class="viewcode-block" id="Cp2kCubeOld"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld">[docs]</a><span class="k">class</span> <span class="nc">Cp2kCubeOld</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    timestep: unit ps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cube_file_name</span><span class="p">,</span> <span class="n">timestep</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: This Cp2kCube will be deprecated in version 0.6.x, use Cp2kCubeNew instead!&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After version 0.6.x, Cp2kCube will be removed from cp2kdata.cube.cube&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cp2kCubeNew will be renamed as Cp2kCube&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Cp2kCubeNew in your old code before upgrade to 0.6.x&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage: from cp2kdata.cube.cube import Cp2kCubeNew as Cp2kCube&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">cube_file_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timestep</span> <span class="o">=</span> <span class="n">timestep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_cube_vals</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">num_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">num_atoms</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">num_atoms</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">grid_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># read grid point and grid size, unit: angstrom</span>
+        <span class="n">content_list</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+        <span class="n">content_list</span> <span class="o">=</span> <span class="n">content_list</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">num_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">num_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">num_z</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">num_x</span><span class="p">,</span> <span class="n">num_y</span><span class="p">,</span> <span class="n">num_z</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">grid_space</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># read grid point and grid size, unit: angstrom</span>
+        <span class="n">content_list</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+        <span class="n">content_list</span> <span class="o">=</span> <span class="n">content_list</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">step_x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span>
+        <span class="n">step_y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span>
+        <span class="n">step_z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span>
+        <span class="k">return</span> <span class="n">step_x</span><span class="p">,</span> <span class="n">step_y</span><span class="p">,</span> <span class="n">step_z</span>
+
+
+<div class="viewcode-block" id="Cp2kCubeOld.get_stc"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.get_stc">[docs]</a>    <span class="k">def</span> <span class="nf">get_stc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">atom_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_atoms</span><span class="p">):</span>
+            <span class="n">stc_vals</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">6</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="mi">6</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">stc_vals</span> <span class="o">=</span> <span class="n">stc_vals</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">atom</span> <span class="o">=</span> <span class="n">Atom</span><span class="p">(</span>
+                <span class="n">symbol</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> 
+                <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">atom_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+
+        <span class="n">stc</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span><span class="n">atom_list</span><span class="p">)</span>
+        <span class="n">stc</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_z</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">stc</span></div>
+        
+<div class="viewcode-block" id="Cp2kCubeOld.read_cube_vals"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.read_cube_vals">[docs]</a>    <span class="k">def</span> <span class="nf">read_cube_vals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># read the cube value from file</span>
+        <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">6</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">num_atoms</span><span class="p">,))</span>
+        <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">cube_vals</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cube_vals</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">cube_vals</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">)</span>
+        <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">cube_vals</span><span class="o">*</span><span class="n">au2eV</span>
+        <span class="k">return</span> <span class="n">cube_vals</span></div>
+
+<div class="viewcode-block" id="Cp2kCubeOld.get_pav"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.get_pav">[docs]</a>    <span class="k">def</span> <span class="nf">get_pav</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># do the planar average along specific axis</span>
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;not such plane average style!&quot;</span><span class="p">)</span>
+
+        <span class="c1"># interpolate or note</span>
+        <span class="k">if</span> <span class="n">interpolate</span><span class="p">:</span>
+            <span class="c1"># set the last point same as first point</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">new_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="mi">4097</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">new_points</span><span class="p">,</span> <span class="n">new_vals</span> <span class="o">=</span> <span class="n">interpolate_spline</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">new_points</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">new_points</span><span class="p">,</span> <span class="n">new_vals</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">points</span><span class="p">,</span> <span class="n">vals</span></div>
+    
+<div class="viewcode-block" id="Cp2kCubeOld.get_mav"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.get_mav">[docs]</a>    <span class="k">def</span> <span class="nf">get_mav</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ncov</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;z&quot;</span>
+        <span class="n">pav_x</span><span class="p">,</span> <span class="n">pav</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pav</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="n">interpolate</span><span class="p">)</span>
+        <span class="n">theta_1_fft</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">square_wave_filter</span><span class="p">(</span><span class="n">pav_x</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_z</span><span class="p">))</span>
+        <span class="n">pav_fft</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">pav</span><span class="p">)</span>
+        <span class="n">mav_fft</span> <span class="o">=</span> <span class="n">pav_fft</span><span class="o">*</span><span class="n">theta_1_fft</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_z</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">pav_x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ncov</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">theta_2_fft</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">square_wave_filter</span><span class="p">(</span><span class="n">pav_x</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_z</span><span class="p">))</span>
+            <span class="n">mav_fft</span> <span class="o">=</span> <span class="n">mav_fft</span><span class="o">*</span><span class="n">theta_2_fft</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_z</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">pav_x</span><span class="p">)</span>
+        <span class="n">mav</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">mav_fft</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pav_x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">mav</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Cp2kCubeOld.quick_plot"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.quick_plot">[docs]</a>    <span class="k">def</span> <span class="nf">quick_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pav</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="n">interpolate</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;PAV&quot;</span><span class="o">+</span><span class="n">axis</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">axis</span> <span class="o">+</span> <span class="s2">&quot; [A]&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Hartree [eV]&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s2">&quot;pav.png&quot;</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Cp2kCube"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube">[docs]</a><span class="k">class</span> <span class="nc">Cp2kCube</span><span class="p">(</span><span class="n">MSONable</span><span class="p">):</span>
+    <span class="c1"># remove useless timestep argument</span>
+    <span class="c1"># add MSONable use as_dict and from_dict</span>
+    <span class="c1"># add copy method</span>
+    <span class="c1"># add addition and subtraction method cube1 + cube2</span>
+
+    <span class="c1">#TODO: .write method to write a cube file</span>
+    <span class="c1">#TODO: complete parse the grid_spacing and num_grid</span>
+
+
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cube_vals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grid_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grid_space</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: This is New Cp2kCube Class, if you want to use old Cp2kCube&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;try, from cp2kdata.cube.cube import Cp2kCube&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;New Cp2kCube return raw values in cp2k cube file&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;that is, length in bohr and energy in hartree for potential file&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;that is, length in bohr and density in e/bohr^3 for density file&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;to convert unit: try from cp2kdata.utils import au2A, au2eV&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_cube_vals</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">num_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">num_atoms</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">num_atoms</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">grid_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># read grid point and grid size, unit: angstrom</span>
+        <span class="n">content_list</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+        <span class="n">content_list</span> <span class="o">=</span> <span class="n">content_list</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">num_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">num_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">num_z</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">num_x</span><span class="p">,</span> <span class="n">num_y</span><span class="p">,</span> <span class="n">num_z</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">grid_space</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># read grid point and grid size, unit: angstrom</span>
+        <span class="n">content_list</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+        <span class="n">content_list</span> <span class="o">=</span> <span class="n">content_list</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">step_x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">step_y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+        <span class="n">step_z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">step_x</span><span class="p">,</span> <span class="n">step_y</span><span class="p">,</span> <span class="n">step_z</span>
+    
+<div class="viewcode-block" id="Cp2kCube.as_dict"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns data dict of System instance.&quot;&quot;&quot;</span>
+        <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;@module&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
+            <span class="s2">&quot;@class&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span>
+            <span class="s2">&quot;cube_vals&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="p">,</span>
+            <span class="s2">&quot;grid_size&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">,</span>
+            <span class="s2">&quot;grid_space&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="k">return</span> <span class="n">data_dict</span></div>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;magic method for adding two Cp2kCube instances&quot;&quot;&quot;</span>
+        <span class="n">self_copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">others</span><span class="p">,</span> <span class="n">Cp2kCube</span><span class="p">):</span>
+            <span class="n">other_copy</span> <span class="o">=</span> <span class="n">others</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">self_copy</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">+=</span> <span class="n">other_copy</span><span class="o">.</span><span class="n">cube_vals</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unspported Class&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">self_copy</span>
+    
+    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;magic method for subtracting two Cp2kCube instances&quot;&quot;&quot;</span>
+        <span class="n">self_copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">others</span><span class="p">,</span> <span class="n">Cp2kCube</span><span class="p">):</span>
+            <span class="n">other_copy</span> <span class="o">=</span> <span class="n">others</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">self_copy</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">-=</span> <span class="n">other_copy</span><span class="o">.</span><span class="n">cube_vals</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unspported Class&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">self_copy</span>
+        
+
+<div class="viewcode-block" id="Cp2kCube.get_stc"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_stc">[docs]</a>    <span class="k">def</span> <span class="nf">get_stc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">atom_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_atoms</span><span class="p">):</span>
+            <span class="n">stc_vals</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">6</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="mi">6</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">stc_vals</span> <span class="o">=</span> <span class="n">stc_vals</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">atom</span> <span class="o">=</span> <span class="n">Atom</span><span class="p">(</span>
+                <span class="n">symbol</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> 
+                <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">atom_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+
+        <span class="n">stc</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span><span class="n">atom_list</span><span class="p">)</span>
+        <span class="n">stc</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_z</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">stc</span></div>
+    
+<div class="viewcode-block" id="Cp2kCube.copy"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="Cp2kCube.read_cube_vals"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_cube_vals">[docs]</a>    <span class="k">def</span> <span class="nf">read_cube_vals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># read the cube value from file</span>
+        <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">6</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">num_atoms</span><span class="p">,))</span>
+        <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">cube_vals</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cube_vals</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">cube_vals</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">)</span>
+        <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">cube_vals</span><span class="o">*</span><span class="n">au2eV</span>
+        <span class="k">return</span> <span class="n">cube_vals</span></div>
+
+<div class="viewcode-block" id="Cp2kCube.get_pav"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_pav">[docs]</a>    <span class="k">def</span> <span class="nf">get_pav</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># do the planar average along specific axis</span>
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_space</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;not such plane average style!&quot;</span><span class="p">)</span>
+
+        <span class="c1"># interpolate or note</span>
+        <span class="k">if</span> <span class="n">interpolate</span><span class="p">:</span>
+            <span class="c1"># set the last point same as first point</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">new_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="mi">4097</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">new_points</span><span class="p">,</span> <span class="n">new_vals</span> <span class="o">=</span> <span class="n">interpolate_spline</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">new_points</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">new_points</span><span class="p">,</span> <span class="n">new_vals</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">points</span><span class="p">,</span> <span class="n">vals</span></div>
+    
+<div class="viewcode-block" id="Cp2kCube.get_mav"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_mav">[docs]</a>    <span class="k">def</span> <span class="nf">get_mav</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ncov</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">):</span>
+        <span class="n">cell_length</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_x</span><span class="p">,</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_y</span><span class="p">,</span>
+            <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_z</span>
+        <span class="p">}</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">cell_length</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span>
+
+        <span class="n">pav_x</span><span class="p">,</span> <span class="n">pav</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pav</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="n">interpolate</span><span class="p">)</span>
+        <span class="n">theta_1_fft</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">square_wave_filter</span><span class="p">(</span><span class="n">pav_x</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">length</span><span class="p">))</span>
+        <span class="n">pav_fft</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">pav</span><span class="p">)</span>
+        <span class="n">mav_fft</span> <span class="o">=</span> <span class="n">pav_fft</span><span class="o">*</span><span class="n">theta_1_fft</span><span class="o">*</span><span class="n">length</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">pav_x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ncov</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">theta_2_fft</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">square_wave_filter</span><span class="p">(</span><span class="n">pav_x</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="n">length</span><span class="p">))</span>
+            <span class="n">mav_fft</span> <span class="o">=</span> <span class="n">mav_fft</span><span class="o">*</span><span class="n">theta_2_fft</span><span class="o">*</span><span class="n">length</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">pav_x</span><span class="p">)</span>
+        <span class="n">mav</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">mav_fft</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pav_x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">mav</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Cp2kCube.quick_plot"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.quick_plot">[docs]</a>    <span class="k">def</span> <span class="nf">quick_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pav</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="n">interpolate</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;PAV&quot;</span><span class="o">+</span><span class="n">axis</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">axis</span> <span class="o">+</span> <span class="s2">&quot; [A]&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Hartree [eV]&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s2">&quot;pav.png&quot;</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="Cp2kCubeTraj"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeTraj">[docs]</a><span class="k">class</span> <span class="nc">Cp2kCubeTraj</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="n">cube_dir</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yong-Bin Zhuang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

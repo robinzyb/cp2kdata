@@ -1,0 +1,1186 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; CP2KData Reference</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">CP2KData Reference</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    CP2KData
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="docs/output.html">Manipulate CP2K Output/Log Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/cube/README.html">Manipulate CP2K Cube Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/pdos/README.html">Manipulate CP2K Pdos Files</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parameter Test</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="docs/input_test.html">Generate Standard Test Inputs</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Plugin</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="docs/dpdata_plugin.html">CP2KData Plugin for dpdata</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="_api/modules.html">cp2kdata</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="_api/cp2kdata.html">cp2kdata package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_api/cp2kdata.block_parser.html">cp2kdata.block_parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.atomic_kind.html">cp2kdata.block_parser.atomic_kind module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.cells.html">cp2kdata.block_parser.cells module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.converge.html">cp2kdata.block_parser.converge module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.coordinates.html">cp2kdata.block_parser.coordinates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.dft_plus_u.html">cp2kdata.block_parser.dft_plus_u module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.energies.html">cp2kdata.block_parser.energies module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.errors_handle.html">cp2kdata.block_parser.errors_handle module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.fep.html">cp2kdata.block_parser.fep module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.forces.html">cp2kdata.block_parser.forces module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.geo_opt.html">cp2kdata.block_parser.geo_opt module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.header_info.html">cp2kdata.block_parser.header_info module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.hirshfeld.html">cp2kdata.block_parser.hirshfeld module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.md_xyz.html">cp2kdata.block_parser.md_xyz module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.mulliken.html">cp2kdata.block_parser.mulliken module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.stress.html">cp2kdata.block_parser.stress module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_api/cp2kdata.cli.html">cp2kdata.cli package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.cli.cmd.html">cp2kdata.cli.cmd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.cli.funcs.html">cp2kdata.cli.funcs module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_api/cp2kdata.cube.html">cp2kdata.cube package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.cube.cube.html">cp2kdata.cube.cube module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_api/cp2kdata.pdos.html">cp2kdata.pdos package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.pdos.pdos.html">cp2kdata.pdos.pdos module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="_api/cp2kdata.plots.html">cp2kdata.plots package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.fep_plot.html">cp2kdata.plots.fep_plot module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.geo_opt_plot.html">cp2kdata.plots.geo_opt_plot module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.test_plot.html">cp2kdata.plots.test_plot module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.dpdata_plugin.html">cp2kdata.dpdata_plugin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.output.html">cp2kdata.output module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.paser_func.html">cp2kdata.paser_func module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.test_input.html">cp2kdata.test_input module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.units.html">cp2kdata.units module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.utils.html">cp2kdata.utils module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/chenggroup/cp2kdata" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chenggroup/cp2kdata/issues/new?title=Issue%20on%20page%20%2Fgenindex.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#K"><strong>K</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.as_dict">as_dict() (cp2kdata.cube.cube.Cp2kCube method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.basis_dir_name_converter">basis_dir_name_converter() (in module cp2kdata.plots.test_plot)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.basis_dir_name_order">basis_dir_name_order() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.basis_name_order">basis_name_order() (in module cp2kdata.plots.test_plot)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.check_md_type">check_md_type() (cp2kdata.output.Cp2kOutput static method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.check_run_type">check_run_type() (cp2kdata.output.Cp2kOutput static method)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.ConvergeInfo.converge">converge (cp2kdata.block_parser.converge.ConvergeInfo attribute)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.ConvergeInfo">ConvergeInfo (class in cp2kdata.block_parser.converge)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.copy">copy() (cp2kdata.cube.cube.Cp2kCube method)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube">Cp2kCube (class in cp2kdata.cube.cube)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld">Cp2kCubeOld (class in cp2kdata.cube.cube)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeTraj">Cp2kCubeTraj (class in cp2kdata.cube.cube)</a>
+</li>
+      <li>
+    cp2kdata
+
+      <ul>
+        <li><a href="_api/cp2kdata.html#module-cp2kdata">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.html#module-cp2kdata.block_parser">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.atomic_kind
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.atomic_kind.html#module-cp2kdata.block_parser.atomic_kind">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.cells
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.cells.html#module-cp2kdata.block_parser.cells">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.converge
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.converge.html#module-cp2kdata.block_parser.converge">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.coordinates
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.coordinates.html#module-cp2kdata.block_parser.coordinates">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.dft_plus_u
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.dft_plus_u.html#module-cp2kdata.block_parser.dft_plus_u">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.energies
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.energies.html#module-cp2kdata.block_parser.energies">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.errors_handle
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.errors_handle.html#module-cp2kdata.block_parser.errors_handle">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.fep
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.fep.html#module-cp2kdata.block_parser.fep">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.forces
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.forces.html#module-cp2kdata.block_parser.forces">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.geo_opt
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.geo_opt.html#module-cp2kdata.block_parser.geo_opt">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.header_info
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.header_info.html#module-cp2kdata.block_parser.header_info">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.hirshfeld
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.hirshfeld.html#module-cp2kdata.block_parser.hirshfeld">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.md_xyz
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.md_xyz.html#module-cp2kdata.block_parser.md_xyz">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    cp2kdata.block_parser.mulliken
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.mulliken.html#module-cp2kdata.block_parser.mulliken">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.block_parser.stress
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.stress.html#module-cp2kdata.block_parser.stress">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.cli
+
+      <ul>
+        <li><a href="_api/cp2kdata.cli.html#module-cp2kdata.cli">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.cube
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.html#module-cp2kdata.cube">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.cube.cube
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.cube.html#module-cp2kdata.cube.cube">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.dpdata_plugin
+
+      <ul>
+        <li><a href="_api/cp2kdata.dpdata_plugin.html#module-cp2kdata.dpdata_plugin">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.output
+
+      <ul>
+        <li><a href="_api/cp2kdata.output.html#module-cp2kdata.output">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.paser_func
+
+      <ul>
+        <li><a href="_api/cp2kdata.paser_func.html#module-cp2kdata.paser_func">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.pdos
+
+      <ul>
+        <li><a href="_api/cp2kdata.pdos.html#module-cp2kdata.pdos">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.pdos.pdos
+
+      <ul>
+        <li><a href="_api/cp2kdata.pdos.pdos.html#module-cp2kdata.pdos.pdos">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.plots
+
+      <ul>
+        <li><a href="_api/cp2kdata.plots.html#module-cp2kdata.plots">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.plots.geo_opt_plot
+
+      <ul>
+        <li><a href="_api/cp2kdata.plots.geo_opt_plot.html#module-cp2kdata.plots.geo_opt_plot">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.plots.test_plot
+
+      <ul>
+        <li><a href="_api/cp2kdata.plots.test_plot.html#module-cp2kdata.plots.test_plot">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.units
+
+      <ul>
+        <li><a href="_api/cp2kdata.units.html#module-cp2kdata.units">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.utils
+
+      <ul>
+        <li><a href="_api/cp2kdata.utils.html#module-cp2kdata.utils">module</a>
+</li>
+      </ul></li>
+      <li><a href="_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KEnergyForceFormat">CP2KEnergyForceFormat (class in cp2kdata.dpdata_plugin)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.Cp2kInfo">Cp2kInfo (class in cp2kdata.block_parser.header_info)</a>
+</li>
+      <li><a href="_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KMDFormat">CP2KMDFormat (class in cp2kdata.dpdata_plugin)</a>
+</li>
+      <li><a href="_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KMDWannierFormat">CP2KMDWannierFormat (class in cp2kdata.dpdata_plugin)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput">Cp2kOutput (class in cp2kdata.output)</a>
+</li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos">Cp2kPdos (class in cp2kdata.pdos.pdos)</a>
+</li>
+      <li><a href="_api/cp2kdata.utils.html#cp2kdata.utils.create_path">create_path() (in module cp2kdata.utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.DFTInfo">DFTInfo (class in cp2kdata.block_parser.header_info)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.MDInfo.ensemble_type">ensemble_type (cp2kdata.block_parser.header_info.MDInfo attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.utils.html#cp2kdata.utils.file_content">file_content() (in module cp2kdata.utils)</a>
+</li>
+      <li><a href="_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KEnergyForceFormat.from_labeled_system">from_labeled_system() (cp2kdata.dpdata_plugin.CP2KEnergyForceFormat method)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KMDFormat.from_labeled_system">(cp2kdata.dpdata_plugin.CP2KMDFormat method)</a>
+</li>
+        <li><a href="_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KMDWannierFormat.from_labeled_system">(cp2kdata.dpdata_plugin.CP2KMDWannierFormat method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.plots.geo_opt_plot.html#cp2kdata.plots.geo_opt_plot.geo_opt_info_plot">geo_opt_info_plot() (in module cp2kdata.plots.geo_opt_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_all_cells">get_all_cells() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atom_kinds_list">get_atom_kinds_list() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atom_num">get_atom_num() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atomic_forces_list">get_atomic_forces_list() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atomic_kind">get_atomic_kind() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_basis_name_list">get_basis_name_list() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_cell_param">get_cell_param() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_chemical_symbols">get_chemical_symbols() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_chemical_symbols_fake">get_chemical_symbols_fake() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.get_chemical_symbols_from_cp2kdata">get_chemical_symbols_from_cp2kdata() (in module cp2kdata.dpdata_plugin)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_cutoff_list">get_cutoff_list() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_dft_plus_u_occ">get_dft_plus_u_occ() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_dos">get_dos() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_dos_param">get_dos_param() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_e_f_s">get_e_f_s() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_energies_list">get_energies_list() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_err_per_atom">get_err_per_atom() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_exp_collect_from_yaml">get_exp_collect_from_yaml() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_force_status">get_force_status() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_geo_opt_info">get_geo_opt_info() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_geo_opt_info_plot">get_geo_opt_info_plot() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_global_info">get_global_info() (cp2kdata.output.Cp2kOutput static method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_hirshfeld_pop_list">get_hirshfeld_pop_list() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_ener">get_homo_ener() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_atomic_coordinates">get_init_atomic_coordinates() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_cell">get_init_cell() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_lumo_ener">get_lumo_ener() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_matrix_rmse_and_max_err">get_matrix_rmse_and_max_err() (in module cp2kdata.plots.test_plot)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_mav">get_mav() (cp2kdata.cube.cube.Cp2kCube method)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.get_mav">(cp2kdata.cube.cube.Cp2kCubeOld method)</a>
+</li>
+      </ul></li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_min_gap">get_min_gap() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_mulliken_pop_list">get_mulliken_pop_list() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_multiple_cell_param">get_multiple_cell_param() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_multiple_e_f_s">get_multiple_e_f_s() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_multiple_min_gap">get_multiple_min_gap() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_num_atoms">get_num_atoms() (cp2kdata.output.Cp2kOutput method)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_num_atoms">(in module cp2kdata.plots.test_plot)</a>
+</li>
+      </ul></li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_num_frames">get_num_frames() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.utils.html#cp2kdata.utils.get_opt_cell_stc">get_opt_cell_stc() (in module cp2kdata.utils)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_pav">get_pav() (cp2kdata.cube.cube.Cp2kCube method)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.get_pav">(cp2kdata.cube.cube.Cp2kCubeOld method)</a>
+</li>
+      </ul></li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_raw_dos">get_raw_dos() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
+</li>
+      <li><a href="_api/cp2kdata.utils.html#cp2kdata.utils.get_rdf">get_rdf() (in module cp2kdata.utils)</a>
+</li>
+      <li><a href="_api/cp2kdata.utils.html#cp2kdata.utils.get_rdf_list">get_rdf_list() (in module cp2kdata.utils)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_run_type">get_run_type() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_stc">get_stc() (cp2kdata.cube.cube.Cp2kCube method)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.get_stc">(cp2kdata.cube.cube.Cp2kCubeOld method)</a>
+</li>
+      </ul></li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_stress_status">get_stress_status() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_stress_tensor_list">get_stress_tensor_list() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.get_true_element">get_true_element() (in module cp2kdata.pdos.pdos)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_U_list">get_U_list() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.get_uniq_atom_names_and_types">get_uniq_atom_names_and_types() (in module cp2kdata.dpdata_plugin)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_version_string">get_version_string() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo">GlobalInfo (class in cp2kdata.block_parser.header_info)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.grid_size">grid_size (cp2kdata.cube.cube.Cp2kCube property)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.grid_size">(cp2kdata.cube.cube.Cp2kCubeOld property)</a>
+</li>
+      </ul></li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.grid_space">grid_space (cp2kdata.cube.cube.Cp2kCube property)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.grid_space">(cp2kdata.cube.cube.Cp2kCubeOld property)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.has_force">has_force() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.has_stress">has_stress() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.utils.html#cp2kdata.utils.interpolate_spline">interpolate_spline() (in module cp2kdata.utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.DFTInfo.ks_type">ks_type (cp2kdata.block_parser.header_info.DFTInfo attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.MDInfo">MDInfo (class in cp2kdata.block_parser.header_info)</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="_api/cp2kdata.html#module-cp2kdata">cp2kdata</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.html#module-cp2kdata.block_parser">cp2kdata.block_parser</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.atomic_kind.html#module-cp2kdata.block_parser.atomic_kind">cp2kdata.block_parser.atomic_kind</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.cells.html#module-cp2kdata.block_parser.cells">cp2kdata.block_parser.cells</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.converge.html#module-cp2kdata.block_parser.converge">cp2kdata.block_parser.converge</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.coordinates.html#module-cp2kdata.block_parser.coordinates">cp2kdata.block_parser.coordinates</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.dft_plus_u.html#module-cp2kdata.block_parser.dft_plus_u">cp2kdata.block_parser.dft_plus_u</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.energies.html#module-cp2kdata.block_parser.energies">cp2kdata.block_parser.energies</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.errors_handle.html#module-cp2kdata.block_parser.errors_handle">cp2kdata.block_parser.errors_handle</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.fep.html#module-cp2kdata.block_parser.fep">cp2kdata.block_parser.fep</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.forces.html#module-cp2kdata.block_parser.forces">cp2kdata.block_parser.forces</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.geo_opt.html#module-cp2kdata.block_parser.geo_opt">cp2kdata.block_parser.geo_opt</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.header_info.html#module-cp2kdata.block_parser.header_info">cp2kdata.block_parser.header_info</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.hirshfeld.html#module-cp2kdata.block_parser.hirshfeld">cp2kdata.block_parser.hirshfeld</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.md_xyz.html#module-cp2kdata.block_parser.md_xyz">cp2kdata.block_parser.md_xyz</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.mulliken.html#module-cp2kdata.block_parser.mulliken">cp2kdata.block_parser.mulliken</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.stress.html#module-cp2kdata.block_parser.stress">cp2kdata.block_parser.stress</a>
+</li>
+        <li><a href="_api/cp2kdata.cli.html#module-cp2kdata.cli">cp2kdata.cli</a>
+</li>
+        <li><a href="_api/cp2kdata.cube.html#module-cp2kdata.cube">cp2kdata.cube</a>
+</li>
+        <li><a href="_api/cp2kdata.cube.cube.html#module-cp2kdata.cube.cube">cp2kdata.cube.cube</a>
+</li>
+        <li><a href="_api/cp2kdata.dpdata_plugin.html#module-cp2kdata.dpdata_plugin">cp2kdata.dpdata_plugin</a>
+</li>
+        <li><a href="_api/cp2kdata.output.html#module-cp2kdata.output">cp2kdata.output</a>
+</li>
+        <li><a href="_api/cp2kdata.paser_func.html#module-cp2kdata.paser_func">cp2kdata.paser_func</a>
+</li>
+        <li><a href="_api/cp2kdata.pdos.html#module-cp2kdata.pdos">cp2kdata.pdos</a>
+</li>
+        <li><a href="_api/cp2kdata.pdos.pdos.html#module-cp2kdata.pdos.pdos">cp2kdata.pdos.pdos</a>
+</li>
+        <li><a href="_api/cp2kdata.plots.html#module-cp2kdata.plots">cp2kdata.plots</a>
+</li>
+        <li><a href="_api/cp2kdata.plots.geo_opt_plot.html#module-cp2kdata.plots.geo_opt_plot">cp2kdata.plots.geo_opt_plot</a>
+</li>
+        <li><a href="_api/cp2kdata.plots.test_plot.html#module-cp2kdata.plots.test_plot">cp2kdata.plots.test_plot</a>
+</li>
+        <li><a href="_api/cp2kdata.units.html#module-cp2kdata.units">cp2kdata.units</a>
+</li>
+        <li><a href="_api/cp2kdata.utils.html#module-cp2kdata.utils">cp2kdata.utils</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.DFTInfo.multiplicity">multiplicity (cp2kdata.block_parser.header_info.DFTInfo attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.num_atoms">num_atoms (cp2kdata.cube.cube.Cp2kCube property)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.num_atoms">(cp2kdata.cube.cube.Cp2kCubeOld property)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.occupation">occupation (cp2kdata.pdos.pdos.Cp2kPdos property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.block_parser.cells.html#cp2kdata.block_parser.cells.parse_all_cells">parse_all_cells() (in module cp2kdata.block_parser.cells)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.cells.html#cp2kdata.block_parser.cells.parse_all_md_cells">parse_all_md_cells() (in module cp2kdata.block_parser.cells)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.forces.html#cp2kdata.block_parser.forces.parse_atomic_forces_list">parse_atomic_forces_list() (in module cp2kdata.block_parser.forces)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.atomic_kind.html#cp2kdata.block_parser.atomic_kind.parse_atomic_kinds">parse_atomic_kinds() (in module cp2kdata.block_parser.atomic_kind)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_cell_opt">parse_cell_opt() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_cp2k_info">parse_cp2k_info() (in module cp2kdata.block_parser.header_info)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_dft_info">parse_dft_info() (in module cp2kdata.block_parser.header_info)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.dft_plus_u.html#cp2kdata.block_parser.dft_plus_u.parse_dft_plus_u_occ">parse_dft_plus_u_occ() (in module cp2kdata.block_parser.dft_plus_u)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_e_f_converge">parse_e_f_converge() (in module cp2kdata.block_parser.converge)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.energies.html#cp2kdata.block_parser.energies.parse_energies_list">parse_energies_list() (in module cp2kdata.block_parser.energies)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_energy_force">parse_energy_force() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.errors_handle.html#cp2kdata.block_parser.errors_handle.parse_errors">parse_errors() (in module cp2kdata.block_parser.errors_handle)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_frc_xyz">parse_frc_xyz() (in module cp2kdata.block_parser.md_xyz)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_geo_opt">parse_geo_opt() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.geo_opt.html#cp2kdata.block_parser.geo_opt.parse_geo_opt_info">parse_geo_opt_info() (in module cp2kdata.block_parser.geo_opt)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_global_info">parse_global_info() (in module cp2kdata.block_parser.header_info)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.hirshfeld.html#cp2kdata.block_parser.hirshfeld.parse_hirshfeld_pop_list">parse_hirshfeld_pop_list() (in module cp2kdata.block_parser.hirshfeld)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.coordinates.html#cp2kdata.block_parser.coordinates.parse_init_atomic_coordinates">parse_init_atomic_coordinates() (in module cp2kdata.block_parser.coordinates)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_md">parse_md() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_md_converge">parse_md_converge() (in module cp2kdata.block_parser.converge)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_md_ener">parse_md_ener() (in module cp2kdata.block_parser.md_xyz)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_md_info">parse_md_info() (in module cp2kdata.block_parser.header_info)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_md_stress">parse_md_stress() (in module cp2kdata.block_parser.md_xyz)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.mulliken.html#cp2kdata.block_parser.mulliken.parse_mulliken_pop_list">parse_mulliken_pop_list() (in module cp2kdata.block_parser.mulliken)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.atomic_kind.html#cp2kdata.block_parser.atomic_kind.parse_num_atomic_kinds">parse_num_atomic_kinds() (in module cp2kdata.block_parser.atomic_kind)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_pos_xyz">parse_pos_xyz() (in module cp2kdata.block_parser.md_xyz)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_pos_xyz_from_wannier">parse_pos_xyz_from_wannier() (in module cp2kdata.block_parser.md_xyz)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.stress.html#cp2kdata.block_parser.stress.parse_stress_tensor_list">parse_stress_tensor_list() (in module cp2kdata.block_parser.stress)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.fep.html#cp2kdata.block_parser.fep.parse_vertical_gap">parse_vertical_gap() (in module cp2kdata.block_parser.fep)</a>
+</li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.pdos_name_parser">pdos_name_parser() (in module cp2kdata.pdos.pdos)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_basis">plot_axes_basis() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_cutoff">plot_axes_cutoff() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_exp">plot_axes_exp() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_U">plot_axes_U() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_basis_test">plot_basis_test() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_cutoff_test">plot_cutoff_test() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.plot_single_pdos">plot_single_pdos() (in module cp2kdata.pdos.pdos)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_U_test">plot_U_test() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo.print_level">print_level (cp2kdata.block_parser.header_info.GlobalInfo attribute)</a>
+</li>
+      <li><a href="_api/cp2kdata.utils.html#cp2kdata.utils.printtbox">printtbox() (in module cp2kdata.utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.quick_plot">quick_plot() (cp2kdata.cube.cube.Cp2kCube method)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.quick_plot">(cp2kdata.cube.cube.Cp2kCubeOld method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.quick_plot_rks">quick_plot_rks() (in module cp2kdata.pdos.pdos)</a>
+</li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.quick_plot_uks">quick_plot_uks() (in module cp2kdata.pdos.pdos)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_cube_vals">read_cube_vals() (cp2kdata.cube.cube.Cp2kCube method)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.read_cube_vals">(cp2kdata.cube.cube.Cp2kCubeOld method)</a>
+</li>
+      </ul></li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_element">read_dos_element() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_energies">read_dos_energies() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
+</li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_fermi">read_dos_fermi() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo.run_type">run_type (cp2kdata.block_parser.header_info.GlobalInfo attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.utils.html#cp2kdata.utils.set_pbc">set_pbc() (in module cp2kdata.utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.square_wave_filter">square_wave_filter() (in module cp2kdata.cube.cube)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.to_ase_atoms">to_ase_atoms() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.Cp2kInfo.version">version (cp2kdata.block_parser.header_info.Cp2kInfo attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yong-Bin Zhuang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

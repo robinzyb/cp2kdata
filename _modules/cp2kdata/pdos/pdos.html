@@ -1,0 +1,937 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cp2kdata.pdos.pdos &#8212; CP2KData Reference</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/cp2kdata/pdos/pdos';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">CP2KData Reference</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    CP2KData
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/output.html">Manipulate CP2K Output/Log Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/cube/README.html">Manipulate CP2K Cube Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/pdos/README.html">Manipulate CP2K Pdos Files</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parameter Test</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/input_test.html">Generate Standard Test Inputs</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Plugin</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/dpdata_plugin.html">CP2KData Plugin for dpdata</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../_api/modules.html">cp2kdata</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../_api/cp2kdata.html">cp2kdata package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.html">cp2kdata.block_parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.atomic_kind.html">cp2kdata.block_parser.atomic_kind module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.cells.html">cp2kdata.block_parser.cells module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.converge.html">cp2kdata.block_parser.converge module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.coordinates.html">cp2kdata.block_parser.coordinates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.dft_plus_u.html">cp2kdata.block_parser.dft_plus_u module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.energies.html">cp2kdata.block_parser.energies module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.errors_handle.html">cp2kdata.block_parser.errors_handle module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.fep.html">cp2kdata.block_parser.fep module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.forces.html">cp2kdata.block_parser.forces module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.geo_opt.html">cp2kdata.block_parser.geo_opt module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.header_info.html">cp2kdata.block_parser.header_info module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.hirshfeld.html">cp2kdata.block_parser.hirshfeld module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.md_xyz.html">cp2kdata.block_parser.md_xyz module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.mulliken.html">cp2kdata.block_parser.mulliken module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.stress.html">cp2kdata.block_parser.stress module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.cli.html">cp2kdata.cli package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.cli.cmd.html">cp2kdata.cli.cmd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.cli.funcs.html">cp2kdata.cli.funcs module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.cube.html">cp2kdata.cube package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.cube.cube.html">cp2kdata.cube.cube module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.pdos.html">cp2kdata.pdos package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.pdos.pdos.html">cp2kdata.pdos.pdos module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.plots.html">cp2kdata.plots package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.plots.fep_plot.html">cp2kdata.plots.fep_plot module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.plots.geo_opt_plot.html">cp2kdata.plots.geo_opt_plot module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.plots.test_plot.html">cp2kdata.plots.test_plot module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.dpdata_plugin.html">cp2kdata.dpdata_plugin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.output.html">cp2kdata.output module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.paser_func.html">cp2kdata.paser_func module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.test_input.html">cp2kdata.test_input module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.units.html">cp2kdata.units module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.utils.html">cp2kdata.utils module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/chenggroup/cp2kdata" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chenggroup/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_modules/cp2kdata/pdos/pdos.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for cp2kdata.pdos.pdos</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">matplotlib.gridspec</span> <span class="kn">import</span> <span class="n">GridSpec</span>
+<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">gaussian_filter1d</span>
+
+<span class="kn">from</span> <span class="nn">cp2kdata.utils</span> <span class="kn">import</span> <span class="n">au2eV</span>
+
+<span class="n">atomic_color_map</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="s1">&#39;Ac&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.39344</span><span class="p">,</span> <span class="mf">0.62101</span><span class="p">,</span> <span class="mf">0.45034</span><span class="p">),</span>
+ <span class="s1">&#39;Ag&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.72032</span><span class="p">,</span> <span class="mf">0.73631</span><span class="p">,</span> <span class="mf">0.74339</span><span class="p">),</span>
+ <span class="s1">&#39;Al&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.50718</span><span class="p">,</span> <span class="mf">0.70056</span><span class="p">,</span> <span class="mf">0.84062</span><span class="p">),</span>
+ <span class="s1">&#39;Am&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+ <span class="s1">&#39;Ar&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.81349</span><span class="p">,</span> <span class="mf">0.99731</span><span class="p">,</span> <span class="mf">0.77075</span><span class="p">),</span>
+ <span class="s1">&#39;As&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.45814</span><span class="p">,</span> <span class="mf">0.81694</span><span class="p">,</span> <span class="mf">0.34249</span><span class="p">),</span>
+ <span class="s1">&#39;At&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+ <span class="s1">&#39;Au&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.99628</span><span class="p">,</span> <span class="mf">0.70149</span><span class="p">,</span> <span class="mf">0.22106</span><span class="p">),</span>
+ <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.1249</span><span class="p">,</span> <span class="mf">0.63612</span><span class="p">,</span> <span class="mf">0.05948</span><span class="p">),</span>
+ <span class="s1">&#39;Ba&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.11835</span><span class="p">,</span> <span class="mf">0.93959</span><span class="p">,</span> <span class="mf">0.17565</span><span class="p">),</span>
+ <span class="s1">&#39;Be&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.37147</span><span class="p">,</span> <span class="mf">0.8459</span><span class="p">,</span> <span class="mf">0.48292</span><span class="p">),</span>
+ <span class="s1">&#39;Bi&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.82428</span><span class="p">,</span> <span class="mf">0.18732</span><span class="p">,</span> <span class="mf">0.97211</span><span class="p">),</span>
+ <span class="s1">&#39;Br&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.49645</span><span class="p">,</span> <span class="mf">0.19333</span><span class="p">,</span> <span class="mf">0.01076</span><span class="p">),</span>
+ <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5043</span><span class="p">,</span> <span class="mf">0.28659</span><span class="p">,</span> <span class="mf">0.16236</span><span class="p">),</span>
+ <span class="s1">&#39;Ca&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.35642</span><span class="p">,</span> <span class="mf">0.58863</span><span class="p">,</span> <span class="mf">0.74498</span><span class="p">),</span>
+ <span class="s1">&#39;Cd&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.95145</span><span class="p">,</span> <span class="mf">0.12102</span><span class="p">,</span> <span class="mf">0.86354</span><span class="p">),</span>
+ <span class="s1">&#39;Ce&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.82055</span><span class="p">,</span> <span class="mf">0.99071</span><span class="p">,</span> <span class="mf">0.02374</span><span class="p">),</span>
+ <span class="s1">&#39;Cl&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.19583</span><span class="p">,</span> <span class="mf">0.98828</span><span class="p">,</span> <span class="mf">0.01167</span><span class="p">),</span>
+ <span class="s1">&#39;Co&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.68666</span><span class="p">),</span>
+ <span class="s1">&#39;Cr&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.62</span><span class="p">),</span>
+ <span class="s1">&#39;Cs&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.05872</span><span class="p">,</span> <span class="mf">0.99922</span><span class="p">,</span> <span class="mf">0.72578</span><span class="p">),</span>
+ <span class="s1">&#39;Cu&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.1339</span><span class="p">,</span> <span class="mf">0.28022</span><span class="p">,</span> <span class="mf">0.86606</span><span class="p">),</span>
+ <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+ <span class="s1">&#39;Dy&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.1939</span><span class="p">,</span> <span class="mf">0.02374</span><span class="p">,</span> <span class="mf">0.99071</span><span class="p">),</span>
+ <span class="s1">&#39;Er&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.28688</span><span class="p">,</span> <span class="mf">0.45071</span><span class="p">,</span> <span class="mf">0.23043</span><span class="p">),</span>
+ <span class="s1">&#39;Eu&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.98367</span><span class="p">,</span> <span class="mf">0.03078</span><span class="p">,</span> <span class="mf">0.83615</span><span class="p">),</span>
+ <span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.69139</span><span class="p">,</span> <span class="mf">0.72934</span><span class="p">,</span> <span class="mf">0.9028</span><span class="p">),</span>
+ <span class="s1">&#39;Fe&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.71051</span><span class="p">,</span> <span class="mf">0.44662</span><span class="p">,</span> <span class="mf">0.00136</span><span class="p">),</span>
+ <span class="s1">&#39;Fr&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+ <span class="s1">&#39;Ga&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.62292</span><span class="p">,</span> <span class="mf">0.89293</span><span class="p">,</span> <span class="mf">0.45486</span><span class="p">),</span>
+ <span class="s1">&#39;Gd&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.75325</span><span class="p">,</span> <span class="mf">0.01445</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+ <span class="s1">&#39;Ge&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.49557</span><span class="p">,</span> <span class="mf">0.43499</span><span class="p">,</span> <span class="mf">0.65193</span><span class="p">),</span>
+ <span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span>
+ <span class="s1">&#39;He&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.98907</span><span class="p">,</span> <span class="mf">0.91312</span><span class="p">,</span> <span class="mf">0.81091</span><span class="p">),</span>
+ <span class="s1">&#39;Hf&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.70704</span><span class="p">,</span> <span class="mf">0.70552</span><span class="p">,</span> <span class="mf">0.3509</span><span class="p">),</span>
+ <span class="s1">&#39;Hg&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.8294</span><span class="p">,</span> <span class="mf">0.72125</span><span class="p">,</span> <span class="mf">0.79823</span><span class="p">),</span>
+ <span class="s1">&#39;Ho&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.02837</span><span class="p">,</span> <span class="mf">0.25876</span><span class="p">,</span> <span class="mf">0.98608</span><span class="p">),</span>
+ <span class="s1">&#39;I&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.55914</span><span class="p">,</span> <span class="mf">0.122</span><span class="p">,</span> <span class="mf">0.54453</span><span class="p">),</span>
+ <span class="s1">&#39;In&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.84378</span><span class="p">,</span> <span class="mf">0.50401</span><span class="p">,</span> <span class="mf">0.73483</span><span class="p">),</span>
+ <span class="s1">&#39;Ir&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.78975</span><span class="p">,</span> <span class="mf">0.81033</span><span class="p">,</span> <span class="mf">0.45049</span><span class="p">),</span>
+ <span class="s1">&#39;K&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.63255</span><span class="p">,</span> <span class="mf">0.13281</span><span class="p">,</span> <span class="mf">0.96858</span><span class="p">),</span>
+ <span class="s1">&#39;Kr&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.98102</span><span class="p">,</span> <span class="mf">0.75805</span><span class="p">,</span> <span class="mf">0.95413</span><span class="p">),</span>
+ <span class="s1">&#39;La&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.3534</span><span class="p">,</span> <span class="mf">0.77057</span><span class="p">,</span> <span class="mf">0.28737</span><span class="p">),</span>
+ <span class="s1">&#39;Li&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.52731</span><span class="p">,</span> <span class="mf">0.87953</span><span class="p">,</span> <span class="mf">0.4567</span><span class="p">),</span>
+ <span class="s1">&#39;Lu&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.15097</span><span class="p">,</span> <span class="mf">0.99391</span><span class="p">,</span> <span class="mf">0.71032</span><span class="p">),</span>
+ <span class="s1">&#39;Mg&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.98773</span><span class="p">,</span> <span class="mf">0.48452</span><span class="p">,</span> <span class="mf">0.0847</span><span class="p">),</span>
+ <span class="s1">&#39;Mn&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.66148</span><span class="p">,</span> <span class="mf">0.03412</span><span class="p">,</span> <span class="mf">0.62036</span><span class="p">),</span>
+ <span class="s1">&#39;Mo&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.70584</span><span class="p">,</span> <span class="mf">0.52602</span><span class="p">,</span> <span class="mf">0.68925</span><span class="p">),</span>
+ <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.69139</span><span class="p">,</span> <span class="mf">0.72934</span><span class="p">,</span> <span class="mf">0.9028</span><span class="p">),</span>
+ <span class="s1">&#39;Na&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.97955</span><span class="p">,</span> <span class="mf">0.86618</span><span class="p">,</span> <span class="mf">0.23787</span><span class="p">),</span>
+ <span class="s1">&#39;Nb&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.29992</span><span class="p">,</span> <span class="mf">0.70007</span><span class="p">,</span> <span class="mf">0.46459</span><span class="p">),</span>
+ <span class="s1">&#39;Nd&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.98701</span><span class="p">,</span> <span class="mf">0.5556</span><span class="p">,</span> <span class="mf">0.02744</span><span class="p">),</span>
+ <span class="s1">&#39;Ne&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.99954</span><span class="p">,</span> <span class="mf">0.21788</span><span class="p">,</span> <span class="mf">0.71035</span><span class="p">),</span>
+ <span class="s1">&#39;Ni&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.72032</span><span class="p">,</span> <span class="mf">0.73631</span><span class="p">,</span> <span class="mf">0.74339</span><span class="p">),</span>
+ <span class="s1">&#39;Np&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+ <span class="s1">&#39;O&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.99997</span><span class="p">,</span> <span class="mf">0.01328</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+ <span class="s1">&#39;Os&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.78703</span><span class="p">,</span> <span class="mf">0.69512</span><span class="p">,</span> <span class="mf">0.47379</span><span class="p">),</span>
+ <span class="s1">&#39;P&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.75557</span><span class="p">,</span> <span class="mf">0.61256</span><span class="p">,</span> <span class="mf">0.76425</span><span class="p">),</span>
+ <span class="s1">&#39;Pa&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.16101</span><span class="p">,</span> <span class="mf">0.98387</span><span class="p">,</span> <span class="mf">0.20855</span><span class="p">),</span>
+ <span class="s1">&#39;Pb&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.32386</span><span class="p">,</span> <span class="mf">0.32592</span><span class="p">,</span> <span class="mf">0.35729</span><span class="p">),</span>
+ <span class="s1">&#39;Pd&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.75978</span><span class="p">,</span> <span class="mf">0.76818</span><span class="p">,</span> <span class="mf">0.72454</span><span class="p">),</span>
+ <span class="s1">&#39;Pm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.96</span><span class="p">),</span>
+ <span class="s1">&#39;Po&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+ <span class="s1">&#39;Pr&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.9913</span><span class="p">,</span> <span class="mf">0.88559</span><span class="p">,</span> <span class="mf">0.02315</span><span class="p">),</span>
+ <span class="s1">&#39;Pt&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.79997</span><span class="p">,</span> <span class="mf">0.77511</span><span class="p">,</span> <span class="mf">0.75068</span><span class="p">),</span>
+ <span class="s1">&#39;Pu&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+ <span class="s1">&#39;Ra&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.42959</span><span class="p">,</span> <span class="mf">0.66659</span><span class="p">,</span> <span class="mf">0.34786</span><span class="p">),</span>
+ <span class="s1">&#39;Rb&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span>
+ <span class="s1">&#39;Re&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.70294</span><span class="p">,</span> <span class="mf">0.69401</span><span class="p">,</span> <span class="mf">0.55789</span><span class="p">),</span>
+ <span class="s1">&#39;Rh&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.80748</span><span class="p">,</span> <span class="mf">0.82205</span><span class="p">,</span> <span class="mf">0.67068</span><span class="p">),</span>
+ <span class="s1">&#39;Rn&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+ <span class="s1">&#39;Ru&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.81184</span><span class="p">,</span> <span class="mf">0.72113</span><span class="p">,</span> <span class="mf">0.68089</span><span class="p">),</span>
+ <span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.98071</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+ <span class="s1">&#39;Sb&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.84627</span><span class="p">,</span> <span class="mf">0.51498</span><span class="p">,</span> <span class="mf">0.31315</span><span class="p">),</span>
+ <span class="s1">&#39;Sc&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.71209</span><span class="p">,</span> <span class="mf">0.3893</span><span class="p">,</span> <span class="mf">0.67279</span><span class="p">),</span>
+ <span class="s1">&#39;Se&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.6042</span><span class="p">,</span> <span class="mf">0.93874</span><span class="p">,</span> <span class="mf">0.06122</span><span class="p">),</span>
+ <span class="s1">&#39;Si&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.10596</span><span class="p">,</span> <span class="mf">0.23226</span><span class="p">,</span> <span class="mf">0.98096</span><span class="p">),</span>
+ <span class="s1">&#39;Sm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.99042</span><span class="p">,</span> <span class="mf">0.02403</span><span class="p">,</span> <span class="mf">0.49195</span><span class="p">),</span>
+ <span class="s1">&#39;Sn&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.60764</span><span class="p">,</span> <span class="mf">0.56052</span><span class="p">,</span> <span class="mf">0.72926</span><span class="p">),</span>
+ <span class="s1">&#39;Sr&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.15259</span><span class="p">),</span>
+ <span class="s1">&#39;Ta&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.71952</span><span class="p">,</span> <span class="mf">0.60694</span><span class="p">,</span> <span class="mf">0.33841</span><span class="p">),</span>
+ <span class="s1">&#39;Tb&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.44315</span><span class="p">,</span> <span class="mf">0.01663</span><span class="p">,</span> <span class="mf">0.99782</span><span class="p">),</span>
+ <span class="s1">&#39;Tc&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.80574</span><span class="p">,</span> <span class="mf">0.68699</span><span class="p">,</span> <span class="mf">0.79478</span><span class="p">),</span>
+ <span class="s1">&#39;Te&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.67958</span><span class="p">,</span> <span class="mf">0.63586</span><span class="p">,</span> <span class="mf">0.32038</span><span class="p">),</span>
+ <span class="s1">&#39;Th&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.14893</span><span class="p">,</span> <span class="mf">0.99596</span><span class="p">,</span> <span class="mf">0.47106</span><span class="p">),</span>
+ <span class="s1">&#39;Ti&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.47237</span><span class="p">,</span> <span class="mf">0.79393</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+ <span class="s1">&#39;Tl&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.58798</span><span class="p">,</span> <span class="mf">0.53854</span><span class="p">,</span> <span class="mf">0.42649</span><span class="p">),</span>
+ <span class="s1">&#39;Tm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">),</span>
+ <span class="s1">&#39;U&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.47774</span><span class="p">,</span> <span class="mf">0.63362</span><span class="p">,</span> <span class="mf">0.66714</span><span class="p">),</span>
+ <span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+ <span class="s1">&#39;W&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.55616</span><span class="p">,</span> <span class="mf">0.54257</span><span class="p">,</span> <span class="mf">0.50178</span><span class="p">),</span>
+ <span class="s1">&#39;XX&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+ <span class="s1">&#39;Xe&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.60662</span><span class="p">,</span> <span class="mf">0.63218</span><span class="p">,</span> <span class="mf">0.97305</span><span class="p">),</span>
+ <span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.40259</span><span class="p">,</span> <span class="mf">0.59739</span><span class="p">,</span> <span class="mf">0.55813</span><span class="p">),</span>
+ <span class="s1">&#39;Yb&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.15323</span><span class="p">,</span> <span class="mf">0.99165</span><span class="p">,</span> <span class="mf">0.95836</span><span class="p">),</span>
+ <span class="s1">&#39;Zn&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.56123</span><span class="p">,</span> <span class="mf">0.56445</span><span class="p">,</span> <span class="mf">0.50799</span><span class="p">),</span>
+ <span class="s1">&#39;Zr&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)}</span>
+
+<span class="c1"># input the element and return typical orbital in dos</span>
+<span class="c1"># for example d for Ti, s for H, p for O</span>
+<span class="n">typical_orbital</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;H&quot;</span> <span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;He&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Na&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;K&quot;</span> <span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Rb&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Cs&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Be&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Mg&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ca&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Sr&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ba&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;O&quot;</span> <span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;S&quot;</span> <span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Se&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Te&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;N&quot;</span> <span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;P&quot;</span> <span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;As&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Sb&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Bi&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;C&quot;</span> <span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Si&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ge&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Sn&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Pb&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;B&quot;</span> <span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Al&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ga&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;In&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Tl&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;F&quot;</span> <span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Cl&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Br&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;I&quot;</span> <span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Sc&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ti&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;V&quot;</span> <span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Cr&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Mn&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Fe&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Co&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ni&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Cu&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Zn&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Y&quot;</span> <span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Zr&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Nb&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Mo&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Te&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ru&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Rh&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Pd&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ag&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Cd&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Hf&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ta&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;W&quot;</span> <span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Re&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Os&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ir&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Pt&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Au&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Hg&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;La&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ce&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Pr&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span>
+<span class="p">}</span>
+
+<div class="viewcode-block" id="Cp2kPdos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos">[docs]</a><span class="k">class</span> <span class="nc">Cp2kPdos</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">parse_file_name</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_dos_element</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fermi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_dos_fermi</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_dos_energies</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">parse_file_name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">spin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">listidx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestep</span> <span class="o">=</span>  <span class="n">pdos_name_parser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Cp2kPdos.read_dos_element"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_element">[docs]</a>    <span class="k">def</span> <span class="nf">read_dos_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">first_line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">6</span><span class="p">]</span>
+<span class="c1">#        element = &#39;&#39;.join([i for i in self.kind if not i.isdigit()])</span>
+        <span class="k">return</span> <span class="n">element</span></div>
+
+<div class="viewcode-block" id="Cp2kPdos.read_dos_fermi"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_fermi">[docs]</a>    <span class="k">def</span> <span class="nf">read_dos_fermi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># this is fermi energy not fermi level!</span>
+        <span class="c1"># fermi energy is same as HOMO energy</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">first_line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="n">fermi_idx</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;E(Fermi)&quot;</span><span class="p">)</span>
+            <span class="n">fermi</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="n">fermi_idx</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">fermi</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">fermi</span><span class="p">)</span><span class="o">*</span><span class="n">au2eV</span>
+        <span class="k">return</span> <span class="n">fermi</span></div>
+
+<div class="viewcode-block" id="Cp2kPdos.read_dos_energies"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_energies">[docs]</a>    <span class="k">def</span> <span class="nf">read_dos_energies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">energies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">energies</span> <span class="o">=</span> <span class="n">energies</span> <span class="o">*</span> <span class="n">au2eV</span>
+        <span class="k">return</span> <span class="n">energies</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">occupation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">occupation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">occupation</span>
+
+<div class="viewcode-block" id="Cp2kPdos.get_homo_ener"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_ener">[docs]</a>    <span class="k">def</span> <span class="nf">get_homo_ener</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">homo_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">occupation</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">homo_ener</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies</span><span class="p">[</span><span class="n">homo_idx</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">homo_ener</span></div>
+
+<div class="viewcode-block" id="Cp2kPdos.get_lumo_ener"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_lumo_ener">[docs]</a>    <span class="k">def</span> <span class="nf">get_lumo_ener</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">lumo_ener</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">occupation</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">lumo_ener</span></div>
+
+<div class="viewcode-block" id="Cp2kPdos.get_raw_dos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_raw_dos">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_dos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dos_type</span><span class="o">=</span><span class="s2">&quot;total&quot;</span><span class="p">,</span> <span class="n">steplen</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">):</span>
+
+        <span class="n">file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span>
+        <span class="n">energies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies</span>
+        <span class="n">fermi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fermi</span>
+        <span class="n">steplen</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="k">if</span> <span class="n">dos_type</span> <span class="o">==</span> <span class="s2">&quot;total&quot;</span><span class="p">:</span>
+            <span class="n">tmp_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">usecols</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">tmp_len</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">dos_type</span> <span class="o">==</span> <span class="s2">&quot;s&quot;</span><span class="p">:</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">usecols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">dos_type</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">usecols</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">dos_type</span> <span class="o">==</span> <span class="s2">&quot;d&quot;</span><span class="p">:</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">usecols</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">dos_type</span> <span class="o">==</span> <span class="s2">&quot;f&quot;</span><span class="p">:</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">usecols</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;dos type does not exist!&quot;</span><span class="p">)</span>
+
+        <span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">energies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">energies</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="n">steplen</span><span class="p">)</span>
+        <span class="n">dos</span><span class="p">,</span> <span class="n">ener</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">energies</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span>
+                <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="n">energies</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">energies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">dos</span> <span class="o">=</span> <span class="n">dos</span><span class="o">/</span><span class="n">steplen</span>
+        <span class="n">ener</span> <span class="o">=</span> <span class="n">ener</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">fermi</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">steplen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dos</span> <span class="o">=</span> <span class="n">dos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ener</span> <span class="o">=</span> <span class="n">ener</span>
+        <span class="k">return</span> <span class="n">dos</span><span class="p">,</span> <span class="n">ener</span></div>
+
+<div class="viewcode-block" id="Cp2kPdos.get_dos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_dos">[docs]</a>    <span class="k">def</span> <span class="nf">get_dos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dos_type</span><span class="o">=</span><span class="s2">&quot;total&quot;</span><span class="p">):</span>
+        <span class="c1"># smooth the dos data</span>
+        <span class="n">dos</span><span class="p">,</span> <span class="n">ener</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_raw_dos</span><span class="p">(</span><span class="n">dos_type</span><span class="o">=</span><span class="n">dos_type</span><span class="p">)</span>
+        <span class="n">smth_dos</span> <span class="o">=</span> <span class="n">gaussian_filter1d</span><span class="p">(</span><span class="n">dos</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">smth_dos</span> <span class="o">=</span> <span class="n">smth_dos</span>
+
+        <span class="k">return</span> <span class="n">smth_dos</span><span class="p">,</span> <span class="n">ener</span></div></div>
+
+
+<span class="n">PDOS_NAME_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    (?P&lt;project_name&gt;\S+)-((?P&lt;spin&gt;(ALPHA|BETA))_)?(list(?P&lt;listidx&gt;\d+))?(k(?P&lt;kind&gt;\d+))?-1(_(?P&lt;step&gt;\d+))?.pdos$</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="p">,</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span>
+<span class="p">)</span>
+<div class="viewcode-block" id="pdos_name_parser"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.pdos_name_parser">[docs]</a><span class="k">def</span> <span class="nf">pdos_name_parser</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="c1"># used to parse pdos filename</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">PDOS_NAME_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">project_name</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;project_name&quot;</span><span class="p">]</span>
+    <span class="n">spin</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;spin&quot;</span><span class="p">]</span>
+    <span class="n">listidx</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;listidx&quot;</span><span class="p">]</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">project_name</span><span class="p">,</span> <span class="n">spin</span><span class="p">,</span> <span class="n">listidx</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">step</span></div>
+
+<div class="viewcode-block" id="quick_plot_uks"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.quick_plot_uks">[docs]</a><span class="k">def</span> <span class="nf">quick_plot_uks</span><span class="p">(</span><span class="n">pdos_dir</span><span class="p">,</span> <span class="n">style</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">replace_dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># default plot parameters setting</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span> <span class="c1">#controls default text size</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">titlesize</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span> <span class="c1">#fontsize of the title</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1">#fontsize of the x and y labels</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;xtick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span> <span class="c1">#fontsize of the x tick labels</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;ytick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span> <span class="c1">#fontsize of the y tick labels</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;legend&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span> <span class="c1">#fontsize of the legend</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1">#controls default text size</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;xtick.major&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;ytick.major&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># find pdos files</span>
+    <span class="n">pdos_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pdos_dir</span><span class="p">,</span> <span class="s2">&quot;*pdos&quot;</span><span class="p">))</span>
+    <span class="n">pdos_files</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;ALPHA&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;BETA&#39;</span><span class="p">:[]</span>
+        <span class="p">}</span>
+    <span class="c1">#</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pdos_files</span><span class="p">:</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">Cp2kPdos</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tmp</span><span class="o">.</span><span class="n">listidx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">tmp</span><span class="o">.</span><span class="n">spin</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">legend_handles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">legend_labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">pdosobj</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ALPHA&#39;</span><span class="p">]:</span>
+        <span class="n">true_element</span> <span class="o">=</span> <span class="n">get_true_element</span><span class="p">(</span><span class="n">pdosobj</span><span class="o">=</span><span class="n">pdosobj</span><span class="p">,</span> <span class="n">replace_dict</span><span class="o">=</span><span class="n">replace_dict</span><span class="p">)</span>
+        <span class="n">l1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">plot_single_pdos</span><span class="p">(</span><span class="n">pdosobj</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">true_element</span><span class="p">,</span> <span class="n">spin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="n">raw</span><span class="p">)</span>
+        <span class="n">legend_handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+        <span class="n">legend_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">pdosobj</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;BETA&#39;</span><span class="p">]:</span>
+        <span class="n">true_element</span> <span class="o">=</span> <span class="n">get_true_element</span><span class="p">(</span><span class="n">pdosobj</span><span class="o">=</span><span class="n">pdosobj</span><span class="p">,</span> <span class="n">replace_dict</span><span class="o">=</span><span class="n">replace_dict</span><span class="p">)</span>
+        <span class="n">plot_single_pdos</span><span class="p">(</span><span class="n">pdosobj</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">true_element</span><span class="p">,</span> <span class="n">spin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="n">raw</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-.&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="s2">&quot;ALPHA&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;BETA&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend_handles</span><span class="p">,</span> <span class="n">legend_labels</span><span class="p">,)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Energy [eV]&quot;</span><span class="p">,)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;DOS [arb. unit]&quot;</span><span class="p">,)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;DOS_Plot.pdf&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;pdf&quot;</span><span class="p">)</span></div>
+    <span class="c1">## plot alpha channel</span>
+    <span class="c1">#ax_num = len(alpha_dos) + 1</span>
+    <span class="c1">#fig = plt.figure(figsize=(12, 3*ax_num), dpi=100)</span>
+    <span class="c1">#gs = GridSpec(ax_num, 1, figure=fig, hspace=0)</span>
+<span class="c1">#</span>
+    <span class="c1">## total dos plot</span>
+    <span class="c1">#ax = fig.add_subplot(gs[0])</span>
+    <span class="c1">#dos, ener = alpha_dos[0].get_dos()</span>
+    <span class="c1">#ax.plot(ener, dos, label = &quot;Total&quot;, color = &quot;black&quot;, lw=lw)</span>
+    <span class="c1">#ax.set_xticklabels([])</span>
+    <span class="c1">#ax.set_xlim(-10,10)</span>
+    <span class="c1">#ax.set_ylim(ymin=0)</span>
+    <span class="c1">#ax.tick_params(axis=&#39;both&#39;, labelsize=fontsize, direction=&#39;in&#39;)</span>
+    <span class="c1">#ax.legend(fontsize=fontsize)</span>
+    <span class="c1">#ymin, ymax = ax.get_ylim()</span>
+<span class="c1">#</span>
+    <span class="c1">## plot for other elements</span>
+    <span class="c1">#for i in range(1, ax_num):</span>
+    <span class="c1">#    ax = fig.add_subplot(gs[i])</span>
+    <span class="c1">#    dos_obj = alpha_dos[i-1]</span>
+    <span class="c1">#    typical_orb = typical_orbital(dos_obj.element)</span>
+    <span class="c1">#    dos, ener = dos_obj.get_dos(dos_type=typical_orb)</span>
+    <span class="c1">#    ax.plot(ener, dos, label = dos_obj.element + &quot; &quot; + typical_orb, color = &quot;C{0}&quot;.format(int(i)), lw=lw)</span>
+    <span class="c1">#    if i == ax_num - 1:</span>
+    <span class="c1">#        pass</span>
+    <span class="c1">#    else:</span>
+    <span class="c1">#        ax.set_xticklabels([])</span>
+    <span class="c1">#    ax.set_xlim(-10,10)</span>
+    <span class="c1">#    ax.set_ylim(ymin=0, ymax=ymax)</span>
+    <span class="c1">#    ax.tick_params(axis=&#39;both&#39;, labelsize=fontsize, direction=&#39;in&#39;)</span>
+    <span class="c1">#    ax.legend(fontsize=fontsize)</span>
+<span class="c1">#</span>
+    <span class="c1">## global figure setting</span>
+    <span class="c1">#fig.text(0.5, 0.04, &#39;Energy [eV]&#39;, ha=&#39;center&#39;, fontsize=fontsize)</span>
+    <span class="c1">#fig.text(0.04, 0.5, &#39;DOS [arb. unit]&#39;, va=&#39;center&#39;, fontsize=fontsize, rotation=&#39;vertical&#39;)</span>
+<span class="c1">#</span>
+    <span class="c1">#fig.savefig(&quot;DOS_ALPHA.jpg&quot;, dpi=200)</span>
+<span class="c1">#</span>
+    <span class="c1">## plot beta channel</span>
+    <span class="c1">#ax_num = len(beta_dos) + 1</span>
+    <span class="c1">#fig = plt.figure(figsize=(12, 3*ax_num), dpi=100)</span>
+    <span class="c1">#gs = GridSpec(ax_num, 1, figure=fig, hspace=0)</span>
+<span class="c1">#</span>
+    <span class="c1">## total dos plot</span>
+    <span class="c1">#ax = fig.add_subplot(gs[0])</span>
+    <span class="c1">#dos, ener = beta_dos[0].get_dos()</span>
+    <span class="c1">#ax.plot(ener, dos, label = &quot;Total&quot;, color = &quot;black&quot;, lw=lw)</span>
+    <span class="c1">#ax.set_xticklabels([])</span>
+    <span class="c1">#ax.set_xlim(-10,10)</span>
+    <span class="c1">#ax.set_ylim(ymin=0)</span>
+    <span class="c1">#ax.tick_params(axis=&#39;both&#39;, labelsize=fontsize, direction=&#39;in&#39;)</span>
+    <span class="c1">#ax.legend(fontsize=fontsize)</span>
+    <span class="c1">#ymin, ymax = ax.get_ylim()</span>
+<span class="c1">#</span>
+    <span class="c1">## plot for other elements</span>
+    <span class="c1">#for i in range(1, ax_num):</span>
+    <span class="c1">#    ax = fig.add_subplot(gs[i])</span>
+    <span class="c1">#    dos_obj = beta_dos[i-1]</span>
+    <span class="c1">#    typical_orb = typical_orbital(dos_obj.element)</span>
+    <span class="c1">#    dos, ener = dos_obj.get_dos(dos_type=typical_orb)</span>
+    <span class="c1">#    ax.plot(ener, dos, label = dos_obj.element + &quot; &quot; + typical_orb, color = &quot;C{0}&quot;.format(int(i)), lw=lw)</span>
+    <span class="c1">#    if i == ax_num - 1:</span>
+    <span class="c1">#        pass</span>
+    <span class="c1">#    else:</span>
+    <span class="c1">#        ax.set_xticklabels([])</span>
+    <span class="c1">#    ax.set_xlim(-10,10)</span>
+    <span class="c1">#    ax.set_ylim(ymin=0, ymax=ymax)</span>
+    <span class="c1">#    ax.tick_params(axis=&#39;both&#39;, labelsize=fontsize, direction=&#39;in&#39;)</span>
+    <span class="c1">#    ax.legend(fontsize=fontsize)</span>
+<span class="c1">#</span>
+    <span class="c1">#fig.text(0.5, 0.04, &#39;Energy [eV]&#39;, ha=&#39;center&#39;, fontsize=fontsize)</span>
+    <span class="c1">#fig.text(0.04, 0.5, &#39;DOS [arb. unit]&#39;, va=&#39;center&#39;, fontsize=fontsize, rotation=&#39;vertical&#39;)</span>
+    <span class="c1">#fig.savefig(&quot;DOS_BETA.jpg&quot;, dpi=200)</span>
+
+<div class="viewcode-block" id="get_true_element"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.get_true_element">[docs]</a><span class="k">def</span> <span class="nf">get_true_element</span><span class="p">(</span><span class="n">pdosobj</span><span class="p">,</span> <span class="n">replace_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">replace_dict</span><span class="p">:</span>
+        <span class="n">true_element</span> <span class="o">=</span> <span class="n">replace_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pdosobj</span><span class="o">.</span><span class="n">element</span><span class="p">,</span> <span class="n">pdosobj</span><span class="o">.</span><span class="n">element</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">true_element</span> <span class="o">=</span> <span class="n">pdosobj</span><span class="o">.</span><span class="n">element</span>
+    <span class="k">return</span> <span class="n">true_element</span></div>
+
+<div class="viewcode-block" id="plot_single_pdos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.plot_single_pdos">[docs]</a><span class="k">def</span> <span class="nf">plot_single_pdos</span><span class="p">(</span><span class="n">pdosobj</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">true_element</span><span class="p">,</span> <span class="n">spin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="n">to</span> <span class="o">=</span> <span class="n">typical_orbital</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">true_element</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">true_element</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="n">to</span>
+
+    <span class="k">if</span> <span class="n">raw</span><span class="p">:</span>
+        <span class="n">pdos</span><span class="p">,</span> <span class="n">ener</span> <span class="o">=</span> <span class="n">pdosobj</span><span class="o">.</span><span class="n">get_raw_dos</span><span class="p">(</span><span class="n">dos_type</span><span class="o">=</span><span class="n">to</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pdos</span><span class="p">,</span> <span class="n">ener</span> <span class="o">=</span> <span class="n">pdosobj</span><span class="o">.</span><span class="n">get_dos</span><span class="p">(</span><span class="n">dos_type</span><span class="o">=</span><span class="n">to</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="n">pdos</span> <span class="o">*=</span> <span class="n">spin</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">atomic_color_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">true_element</span><span class="p">)</span>
+    <span class="n">l1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ener</span><span class="p">,</span> <span class="n">pdos</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">l1</span><span class="p">,</span> <span class="n">label</span></div>
+
+<div class="viewcode-block" id="quick_plot_rks"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.quick_plot_rks">[docs]</a><span class="k">def</span> <span class="nf">quick_plot_rks</span><span class="p">(</span><span class="n">pdos_dir</span><span class="p">):</span>
+    <span class="c1"># parameter setting</span>
+    <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">lw</span> <span class="o">=</span> <span class="mf">1.5</span>
+
+    <span class="c1"># find pdos files</span>
+    <span class="n">pdos_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pdos_dir</span><span class="p">,</span> <span class="s2">&quot;*pdos&quot;</span><span class="p">))</span>
+    <span class="n">pdos_files</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+    <span class="c1">#</span>
+    <span class="n">rks_dos</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pdos_files</span><span class="p">:</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">Cp2kPdos</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">rks_dos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+        <span class="c1">#if tmp.ldos == False:</span>
+        <span class="c1">#    rks_dos.append(tmp)</span>
+        <span class="c1">#else:</span>
+        <span class="c1">#    pass</span>
+
+    <span class="c1"># plot</span>
+    <span class="n">ax_num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rks_dos</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">ax_num</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="n">GridSpec</span><span class="p">(</span><span class="n">ax_num</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># total dos plot</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">dos</span><span class="p">,</span> <span class="n">ener</span> <span class="o">=</span> <span class="n">rks_dos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_dos</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ener</span><span class="p">,</span> <span class="n">dos</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Total&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+    <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+
+    <span class="c1"># plot for other elements</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax_num</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">dos_obj</span> <span class="o">=</span> <span class="n">rks_dos</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">typical_orb</span> <span class="o">=</span> <span class="n">typical_orbital</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dos_obj</span><span class="o">.</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">dos</span><span class="p">,</span> <span class="n">ener</span> <span class="o">=</span> <span class="n">dos_obj</span><span class="o">.</span><span class="n">get_dos</span><span class="p">(</span><span class="n">dos_type</span><span class="o">=</span><span class="n">typical_orb</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ener</span><span class="p">,</span> <span class="n">dos</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">dos_obj</span><span class="o">.</span><span class="n">element</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">typical_orb</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;C</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">ax_num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">ymax</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+
+    <span class="c1"># global figure setting</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="s1">&#39;Energy [eV]&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;DOS [arb. unit]&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;DOS.jpg&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yong-Bin Zhuang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
