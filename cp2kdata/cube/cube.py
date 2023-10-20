@@ -277,13 +277,20 @@ class Cp2kCube(MSONable):
             return points, vals
     
     def get_mav(self, l1, l2=0, ncov=1, interpolate=False, axis="z"):
+        cell_length = {
+            "x": self.cell_x,
+            "y": self.cell_y,
+            "z": self.cell_z
+        }
+        length = cell_length[axis]
+
         pav_x, pav = self.get_pav(axis=axis, interpolate=interpolate)
-        theta_1_fft = fft.fft(square_wave_filter(pav_x, l1, self.cell_z))
+        theta_1_fft = fft.fft(square_wave_filter(pav_x, l1, length))
         pav_fft = fft.fft(pav)
-        mav_fft = pav_fft*theta_1_fft*self.cell_z/len(pav_x)
+        mav_fft = pav_fft*theta_1_fft*length/len(pav_x)
         if ncov == 2:
-            theta_2_fft = fft.fft(square_wave_filter(pav_x, l2, self.cell_z))
-            mav_fft = mav_fft*theta_2_fft*self.cell_z/len(pav_x)
+            theta_2_fft = fft.fft(square_wave_filter(pav_x, l2, length))
+            mav_fft = mav_fft*theta_2_fft*length/len(pav_x)
         mav = fft.ifft(mav_fft)
         return pav_x, np.real(mav)
 
