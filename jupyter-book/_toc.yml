@@ -6,8 +6,15 @@ root: intro
 parts:
   - caption: Tools
     chapters:
+      - file: docs/output
       - file: docs/cube/README
       - file: docs/pdos/README
+  - caption: Parameter Test
+    chapters:
+      - file: docs/input_test
+  - caption: Plugin
+    chapters:
+      - file: docs/dpdata_plugin
   - caption: API Reference
     maxdepth: 1
     chapters:
