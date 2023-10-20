@@ -26,11 +26,11 @@ jobs:
     
     - name: Install dependencies
       run: |
-        poetry install
+        pip install .
     
     - name: Sphinx APIDoc
       run: |
-        poetry run sphinx-apidoc -f -o jupyter-book/_api/ ai2_kit/ --separate
+        poetry run sphinx-apidoc -f -o jupyter-book/_api/ cp2kdata/ --separate
 
     # Build the book
     - name: Build the book
