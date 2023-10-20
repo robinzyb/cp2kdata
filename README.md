@@ -1,4 +1,4 @@
-# CP2KDATA
+# CP2KData
 
 
 [![Python package](https://github.com/robinzyb/cp2kdata/actions/workflows/ci.yml/badge.svg)](https://github.com/robinzyb/cp2kdata/actions/workflows/ci.yml)[![Coverage Status](https://coveralls.io/repos/github/robinzyb/cp2kdata/badge.svg)](https://coveralls.io/github/robinzyb/cp2kdata)
@@ -10,7 +10,7 @@ Python Package to postprocess cp2k data.
 
 including cube file, pdos file, output file
 
-- [CP2KDATA](#cp2kdata)
+- [CP2KData](#cp2kdata)
 - [Installation](#installation)
 - [Generate Standard Test Inputs](#generate-standard-test-inputs)
 - [Plot Standard Test Output](#plot-standard-test-output)
@@ -53,11 +53,16 @@ cp2kdata gen hubbardu <template input> <a list of other neccessary files> -ur u 
 cp2kdata gen hubbardu input.inp coord.xyz cp2k.lsf -ur 0 8.1 1 -e Fe -orb d  
 ```
 # Plot Standard Test Output
-After you finished the above tests, you readily plot the result using command `cp2kdata plot cutoff`, `cp2kdata plot basis`, `cp2kdata plot hubbardu` 
+Once you have completed the tests mentioned above, you can easily generate plots of the results using the following commands:
+
+- To plot the cutoff data, use: `cp2kdata plot cutoff`
+- To plot the basis data, use: `cp2kdata plot basis`
+- To plot the Hubbard U data, use: `cp2kdata plot hubbardu`
+
 
 # Processing Other Files
-[Processing CP2K Cube Files](./docs/cube/README.md)
-[Processing CP2K Pdos Files](./docs/pdos/README.md)
+- [Processing CP2K Cube Files](./docs/cube/README.md)
+- [Processing CP2K Pdos Files](./docs/pdos/README.md)
 
 # Processing Output Files
 

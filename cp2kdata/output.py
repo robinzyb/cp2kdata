@@ -72,6 +72,7 @@ class Cp2kOutput:
         self.check_run_type(run_type=self.global_info.run_type)
 
         run_type_parser_candidates = {
+            "ENERGY": self.parse_energy_force,
             "ENERGY_FORCE": self.parse_energy_force,
             "GEO_OPT": self.parse_geo_opt,
             "CELL_OPT": self.parse_cell_opt,

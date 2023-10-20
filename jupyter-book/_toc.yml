@@ -1,0 +1,14 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+  - caption: Tools
+    chapters:
+      - file: docs/cube/README
+      - file: docs/pdos/README
+  - caption: API Reference
+    maxdepth: 1
+    chapters:
+      - file: _api/modules
