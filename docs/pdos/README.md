@@ -1,11 +1,11 @@
-# Processing PDOS File
+# Manipulate CP2K Pdos Files
 
 ## Processing Single PDOS File
 
 ```python
-from cp2kdata.pdos import Pdos
+from cp2kdata import Cp2kPdos
 dosfile = "Universality-ALPHA_k2-1_50.pdos"
-mypdos = Pdos(dosfile)
+mypdos = Cp2kPdos(dosfile)
 dos, ener = mypdos.get_dos()
 ```
 
