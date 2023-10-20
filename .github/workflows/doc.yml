@@ -27,6 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install .
+        pip install sphinx
     
     - name: Sphinx APIDoc
       run: |
