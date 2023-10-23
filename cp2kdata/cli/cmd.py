@@ -258,7 +258,7 @@ plot.add_command(ti)
     )
 @click.option(
     '--l2', 
-    type=int, 
+    type=float, 
     default=1, 
     help='l2'
     )
