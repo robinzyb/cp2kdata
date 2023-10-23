@@ -7,6 +7,7 @@ from scipy import fft
 from ase import Atom, Atoms
 from monty.json import MSONable
 from copy import deepcopy
+import asciichartpy as acp
 
 
 def square_wave_filter(x, l, cell_z):
@@ -309,6 +310,22 @@ class Cp2kCube(MSONable):
         #ax.set_ylabel('Hartree [eV]')
         ax.legend()
         return fig
+
+
+    def view_cube_acsii(self, axis='z', mav=False, l1=None, l2=None, ncov=1, unit='au'):
+        if mav:
+            x, y = self.get_mav(l1, l2, ncov, axis=axis)
+        else:
+            x, y = self.get_pav(axis=axis)
+        
+        if unit == 'au':
+            pass
+        elif unit == 'eV':
+            y = y*au2eV
+        else:
+            print("not such unit, the available options are 'au' and 'eV'")
+        step = int(len(y)/135)
+        print(acp.plot(y[::step], {'height': 20}))
     
     def write_cube(self, fname, comments='#'):
         with open(fname, 'w') as fw:
@@ -338,6 +355,7 @@ class Cp2kCube(MSONable):
                     # write a blank line after each z value 
                     if self.grid_size[2]%6 != 0:
                         fw.write('\n')
+    
 
             
 class Cp2kCubeTraj:

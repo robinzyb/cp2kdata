@@ -1,5 +1,6 @@
 from email.policy import default
 import click
+from cp2kdata import Cp2kCube
 from .funcs import *
 
 
@@ -18,6 +19,11 @@ def plot():
     click.echo('Plot CP2K Testing Results')
 
 cli.add_command(plot)
+
+@click.group("cube")
+def cube():
+    click.echo('Manipulate Cube Files')
+cli.add_command(cube)
 
 #-- for gen test --# 
 #-- Cutoff --#
@@ -222,3 +228,53 @@ def ti(fig_name):
     plot_ti(fig_name=fig_name)
 
 plot.add_command(ti)
+
+
+# -- for cube -- #
+@click.command()
+@click.option(
+    '--cube_file', 
+    type=str, 
+    default=".", 
+    help='cube file'
+    )
+@click.option(
+    '--axis', 
+    type=str, 
+    default="z", 
+    help='axis'
+    )
+@click.option(
+    '--mav', 
+    type=bool, 
+    default=False, 
+    help='switch on macro average or not'
+    )
+@click.option(
+    '--l1', 
+    type=float, 
+    default=1, 
+    help='l1'
+    )
+@click.option(
+    '--l2', 
+    type=int, 
+    default=1, 
+    help='l2'
+    )
+@click.option(
+    '--ncov', 
+    type=int, 
+    default=1, 
+    help='ncov'
+    )
+@click.option(
+    '--unit', 
+    type=str, 
+    default="eV", 
+    help='unit'
+    )
+def view(cube_file, axis, mav, l1, l2, ncov, unit):
+    cube = Cp2kCube(cube_file)
+    cube.view_cube_acsii(axis=axis, mav=mav, l1=l1, l2=l2, ncov=ncov, unit=unit)
+cube.add_command(view)
