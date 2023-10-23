@@ -247,7 +247,7 @@ class Cp2kCube(MSONable):
         cube_vals = cube_vals.reshape(self.grid_size)
         return cube_vals
 
-    def get_pav(self, axis="z", interpolate=False):
+    def get_pav(self, axis='z', interpolate=False):
         # do the planar average along specific axis
         if axis == 'x':
             vals = self.cube_vals.mean(axis=(1,2))
@@ -262,7 +262,7 @@ class Cp2kCube(MSONable):
             points = np.arange(0, self.grid_size[2])*self.grid_space[2]
             length = self.grid_size[2]*self.grid_space[2]
         else:
-            print("not such plane average style!")
+            print("not such plane average style, the avaialble options are 'x', 'y', 'z'")
 
         # interpolate or note
         if interpolate:
@@ -294,14 +294,20 @@ class Cp2kCube(MSONable):
         return pav_x, np.real(mav)
 
 
-    def quick_plot(self, axis="z", interpolate=False, output_dir="./"):
+    def quick_plot(self, axis="z", interpolate=False):
+        
         x, y = self.get_pav(axis=axis, interpolate=interpolate)
-        plt.figure(figsize=(9,9), dpi=100)
-        plt.plot(x, y, label=("PAV"+axis))
-        plt.xlabel(axis + " [A]")
-        plt.ylabel("Hartree [eV]")
-        plt.legend()
-        plt.savefig(os.path.join(output_dir, "pav.png"), dpi=100)
+        plt.style.use('cp2kdata.matplotlibstyle.jcp')
+        row = 1
+        col = 1
+        fig = plt.figure(figsize=(3.37*col, 1.89*row), dpi=600, facecolor='white')
+        gs = fig.add_gridspec(row,col)
+        ax  = fig.add_subplot(gs[0])
+        ax.plot(x, y, label=(f"PAV along {axis}"))
+        #ax.set_xlabel(f'{axis} [A]')
+        #ax.set_ylabel('Hartree [eV]')
+        ax.legend()
+        return fig
 
 class Cp2kCubeTraj:
     def __init__(cube_dir, prefix):

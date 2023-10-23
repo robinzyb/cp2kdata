@@ -49,5 +49,8 @@ cp2kdata = "cp2kdata.cli.cmd:cli"
 [tool.setuptools.packages.find]
 include = ["cp2kdata*"]
 
+[tool.setuptools.package-data]
+cp2kdata = ["matplotlibstyle/*.mplstyle"]
+
 
 
