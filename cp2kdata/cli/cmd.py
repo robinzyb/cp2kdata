@@ -277,7 +277,7 @@ plot.add_command(ti)
 @click.option(
     '--width', 
     type=int, 
-    default=10, 
+    default=135, 
     help='width'
     )
 def view(cube_file, axis, mav, l1, l2, ncov, unit, width):
