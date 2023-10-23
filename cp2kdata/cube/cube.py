@@ -312,7 +312,7 @@ class Cp2kCube(MSONable):
         return fig
 
 
-    def view_cube_acsii(self, axis='z', mav=False, l1=None, l2=None, ncov=1, unit='au'):
+    def view_cube_acsii(self, axis='z', mav=False, l1=None, l2=None, ncov=1, unit='au', width=135):
         if mav:
             x, y = self.get_mav(l1, l2, ncov, axis=axis)
         else:
@@ -324,7 +324,7 @@ class Cp2kCube(MSONable):
             y = y*au2eV
         else:
             print("not such unit, the available options are 'au' and 'eV'")
-        step = int(len(y)/135)
+        step = int(len(y)/width)
         print(acp.plot(y[::step], {'height': 20}))
     
     def write_cube(self, fname, comments='#'):

@@ -274,7 +274,13 @@ plot.add_command(ti)
     default="eV", 
     help='unit'
     )
-def view(cube_file, axis, mav, l1, l2, ncov, unit):
+@click.option(
+    '--width', 
+    type=int, 
+    default=10, 
+    help='width'
+    )
+def view(cube_file, axis, mav, l1, l2, ncov, unit, width):
     cube = Cp2kCube(cube_file)
-    cube.view_cube_acsii(axis=axis, mav=mav, l1=l1, l2=l2, ncov=ncov, unit=unit)
+    cube.view_cube_acsii(axis=axis, mav=mav, l1=l1, l2=l2, ncov=ncov, unit=unit, width=width)
 cube.add_command(view)
