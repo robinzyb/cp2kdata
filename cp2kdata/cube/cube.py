@@ -245,7 +245,6 @@ class Cp2kCube(MSONable):
         cube_vals = cube_vals.split()
         cube_vals = np.array(cube_vals, dtype = float)
         cube_vals = cube_vals.reshape(self.grid_size)
-        cube_vals = cube_vals*au2eV
         return cube_vals
 
     def get_pav(self, axis="z", interpolate=False):
