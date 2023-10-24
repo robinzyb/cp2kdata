@@ -1,5 +1,6 @@
 from cp2kdata.utils import file_content, interpolate_spline
 from cp2kdata.utils import au2A, au2eV
+from cp2kdata.cell import Cp2kCell
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -139,17 +140,11 @@ class Cp2kCubeOld:
 
 
 class Cp2kCube(MSONable):
-    # remove useless timestep argument
     # add MSONable use as_dict and from_dict
-    # add copy method
-    # add addition and subtraction method cube1 + cube2
-
-    #TODO: .write method to write a cube file
-    #TODO: complete parse the grid_spacing and num_grid
-
-
-    
-    def __init__(self, file=None, cube_vals=None, grid_size=None, grid_space=None, stc=None):
+    """
+    Documentation for the Cp2kCube class.
+    """
+    def __init__(self, fname=None, cube_vals=None, cell=None, stc=None):
         print("Warning: This is New Cp2kCube Class, if you want to use old Cp2kCube")
         print("try, from cp2kdata.cube.cube import Cp2kCube")
         print("New Cp2kCube return raw values in cp2k cube file")
@@ -157,48 +152,46 @@ class Cp2kCube(MSONable):
         print("that is, length in bohr and density in e/bohr^3 for density file")
         print("to convert unit: try from cp2kdata.utils import au2A, au2eV")
 
-        self.file = file
-        self.cube_vals = self.read_cube_vals()
-        self.cell_x = self.grid_size[0]*self.grid_space[0]
-        self.cell_y = self.grid_size[1]*self.grid_space[1]
-        self.cell_z = self.grid_size[2]*self.grid_space[2]
-        self.stc = self.get_stc()
+        self.file = fname
+
+
+        if cell is None:
+            self.cell = self.read_cell()
+        else:
+            self.cell = cell
+        if stc is None:
+            self.stc = self.get_stc()
+        else:
+            self.stc = stc
+
+        if cube_vals is None:
+            self.cube_vals = self.read_cube_vals(self.file, 
+                                                self.num_atoms, 
+                                                self.cell.grid_point
+                                                )
+        else:
+            self.cube_vals = cube_vals
+
+    def read_cell(self):
+        grid_point = self.read_grid_point(self.file)
+        gs_matrix = self.read_gs_matrix(self.file)
+        cell_param = gs_matrix*grid_point[:, np.newaxis]
+        return Cp2kCell(cell_param, grid_point, gs_matrix)
 
     @property
     def num_atoms(self):
         line = file_content(self.file, 2)
         num_atoms = int(line.split()[0])
         return num_atoms
-
-    @property
-    def grid_size(self):
-        # read grid point and grid size, unit: angstrom
-        content_list = file_content(self.file, (3,6))
-        content_list = content_list.split()
-        num_x = int(content_list[0])
-        num_y = int(content_list[4])
-        num_z = int(content_list[8])
-        return num_x, num_y, num_z
-
-    @property
-    def grid_space(self):
-        # read grid point and grid size, unit: angstrom
-        content_list = file_content(self.file, (3,6))
-        content_list = content_list.split()
-        step_x = float(content_list[1])
-        step_y = float(content_list[6])
-        step_z = float(content_list[11])
-        return step_x, step_y, step_z
     
     def as_dict(self):
-        """Returns data dict of System instance."""
+        """Returns data dict of Cp2kCube instance."""
         data_dict = {
             "@module": self.__class__.__module__,
             "@class": self.__class__.__name__,
             "file": self.file,
             "cube_vals": self.cube_vals,
-            "grid_size": self.grid_size,
-            "grid_space": self.grid_space,
+            "cell": self.cell,
             "stc": self.stc,
             }
         return data_dict
@@ -223,7 +216,6 @@ class Cp2kCube(MSONable):
             raise RuntimeError("Unspported Class")
         return self_copy
         
-
     def get_stc(self):
         atom_list = []
         for i in range(self.num_atoms):
@@ -236,34 +228,35 @@ class Cp2kCube(MSONable):
             atom_list.append(atom)
 
         stc = Atoms(atom_list)
-        stc.set_cell([self.cell_x, self.cell_y, self.cell_z])
+        stc.set_cell(self.cell.cell_matrix)
         return stc
     
     def copy(self):
         return deepcopy(self)
-        
-    def read_cube_vals(self):
-        # read the cube value from file
-        cube_vals = file_content(self.file, (6+self.num_atoms,))
-        cube_vals = cube_vals.split()
-        cube_vals = np.array(cube_vals, dtype = float)
-        cube_vals = cube_vals.reshape(self.grid_size)
-        return cube_vals
 
     def get_pav(self, axis='z', interpolate=False):
+        np.testing.assert_array_equal(
+            self.cell.get_cell_angles(),
+            np.array([90.0, 90.0, 90.0]),
+            err_msg="The cell is not orthorhombic, the pav can not be used!"
+            )
+       
         # do the planar average along specific axis
+        lengths = self.cell.get_cell_lengths()
+        grid_point = self.cell.grid_point
+        gs_matrix = self.cell.grid_spacing_matrix
         if axis == 'x':
             vals = self.cube_vals.mean(axis=(1,2))
-            points = np.arange(0, self.grid_size[0])*self.grid_space[0]
-            length = self.grid_size[0]*self.grid_space[0]
+            points = np.arange(0, grid_point[0])*gs_matrix[0][0]
+            length = lengths[0]
         elif axis == 'y':
             vals = self.cube_vals.mean(axis=(0,2))
-            points = np.arange(0, self.grid_size[1])*self.grid_space[1]
-            length = self.grid_size[1]*self.grid_space[1]
+            points = np.arange(0, grid_point[1])*gs_matrix[1][1]
+            length = lengths[1]
         elif axis == 'z':
             vals = self.cube_vals.mean(axis=(0,1))
-            points = np.arange(0, self.grid_size[2])*self.grid_space[2]
-            length = self.grid_size[2]*self.grid_space[2]
+            points = np.arange(0, grid_point[2])*gs_matrix[2][2]
+            length = lengths[2]
         else:
             print("not such plane average style, the avaialble options are 'x', 'y', 'z'")
 
@@ -280,9 +273,9 @@ class Cp2kCube(MSONable):
     
     def get_mav(self, l1, l2=0, ncov=1, interpolate=False, axis="z"):
         cell_length = {
-            "x": self.cell_x,
-            "y": self.cell_y,
-            "z": self.cell_z
+            "x": self.cell.get_cell_lengths()[0],
+            "y": self.cell.get_cell_lengths()[1],
+            "z": self.cell.get_cell_lengths()[2]
         }
         length = cell_length[axis]
 
@@ -311,7 +304,6 @@ class Cp2kCube(MSONable):
         ax.legend()
         return fig
 
-
     def view_cube_acsii(self, axis='z', mav=False, l1=None, l2=None, ncov=1, unit='au', width=135):
         if mav:
             x, y = self.get_mav(l1, l2, ncov, axis=axis)
@@ -328,24 +320,26 @@ class Cp2kCube(MSONable):
         print(acp.plot(y[::step], {'height': 20}))
     
     def write_cube(self, fname, comments='#'):
+        grid_point = self.cell.grid_point
+        gs_matrix = self.cell.grid_spacing_matrix
         with open(fname, 'w') as fw:
             # write header
             fw.write('Cube file generated by CP2KData\n')
             fw.write(comments+'\n')
             # grid information
             fw.write(f'{self.num_atoms:5d}{0:12.6f}{0:12.6f}{0:12.6f}\n')
-            fw.write(f'{self.grid_size[0]:5d}{self.grid_space[0]:12.6f}{0.0:12.6f}{0:12.6f}\n')
-            fw.write(f'{self.grid_size[1]:5d}{0.0:12.6f}{self.grid_space[1]:12.6f}{0:12.6f}\n')
-            fw.write(f'{self.grid_size[2]:5d}{0.0:12.6f}{0.0:12.6f}{self.grid_space[2]:12.6f}\n')
+            fw.write(f'{grid_point[0]:5d}{gs_matrix[0][0]:12.6f}{gs_matrix[0][1]:12.6f}{gs_matrix[0][2]:12.6f}\n')
+            fw.write(f'{grid_point[1]:5d}{gs_matrix[1][0]:12.6f}{gs_matrix[1][1]:12.6f}{gs_matrix[1][2]:12.6f}\n')
+            fw.write(f'{grid_point[2]:5d}{gs_matrix[2][0]:12.6f}{gs_matrix[2][1]:12.6f}{gs_matrix[2][2]:12.6f}\n')
             # structure information
             for atom in self.stc:
                 fw.write(f'{atom.number:5d}{0:12.6f}{atom.position[0]/au2A:12.6f}{atom.position[1]/au2A:12.6f}{atom.position[2]/au2A:12.6f}\n')
             # cube values
             # cp2k write cube loop in z, y, x order
             # https://github.com/cp2k/cp2k/blob/01090ebf0718ff6885d11f89fe10938d80eb0a02/src/pw/realspace_grid_cube.F#L99
-            for i in range(self.grid_size[0]):
-                for j in range(self.grid_size[1]):
-                    for k in range(self.grid_size[2]):
+            for i in range(grid_point[0]):
+                for j in range(grid_point[1]):
+                    for k in range(grid_point[2]):
                         # notice that cp2k write scientific notion differntly
                         # cp2k:   0.20871E+00
                         # python: 2.08710E-01
@@ -353,11 +347,49 @@ class Cp2kCube(MSONable):
                         if (k+1)%6 == 0:
                             fw.write('\n')
                     # write a blank line after each z value 
-                    if self.grid_size[2]%6 != 0:
+                    if grid_point[2]%6 != 0:
                         fw.write('\n')
-    
 
-            
+    def get_integration(self):
+        dv = self.cell.get_dv()
+        result = np.sum(self.cube_vals)*dv
+        return result
+    
+    def get_cell(self):
+        return self.cell.copy()
+
+    @staticmethod
+    def read_gs_matrix(fname):
+        content_list = file_content(fname, (3,6))
+        content_list = content_list.split()
+
+        gs_matrix = [
+            [float(content_list[1]), float(content_list[2]), float(content_list[3])],
+            [float(content_list[5]), float(content_list[6]), float(content_list[7])],
+            [float(content_list[9]), float(content_list[10]), float(content_list[11])]
+        ]
+        gs_matrix = np.array(gs_matrix)
+        return gs_matrix
+
+    @staticmethod
+    def read_grid_point(fname):
+        # read grid point and grid size, unit: angstrom
+        content_list = file_content(fname, (3,6))
+        content_list = content_list.split()
+        num_x = int(content_list[0])
+        num_y = int(content_list[4])
+        num_z = int(content_list[8])
+        return np.array([num_x, num_y, num_z])
+    
+    @staticmethod
+    def read_cube_vals(fname, num_atoms, grid_point):
+        # read the cube value from file
+        cube_vals = file_content(fname, (6+num_atoms,))
+        cube_vals = cube_vals.split()
+        cube_vals = np.array(cube_vals, dtype = float)
+        cube_vals = cube_vals.reshape(grid_point)
+        return cube_vals
+
 class Cp2kCubeTraj:
     def __init__(cube_dir, prefix):
         pass

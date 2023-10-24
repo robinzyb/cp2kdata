@@ -10,8 +10,9 @@ for file in file_list:
     dir_name = f"answer_{file}"
     os.makedirs(dir_name, exist_ok = True)
     np.save(os.path.join(dir_name, "cube_vals.npy"), cube.cube_vals)
-    np.save(os.path.join(dir_name, "grid_size.npy"), cube.grid_size)
-    np.save(os.path.join(dir_name, "grid_space.npy"), cube.grid_space)
+    np.save(os.path.join(dir_name, "grid_point.npy"), cube.cell.grid_point)
+    np.save(os.path.join(dir_name, "gs_matrix.npy"), cube.cell.grid_spacing_matrix)
     np.save(os.path.join(dir_name, "num_atoms.npy"), cube.num_atoms)
+    np.save(os.path.join(dir_name, "integral.npy"), cube.get_integration())
     np.save(os.path.join(dir_name, "pav.npy"), cube.get_pav())
     np.save(os.path.join(dir_name, "mav.npy"), cube.get_mav(l1=1, l2=1, ncov=2))
