@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = '_api/cp2kdata.cube.cube';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="cp2kdata.pdos package" href="cp2kdata.pdos.html" />
+    <link rel="next" title="cp2kdata.matplotlibstyle package" href="cp2kdata.matplotlibstyle.html" />
     <link rel="prev" title="cp2kdata.cube package" href="cp2kdata.cube.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -206,6 +206,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">cp2kdata.cube.cube module</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cp2kdata.matplotlibstyle.html">cp2kdata.matplotlibstyle package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="cp2kdata.pdos.html">cp2kdata.pdos package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.pdos.pdos.html">cp2kdata.pdos.pdos module</a></li>
 </ul>
@@ -216,6 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.plots.test_plot.html">cp2kdata.plots.test_plot module</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cp2kdata.cell.html">cp2kdata.cell module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cp2kdata.dpdata_plugin.html">cp2kdata.dpdata_plugin module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cp2kdata.output.html">cp2kdata.output module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cp2kdata.paser_func.html">cp2kdata.paser_func module</a></li>
@@ -425,17 +427,28 @@ document.write(`
 <span id="cp2kdata-cube-cube-module"></span><h1>cp2kdata.cube.cube module<a class="headerlink" href="#module-cp2kdata.cube.cube" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cp2kdata.cube.cube.</span></span><span class="sig-name descname"><span class="pre">Cp2kCube</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cube_vals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_space</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cp2kdata.cube.cube.</span></span><span class="sig-name descname"><span class="pre">Cp2kCube</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cube_vals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
+<p>Documentation for the Cp2kCube class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.as_dict">
 <span class="sig-name descname"><span class="pre">as_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.as_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.as_dict" title="Permalink to this definition">#</a></dt>
-<dd><p>Returns data dict of System instance.</p>
+<dd><p>Returns data dict of Cp2kCube instance.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.copy" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.get_cell">
+<span class="sig-name descname"><span class="pre">get_cell</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.get_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.get_cell" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.get_integration">
+<span class="sig-name descname"><span class="pre">get_integration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.get_integration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.get_integration" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -454,28 +467,43 @@ document.write(`
 <dd></dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.grid_size">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">grid_size</span></span><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.grid_size" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.grid_space">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">grid_space</span></span><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.grid_space" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
 <dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.num_atoms">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_atoms</span></span><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.num_atoms" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.quick_plot">
-<span class="sig-name descname"><span class="pre">quick_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.quick_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.quick_plot" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">quick_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.quick_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.quick_plot" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.read_cell">
+<span class="sig-name descname"><span class="pre">read_cell</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.read_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.read_cell" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.read_cube_vals">
-<span class="sig-name descname"><span class="pre">read_cube_vals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.read_cube_vals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.read_cube_vals" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_cube_vals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.read_cube_vals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.read_cube_vals" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.read_grid_point">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_grid_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.read_grid_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.read_grid_point" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.read_gs_matrix">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_gs_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.read_gs_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.read_gs_matrix" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.view_cube_acsii">
+<span class="sig-name descname"><span class="pre">view_cube_acsii</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mav</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncov</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'au'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">135</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.view_cube_acsii"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.view_cube_acsii" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cp2kdata.cube.cube.Cp2kCube.write_cube">
+<span class="sig-name descname"><span class="pre">write_cube</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/cube/cube.html#Cp2kCube.write_cube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.cube.cube.Cp2kCube.write_cube" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -580,11 +608,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="cp2kdata.pdos.html"
+       href="cp2kdata.matplotlibstyle.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">cp2kdata.pdos package</p>
+        <p class="prev-next-title">cp2kdata.matplotlibstyle package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

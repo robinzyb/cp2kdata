@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>cp2kdata.block_parser.energies module &#8212; CP2KData Reference</title>
+    <title>cp2kdata.matplotlibstyle package &#8212; CP2KData Reference</title>
   
   
   
@@ -62,11 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_api/cp2kdata.block_parser.energies';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_api/cp2kdata.matplotlibstyle';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="cp2kdata.block_parser.errors_handle module" href="cp2kdata.block_parser.errors_handle.html" />
-    <link rel="prev" title="cp2kdata.block_parser.dft_plus_u module" href="cp2kdata.block_parser.dft_plus_u.html" />
+    <link rel="next" title="cp2kdata.pdos package" href="cp2kdata.pdos.html" />
+    <link rel="prev" title="cp2kdata.cube.cube module" href="cp2kdata.cube.cube.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,13 +179,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">cp2kdata</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="cp2kdata.html">cp2kdata package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3 current active has-children"><a class="reference internal" href="cp2kdata.block_parser.html">cp2kdata.block_parser package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="cp2kdata.block_parser.html">cp2kdata.block_parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.atomic_kind.html">cp2kdata.block_parser.atomic_kind module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.cells.html">cp2kdata.block_parser.cells module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.converge.html">cp2kdata.block_parser.converge module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.coordinates.html">cp2kdata.block_parser.coordinates module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.dft_plus_u.html">cp2kdata.block_parser.dft_plus_u module</a></li>
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">cp2kdata.block_parser.energies module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.energies.html">cp2kdata.block_parser.energies module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.errors_handle.html">cp2kdata.block_parser.errors_handle module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.fep.html">cp2kdata.block_parser.fep module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.forces.html">cp2kdata.block_parser.forces module</a></li>
@@ -206,7 +206,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.cube.cube.html">cp2kdata.cube.cube module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="cp2kdata.matplotlibstyle.html">cp2kdata.matplotlibstyle package</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">cp2kdata.matplotlibstyle package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="cp2kdata.pdos.html">cp2kdata.pdos package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.pdos.pdos.html">cp2kdata.pdos.pdos module</a></li>
 </ul>
@@ -299,7 +299,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_api/cp2kdata.block_parser.energies.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_api/cp2kdata.matplotlibstyle.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -329,7 +329,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/_api/cp2kdata.block_parser.energies.rst" target="_blank"
+      <li><a href="../_sources/_api/cp2kdata.matplotlibstyle.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -398,7 +398,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -409,11 +411,19 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>cp2kdata.block_parser.energies module</h1>
+    <h1>cp2kdata.matplotlibstyle package</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cp2kdata.matplotlibstyle">Module contents</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -423,13 +433,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="module-cp2kdata.block_parser.energies">
-<span id="cp2kdata-block-parser-energies-module"></span><h1>cp2kdata.block_parser.energies module<a class="headerlink" href="#module-cp2kdata.block_parser.energies" title="Permalink to this heading">#</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="cp2kdata.block_parser.energies.parse_energies_list">
-<span class="sig-prename descclassname"><span class="pre">cp2kdata.block_parser.energies.</span></span><span class="sig-name descname"><span class="pre">parse_energies_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/block_parser/energies.html#parse_energies_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.block_parser.energies.parse_energies_list" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
+  <section id="cp2kdata-matplotlibstyle-package">
+<h1>cp2kdata.matplotlibstyle package<a class="headerlink" href="#cp2kdata-matplotlibstyle-package" title="Permalink to this heading">#</a></h1>
+<section id="module-cp2kdata.matplotlibstyle">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cp2kdata.matplotlibstyle" title="Permalink to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -463,20 +471,20 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="cp2kdata.block_parser.dft_plus_u.html"
+       href="cp2kdata.cube.cube.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">cp2kdata.block_parser.dft_plus_u module</p>
+        <p class="prev-next-title">cp2kdata.cube.cube module</p>
       </div>
     </a>
     <a class="right-next"
-       href="cp2kdata.block_parser.errors_handle.html"
+       href="cp2kdata.pdos.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">cp2kdata.block_parser.errors_handle module</p>
+        <p class="prev-next-title">cp2kdata.pdos package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -486,6 +494,20 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cp2kdata.matplotlibstyle">Module contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

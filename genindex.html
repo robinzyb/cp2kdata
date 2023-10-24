@@ -203,6 +203,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.cube.cube.html">cp2kdata.cube.cube module</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.matplotlibstyle.html">cp2kdata.matplotlibstyle package</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="_api/cp2kdata.pdos.html">cp2kdata.pdos package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.pdos.pdos.html">cp2kdata.pdos.pdos module</a></li>
 </ul>
@@ -213,6 +214,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.test_plot.html">cp2kdata.plots.test_plot module</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.cell.html">cp2kdata.cell module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.dpdata_plugin.html">cp2kdata.dpdata_plugin module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.output.html">cp2kdata.output module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.paser_func.html">cp2kdata.paser_func module</a></li>
@@ -393,6 +395,7 @@ document.write(`
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -428,7 +431,13 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.ConvergeInfo">ConvergeInfo (class in cp2kdata.block_parser.converge)</a>
 </li>
-      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.copy">copy() (cp2kdata.cube.cube.Cp2kCube method)</a>
+      <li><a href="_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.copy">copy() (cp2kdata.cell.Cp2kCell method)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.copy">(cp2kdata.cube.cube.Cp2kCube method)</a>
+</li>
+      </ul></li>
+      <li><a href="_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell">Cp2kCell (class in cp2kdata.cell)</a>
 </li>
       <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube">Cp2kCube (class in cp2kdata.cube.cube)</a>
 </li>
@@ -541,8 +550,6 @@ document.write(`
         <li><a href="_api/cp2kdata.block_parser.md_xyz.html#module-cp2kdata.block_parser.md_xyz">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cp2kdata.block_parser.mulliken
 
@@ -550,11 +557,20 @@ document.write(`
         <li><a href="_api/cp2kdata.block_parser.mulliken.html#module-cp2kdata.block_parser.mulliken">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cp2kdata.block_parser.stress
 
       <ul>
         <li><a href="_api/cp2kdata.block_parser.stress.html#module-cp2kdata.block_parser.stress">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.cell
+
+      <ul>
+        <li><a href="_api/cp2kdata.cell.html#module-cp2kdata.cell">module</a>
 </li>
       </ul></li>
       <li>
@@ -583,6 +599,13 @@ document.write(`
 
       <ul>
         <li><a href="_api/cp2kdata.dpdata_plugin.html#module-cp2kdata.dpdata_plugin">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.matplotlibstyle
+
+      <ul>
+        <li><a href="_api/cp2kdata.matplotlibstyle.html#module-cp2kdata.matplotlibstyle">module</a>
 </li>
       </ul></li>
       <li>
@@ -618,6 +641,13 @@ document.write(`
 
       <ul>
         <li><a href="_api/cp2kdata.plots.html#module-cp2kdata.plots">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.plots.fep_plot
+
+      <ul>
+        <li><a href="_api/cp2kdata.plots.fep_plot.html#module-cp2kdata.plots.fep_plot">module</a>
 </li>
       </ul></li>
       <li>
@@ -714,13 +744,25 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_basis_name_list">get_basis_name_list() (in module cp2kdata.plots.test_plot)</a>
 </li>
-      <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_cell_param">get_cell_param() (in module cp2kdata.plots.test_plot)</a>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_cell">get_cell() (cp2kdata.cube.cube.Cp2kCube method)</a>
 </li>
+      <li><a href="_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.get_cell_angles">get_cell_angles() (cp2kdata.cell.Cp2kCell method)</a>
+</li>
+      <li><a href="_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.get_cell_lengths">get_cell_lengths() (cp2kdata.cell.Cp2kCell method)</a>
+</li>
+      <li><a href="_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.get_cell_param">get_cell_param() (cp2kdata.cell.Cp2kCell method)</a>
+
+      <ul>
+        <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_cell_param">(in module cp2kdata.plots.test_plot)</a>
+</li>
+      </ul></li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_chemical_symbols">get_chemical_symbols() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_chemical_symbols_fake">get_chemical_symbols_fake() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
       <li><a href="_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.get_chemical_symbols_from_cp2kdata">get_chemical_symbols_from_cp2kdata() (in module cp2kdata.dpdata_plugin)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.fep_plot.html#cp2kdata.plots.fep_plot.get_cum_mean">get_cum_mean() (in module cp2kdata.plots.fep_plot)</a>
 </li>
       <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_cutoff_list">get_cutoff_list() (in module cp2kdata.plots.test_plot)</a>
 </li>
@@ -730,6 +772,8 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_dos_param">get_dos_param() (in module cp2kdata.plots.test_plot)</a>
 </li>
+      <li><a href="_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.get_dv">get_dv() (cp2kdata.cell.Cp2kCell method)</a>
+</li>
       <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_e_f_s">get_e_f_s() (in module cp2kdata.plots.test_plot)</a>
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_energies_list">get_energies_list() (cp2kdata.output.Cp2kOutput method)</a>
@@ -737,6 +781,8 @@ document.write(`
       <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_err_per_atom">get_err_per_atom() (in module cp2kdata.plots.test_plot)</a>
 </li>
       <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_exp_collect_from_yaml">get_exp_collect_from_yaml() (in module cp2kdata.plots.test_plot)</a>
+</li>
+      <li><a href="_api/cp2kdata.plots.fep_plot.html#cp2kdata.plots.fep_plot.get_fep_gaps">get_fep_gaps() (in module cp2kdata.plots.fep_plot)</a>
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_force_status">get_force_status() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
@@ -752,14 +798,16 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_atomic_coordinates">get_init_atomic_coordinates() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_cell">get_init_cell() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_integration">get_integration() (cp2kdata.cube.cube.Cp2kCube method)</a>
 </li>
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_lumo_ener">get_lumo_ener() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
 </li>
       <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_matrix_rmse_and_max_err">get_matrix_rmse_and_max_err() (in module cp2kdata.plots.test_plot)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_mav">get_mav() (cp2kdata.cube.cube.Cp2kCube method)</a>
 
       <ul>
@@ -818,20 +866,14 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_version_string">get_version_string() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
+      <li><a href="_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.get_volume">get_volume() (cp2kdata.cell.Cp2kCell method)</a>
+</li>
       <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo">GlobalInfo (class in cp2kdata.block_parser.header_info)</a>
 </li>
-      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.grid_size">grid_size (cp2kdata.cube.cube.Cp2kCube property)</a>
-
-      <ul>
-        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.grid_size">(cp2kdata.cube.cube.Cp2kCubeOld property)</a>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.grid_size">grid_size (cp2kdata.cube.cube.Cp2kCubeOld property)</a>
 </li>
-      </ul></li>
-      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.grid_space">grid_space (cp2kdata.cube.cube.Cp2kCube property)</a>
-
-      <ul>
-        <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.grid_space">(cp2kdata.cube.cube.Cp2kCubeOld property)</a>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.grid_space">grid_space (cp2kdata.cube.cube.Cp2kCubeOld property)</a>
 </li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -906,6 +948,8 @@ document.write(`
 </li>
         <li><a href="_api/cp2kdata.block_parser.stress.html#module-cp2kdata.block_parser.stress">cp2kdata.block_parser.stress</a>
 </li>
+        <li><a href="_api/cp2kdata.cell.html#module-cp2kdata.cell">cp2kdata.cell</a>
+</li>
         <li><a href="_api/cp2kdata.cli.html#module-cp2kdata.cli">cp2kdata.cli</a>
 </li>
         <li><a href="_api/cp2kdata.cube.html#module-cp2kdata.cube">cp2kdata.cube</a>
@@ -913,6 +957,8 @@ document.write(`
         <li><a href="_api/cp2kdata.cube.cube.html#module-cp2kdata.cube.cube">cp2kdata.cube.cube</a>
 </li>
         <li><a href="_api/cp2kdata.dpdata_plugin.html#module-cp2kdata.dpdata_plugin">cp2kdata.dpdata_plugin</a>
+</li>
+        <li><a href="_api/cp2kdata.matplotlibstyle.html#module-cp2kdata.matplotlibstyle">cp2kdata.matplotlibstyle</a>
 </li>
         <li><a href="_api/cp2kdata.output.html#module-cp2kdata.output">cp2kdata.output</a>
 </li>
@@ -923,6 +969,8 @@ document.write(`
         <li><a href="_api/cp2kdata.pdos.pdos.html#module-cp2kdata.pdos.pdos">cp2kdata.pdos.pdos</a>
 </li>
         <li><a href="_api/cp2kdata.plots.html#module-cp2kdata.plots">cp2kdata.plots</a>
+</li>
+        <li><a href="_api/cp2kdata.plots.fep_plot.html#module-cp2kdata.plots.fep_plot">cp2kdata.plots.fep_plot</a>
 </li>
         <li><a href="_api/cp2kdata.plots.geo_opt_plot.html#module-cp2kdata.plots.geo_opt_plot">cp2kdata.plots.geo_opt_plot</a>
 </li>
@@ -1039,6 +1087,8 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.plot_single_pdos">plot_single_pdos() (in module cp2kdata.pdos.pdos)</a>
 </li>
+      <li><a href="_api/cp2kdata.plots.fep_plot.html#cp2kdata.plots.fep_plot.plot_ti">plot_ti() (in module cp2kdata.plots.fep_plot)</a>
+</li>
       <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_U_test">plot_U_test() (in module cp2kdata.plots.test_plot)</a>
 </li>
       <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo.print_level">print_level (cp2kdata.block_parser.header_info.GlobalInfo attribute)</a>
@@ -1069,7 +1119,9 @@ document.write(`
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_cube_vals">read_cube_vals() (cp2kdata.cube.cube.Cp2kCube method)</a>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_cell">read_cell() (cp2kdata.cube.cube.Cp2kCube method)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_cube_vals">read_cube_vals() (cp2kdata.cube.cube.Cp2kCube static method)</a>
 
       <ul>
         <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.read_cube_vals">(cp2kdata.cube.cube.Cp2kCubeOld method)</a>
@@ -1082,6 +1134,10 @@ document.write(`
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_energies">read_dos_energies() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
 </li>
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_fermi">read_dos_fermi() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_grid_point">read_grid_point() (cp2kdata.cube.cube.Cp2kCube static method)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_gs_matrix">read_gs_matrix() (cp2kdata.cube.cube.Cp2kCube static method)</a>
 </li>
       <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo.run_type">run_type (cp2kdata.block_parser.header_info.GlobalInfo attribute)</a>
 </li>
@@ -1112,6 +1168,18 @@ document.write(`
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.Cp2kInfo.version">version (cp2kdata.block_parser.header_info.Cp2kInfo attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.view_cube_acsii">view_cube_acsii() (cp2kdata.cube.cube.Cp2kCube method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.write_cube">write_cube() (cp2kdata.cube.cube.Cp2kCube method)</a>
 </li>
   </ul></td>
 </tr></table>
