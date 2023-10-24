@@ -22,18 +22,18 @@ class TestCp2kCube():
         num_atoms = cube.num_atoms
         num_atoms_answer = np.load(os.path.join(answer_dir, "num_atoms.npy"))
         assert num_atoms == num_atoms_answer
-    def test_grid_size(self, cube_and_answer):
+    def test_grid_point(self, cube_and_answer):
         cube = cube_and_answer[0]
         answer_dir = cube_and_answer[1]
-        grid_size = cube.grid_size
-        grid_size_answer = np.load(os.path.join(answer_dir, "grid_size.npy"))
-        assert np.all(grid_size == grid_size_answer)
-    def test_grid_space(self, cube_and_answer):
+        grid_point = cube.cell.grid_point
+        grid_point_answer = np.load(os.path.join(answer_dir, "grid_point.npy"))
+        assert np.all(grid_point == grid_point_answer)
+    def test_grid_spacing_matrix(self, cube_and_answer):
         cube = cube_and_answer[0]
         answer_dir = cube_and_answer[1]
-        grid_space = cube.grid_space
-        grid_space_answer = np.load(os.path.join(answer_dir, "grid_space.npy"))
-        assert np.all(grid_space == grid_space_answer)
+        gs_matrix = cube.cell.grid_spacing_matrix
+        gs_matrix_answer = np.load(os.path.join(answer_dir, "gs_matrix.npy"))
+        assert np.all(gs_matrix == gs_matrix_answer)
     def test_cube_vals(self, cube_and_answer):
         cube = cube_and_answer[0]
         answer_dir = cube_and_answer[1]

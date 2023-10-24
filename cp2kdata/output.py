@@ -284,6 +284,7 @@ class Cp2kOutput:
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
             self.output_file)
         self.geo_opt_info = parse_geo_opt_info(self.output_file)
+        self.energies_list = parse_energies_list(self.output_file)
         self.num_frames = len(self.geo_opt_info)
         self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
         self.stress_tensor_list = parse_stress_tensor_list(self.output_file)

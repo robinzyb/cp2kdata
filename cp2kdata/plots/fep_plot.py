@@ -2,13 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import glob
 import os
-from toolkit.utils.utils import get_cum_mean
 from cp2kdata.block_parser.fep import parse_vertical_gap
 from scipy import integrate 
 from cycler import cycler
 from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 
 au2eV = 2.72113838565563E+01
+
+def get_cum_mean(array):
+    tot = 0.0
+    cum_mean_array = []
+    for idx, i in enumerate(array):
+        tot += i
+        cum_mean_array.append(tot/(idx+1))
+    cum_mean_array = np.array(cum_mean_array)
+    return cum_mean_array
+
 
 def plot_ti(fig_name):
     eta_sub_dir_list = glob.glob("[0-1].*")

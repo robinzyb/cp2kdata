@@ -1,0 +1,32 @@
+# the following settings are compliant with JCP standards
+axes.titlesize : 8
+axes.labelsize : 7 # for x y labels
+axes.linewidth : 0.8
+font.size: 6
+
+patch.linewidth : 0.8
+
+figure.dpi: 600
+figure.figsize: 3.37, 1.89
+
+lines.linewidth : 0.8
+lines.markeredgewidth: 0.8
+lines.markersize : 4.0
+
+xtick.direction: in
+xtick.minor.visible: True
+xtick.major.size: 5
+xtick.minor.size: 2.5
+xtick.major.width: 0.8
+xtick.minor.width: 0.8
+xtick.labelsize : 6
+
+ytick.direction: in
+ytick.minor.visible: True
+ytick.major.size: 5
+ytick.minor.size: 2.5
+ytick.major.width: 0.8
+ytick.minor.width: 0.8
+ytick.labelsize : 6
+
+grid.linewidth: 0.6

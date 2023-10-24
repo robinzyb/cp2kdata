@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Cp2kData"
-version = "0.6.1"
+version = "0.6.2"
 description = "A Small Package to Postprocess Cp2k Output"
 authors = [
     {name = "Yongbin Zhuang", email = "robinzhuang@outlook.com"}
@@ -28,7 +28,9 @@ dependencies = [
     "dpdata",
     "click",
     "regex",
-    "monty"
+    "monty",
+    "pyyaml",
+    "asciichartpy"
 ]
 requires-python = ">=3.8"
 keywords = ["cp2k", "cp2kdata"]
@@ -48,6 +50,9 @@ cp2kdata = "cp2kdata.cli.cmd:cli"
 
 [tool.setuptools.packages.find]
 include = ["cp2kdata*"]
+
+[tool.setuptools.package-data]
+cp2kdata = ["matplotlibstyle/*.mplstyle"]
 
 
 
