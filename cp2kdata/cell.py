@@ -2,6 +2,7 @@ from ase.geometry.cell import cellpar_to_cell
 from ase.geometry.cell import cell_to_cellpar
 import numpy.typing as npt
 import numpy as np
+from copy import deepcopy
 
 class Cp2kCell:
     def __init__(

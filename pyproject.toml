@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Cp2kData"
-version = "0.6.1"
+version = "0.6.2"
 description = "A Small Package to Postprocess Cp2k Output"
 authors = [
     {name = "Yongbin Zhuang", email = "robinzhuang@outlook.com"}
