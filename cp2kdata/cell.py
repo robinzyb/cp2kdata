@@ -28,7 +28,7 @@ class Cp2kCell:
         """
 
 
-        if len(cell_param) == 1 and isinstance(cell_param, float):
+        if isinstance(cell_param, float):
             self.cell_matrix = np.array(
                 [
                     [cell_param, 0, 0], 
@@ -37,7 +37,7 @@ class Cp2kCell:
                 ]
             )
             print("input cell_param is a float, the cell is assumed to be cubic")
-        elif cell_param.shape == 3:
+        elif cell_param.shape == (3,):
             self.cell_matrix = np.array(
                 [
                     [cell_param[0], 0, 0], 
@@ -45,19 +45,25 @@ class Cp2kCell:
                     [0, 0, cell_param[2]]
                 ]
             )
-            print("input cell_param is a list or array, the cell is assumed to be orthorhombic")
-        elif cell_param.shape == 6:
+            print("the length of input cell_param is 3, " 
+                  "the cell is assumed to be orthorhombic")
+        elif cell_param.shape == (6,):
             self.cell_matrix = cellpar_to_cell(cell_param)
-            print("input cell_param is in [a, b, c, alpha, beta, gamma] form, it is converted to cell matrix")
+            print("the length of input cell_param is 6, "
+                  "the Cp2kCell assumes it is [a, b, c, alpha, beta, gamma], "
+                  "which will be converted to cell matrix")
         elif cell_param.shape == (3, 3):
             self.cell_matrix = cell_param
-            print("input cell_param is a matrix, the cell is read as is")
+            print("input cell_param is a matrix with shape of (3,3), " 
+                  "the cell is read as is")
         else:
             raise ValueError("The input cell_param is not supported")
         
         
         if (grid_point is None) and (grid_spacing_matrix is None):
-            print("No grid point generated")
+            self.grid_point = None
+            self.grid_spacing_matrix = None
+            print("No grid point information")
         elif (grid_point is None) and (grid_spacing_matrix is not None):
             self.grid_spacing_matrix = grid_spacing_matrix
             self.grid_point = np.round(self.cell_matrix/self.grid_spacing_matrix)
@@ -68,9 +74,13 @@ class Cp2kCell:
             self.grid_point = np.array(grid_point)
             self.grid_spacing_matrix = np.array(grid_spacing_matrix)
         
-        self.grid_point = self.grid_point.astype(int)
+        if grid_point is not None:
+            self.grid_point = self.grid_point.astype(int)
+
         self.volume = np.linalg.det(self.cell_matrix)
-        self.dv = np.linalg.det(self.grid_spacing_matrix)
+
+        if grid_point is not None:
+            self.dv = np.linalg.det(self.grid_spacing_matrix)
 
         self.cell_param = cell_to_cellpar(self.cell_matrix)
 
@@ -81,7 +91,10 @@ class Cp2kCell:
         return self.volume
 
     def get_dv(self):
-        return self.dv
+        try:
+            return self.dv
+        except AttributeError as ae:
+            print("No grid point information is available")
     
     def get_cell_param(self):
         return self.cell_param
