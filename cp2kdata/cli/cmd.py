@@ -1,4 +1,3 @@
-from email.policy import default
 import click
 from cp2kdata import Cp2kCube
 from .funcs import *
