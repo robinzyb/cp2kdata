@@ -13,6 +13,8 @@ DIPOLE_RE = re.compile(
     re.VERBOSE
 )
 
+#TODO write a pytest for this
+
 def parse_dipole_list(output_file):
     dipole_list = []
     for match in DIPOLE_RE.finditer(output_file):
