@@ -77,10 +77,6 @@ class Cp2kCell:
         if grid_point is not None:
             self.grid_point = self.grid_point.astype(int)
 
-        self.volume = np.linalg.det(self.cell_matrix)
-
-        if grid_point is not None:
-            self.dv = np.linalg.det(self.grid_spacing_matrix)
 
         self.cell_param = cell_to_cellpar(self.cell_matrix)
 
@@ -88,11 +84,11 @@ class Cp2kCell:
         return deepcopy(self)
         
     def get_volume(self):
-        return self.volume
+        return np.linalg.det(self.cell_matrix)
 
     def get_dv(self):
         try:
-            return self.dv
+            return np.linalg.det(self.grid_spacing_matrix)
         except AttributeError as ae:
             print("No grid point information is available")
     

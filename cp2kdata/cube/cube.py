@@ -25,11 +25,8 @@ class Cp2kCubeOld:
     timestep: unit ps
     """
     def __init__(self, cube_file_name, timestep=0):
-        print("Warning: This Cp2kCube will be deprecated in version 0.6.x, use Cp2kCubeNew instead!")
-        print("After version 0.6.x, Cp2kCube will be removed from cp2kdata.cube.cube")
-        print("Cp2kCubeNew will be renamed as Cp2kCube")
-        print("Test Cp2kCubeNew in your old code before upgrade to 0.6.x")
-        print("Usage: from cp2kdata.cube.cube import Cp2kCubeNew as Cp2kCube")
+        print("Warning: This is Cp2kCubeOld is deprecated after version 0.6.x, use Cp2kCube instead!")
+        print("Warning: to use old one, from cp2kdata.cube.cube import Cp2kCubeOld")
         self.file = cube_file_name
         self.timestep = timestep
         self.cube_vals = self.read_cube_vals()
@@ -146,7 +143,7 @@ class Cp2kCube(MSONable):
     """
     def __init__(self, fname=None, cube_vals=None, cell=None, stc=None):
         print("Warning: This is New Cp2kCube Class, if you want to use old Cp2kCube")
-        print("try, from cp2kdata.cube.cube import Cp2kCube")
+        print("try, from cp2kdata.cube.cube import Cp2kCubeOld")
         print("New Cp2kCube return raw values in cp2k cube file")
         print("that is, length in bohr and energy in hartree for potential file")
         print("that is, length in bohr and density in e/bohr^3 for density file")
@@ -357,6 +354,23 @@ class Cp2kCube(MSONable):
     
     def get_cell(self):
         return self.cell.copy()
+
+    def reduce_resolution(self, stride):
+        new_cube = self.copy()
+
+        # reduce the grid point
+        grid_point = self.cell.grid_point
+        grid_point = np.floor((grid_point-1)/stride) + 1
+        grid_point = grid_point.astype(int)
+        new_cube.cell.grid_point = grid_point
+
+        # increase the grid spacing
+        new_cube.cell.grid_spacing_matrix = self.cell.grid_spacing_matrix * stride
+
+        new_cube.cube_vals = self.cube_vals[::stride, ::stride, ::stride]
+
+        return new_cube
+
 
     @staticmethod
     def read_gs_matrix(fname):
