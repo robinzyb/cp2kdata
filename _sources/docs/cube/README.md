@@ -13,7 +13,7 @@ mycube = Cp2kCube(cube_file_path)
 ## Retrieving Cell Information
 Users can easily obtain cell information from CP2K cube files by the following method
 ```python
-cell = mycube.get()
+cell = mycube.get_cell()
 type(cell)
 ```
 As a result, you will get new object `Cp2kCell`

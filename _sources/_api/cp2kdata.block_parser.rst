@@ -12,6 +12,7 @@ Submodules
    cp2kdata.block_parser.converge
    cp2kdata.block_parser.coordinates
    cp2kdata.block_parser.dft_plus_u
+   cp2kdata.block_parser.dipole
    cp2kdata.block_parser.energies
    cp2kdata.block_parser.errors_handle
    cp2kdata.block_parser.fep

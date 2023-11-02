@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cp2kdata.block_parser.header_info &#8212; CP2KData Reference</title>
+    <title>cp2kdata.block_parser.dipole &#8212; CP2KData Reference</title>
   
   
   
@@ -61,7 +61,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/cp2kdata/block_parser/header_info';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/cp2kdata/block_parser/dipole';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -298,7 +298,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_modules/cp2kdata/block_parser/header_info.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_modules/cp2kdata/block_parser/dipole.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -374,124 +374,47 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <h1>Source code for cp2kdata.block_parser.header_info</h1><div class="highlight"><pre>
+  <h1>Source code for cp2kdata.block_parser.dipole</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="c1"># use monty.re because it can terminate on match</span>
-<span class="kn">from</span> <span class="nn">monty.re</span> <span class="kn">import</span> <span class="n">regrep</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="n">DIPOLE_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    \s{2}Dipole\smoment\s\[Debye\]\n</span>
+<span class="sd">    \s{4}</span>
+<span class="sd">    X=\s{3}(?P&lt;x&gt;[\s-]\d+\.\d+)\s</span>
+<span class="sd">    Y=\s{3}(?P&lt;y&gt;[\s-]\d+\.\d+)\s</span>
+<span class="sd">    Z=\s{3}(?P&lt;z&gt;[\s-]\d+\.\d+)\s</span>
+<span class="sd">    \s{4}Total=\s{4}(?P&lt;total&gt;[\s-]\d+\.\d+)</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span>
+<span class="p">)</span>
 
-<div class="viewcode-block" id="Cp2kInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.Cp2kInfo">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Cp2kInfo</span><span class="p">:</span>
-    <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
+<span class="c1">#TODO write a pytest for this</span>
 
-<span class="n">CP2K_INFO_VERSION_PATTERN</span> <span class="o">=</span> \
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;(?xm)</span>
-<span class="sd">    ^\sCP2K\|\sversion\sstring:\s{10,42}</span>
-<span class="sd">    CP2K\sversion\s(?P&lt;version&gt;\d{1,4}\.\d)(?:\s\(Development\sVersion\))?$</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="parse_dipole_list"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.dipole.html#cp2kdata.block_parser.dipole.parse_dipole_list">[docs]</a><span class="k">def</span> <span class="nf">parse_dipole_list</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
+    <span class="n">dipole_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">DIPOLE_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">total</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">match</span><span class="o">.</span><span class="n">captures</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;total&quot;</span><span class="p">)):</span>
+            <span class="n">dipole</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">total</span><span class="p">]</span>
+        <span class="n">dipole_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dipole</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dipole_list</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dipole_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="parse_cp2k_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_cp2k_info">[docs]</a><span class="k">def</span> <span class="nf">parse_cp2k_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cp2kInfo</span><span class="p">:</span>
-
-    <span class="n">cp2k_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> 
-        <span class="n">patterns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">CP2K_INFO_VERSION_PATTERN</span><span class="p">},</span> 
-        <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">Cp2kInfo</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">cp2k_info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span></div>
-
-
-<div class="viewcode-block" id="GlobalInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">GlobalInfo</span><span class="p">:</span>
-    <span class="n">run_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">print_level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
-
-<span class="c1"># PATTERNS</span>
-<span class="n">GLOBAL_INFO_RUN_TYPE_PATTERN</span> <span class="o">=</span> \
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;(?xm)</span>
-<span class="sd">    ^\sGLOBAL\|\sRun\stype\s{33,}(?P&lt;run_type&gt;\w+)\n</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-<span class="n">GLOBAL_INFO_PRINT_LEVEL_PATTERN</span> <span class="o">=</span> \
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;(?xm)</span>
-<span class="sd">    ^\sGLOBAL\|\sGlobal\sprint\slevel\s{42,}(?P&lt;print_level&gt;\w+)\n</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="parse_global_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_global_info">[docs]</a><span class="k">def</span> <span class="nf">parse_global_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GlobalInfo</span><span class="p">:</span>
-    <span class="n">global_info</span> <span class="o">=</span> <span class="p">{}</span>
-    
-    <span class="n">global_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> 
-        <span class="n">patterns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;run_type&quot;</span><span class="p">:</span> <span class="n">GLOBAL_INFO_RUN_TYPE_PATTERN</span><span class="p">,</span> 
-                  <span class="s2">&quot;print_level&quot;</span><span class="p">:</span> <span class="n">GLOBAL_INFO_PRINT_LEVEL_PATTERN</span>
-                  <span class="p">},</span>
-        <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">GlobalInfo</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="n">global_info</span><span class="p">[</span><span class="s2">&quot;run_type&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
-                      <span class="n">print_level</span><span class="o">=</span><span class="n">global_info</span><span class="p">[</span><span class="s2">&quot;print_level&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                      <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="DFTInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.DFTInfo">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">DFTInfo</span><span class="p">:</span>
-    <span class="n">ks_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">multiplicity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
-
-
-<span class="n">DFT_INFO_KS_TYPE_PATTERN</span> <span class="o">=</span> \
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;(?xm)</span>
-<span class="sd">    ^\sDFT\|\sSpin\s</span>
-<span class="sd">    (?:</span>
-<span class="sd">        restricted\sKohn-Sham\s\(RKS\) | unrestricted\s\(spin-polarized\)\sKohn-Sham</span>
-<span class="sd">    )</span>
-<span class="sd">    \scalculation\s+(?P&lt;ks_type&gt;\w{3,4})$</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<span class="n">DFT_INFO_MULTIPLICITY_PATTERN</span> <span class="o">=</span> \
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;(?xm)</span>
-<span class="sd">    ^\sDFT\|\sMultiplicity\s{57,}(\d{1,4})$</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="parse_dft_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_dft_info">[docs]</a><span class="k">def</span> <span class="nf">parse_dft_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DFTInfo</span><span class="p">:</span>
-    <span class="n">dft_info</span> <span class="o">=</span> <span class="p">{}</span>
-    
-    <span class="n">dft_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> 
-        <span class="n">patterns</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;ks_type&quot;</span><span class="p">:</span> <span class="n">DFT_INFO_KS_TYPE_PATTERN</span><span class="p">,</span>
-            <span class="s2">&quot;multiplicity&quot;</span><span class="p">:</span> <span class="n">DFT_INFO_MULTIPLICITY_PATTERN</span>
-        <span class="p">},</span>
-        <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">DFTInfo</span><span class="p">(</span><span class="n">ks_type</span><span class="o">=</span><span class="n">dft_info</span><span class="p">[</span><span class="s2">&quot;ks_type&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">multiplicity</span><span class="o">=</span><span class="n">dft_info</span><span class="p">[</span><span class="s2">&quot;multiplicity&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span></div>
-
-
-
-
-<div class="viewcode-block" id="MDInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.MDInfo">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">MDInfo</span><span class="p">:</span>
-    <span class="n">ensemble_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
-
-<span class="c1"># PATTERNS</span>
-<span class="n">MD_INFO_ENSEMBLE_TYPE_PATTERN</span> <span class="o">=</span> \
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;(?xm)</span>
-<span class="sd">    ^\s(?:MD_PAR|MD)\|\sEnsemble\s(?:t|T)ype\s{39,60}(?P&lt;ensemble_type&gt;\w{3,16})</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="parse_md_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_md_info">[docs]</a><span class="k">def</span> <span class="nf">parse_md_info</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="n">md_info</span> <span class="o">=</span> <span class="p">{}</span>
-    
-    <span class="n">md_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> 
-        <span class="n">patterns</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;ensemble_type&quot;</span><span class="p">:</span> <span class="n">MD_INFO_ENSEMBLE_TYPE_PATTERN</span>
-        <span class="p">},</span> 
-        <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">MDInfo</span><span class="p">(</span><span class="n">ensemble_type</span><span class="o">=</span><span class="n">md_info</span><span class="p">[</span><span class="s2">&quot;ensemble_type&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span></div>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Reference Point [Bohr]              0.00000000      0.00000000      0.00000000</span>
+<span class="sd">   Charges                                                                       </span>
+<span class="sd">     Electronic=    864.00000000    Core=  -864.00000000    Total=     0.00000000</span>
+<span class="sd">   Dipole vectors are based on the periodic (Berry phase) operator.              </span>
+<span class="sd">   They are defined modulo integer multiples of the cell matrix [Debye].         </span>
+<span class="sd">   [X] [   46.55265580     0.00000000     0.00000000 ] [i]                       </span>
+<span class="sd">   [Y]=[    0.00000000    54.46353324     0.00000000 ]*[j]                       </span>
+<span class="sd">   [Z] [    0.00000000     0.00000000    54.47313965 ] [k]                       </span>
+<span class="sd">   Dipole moment [Debye]                                                         </span>
+<span class="sd">     X=   -0.07183634 Y=   -0.07690441 Z=    1.13302571     Total=     1.13790246</span>
+<span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 
                 </article>
