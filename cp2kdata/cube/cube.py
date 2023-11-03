@@ -198,20 +198,20 @@ class Cp2kCube(MSONable):
         self_copy = self.copy()
         if isinstance(others, Cp2kCube):
             other_copy = others.copy()
-            self_copy.cube_vals += other_copy.cube_vals
+            other_copy.cube_vals =  self_copy.cube_vals + other_copy.cube_vals
         else:
             raise RuntimeError("Unspported Class")
-        return self_copy
+        return other_copy
     
     def __sub__(self, others):
         """magic method for subtracting two Cp2kCube instances"""
         self_copy = self.copy()
         if isinstance(others, Cp2kCube):
             other_copy = others.copy()
-            self_copy.cube_vals -= other_copy.cube_vals
+            other_copy.cube_vals =  self_copy.cube_vals - other_copy.cube_vals
         else:
             raise RuntimeError("Unspported Class")
-        return self_copy
+        return other_copy
         
     def get_stc(self):
         atom_list = []
@@ -225,7 +225,7 @@ class Cp2kCube(MSONable):
             atom_list.append(atom)
 
         stc = Atoms(atom_list)
-        stc.set_cell(self.cell.cell_matrix)
+        stc.set_cell(self.cell.cell_matrix*au2A)
         return stc
     
     def copy(self):
