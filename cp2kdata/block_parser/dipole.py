@@ -8,7 +8,7 @@ DIPOLE_RE = re.compile(
     X=\s{,3}(?P<x>[\s-]\d+\.\d+)\s
     Y=\s{,3}(?P<y>[\s-]\d+\.\d+)\s
     Z=\s{,3}(?P<z>[\s-]\d+\.\d+)\s
-    \s{,4}Total=\s{4}(?P<total>[\s-]\d+\.\d+)
+    \s{4}Total=\s{,4}(?P<total>[\s-]\d+\.\d+)
     """,
     re.VERBOSE
 )
