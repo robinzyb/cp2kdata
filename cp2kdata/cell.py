@@ -2,6 +2,7 @@ from ase.geometry.cell import cellpar_to_cell
 from ase.geometry.cell import cell_to_cellpar
 import numpy.typing as npt
 import numpy as np
+from numpy.linalg import LinAlgError
 from copy import deepcopy
 
 class Cp2kCell:
@@ -89,7 +90,7 @@ class Cp2kCell:
     def get_dv(self):
         try:
             return np.linalg.det(self.grid_spacing_matrix)
-        except AttributeError as ae:
+        except LinAlgError as ae:
             print("No grid point information is available")
     
     def get_cell_param(self):
