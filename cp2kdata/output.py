@@ -333,7 +333,10 @@ class Cp2kOutput:
         if stress_file_list:
             self.stress_tensor_list = parse_md_stress(stress_file_list[0])
         else:
-            self.stress_tensor_list = None
+            print(f"Parsing Stress from the CP2K output/log file: {self.filename}")
+            self.stress_tensor_list = parse_stress_tensor_list(self.output_file)
+
+
 
         self.num_frames = len(self.energies_list)
 

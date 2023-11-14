@@ -8,12 +8,12 @@ ENERGY_RE = re.compile(
 )
 
 def parse_md_ener(ener_file):
-    print(f"Parsing Energies From {ener_file}")
+    print(f"Parsing Energies from {ener_file}")
     energies_list = np.loadtxt(ener_file, usecols=4, ndmin=1, dtype=np.float64)
     return energies_list
 
 def parse_pos_xyz(posxyz_file):
-    print(f"Parsing Structures From {posxyz_file}")
+    print(f"Parsing Structures from {posxyz_file}")
     fp = zopen(posxyz_file, "r")
     lines = fp.readlines()
     energies_list = []
@@ -36,7 +36,7 @@ def parse_pos_xyz(posxyz_file):
     return pos_list, energies_list, chemical_symbols
 
 def parse_frc_xyz(frcxyz_file):
-    print(f"Parsing Froces From {frcxyz_file}")
+    print(f"Parsing Froces from {frcxyz_file}")
     fp = zopen(frcxyz_file, "r")
     lines = fp.readlines()
     force_list = []
@@ -57,7 +57,7 @@ def parse_frc_xyz(frcxyz_file):
 
 #NOTE: incomplete function, do not release!
 def parse_pos_xyz_from_wannier(wannier_xyz_fiel):
-    print(f"Parsing Structures From {wannier_xyz_fiel}")
+    print(f"Parsing Structures from {wannier_xyz_fiel}")
     fp = zopen(wannier_xyz_fiel, "r")
     lines = fp.readlines()
     force_list = []
@@ -79,7 +79,7 @@ def parse_pos_xyz_from_wannier(wannier_xyz_fiel):
     return force_list
 
 def parse_md_stress(stress_file):
-    print(f"Parsing Stresses From {stress_file}")
+    print(f"Parsing Stresses from {stress_file}")
     stresses_list = np.loadtxt(
         stress_file, 
         usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10), 

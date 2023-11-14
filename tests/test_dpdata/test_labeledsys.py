@@ -14,6 +14,7 @@ e_f_output_path_list = [
 aimd_output_path_list = [
     "tests/test_dpdata/v7.1/aimd",
     "tests/test_dpdata/v7.1/aimd_virial",
+    "tests/test_dpdata/v7.1/aimd_virial_in_output",
     "tests/test_dpdata/v2022.1/aimd",
     "tests/test_dpdata/v2023.1/aimd_nvt",
     "tests/test_dpdata/v2023.1/aimd_npt_f"
@@ -21,29 +22,29 @@ aimd_output_path_list = [
 
 e_f_dpdata_list = [
    dpdata.LabeledSystem(
-        file_name = os.path.join(path, "output"), 
+        file_name = os.path.join(path, "output"),
         fmt="cp2kdata/e_f"
         ) for path in e_f_output_path_list
 ]
 
 e_f_dpdata_ref_list = [
     dpdata.LabeledSystem(
-        file_name = os.path.join(path, "deepmd"), 
+        file_name = os.path.join(path, "deepmd"),
         fmt="deepmd/npy"
         ) for path in e_f_output_path_list
 ]
 
 aimd_dpdata_list = [
    dpdata.LabeledSystem(
-        file_name = path, 
-        cp2k_output_name="output", 
+        file_name = path,
+        cp2k_output_name="output",
         fmt="cp2kdata/md"
         ) for path in aimd_output_path_list
 ]
 
 aimd_dpdata_ref_list = [
     dpdata.LabeledSystem(
-        file_name = os.path.join(path, "deepmd"), 
+        file_name = os.path.join(path, "deepmd"),
         fmt="deepmd/npy"
         ) for path in aimd_output_path_list
 ]
@@ -60,14 +61,14 @@ test_params = list(
 @pytest.fixture(params=test_params, scope='class')
 def cp2k_and_ref(request):
     return request.param
-    
+
 
 class TestLabeledSys():
     def test_len_func(self, cp2k_and_ref):
         assert len(cp2k_and_ref[0]) == len(cp2k_and_ref[1])
 
     def test_add_func(self, cp2k_and_ref):
-        assert len(cp2k_and_ref[0]+cp2k_and_ref[0]) == len(cp2k_and_ref[1]+cp2k_and_ref[1]) 
+        assert len(cp2k_and_ref[0]+cp2k_and_ref[0]) == len(cp2k_and_ref[1]+cp2k_and_ref[1])
 
     def test_atom_numbs(self, cp2k_and_ref):
         assert cp2k_and_ref[0].data['atom_numbs'] == cp2k_and_ref[1].data['atom_numbs']
@@ -91,33 +92,33 @@ class TestLabeledSys():
     def test_cell(self, cp2k_and_ref):
         assert cp2k_and_ref[0].get_nframes() == cp2k_and_ref[1].get_nframes()
         if not cp2k_and_ref[0].nopbc and not cp2k_and_ref[1].nopbc:
-            np.testing.assert_almost_equal(cp2k_and_ref[0].data['cells'], 
-                                        cp2k_and_ref[1].data['cells'], 
+            np.testing.assert_almost_equal(cp2k_and_ref[0].data['cells'],
+                                        cp2k_and_ref[1].data['cells'],
                                         decimal = 6,
                                         err_msg = 'cell failed')
 
-    def test_coord(self, cp2k_and_ref): 
+    def test_coord(self, cp2k_and_ref):
         assert cp2k_and_ref[0].get_nframes() == cp2k_and_ref[1].get_nframes()
         # think about direct coord
         tmp_cell = cp2k_and_ref[0].data['cells']
         tmp_cell = np.reshape(tmp_cell, [-1, 3])
         tmp_cell_norm = np.reshape(np.linalg.norm(tmp_cell, axis = 1), [-1, 1, 3])
-        np.testing.assert_almost_equal(cp2k_and_ref[0].data['coords'] / tmp_cell_norm, 
-                                       cp2k_and_ref[1].data['coords'] / tmp_cell_norm, 
+        np.testing.assert_almost_equal(cp2k_and_ref[0].data['coords'] / tmp_cell_norm,
+                                       cp2k_and_ref[1].data['coords'] / tmp_cell_norm,
                                        decimal = 6,
                                        err_msg = 'coord failed')
 
     def test_energy(self, cp2k_and_ref):
         np.testing.assert_almost_equal(
-            cp2k_and_ref[0]['energies'], 
-            cp2k_and_ref[1]['energies'], 
+            cp2k_and_ref[0]['energies'],
+            cp2k_and_ref[1]['energies'],
             decimal = 6,
             err_msg = 'energies failed'
             )
     def test_force(self, cp2k_and_ref):
         np.testing.assert_almost_equal(
-            cp2k_and_ref[0]['forces'], 
-            cp2k_and_ref[1]['forces'], 
+            cp2k_and_ref[0]['forces'],
+            cp2k_and_ref[1]['forces'],
             decimal = 6,
             err_msg = 'forces failed'
             )
@@ -128,7 +129,7 @@ class TestLabeledSys():
             return
         np.testing.assert_almost_equal(
             cp2k_and_ref[0]['virials'],
-            cp2k_and_ref[1]['virials'], 
+            cp2k_and_ref[1]['virials'],
             decimal = 6,
             err_msg = 'virials failed'
             )
