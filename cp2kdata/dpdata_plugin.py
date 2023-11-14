@@ -13,6 +13,7 @@ EV_ANG_m3_TO_GPa = PressureConversion("eV/angstrom^3", "GPa").value()
 
 WRAPPER = "--- You are parsing data using package Cp2kData ---"
 
+@Format.register("cp2k/output")
 @Format.register("cp2kdata/e_f")
 class CP2KEnergyForceFormat(Format):
     def from_labeled_system(self, file_name, **kwargs):
@@ -57,6 +58,7 @@ class CP2KEnergyForceFormat(Format):
         print(WRAPPER)
         return data
 
+@Format.register("cp2k/aimd_output")
 @Format.register("cp2kdata/md")
 class CP2KMDFormat(Format):
     def from_labeled_system(self, file_name, **kwargs):

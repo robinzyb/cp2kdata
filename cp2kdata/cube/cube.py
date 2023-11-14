@@ -355,19 +355,29 @@ class Cp2kCube(MSONable):
     def get_cell(self):
         return self.cell.copy()
 
-    def reduce_resolution(self, stride):
+    def reduce_resolution(self, stride, axis='xyz'):
         new_cube = self.copy()
 
+        stride_dict = {
+            "xyz": np.array([stride, stride, stride]),
+            "xy": np.array([stride, stride, 1]),
+            "xz": np.array([stride, 1, stride]),
+            "yz": np.array([1, stride, stride]),
+            "x": np.array([stride, 1, 1]),
+            "y": np.array([1, stride, 1]),
+            "z": np.array([1, 1, stride])
+        }
+        stride_array = stride_dict[axis]
         # reduce the grid point
         grid_point = self.cell.grid_point
-        grid_point = np.floor((grid_point-1)/stride) + 1
+        grid_point = np.floor((grid_point-1)/stride_array) + 1
         grid_point = grid_point.astype(int)
         new_cube.cell.grid_point = grid_point
 
         # increase the grid spacing
-        new_cube.cell.grid_spacing_matrix = self.cell.grid_spacing_matrix * stride
+        new_cube.cell.grid_spacing_matrix = self.cell.grid_spacing_matrix * stride_array[:, np.newaxis]
 
-        new_cube.cube_vals = self.cube_vals[::stride, ::stride, ::stride]
+        new_cube.cube_vals = self.cube_vals[::stride_array[0], ::stride_array[1], ::stride_array[2]]
 
         return new_cube
 
