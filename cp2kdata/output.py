@@ -1,10 +1,8 @@
 import sys
-import time
 import numpy as np
 import glob
 import os
 import sys
-from monty.re import regrep
 from .plots.geo_opt_plot import geo_opt_info_plot
 from .paser_func import *
 from .block_parser.header_info import GlobalInfo, Cp2kInfo, DFTInfo
@@ -342,27 +340,36 @@ class Cp2kOutput:
 
         # here parse cell information
         if self.filename:
-            
+            WARNING_MSG = "cp2kdata obtains more than one initial cell from the output file, \
+                        please check if your output file has duplicated header information."
+
             if (self.md_info.ensemble_type == "NVT") or \
                 (self.md_info.ensemble_type == "NVE") or \
                 (self.md_info.ensemble_type == "REFTRAJ"):
                 # parse the first cell
                 first_cell = parse_all_cells(self.output_file)
-                assert first_cell.shape == (1, 3, 3), \
-                    "cp2kdata obtains more than one cell from the output file, please check if your output file has duplicated header information."
+                assert first_cell.shape == (1, 3, 3), WARNING_MSG
                 
                 self.all_cells = first_cell
                 self.all_cells = np.repeat(self.all_cells, repeats=self.num_frames, axis=0)
 
-            elif self.md_info.ensemble_type == "NPT_F":
+            elif (self.md_info.ensemble_type == "NPT_F"):
                 # only parse the first cell
                 first_cell = parse_all_cells(self.output_file)
-                assert first_cell.shape == (1, 3, 3), \
-                    "cp2kdata obtains more than one cell from the output file, please check if your output file has duplicated header information."
+                assert first_cell.shape == (1, 3, 3), WARNING_MSG
                 # parse the rest of the cells
                 self.all_cells = parse_all_md_cells(self.output_file)
                 # prepend the first cell
                 self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)
+            
+            elif (self.md_info.ensemble_type == "NPT_I"):
+                # only parse the first cell
+                first_cell = parse_all_cells(self.output_file)
+                assert first_cell.shape == (1, 3, 3), WARNING_MSG
+                # parse the rest of the cells
+                self.all_cells = parse_all_md_cells(self.output_file, init_cell_info=first_cell[0])
+                # prepend the first cell
+                self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)  
                 
             print(f"Parsing Cells Information from {self.filename}")
             self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
@@ -392,7 +399,7 @@ class Cp2kOutput:
     @staticmethod
     def check_md_type(md_type):
         implemented_ensemble_type_parsers = \
-            ["NVE", "NVT", "NPT_F", "REFTRAJ"]
+            ["NVE", "NVT", "NPT_F", "NPT_I", "REFTRAJ"]
         if md_type not in implemented_ensemble_type_parsers:
             raise ValueError(
                 f"Parser for MD Type {md_type} haven't been implemented yet!\n"
