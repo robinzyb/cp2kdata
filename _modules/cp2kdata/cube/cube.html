@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -37,9 +37,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -136,6 +136,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../intro.html">
@@ -219,7 +220,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.cell.html">cp2kdata.cell module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.dpdata_plugin.html">cp2kdata.dpdata_plugin module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.output.html">cp2kdata.output module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.paser_func.html">cp2kdata.paser_func module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.test_input.html">cp2kdata.test_input module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.units.html">cp2kdata.units module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_api/cp2kdata.utils.html">cp2kdata.utils module</a></li>
@@ -332,6 +332,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -341,6 +342,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -402,11 +404,8 @@ document.write(`
 <span class="sd">    timestep: unit ps</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cube_file_name</span><span class="p">,</span> <span class="n">timestep</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: This Cp2kCube will be deprecated in version 0.6.x, use Cp2kCubeNew instead!&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After version 0.6.x, Cp2kCube will be removed from cp2kdata.cube.cube&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cp2kCubeNew will be renamed as Cp2kCube&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Cp2kCubeNew in your old code before upgrade to 0.6.x&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage: from cp2kdata.cube.cube import Cp2kCubeNew as Cp2kCube&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: This is Cp2kCubeOld is deprecated after version 0.6.x, use Cp2kCube instead!&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: to use old one, from cp2kdata.cube.cube import Cp2kCubeOld&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">cube_file_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timestep</span> <span class="o">=</span> <span class="n">timestep</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_cube_vals</span><span class="p">()</span>
@@ -523,7 +522,7 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cube_vals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: This is New Cp2kCube Class, if you want to use old Cp2kCube&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;try, from cp2kdata.cube.cube import Cp2kCube&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;try, from cp2kdata.cube.cube import Cp2kCubeOld&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;New Cp2kCube return raw values in cp2k cube file&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;that is, length in bohr and energy in hartree for potential file&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;that is, length in bohr and density in e/bohr^3 for density file&quot;</span><span class="p">)</span>
@@ -578,20 +577,20 @@ document.write(`
         <span class="n">self_copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">others</span><span class="p">,</span> <span class="n">Cp2kCube</span><span class="p">):</span>
             <span class="n">other_copy</span> <span class="o">=</span> <span class="n">others</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">self_copy</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">+=</span> <span class="n">other_copy</span><span class="o">.</span><span class="n">cube_vals</span>
+            <span class="n">other_copy</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">=</span>  <span class="n">self_copy</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">+</span> <span class="n">other_copy</span><span class="o">.</span><span class="n">cube_vals</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unspported Class&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">self_copy</span>
+        <span class="k">return</span> <span class="n">other_copy</span>
     
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;magic method for subtracting two Cp2kCube instances&quot;&quot;&quot;</span>
         <span class="n">self_copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">others</span><span class="p">,</span> <span class="n">Cp2kCube</span><span class="p">):</span>
             <span class="n">other_copy</span> <span class="o">=</span> <span class="n">others</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">self_copy</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">-=</span> <span class="n">other_copy</span><span class="o">.</span><span class="n">cube_vals</span>
+            <span class="n">other_copy</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">=</span>  <span class="n">self_copy</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">-</span> <span class="n">other_copy</span><span class="o">.</span><span class="n">cube_vals</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unspported Class&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">self_copy</span>
+        <span class="k">return</span> <span class="n">other_copy</span>
         
 <div class="viewcode-block" id="Cp2kCube.get_stc"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_stc">[docs]</a>    <span class="k">def</span> <span class="nf">get_stc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">atom_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -605,7 +604,7 @@ document.write(`
             <span class="n">atom_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
 
         <span class="n">stc</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span><span class="n">atom_list</span><span class="p">)</span>
-        <span class="n">stc</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">cell_matrix</span><span class="p">)</span>
+        <span class="n">stc</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">cell_matrix</span><span class="o">*</span><span class="n">au2A</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">stc</span></div>
     
 <div class="viewcode-block" id="Cp2kCube.copy"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -735,6 +734,33 @@ document.write(`
 <div class="viewcode-block" id="Cp2kCube.get_cell"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_cell">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="Cp2kCube.reduce_resolution"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.reduce_resolution">[docs]</a>    <span class="k">def</span> <span class="nf">reduce_resolution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;xyz&#39;</span><span class="p">):</span>
+        <span class="n">new_cube</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">stride_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;xyz&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">stride</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">stride</span><span class="p">]),</span>
+            <span class="s2">&quot;xy&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">stride</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+            <span class="s2">&quot;xz&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">stride</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="p">]),</span>
+            <span class="s2">&quot;yz&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">stride</span><span class="p">]),</span>
+            <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">stride</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+            <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="p">])</span>
+        <span class="p">}</span>
+        <span class="n">stride_array</span> <span class="o">=</span> <span class="n">stride_dict</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span>
+        <span class="c1"># reduce the grid point</span>
+        <span class="n">grid_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">grid_point</span>
+        <span class="n">grid_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">grid_point</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">stride_array</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">grid_point</span> <span class="o">=</span> <span class="n">grid_point</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">new_cube</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">grid_point</span> <span class="o">=</span> <span class="n">grid_point</span>
+
+        <span class="c1"># increase the grid spacing</span>
+        <span class="n">new_cube</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">grid_spacing_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">grid_spacing_matrix</span> <span class="o">*</span> <span class="n">stride_array</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+
+        <span class="n">new_cube</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="p">[::</span><span class="n">stride_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">::</span><span class="n">stride_array</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">::</span><span class="n">stride_array</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+
+        <span class="k">return</span> <span class="n">new_cube</span></div>
+
+
 <div class="viewcode-block" id="Cp2kCube.read_gs_matrix"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_gs_matrix">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read_gs_matrix</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
         <span class="n">content_list</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
@@ -781,7 +807,7 @@ document.write(`
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
 </div>
                 </footer>
@@ -806,6 +832,7 @@ By Yong-Bin Zhuang
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -832,8 +859,8 @@ By Yong-Bin Zhuang
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

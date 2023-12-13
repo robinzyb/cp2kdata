@@ -68,7 +68,7 @@ mav_x, mav = mycube.get_mav(l1=4.8, l2=4.8, ncov=2, interpolate=True)
 ```
 
 ## Addition and Subtraction of Cp2kCube
-The Cp2kCube class provides a convenient way to perform addition and subtraction operations on CP2K cube files, allowing you to manipulate the data contained within them. This method is extremly useful, if you would like to obtain the charge difference
+Cp2kCube provides a convenient way to perform addition and subtraction operations on CP2K cube files, allowing you to manipulate the data contained within them. This method is extremly useful, if you would like to obtain the charge difference
 ```python
 from cp2kcube import Cp2kCube
 
@@ -88,8 +88,15 @@ result_cube = cube1 - cube2
 ```
 The resulted object is a new Cp2kCube, with which, all above methods can be used.
 
+## Reduce Resulotion
+Cp2kCube can reduce the resolution of cube using `reduce_resolution()`method:
+```python
+mycube.reduce_resolution(stride=2)
+```
+the argument `stride` is used to write the cube file (larger values result in larger grid spacing)
+
 ## Writing Cube
-The Cp2kCube can write data into a cube file with cp2k format using the `write_cube()` method:
+Cp2kCube can write data into a cube file with cp2k format using the `write_cube()` method:
 ```python
 mycube.write_cube("./test.cube")
 ```

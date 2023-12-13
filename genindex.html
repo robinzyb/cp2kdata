@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -37,9 +37,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -136,6 +136,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="intro.html">
@@ -219,7 +220,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.cell.html">cp2kdata.cell module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.dpdata_plugin.html">cp2kdata.dpdata_plugin module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.output.html">cp2kdata.output module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.paser_func.html">cp2kdata.paser_func module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.test_input.html">cp2kdata.test_input module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.units.html">cp2kdata.units module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_api/cp2kdata.utils.html">cp2kdata.utils module</a></li>
@@ -332,6 +332,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -341,6 +342,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -625,13 +627,6 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    cp2kdata.paser_func
-
-      <ul>
-        <li><a href="_api/cp2kdata.paser_func.html#module-cp2kdata.paser_func">module</a>
-</li>
-      </ul></li>
-      <li>
     cp2kdata.pdos
 
       <ul>
@@ -743,6 +738,8 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_all_cells">get_all_cells() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_ase_atoms">get_ase_atoms() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atom_kinds_list">get_atom_kinds_list() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atom_num">get_atom_num() (cp2kdata.output.Cp2kOutput method)</a>
@@ -775,8 +772,6 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_cutoff_list">get_cutoff_list() (in module cp2kdata.plots.test_plot)</a>
 </li>
-      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_dft_plus_u_occ">get_dft_plus_u_occ() (cp2kdata.output.Cp2kOutput method)</a>
-</li>
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_dos">get_dos() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
 </li>
       <li><a href="_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_dos_param">get_dos_param() (in module cp2kdata.plots.test_plot)</a>
@@ -801,16 +796,14 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_global_info">get_global_info() (cp2kdata.output.Cp2kOutput static method)</a>
 </li>
-      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_hirshfeld_pop_list">get_hirshfeld_pop_list() (cp2kdata.output.Cp2kOutput method)</a>
-</li>
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_ener">get_homo_ener() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_atomic_coordinates">get_init_atomic_coordinates() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_cell">get_init_cell() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_integration">get_integration() (cp2kdata.cube.cube.Cp2kCube method)</a>
 </li>
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_lumo_ener">get_lumo_ener() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
@@ -856,6 +849,10 @@ document.write(`
       <li><a href="_api/cp2kdata.utils.html#cp2kdata.utils.get_rdf_list">get_rdf_list() (in module cp2kdata.utils)</a>
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_run_type">get_run_type() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_spin_moment_list">get_spin_moment_list() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_spin_moment_mulliken_list">get_spin_moment_mulliken_list() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
       <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_stc">get_stc() (cp2kdata.cube.cube.Cp2kCube method)</a>
 
@@ -973,8 +970,6 @@ document.write(`
 </li>
         <li><a href="_api/cp2kdata.output.html#module-cp2kdata.output">cp2kdata.output</a>
 </li>
-        <li><a href="_api/cp2kdata.paser_func.html#module-cp2kdata.paser_func">cp2kdata.paser_func</a>
-</li>
         <li><a href="_api/cp2kdata.pdos.html#module-cp2kdata.pdos">cp2kdata.pdos</a>
 </li>
         <li><a href="_api/cp2kdata.pdos.pdos.html#module-cp2kdata.pdos.pdos">cp2kdata.pdos.pdos</a>
@@ -994,6 +989,8 @@ document.write(`
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.mulliken_pop_list">mulliken_pop_list (cp2kdata.output.Cp2kOutput property)</a>
+</li>
       <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.DFTInfo.multiplicity">multiplicity (cp2kdata.block_parser.header_info.DFTInfo attribute)</a>
 </li>
   </ul></td>
@@ -1062,10 +1059,12 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_md">parse_md() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
-      <li><a href="_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_md_converge">parse_md_converge() (in module cp2kdata.block_parser.converge)</a>
+      <li><a href="_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_md_cell">parse_md_cell() (in module cp2kdata.block_parser.md_xyz)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_md_converge">parse_md_converge() (in module cp2kdata.block_parser.converge)</a>
+</li>
       <li><a href="_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_md_ener">parse_md_ener() (in module cp2kdata.block_parser.md_xyz)</a>
 </li>
       <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_md_info">parse_md_info() (in module cp2kdata.block_parser.header_info)</a>
@@ -1142,15 +1141,17 @@ document.write(`
       </ul></li>
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_element">read_dos_element() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_energies">read_dos_energies() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_fermi">read_dos_fermi() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
 </li>
       <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_grid_point">read_grid_point() (cp2kdata.cube.cube.Cp2kCube static method)</a>
 </li>
       <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_gs_matrix">read_gs_matrix() (cp2kdata.cube.cube.Cp2kCube static method)</a>
+</li>
+      <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.reduce_resolution">reduce_resolution() (cp2kdata.cube.cube.Cp2kCube method)</a>
 </li>
       <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo.run_type">run_type (cp2kdata.block_parser.header_info.GlobalInfo attribute)</a>
 </li>
@@ -1207,7 +1208,7 @@ document.write(`
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
 </div>
                 </footer>
@@ -1232,6 +1233,7 @@ By Yong-Bin Zhuang
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -1258,8 +1260,8 @@ By Yong-Bin Zhuang
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

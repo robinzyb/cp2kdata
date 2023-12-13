@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -37,9 +37,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -136,6 +136,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../intro.html">
@@ -219,7 +220,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.cell.html">cp2kdata.cell module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.dpdata_plugin.html">cp2kdata.dpdata_plugin module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.output.html">cp2kdata.output module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.paser_func.html">cp2kdata.paser_func module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.test_input.html">cp2kdata.test_input module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.units.html">cp2kdata.units module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.utils.html">cp2kdata.utils module</a></li>
@@ -332,6 +332,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -341,6 +342,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -376,16 +378,28 @@ document.write(`
                   
   <h1>Source code for cp2kdata.output</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">monty.re</span> <span class="kn">import</span> <span class="n">regrep</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
 <span class="kn">from</span> <span class="nn">.plots.geo_opt_plot</span> <span class="kn">import</span> <span class="n">geo_opt_info_plot</span>
-<span class="kn">from</span> <span class="nn">.paser_func</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">.block_parser.header_info</span> <span class="kn">import</span> <span class="n">GlobalInfo</span><span class="p">,</span> <span class="n">Cp2kInfo</span><span class="p">,</span> <span class="n">DFTInfo</span>
 
+
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.dft_plus_u</span> <span class="kn">import</span> <span class="n">parse_dft_plus_u_occ</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.forces</span> <span class="kn">import</span> <span class="n">parse_atomic_forces_list</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.geo_opt</span> <span class="kn">import</span> <span class="n">parse_geo_opt_info</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.header_info</span> <span class="kn">import</span> <span class="n">parse_dft_info</span><span class="p">,</span> <span class="n">parse_global_info</span><span class="p">,</span> <span class="n">parse_cp2k_info</span><span class="p">,</span> <span class="n">parse_md_info</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.hirshfeld</span> <span class="kn">import</span> <span class="n">parse_hirshfeld_pop_list</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.mulliken</span> <span class="kn">import</span> <span class="n">parse_mulliken_pop_list</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.energies</span> <span class="kn">import</span> <span class="n">parse_energies_list</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.coordinates</span> <span class="kn">import</span> <span class="n">parse_init_atomic_coordinates</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.atomic_kind</span> <span class="kn">import</span> <span class="n">parse_atomic_kinds</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.errors_handle</span> <span class="kn">import</span> <span class="n">parse_errors</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.stress</span> <span class="kn">import</span> <span class="n">parse_stress_tensor_list</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.cells</span> <span class="kn">import</span> <span class="n">parse_all_cells</span><span class="p">,</span> <span class="n">parse_all_md_cells</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.md_xyz</span> <span class="kn">import</span> <span class="n">parse_md_ener</span><span class="p">,</span> <span class="n">parse_pos_xyz</span><span class="p">,</span> <span class="n">parse_frc_xyz</span><span class="p">,</span> <span class="n">parse_md_stress</span><span class="p">,</span> <span class="n">parse_md_cell</span>
 
 <div class="viewcode-block" id="Cp2kOutput"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput">[docs]</a><span class="k">class</span> <span class="nc">Cp2kOutput</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for parsing cp2k output&quot;&quot;&quot;</span>
@@ -481,8 +495,6 @@ document.write(`
         <span class="c1"># self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(</span>
         <span class="c1">#     self.output_file)</span>
 
-        <span class="c1"># self.mulliken_pop_list = parse_mulliken_pop_list(</span>
-        <span class="c1">#     self.output_file, self.dft_info)</span>
         <span class="c1"># self.hirshfeld_pop_list = parse_hirshfeld_pop_list(self.output_file)</span>
         <span class="c1"># self.dft_plus_u_occ = parse_dft_plus_u_occ(self.output_file)</span>
 
@@ -609,14 +621,44 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;No&quot;</span></div>
 
+<div class="viewcode-block" id="Cp2kOutput.get_ase_atoms"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_ase_atoms">[docs]</a>    <span class="k">def</span> <span class="nf">get_ase_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atoms</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
+        <span class="n">positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_init_cell</span><span class="p">()</span>
+        <span class="n">ase_atoms</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span><span class="n">symbols</span><span class="o">=</span><span class="n">symbols</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="n">cell</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ase_atoms</span></div>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">mulliken_pop_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># use cached property to prase only once</span>
+        <span class="k">return</span> <span class="n">parse_mulliken_pop_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dft_info</span><span class="p">)</span>
+
 <div class="viewcode-block" id="Cp2kOutput.get_mulliken_pop_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_mulliken_pop_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_mulliken_pop_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mulliken_pop_list</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_hirshfeld_pop_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_hirshfeld_pop_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_hirshfeld_pop_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hirshfeld_pop_list</span></div>
+<div class="viewcode-block" id="Cp2kOutput.get_spin_moment_mulliken_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_spin_moment_mulliken_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_spin_moment_mulliken_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">mulliken_pop_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mulliken_pop_list</span><span class="p">()</span>
+        <span class="n">spin_moment_mulliken_list</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="Cp2kOutput.get_dft_plus_u_occ"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_dft_plus_u_occ">[docs]</a>    <span class="k">def</span> <span class="nf">get_dft_plus_u_occ</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dft_plus_u_occ</span></div>
+        <span class="k">for</span> <span class="n">mulliken_pop</span> <span class="ow">in</span> <span class="n">mulliken_pop_list</span><span class="p">:</span>
+            <span class="n">spin_moment_mulliken</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mulliken_atom</span><span class="p">[</span><span class="s1">&#39;spin_moment&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">mulliken_atom</span> <span class="ow">in</span> <span class="n">mulliken_pop</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="n">spin_moment_mulliken_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spin_moment_mulliken</span><span class="p">)</span>
+        <span class="n">spin_moment_mulliken_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">spin_moment_mulliken_list</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">spin_moment_mulliken_list</span></div>
+    
+<div class="viewcode-block" id="Cp2kOutput.get_spin_moment_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_spin_moment_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_spin_moment_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mulliken&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;mulliken&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_spin_moment_mulliken_list</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only Mulliken Spin Moment is implemented now&quot;</span><span class="p">)</span></div>
+
+    <span class="c1"># def get_hirshfeld_pop_list(self):</span>
+    <span class="c1">#     return self.hirshfeld_pop_list</span>
+
+    <span class="c1"># def get_dft_plus_u_occ(self):</span>
+    <span class="c1">#     return self.dft_plus_u_occ</span>
 
 <div class="viewcode-block" id="Cp2kOutput.get_geo_opt_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_geo_opt_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_geo_opt_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">geo_opt_info</span></div>
@@ -710,38 +752,61 @@ document.write(`
         <span class="k">if</span> <span class="n">stress_file_list</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="n">parse_md_stress</span><span class="p">(</span><span class="n">stress_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsing Stress from the CP2K output/log file: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="n">parse_stress_tensor_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+
+
 
         <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span><span class="p">)</span>
 
         <span class="c1"># here parse cell information</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
-            
-            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">==</span> <span class="s2">&quot;NVT&quot;</span><span class="p">)</span> <span class="ow">or</span> \
-                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">==</span> <span class="s2">&quot;NVE&quot;</span><span class="p">)</span> <span class="ow">or</span> \
-                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">==</span> <span class="s2">&quot;REFTRAJ&quot;</span><span class="p">):</span>
+    
+        <span class="n">WARNING_MSG</span> <span class="o">=</span> <span class="s2">&quot;cp2kdata obtains more than one initial cell from the output file, </span><span class="se">\</span>
+<span class="s2">                    please check if your output file has duplicated header information.&quot;</span>
+
+        <span class="n">cell_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*.cell&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">==</span> <span class="s2">&quot;NVT&quot;</span><span class="p">)</span> <span class="ow">or</span> \
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">==</span> <span class="s2">&quot;NVE&quot;</span><span class="p">)</span> <span class="ow">or</span> \
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">==</span> <span class="s2">&quot;REFTRAJ&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cell_file_list</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">parse_md_cell</span><span class="p">(</span><span class="n">cell_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsing Cells Information from </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="c1"># parse the first cell</span>
                 <span class="n">first_cell</span> <span class="o">=</span> <span class="n">parse_all_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
-                <span class="k">assert</span> <span class="n">first_cell</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> \
-                    <span class="s2">&quot;cp2kdata obtains more than one cell from the output file, please check if your output file has duplicated header information.&quot;</span>
-                
+                <span class="k">assert</span> <span class="n">first_cell</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">WARNING_MSG</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">first_cell</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span><span class="p">,</span> <span class="n">repeats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">==</span> <span class="s2">&quot;NPT_F&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">==</span> <span class="s2">&quot;NPT_F&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cell_file_list</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">parse_md_cell</span><span class="p">(</span><span class="n">cell_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsing Cells Information from </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="c1"># only parse the first cell</span>
                 <span class="n">first_cell</span> <span class="o">=</span> <span class="n">parse_all_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
-                <span class="k">assert</span> <span class="n">first_cell</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> \
-                    <span class="s2">&quot;cp2kdata obtains more than one cell from the output file, please check if your output file has duplicated header information.&quot;</span>
+                <span class="k">assert</span> <span class="n">first_cell</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">WARNING_MSG</span>
                 <span class="c1"># parse the rest of the cells</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">parse_all_md_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
                 <span class="c1"># prepend the first cell</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">first_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-                
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsing Cells Information from </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_init_atomic_coordinates</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="o">=</span> <span class="n">parse_atomic_kinds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span></div>
+        
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">==</span> <span class="s2">&quot;NPT_I&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cell_file_list</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">parse_md_cell</span><span class="p">(</span><span class="n">cell_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsing Cells Information from </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="c1"># only parse the first cell</span>
+                <span class="n">first_cell</span> <span class="o">=</span> <span class="n">parse_all_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="n">first_cell</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">WARNING_MSG</span>
+                <span class="c1"># parse the rest of the cells</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">parse_all_md_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> <span class="n">init_cell_info</span><span class="o">=</span><span class="n">first_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="c1"># prepend the first cell</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">first_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_init_atomic_coordinates</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="o">=</span> <span class="n">parse_atomic_kinds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Cp2kOutput.get_global_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_global_info">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_global_info</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -766,7 +831,7 @@ document.write(`
 <div class="viewcode-block" id="Cp2kOutput.check_md_type"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.check_md_type">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">check_md_type</span><span class="p">(</span><span class="n">md_type</span><span class="p">):</span>
         <span class="n">implemented_ensemble_type_parsers</span> <span class="o">=</span> \
-            <span class="p">[</span><span class="s2">&quot;NVE&quot;</span><span class="p">,</span> <span class="s2">&quot;NVT&quot;</span><span class="p">,</span> <span class="s2">&quot;NPT_F&quot;</span><span class="p">,</span> <span class="s2">&quot;REFTRAJ&quot;</span><span class="p">]</span>
+            <span class="p">[</span><span class="s2">&quot;NVE&quot;</span><span class="p">,</span> <span class="s2">&quot;NVT&quot;</span><span class="p">,</span> <span class="s2">&quot;NPT_F&quot;</span><span class="p">,</span> <span class="s2">&quot;NPT_I&quot;</span><span class="p">,</span> <span class="s2">&quot;REFTRAJ&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">md_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">implemented_ensemble_type_parsers</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Parser for MD Type </span><span class="si">{</span><span class="n">md_type</span><span class="si">}</span><span class="s2"> haven&#39;t been implemented yet!</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -783,7 +848,7 @@ document.write(`
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
 </div>
                 </footer>
@@ -808,6 +873,7 @@ By Yong-Bin Zhuang
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -834,8 +900,8 @@ By Yong-Bin Zhuang
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
