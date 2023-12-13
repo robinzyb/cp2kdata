@@ -5,10 +5,10 @@ DIPOLE_RE = re.compile(
     r"""
     \s{2}Dipole\smoment\s\[Debye\]\n
     \s{4}
-    X=\s{3}(?P<x>[\s-]\d+\.\d+)\s
-    Y=\s{3}(?P<y>[\s-]\d+\.\d+)\s
-    Z=\s{3}(?P<z>[\s-]\d+\.\d+)\s
-    \s{4}Total=\s{4}(?P<total>[\s-]\d+\.\d+)
+    X=\s{,3}(?P<x>[\s-]\d+\.\d+)\s
+    Y=\s{,3}(?P<y>[\s-]\d+\.\d+)\s
+    Z=\s{,3}(?P<z>[\s-]\d+\.\d+)\s
+    \s{4}Total=\s{,4}(?P<total>[\s-]\d+\.\d+)
     """,
     re.VERBOSE
 )

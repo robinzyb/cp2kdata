@@ -1,14 +1,26 @@
 import sys
-import time
 import numpy as np
 import glob
 import os
 import sys
-from monty.re import regrep
+from functools import cached_property
 from .plots.geo_opt_plot import geo_opt_info_plot
-from .paser_func import *
 from .block_parser.header_info import GlobalInfo, Cp2kInfo, DFTInfo
 
+
+from cp2kdata.block_parser.dft_plus_u import parse_dft_plus_u_occ
+from cp2kdata.block_parser.forces import parse_atomic_forces_list
+from cp2kdata.block_parser.geo_opt import parse_geo_opt_info
+from cp2kdata.block_parser.header_info import parse_dft_info, parse_global_info, parse_cp2k_info, parse_md_info
+from cp2kdata.block_parser.hirshfeld import parse_hirshfeld_pop_list
+from cp2kdata.block_parser.mulliken import parse_mulliken_pop_list
+from cp2kdata.block_parser.energies import parse_energies_list
+from cp2kdata.block_parser.coordinates import parse_init_atomic_coordinates
+from cp2kdata.block_parser.atomic_kind import parse_atomic_kinds
+from cp2kdata.block_parser.errors_handle import parse_errors
+from cp2kdata.block_parser.stress import parse_stress_tensor_list
+from cp2kdata.block_parser.cells import parse_all_cells, parse_all_md_cells
+from cp2kdata.block_parser.md_xyz import parse_md_ener, parse_pos_xyz, parse_frc_xyz, parse_md_stress, parse_md_cell
 
 class Cp2kOutput:
     """Class for parsing cp2k output"""
@@ -104,8 +116,6 @@ class Cp2kOutput:
         # self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
         #     self.output_file)
 
-        # self.mulliken_pop_list = parse_mulliken_pop_list(
-        #     self.output_file, self.dft_info)
         # self.hirshfeld_pop_list = parse_hirshfeld_pop_list(self.output_file)
         # self.dft_plus_u_occ = parse_dft_plus_u_occ(self.output_file)
 
@@ -232,14 +242,44 @@ class Cp2kOutput:
         else:
             return "No"
 
+    def get_ase_atoms(self):
+        from ase import Atoms
+        symbols = self.get_chemical_symbols()
+        positions = self.init_atomic_coordinates.copy()
+        cell = self.get_init_cell()
+        ase_atoms = Atoms(symbols=symbols, positions=positions, cell=cell, pbc=True)
+        return ase_atoms
+
+    @cached_property
+    def mulliken_pop_list(self):
+        # use cached property to prase only once
+        return parse_mulliken_pop_list(self.output_file, self.dft_info)
+
     def get_mulliken_pop_list(self):
         return self.mulliken_pop_list
 
-    def get_hirshfeld_pop_list(self):
-        return self.hirshfeld_pop_list
+    def get_spin_moment_mulliken_list(self):
+        mulliken_pop_list = self.get_mulliken_pop_list()
+        spin_moment_mulliken_list = []
 
-    def get_dft_plus_u_occ(self):
-        return self.dft_plus_u_occ
+        for mulliken_pop in mulliken_pop_list:
+            spin_moment_mulliken = np.array([mulliken_atom['spin_moment'] for mulliken_atom in mulliken_pop], dtype=float)
+            spin_moment_mulliken_list.append(spin_moment_mulliken)
+        spin_moment_mulliken_list = np.array(spin_moment_mulliken_list)
+        
+        return spin_moment_mulliken_list
+    
+    def get_spin_moment_list(self, type='mulliken'):
+        if type == 'mulliken':
+            return self.get_spin_moment_mulliken_list()
+        else:
+            raise NotImplementedError("Only Mulliken Spin Moment is implemented now")
+
+    # def get_hirshfeld_pop_list(self):
+    #     return self.hirshfeld_pop_list
+
+    # def get_dft_plus_u_occ(self):
+    #     return self.dft_plus_u_occ
 
     def get_geo_opt_info(self):
         return self.geo_opt_info
@@ -333,38 +373,61 @@ class Cp2kOutput:
         if stress_file_list:
             self.stress_tensor_list = parse_md_stress(stress_file_list[0])
         else:
-            self.stress_tensor_list = None
+            print(f"Parsing Stress from the CP2K output/log file: {self.filename}")
+            self.stress_tensor_list = parse_stress_tensor_list(self.output_file)
+
+
 
         self.num_frames = len(self.energies_list)
 
         # here parse cell information
-        if self.filename:
-            
-            if (self.md_info.ensemble_type == "NVT") or \
-                (self.md_info.ensemble_type == "NVE") or \
-                (self.md_info.ensemble_type == "REFTRAJ"):
+    
+        WARNING_MSG = "cp2kdata obtains more than one initial cell from the output file, \
+                    please check if your output file has duplicated header information."
+
+        cell_file_list = glob.glob(os.path.join(self.path_prefix, "*.cell"))
+        if (self.md_info.ensemble_type == "NVT") or \
+            (self.md_info.ensemble_type == "NVE") or \
+            (self.md_info.ensemble_type == "REFTRAJ"):
+            if cell_file_list:
+                self.all_cells = parse_md_cell(cell_file_list[0])
+            elif self.filename:
+                print(f"Parsing Cells Information from {self.filename}")
                 # parse the first cell
                 first_cell = parse_all_cells(self.output_file)
-                assert first_cell.shape == (1, 3, 3), \
-                    "cp2kdata obtains more than one cell from the output file, please check if your output file has duplicated header information."
-                
+                assert first_cell.shape == (1, 3, 3), WARNING_MSG
                 self.all_cells = first_cell
                 self.all_cells = np.repeat(self.all_cells, repeats=self.num_frames, axis=0)
 
-            elif self.md_info.ensemble_type == "NPT_F":
+        elif (self.md_info.ensemble_type == "NPT_F"):
+            if cell_file_list:
+                self.all_cells = parse_md_cell(cell_file_list[0])
+            elif self.filename:
+                print(f"Parsing Cells Information from {self.filename}")
                 # only parse the first cell
                 first_cell = parse_all_cells(self.output_file)
-                assert first_cell.shape == (1, 3, 3), \
-                    "cp2kdata obtains more than one cell from the output file, please check if your output file has duplicated header information."
+                assert first_cell.shape == (1, 3, 3), WARNING_MSG
                 # parse the rest of the cells
                 self.all_cells = parse_all_md_cells(self.output_file)
                 # prepend the first cell
                 self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)
-                
-            print(f"Parsing Cells Information from {self.filename}")
-            self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
-            self.output_file)
-            self.atomic_kind = parse_atomic_kinds(self.output_file)
+        
+        elif (self.md_info.ensemble_type == "NPT_I"):
+            if cell_file_list:
+                self.all_cells = parse_md_cell(cell_file_list[0])
+            elif self.filename:
+                print(f"Parsing Cells Information from {self.filename}")
+                # only parse the first cell
+                first_cell = parse_all_cells(self.output_file)
+                assert first_cell.shape == (1, 3, 3), WARNING_MSG
+                # parse the rest of the cells
+                self.all_cells = parse_all_md_cells(self.output_file, init_cell_info=first_cell[0])
+                # prepend the first cell
+                self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)
+            
+        self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
+        self.output_file)
+        self.atomic_kind = parse_atomic_kinds(self.output_file)
 
     @staticmethod
     def get_global_info(run_type=None, filename=None):
@@ -389,7 +452,7 @@ class Cp2kOutput:
     @staticmethod
     def check_md_type(md_type):
         implemented_ensemble_type_parsers = \
-            ["NVE", "NVT", "NPT_F", "REFTRAJ"]
+            ["NVE", "NVT", "NPT_F", "NPT_I", "REFTRAJ"]
         if md_type not in implemented_ensemble_type_parsers:
             raise ValueError(
                 f"Parser for MD Type {md_type} haven't been implemented yet!\n"

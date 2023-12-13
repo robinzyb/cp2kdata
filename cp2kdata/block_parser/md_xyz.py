@@ -1,4 +1,4 @@
-from monty.io import zopen
+#from monty.io import zopen
 import regex as re
 import numpy as np
 ENERGY_RE = re.compile(
@@ -8,13 +8,13 @@ ENERGY_RE = re.compile(
 )
 
 def parse_md_ener(ener_file):
-    print(f"Parsing Energies From {ener_file}")
+    print(f"Parsing Energies from {ener_file}")
     energies_list = np.loadtxt(ener_file, usecols=4, ndmin=1, dtype=np.float64)
     return energies_list
 
 def parse_pos_xyz(posxyz_file):
-    print(f"Parsing Structures From {posxyz_file}")
-    fp = zopen(posxyz_file, "r")
+    print(f"Parsing Structures from {posxyz_file}")
+    fp = open(posxyz_file, "r")
     lines = fp.readlines()
     energies_list = []
     pos_list = []
@@ -36,8 +36,8 @@ def parse_pos_xyz(posxyz_file):
     return pos_list, energies_list, chemical_symbols
 
 def parse_frc_xyz(frcxyz_file):
-    print(f"Parsing Froces From {frcxyz_file}")
-    fp = zopen(frcxyz_file, "r")
+    print(f"Parsing Froces from {frcxyz_file}")
+    fp = open(frcxyz_file, "r")
     lines = fp.readlines()
     force_list = []
     while len(lines) > 0:
@@ -57,8 +57,8 @@ def parse_frc_xyz(frcxyz_file):
 
 #NOTE: incomplete function, do not release!
 def parse_pos_xyz_from_wannier(wannier_xyz_fiel):
-    print(f"Parsing Structures From {wannier_xyz_fiel}")
-    fp = zopen(wannier_xyz_fiel, "r")
+    print(f"Parsing Structures from {wannier_xyz_fiel}")
+    fp = open(wannier_xyz_fiel, "r")
     lines = fp.readlines()
     force_list = []
     while len(lines) > 0:
@@ -79,7 +79,7 @@ def parse_pos_xyz_from_wannier(wannier_xyz_fiel):
     return force_list
 
 def parse_md_stress(stress_file):
-    print(f"Parsing Stresses From {stress_file}")
+    print(f"Parsing Stresses from {stress_file}")
     stresses_list = np.loadtxt(
         stress_file, 
         usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10), 
@@ -90,3 +90,15 @@ def parse_md_stress(stress_file):
     numb_frames = stresses_list.shape[0]
 
     return stresses_list.reshape(numb_frames, 3, 3)
+
+def parse_md_cell(cell_file):
+    print(f"Parsing Cells from {cell_file}")
+    cells_list = np.loadtxt(
+        cell_file, 
+        usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10), 
+        ndmin=2,
+        dtype=np.float64
+        )
+    numb_frames = cells_list.shape[0]
+
+    return cells_list.reshape(numb_frames, 3, 3)

@@ -87,8 +87,11 @@ def parse_dft_info(filename) -> DFTInfo:
         },
         terminate_on_match=True
         )
-
-    return DFTInfo(ks_type=dft_info["ks_type"][0][0][0], multiplicity=dft_info["multiplicity"][0][0][0])
+    
+    if dft_info:
+        return DFTInfo(ks_type=dft_info["ks_type"][0][0][0], multiplicity=dft_info["multiplicity"][0][0][0])
+    else:
+        return None
 
 
 
