@@ -3,6 +3,7 @@ import numpy as np
 import glob
 import os
 import sys
+from functools import cached_property
 from .plots.geo_opt_plot import geo_opt_info_plot
 from .block_parser.header_info import GlobalInfo, Cp2kInfo, DFTInfo
 
@@ -115,8 +116,6 @@ class Cp2kOutput:
         # self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
         #     self.output_file)
 
-        # self.mulliken_pop_list = parse_mulliken_pop_list(
-        #     self.output_file, self.dft_info)
         # self.hirshfeld_pop_list = parse_hirshfeld_pop_list(self.output_file)
         # self.dft_plus_u_occ = parse_dft_plus_u_occ(self.output_file)
 
@@ -243,14 +242,44 @@ class Cp2kOutput:
         else:
             return "No"
 
+    def get_ase_atoms(self):
+        from ase import Atoms
+        symbols = self.get_chemical_symbols()
+        positions = self.init_atomic_coordinates.copy()
+        cell = self.get_init_cell()
+        ase_atoms = Atoms(symbols=symbols, positions=positions, cell=cell, pbc=True)
+        return ase_atoms
+
+    @cached_property
+    def mulliken_pop_list(self):
+        # use cached property to prase only once
+        return parse_mulliken_pop_list(self.output_file, self.dft_info)
+
     def get_mulliken_pop_list(self):
         return self.mulliken_pop_list
 
-    def get_hirshfeld_pop_list(self):
-        return self.hirshfeld_pop_list
+    def get_spin_moment_mulliken_list(self):
+        mulliken_pop_list = self.get_mulliken_pop_list()
+        spin_moment_mulliken_list = []
 
-    def get_dft_plus_u_occ(self):
-        return self.dft_plus_u_occ
+        for mulliken_pop in mulliken_pop_list:
+            spin_moment_mulliken = np.array([mulliken_atom['spin_moment'] for mulliken_atom in mulliken_pop], dtype=float)
+            spin_moment_mulliken_list.append(spin_moment_mulliken)
+        spin_moment_mulliken_list = np.array(spin_moment_mulliken_list)
+        
+        return spin_moment_mulliken_list
+    
+    def get_spin_moment_list(self, type='mulliken'):
+        if type == 'mulliken':
+            return self.get_spin_moment_mulliken_list()
+        else:
+            raise NotImplementedError("Only Mulliken Spin Moment is implemented now")
+
+    # def get_hirshfeld_pop_list(self):
+    #     return self.hirshfeld_pop_list
+
+    # def get_dft_plus_u_occ(self):
+    #     return self.dft_plus_u_occ
 
     def get_geo_opt_info(self):
         return self.geo_opt_info
