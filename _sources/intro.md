@@ -25,8 +25,11 @@ pip install .
 - [Manipulate CP2K Cube Files](./docs/cube/README.md)
 - [Manipulate CP2K Pdos Files](./docs/pdos/README.md)
 
+# Additional Features
+- [Plug in for dpdata](./docs/dpdata_plugin.md)
+
 # Feature Request
-Any advice is welcome. If you would like to request new feature, please open a issue in github and upload example input and output files.
+Any advice is welcome. If you would like to request a new feature, please open an issue in github and upload example input and output files.
 
 
 
