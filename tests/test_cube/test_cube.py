@@ -43,15 +43,21 @@ class TestCp2kCube():
     def test_pav(self, cube_and_answer):
         cube = cube_and_answer[0]
         answer_dir = cube_and_answer[1]
-        pav = cube.get_pav()
+        pav_x, pav = cube.get_pav()
         pav_answer = np.load(os.path.join(answer_dir, "pav.npy"))
+        pav_x_answer = pav_answer[0]
+        pav_answer = pav_answer[1]
         assert np.all(pav == pav_answer)
+        assert np.all(pav_x == pav_x_answer)
     def test_mav(self, cube_and_answer):
         cube = cube_and_answer[0]
         answer_dir = cube_and_answer[1]
-        mav = cube.get_mav(l1=1, l2=1, ncov=2)
+        mav_x, mav = cube.get_mav(l1=1, l2=1, ncov=2)
         mav_answer = np.load(os.path.join(answer_dir, "mav.npy"))
+        mav_x_answer = mav_answer[0]
+        mav_answer = mav_answer[1]
         assert np.all(mav == mav_answer)
+        assert np.all(mav_x == mav_x_answer)
 
 
 
