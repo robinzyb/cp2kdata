@@ -4,10 +4,13 @@ changelog:
   categories:
     - title: New Features
       labels:
-        - New Feature
+        - New-Feature
+    - title: Enhancements
+      labels:
+        - Enhancement
     - title: Bug Fixes
       labels:
-        - Bug Fix
+        - Bug-Fix
     - title: Other Changes
       labels:
         - "*"
