@@ -382,6 +382,8 @@ document.write(`
 <span class="kn">from</span> <span class="nn">ase.geometry.cell</span> <span class="kn">import</span> <span class="n">cellpar_to_cell</span>
 <span class="kn">from</span> <span class="nn">ase.geometry.cell</span> <span class="kn">import</span> <span class="n">cell_to_cellpar</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">.header_info</span> <span class="kn">import</span> <span class="n">Cp2kInfo</span>
+<span class="kn">from</span> <span class="nn">..units</span> <span class="kn">import</span> <span class="n">au2A</span>
 
 <span class="n">ALL_CELL_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -423,17 +425,34 @@ document.write(`
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span></div>
     
+<span class="n">ALL_MD_CELL_RE_V7</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    \sCELL\sLNTHS\[bohr\]\s{13}=\s</span>
+<span class="sd">    \s{3}(?P&lt;a&gt;\d\.\d{7}E(\+|\-)\d{2})</span>
+<span class="sd">    \s{3}(?P&lt;b&gt;\d\.\d{7}E(\+|\-)\d{2})</span>
+<span class="sd">    \s{3}(?P&lt;c&gt;\d\.\d{7}E(\+|\-)\d{2})</span>
+<span class="sd">    \n</span>
+<span class="sd">    #skip one line</span>
+<span class="sd">    (.{80}\n){1}</span>
+<span class="sd">    #parse angles</span>
+<span class="sd">    \sCELL\sANGLS\[deg\]\s{14}=\s</span>
+<span class="sd">    \s{3}(?P&lt;alpha&gt;\d\.\d{7}E(\+|\-)\d{2})</span>
+<span class="sd">    \s{3}(?P&lt;beta&gt;\d\.\d{7}E(\+|\-)\d{2})</span>
+<span class="sd">    \s{3}(?P&lt;gamma&gt;\d\.\d{7}E(\+|\-)\d{2})</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span>
+<span class="p">)</span>
 
-<span class="n">ALL_MD_CELL_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+<span class="n">ALL_MD_CELL_RE_V2023</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    #parse cell lengths</span>
-<span class="sd">    \sMD\|\sCell\slengths\s\[ang\]\s{9}</span>
+<span class="sd">    \sMD\|\sCell\slengths\s\[bohr\]\s{8}</span>
 <span class="sd">    \s{2}(?P&lt;a&gt;\d\.\d{8}E(\+|\-)\d{2})</span>
 <span class="sd">    \s{2}(?P&lt;b&gt;\d\.\d{8}E(\+|\-)\d{2})</span>
 <span class="sd">    \s{2}(?P&lt;c&gt;\d\.\d{8}E(\+|\-)\d{2})</span>
 <span class="sd">    \n</span>
-<span class="sd">    #skip two lines</span>
-<span class="sd">    (.{80}\n){2}</span>
+<span class="sd">    #skip three lines</span>
+<span class="sd">    (.{80}\n){3}</span>
 <span class="sd">    #parse angles</span>
 <span class="sd">    (\sMD\|\sCell\sangles\s\[deg\]\s{10} </span>
 <span class="sd">    \s{2}(?P&lt;alpha&gt;\d\.\d{8}E(\+|\-)\d{2})</span>
@@ -444,11 +463,23 @@ document.write(`
 <span class="p">)</span>
 
 <div class="viewcode-block" id="parse_all_md_cells"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.cells.html#cp2kdata.block_parser.cells.parse_all_md_cells">[docs]</a><span class="k">def</span> <span class="nf">parse_all_md_cells</span><span class="p">(</span><span class="n">output_file</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> 
+                       <span class="n">cp2k_info</span><span class="p">:</span> <span class="n">Cp2kInfo</span><span class="p">,</span>
                        <span class="n">init_cell_info</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="c1"># init_cell_info are used for npt_I parse.</span>
     <span class="c1"># because npt_I doesn&#39;t include angle info in MD| block</span>
 
     <span class="c1"># notice that the cell of step 0 is excluded from MD| block</span>
+    
+    <span class="c1"># choose parser according to cp2k_info.version</span>
+    <span class="k">if</span> <span class="n">cp2k_info</span><span class="o">.</span><span class="n">version</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;2023.1&#39;</span><span class="p">]:</span>
+        <span class="n">ALL_MD_CELL_RE</span> <span class="o">=</span> <span class="n">ALL_MD_CELL_RE_V2023</span>
+    <span class="k">elif</span> <span class="n">cp2k_info</span><span class="o">.</span><span class="n">version</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;7.1&#39;</span><span class="p">]:</span>
+        <span class="n">ALL_MD_CELL_RE</span> <span class="o">=</span> <span class="n">ALL_MD_CELL_RE_V7</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">WARNING</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;cp2k version=</span><span class="si">{</span><span class="n">cp2k_info</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2"> is not supported yet </span><span class="se">\</span>
+<span class="s2">                    for parsing MD cell from cp2k log files.&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">WARNING</span><span class="p">)</span>
+
     <span class="n">all_md_cells</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="n">init_cell_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># for NPT_F parser, cell info is complete in MD| block</span>
@@ -457,6 +488,9 @@ document.write(`
             <span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">],</span>
                 <span class="k">match</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;beta&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;gamma&quot;</span><span class="p">]]</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="c1"># convert bohr to angstrom</span>
+            <span class="n">cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">au2A</span>
+            <span class="c1"># make sure cell length are in angstrom and cell angles are in degree before sent to cellpar_to_cell</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="n">cellpar_to_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
             <span class="n">all_md_cells</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
