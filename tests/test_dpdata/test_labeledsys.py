@@ -15,6 +15,7 @@ aimd_output_path_list = [
     "tests/test_dpdata/v7.1/aimd",
     "tests/test_dpdata/v7.1/aimd_virial",
     "tests/test_dpdata/v7.1/aimd_virial_in_output",
+    "tests/test_dpdata/v7.1/aimd_npt_f",
     "tests/test_dpdata/v9.1/xTBmd_npt_i",
     "tests/test_dpdata/v2022.1/aimd",
     "tests/test_dpdata/v2023.1/aimd_nvt",

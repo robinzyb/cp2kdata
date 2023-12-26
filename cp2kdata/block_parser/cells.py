@@ -3,6 +3,8 @@ import numpy as np
 from ase.geometry.cell import cellpar_to_cell
 from ase.geometry.cell import cell_to_cellpar
 from typing import List
+from .header_info import Cp2kInfo
+from ..units import au2A
 
 ALL_CELL_RE = re.compile(
     r"""
@@ -44,17 +46,34 @@ def parse_all_cells(output_file):
     else:
         return None
     
+ALL_MD_CELL_RE_V7 = re.compile(
+    r"""
+    \sCELL\sLNTHS\[bohr\]\s{13}=\s
+    \s{3}(?P<a>\d\.\d{7}E(\+|\-)\d{2})
+    \s{3}(?P<b>\d\.\d{7}E(\+|\-)\d{2})
+    \s{3}(?P<c>\d\.\d{7}E(\+|\-)\d{2})
+    \n
+    #skip one line
+    (.{80}\n){1}
+    #parse angles
+    \sCELL\sANGLS\[deg\]\s{14}=\s
+    \s{3}(?P<alpha>\d\.\d{7}E(\+|\-)\d{2})
+    \s{3}(?P<beta>\d\.\d{7}E(\+|\-)\d{2})
+    \s{3}(?P<gamma>\d\.\d{7}E(\+|\-)\d{2})
+    """,
+    re.VERBOSE
+)
 
-ALL_MD_CELL_RE = re.compile(
+ALL_MD_CELL_RE_V2023 = re.compile(
     r"""
     #parse cell lengths
-    \sMD\|\sCell\slengths\s\[ang\]\s{9}
+    \sMD\|\sCell\slengths\s\[bohr\]\s{8}
     \s{2}(?P<a>\d\.\d{8}E(\+|\-)\d{2})
     \s{2}(?P<b>\d\.\d{8}E(\+|\-)\d{2})
     \s{2}(?P<c>\d\.\d{8}E(\+|\-)\d{2})
     \n
-    #skip two lines
-    (.{80}\n){2}
+    #skip three lines
+    (.{80}\n){3}
     #parse angles
     (\sMD\|\sCell\sangles\s\[deg\]\s{10} 
     \s{2}(?P<alpha>\d\.\d{8}E(\+|\-)\d{2})
@@ -65,11 +84,23 @@ ALL_MD_CELL_RE = re.compile(
 )
 
 def parse_all_md_cells(output_file: List[str], 
+                       cp2k_info: Cp2kInfo,
                        init_cell_info=None):
     # init_cell_info are used for npt_I parse.
     # because npt_I doesn't include angle info in MD| block
 
     # notice that the cell of step 0 is excluded from MD| block
+    
+    # choose parser according to cp2k_info.version
+    if cp2k_info.version in ['2023.1']:
+        ALL_MD_CELL_RE = ALL_MD_CELL_RE_V2023
+    elif cp2k_info.version in ['7.1']:
+        ALL_MD_CELL_RE = ALL_MD_CELL_RE_V7
+    else:
+        WARNING = f"cp2k version={cp2k_info.version} is not supported yet \
+                    for parsing MD cell from cp2k log files."
+        raise NotImplementedError(WARNING)
+
     all_md_cells = []
     if init_cell_info is None:
         # for NPT_F parser, cell info is complete in MD| block
@@ -78,6 +109,9 @@ def parse_all_md_cells(output_file: List[str],
             cell = [match["a"], match["b"], match["c"],
                 match["alpha"], match["beta"], match["gamma"]]
             cell = np.array(cell, dtype=float)
+            # convert bohr to angstrom
+            cell[:3] = cell[:3] * au2A
+            # make sure cell length are in angstrom and cell angles are in degree before sent to cellpar_to_cell
             cell = cellpar_to_cell(cell)
             all_md_cells.append(cell)
     else:
