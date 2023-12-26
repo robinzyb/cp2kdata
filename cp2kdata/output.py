@@ -72,7 +72,8 @@ class Cp2kOutput:
         self.atom_kind_list = None
 
         # -- start parse necessary information --
-
+        # sometimes I use self.filename and sometimes I use self.output_file 
+        # self.filename is used for parsing information by monty package.
         if self.filename:
             with open(self.filename, 'r') as fp:
                 self.output_file = fp.read()
@@ -381,7 +382,31 @@ class Cp2kOutput:
         self.num_frames = len(self.energies_list)
 
         # here parse cell information
-    
+        WARNING_MSG_PARSE_CELL_FROM_OUTPUT = \
+            (
+            "\n"
+            "cp2kdata is parsing md cell information from output file.\n"
+            "The raw data of cell information are lengths and angles,\n" 
+            "which are latter transformed to cell matrices by codes.\n"
+            "However, the a axis of the cell are always assumed to be aligned to " 
+            "the x axis of the coordinate.\n" 
+            "Make sure the a axis in real cell matrices are always aligned to x axis.\n"
+            "Otherwise, parsing cell information from `-1.cell` file is recommended.\n"
+            
+            "CP2K input setting\n"
+            "------------------\n"
+            "&MOTION\n"
+            " &PRINT\n"
+            "   &CELL\n"
+            "     &EACH\n"
+            "       MD 1\n"
+            "     &END EACH\n"
+            "   &END CELL\n"
+            " &END PRINT\n"
+            "&END MOTION\n"
+            "------------------\n"
+            )
+        
         WARNING_MSG = "cp2kdata obtains more than one initial cell from the output file, \
                     please check if your output file has duplicated header information."
 
@@ -393,6 +418,7 @@ class Cp2kOutput:
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
                 print(f"Parsing Cells Information from {self.filename}")
+                print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
                 # parse the first cell
                 first_cell = parse_all_cells(self.output_file)
                 assert first_cell.shape == (1, 3, 3), WARNING_MSG
@@ -401,14 +427,17 @@ class Cp2kOutput:
 
         elif (self.md_info.ensemble_type == "NPT_F"):
             if cell_file_list:
+                # all cells include initial cell
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
                 print(f"Parsing Cells Information from {self.filename}")
+                print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
                 # only parse the first cell
                 first_cell = parse_all_cells(self.output_file)
                 assert first_cell.shape == (1, 3, 3), WARNING_MSG
                 # parse the rest of the cells
-                self.all_cells = parse_all_md_cells(self.output_file)
+                self.all_cells = parse_all_md_cells(self.output_file, 
+                                                    cp2k_info=self.cp2k_info)
                 # prepend the first cell
                 self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)
         
@@ -417,11 +446,14 @@ class Cp2kOutput:
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
                 print(f"Parsing Cells Information from {self.filename}")
+                print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
                 # only parse the first cell
                 first_cell = parse_all_cells(self.output_file)
                 assert first_cell.shape == (1, 3, 3), WARNING_MSG
                 # parse the rest of the cells
-                self.all_cells = parse_all_md_cells(self.output_file, init_cell_info=first_cell[0])
+                self.all_cells = parse_all_md_cells(self.output_file, 
+                                                    cp2k_info=self.cp2k_info, 
+                                                    init_cell_info=first_cell[0])
                 # prepend the first cell
                 self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)
             
