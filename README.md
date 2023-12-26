@@ -18,7 +18,7 @@ pip install cp2kdata
 ## From source
 One can download the source code of cp2kdata by
 ```bash
-https://github.com/robinzyb/cp2kdata.git cp2kdata
+git clone https://github.com/robinzyb/cp2kdata.git cp2kdata
 ```
 then use `pip` to install the module from source
 
