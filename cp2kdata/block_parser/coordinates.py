@@ -27,7 +27,7 @@ INIT_ATOMIC_COORDINATES_RE = re.compile(
 def parse_init_atomic_coordinates(output_file):
 
     match = INIT_ATOMIC_COORDINATES_RE.search(output_file)
-        # only get the first match
+    # only get the first match
     init_atomic_coordinates = []
     chemical_symbols = []
     for x, y, z in zip(*match.captures("x", "y", "z")):

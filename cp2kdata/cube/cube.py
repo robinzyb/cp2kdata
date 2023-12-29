@@ -14,16 +14,19 @@ import asciichartpy as acp
 def square_wave_filter(x, l, cell_z):
     half_l = l/2
     x_1st, x_2nd = np.array_split(x, 2)
-    y_1st = np.heaviside(half_l - np.abs(x_1st),0)/l
-    y_2nd = np.heaviside(half_l - np.abs(x_2nd-cell_z),0)/l
+    y_1st = np.heaviside(half_l - np.abs(x_1st), 0)/l
+    y_2nd = np.heaviside(half_l - np.abs(x_2nd-cell_z), 0)/l
     y = np.concatenate([y_1st, y_2nd])
     return y
 
 # parse cp2kcube
+
+
 class Cp2kCubeOld:
     """
     timestep: unit ps
     """
+
     def __init__(self, cube_file_name, timestep=0):
         print("Warning: This is Cp2kCubeOld is deprecated after version 0.6.x, use Cp2kCube instead!")
         print("Warning: to use old one, from cp2kdata.cube.cube import Cp2kCubeOld")
@@ -43,7 +46,7 @@ class Cp2kCubeOld:
     @property
     def grid_size(self):
         # read grid point and grid size, unit: angstrom
-        content_list = file_content(self.file, (3,6))
+        content_list = file_content(self.file, (3, 6))
         content_list = content_list.split()
         num_x = int(content_list[0])
         num_y = int(content_list[4])
@@ -53,13 +56,12 @@ class Cp2kCubeOld:
     @property
     def grid_space(self):
         # read grid point and grid size, unit: angstrom
-        content_list = file_content(self.file, (3,6))
+        content_list = file_content(self.file, (3, 6))
         content_list = content_list.split()
         step_x = float(content_list[1])*au2A
         step_y = float(content_list[6])*au2A
         step_z = float(content_list[11])*au2A
         return step_x, step_y, step_z
-
 
     def get_stc(self):
         atom_list = []
@@ -68,8 +70,9 @@ class Cp2kCubeOld:
             stc_vals = stc_vals.split()
             atom = Atom(
                 symbol=int(stc_vals[0]),
-                position=(float(stc_vals[2])*au2A, float(stc_vals[3])*au2A, float(stc_vals[4])*au2A)
-                )
+                position=(
+                    float(stc_vals[2])*au2A, float(stc_vals[3])*au2A, float(stc_vals[4])*au2A)
+            )
             atom_list.append(atom)
 
         stc = Atoms(atom_list)
@@ -80,7 +83,7 @@ class Cp2kCubeOld:
         # read the cube value from file
         cube_vals = file_content(self.file, (6+self.num_atoms,))
         cube_vals = cube_vals.split()
-        cube_vals = np.array(cube_vals, dtype = float)
+        cube_vals = np.array(cube_vals, dtype=float)
         cube_vals = cube_vals.reshape(self.grid_size)
         cube_vals = cube_vals*au2eV
         return cube_vals
@@ -88,15 +91,15 @@ class Cp2kCubeOld:
     def get_pav(self, axis="z", interpolate=False):
         # do the planar average along specific axis
         if axis == 'x':
-            vals = self.cube_vals.mean(axis=(1,2))
+            vals = self.cube_vals.mean(axis=(1, 2))
             points = np.arange(0, self.grid_size[0])*self.grid_space[0]
             length = self.grid_size[0]*self.grid_space[0]
         elif axis == 'y':
-            vals = self.cube_vals.mean(axis=(0,2))
+            vals = self.cube_vals.mean(axis=(0, 2))
             points = np.arange(0, self.grid_size[1])*self.grid_space[1]
             length = self.grid_size[1]*self.grid_space[1]
         elif axis == 'z':
-            vals = self.cube_vals.mean(axis=(0,1))
+            vals = self.cube_vals.mean(axis=(0, 1))
             points = np.arange(0, self.grid_size[2])*self.grid_space[2]
             length = self.grid_size[2]*self.grid_space[2]
         else:
@@ -114,7 +117,7 @@ class Cp2kCubeOld:
             return points, vals
 
     def get_mav(self, l1, l2=0, ncov=1, interpolate=False):
-        axis="z"
+        axis = "z"
         pav_x, pav = self.get_pav(axis=axis, interpolate=interpolate)
         theta_1_fft = fft.fft(square_wave_filter(pav_x, l1, self.cell_z))
         pav_fft = fft.fft(pav)
@@ -125,10 +128,9 @@ class Cp2kCubeOld:
         mav = fft.ifft(mav_fft)
         return pav_x, np.real(mav)
 
-
     def quick_plot(self, axis="z", interpolate=False, output_dir="./"):
         x, y = self.get_pav(axis=axis, interpolate=interpolate)
-        plt.figure(figsize=(9,9), dpi=100)
+        plt.figure(figsize=(9, 9), dpi=100)
         plt.plot(x, y, label=("PAV"+axis))
         plt.xlabel(axis + " [A]")
         plt.ylabel("Hartree [eV]")
@@ -141,6 +143,7 @@ class Cp2kCube(MSONable):
     """
     Documentation for the Cp2kCube class.
     """
+
     def __init__(self, fname=None, cube_vals=None, cell=None, stc=None):
         print("Warning: This is New Cp2kCube Class, if you want to use old Cp2kCube")
         print("try, from cp2kdata.cube.cube import Cp2kCubeOld")
@@ -150,7 +153,6 @@ class Cp2kCube(MSONable):
         print("to convert unit: try from cp2kdata.utils import au2A, au2eV")
 
         self.file = fname
-
 
         if cell is None:
             self.cell = self.read_cell()
@@ -163,9 +165,9 @@ class Cp2kCube(MSONable):
 
         if cube_vals is None:
             self.cube_vals = self.read_cube_vals(self.file,
-                                                self.num_atoms,
-                                                self.cell.grid_point
-                                                )
+                                                 self.num_atoms,
+                                                 self.cell.grid_point
+                                                 )
         else:
             self.cube_vals = cube_vals
 
@@ -190,7 +192,7 @@ class Cp2kCube(MSONable):
             "cube_vals": self.cube_vals,
             "cell": self.cell,
             "stc": self.stc,
-            }
+        }
         return data_dict
 
     def __add__(self, others):
@@ -198,7 +200,7 @@ class Cp2kCube(MSONable):
         self_copy = self.copy()
         if isinstance(others, Cp2kCube):
             other_copy = others.copy()
-            other_copy.cube_vals =  self_copy.cube_vals + other_copy.cube_vals
+            other_copy.cube_vals = self_copy.cube_vals + other_copy.cube_vals
         else:
             raise RuntimeError("Unspported Class")
         return other_copy
@@ -208,7 +210,7 @@ class Cp2kCube(MSONable):
         self_copy = self.copy()
         if isinstance(others, Cp2kCube):
             other_copy = others.copy()
-            other_copy.cube_vals =  self_copy.cube_vals - other_copy.cube_vals
+            other_copy.cube_vals = self_copy.cube_vals - other_copy.cube_vals
         else:
             raise RuntimeError("Unspported Class")
         return other_copy
@@ -220,8 +222,9 @@ class Cp2kCube(MSONable):
             stc_vals = stc_vals.split()
             atom = Atom(
                 symbol=int(stc_vals[0]),
-                position=(float(stc_vals[2])*au2A, float(stc_vals[3])*au2A, float(stc_vals[4])*au2A)
-                )
+                position=(
+                    float(stc_vals[2])*au2A, float(stc_vals[3])*au2A, float(stc_vals[4])*au2A)
+            )
             atom_list.append(atom)
 
         stc = Atoms(atom_list)
@@ -236,22 +239,22 @@ class Cp2kCube(MSONable):
             self.cell.get_cell_angles(),
             np.array([90.0, 90.0, 90.0]),
             err_msg="The cell is not orthorhombic, the pav can not be used!"
-            )
+        )
 
         # do the planar average along specific axis
         lengths = self.cell.get_cell_lengths()
         grid_point = self.cell.grid_point
         gs_matrix = self.cell.grid_spacing_matrix
         if axis == 'x':
-            vals = self.cube_vals.mean(axis=(1,2))
+            vals = self.cube_vals.mean(axis=(1, 2))
             points = np.arange(0, grid_point[0])*gs_matrix[0][0]
             length = lengths[0]
         elif axis == 'y':
-            vals = self.cube_vals.mean(axis=(0,2))
+            vals = self.cube_vals.mean(axis=(0, 2))
             points = np.arange(0, grid_point[1])*gs_matrix[1][1]
             length = lengths[1]
         elif axis == 'z':
-            vals = self.cube_vals.mean(axis=(0,1))
+            vals = self.cube_vals.mean(axis=(0, 1))
             points = np.arange(0, grid_point[2])*gs_matrix[2][2]
             length = lengths[2]
         else:
@@ -292,12 +295,13 @@ class Cp2kCube(MSONable):
         plt.style.use('cp2kdata.matplotlibstyle.jcp')
         row = 1
         col = 1
-        fig = plt.figure(figsize=(3.37*col, 1.89*row), dpi=600, facecolor='white')
-        gs = fig.add_gridspec(row,col)
-        ax  = fig.add_subplot(gs[0])
+        fig = plt.figure(figsize=(3.37*col, 1.89*row),
+                         dpi=600, facecolor='white')
+        gs = fig.add_gridspec(row, col)
+        ax = fig.add_subplot(gs[0])
         ax.plot(x, y, label=(f"PAV along {axis}"))
-        #ax.set_xlabel(f'{axis} [A]')
-        #ax.set_ylabel('Hartree [eV]')
+        # ax.set_xlabel(f'{axis} [A]')
+        # ax.set_ylabel('Hartree [eV]')
         ax.legend()
         return fig
 
@@ -325,12 +329,16 @@ class Cp2kCube(MSONable):
             fw.write(comments+'\n')
             # grid information
             fw.write(f'{self.num_atoms:5d}{0:12.6f}{0:12.6f}{0:12.6f}\n')
-            fw.write(f'{grid_point[0]:5d}{gs_matrix[0][0]:12.6f}{gs_matrix[0][1]:12.6f}{gs_matrix[0][2]:12.6f}\n')
-            fw.write(f'{grid_point[1]:5d}{gs_matrix[1][0]:12.6f}{gs_matrix[1][1]:12.6f}{gs_matrix[1][2]:12.6f}\n')
-            fw.write(f'{grid_point[2]:5d}{gs_matrix[2][0]:12.6f}{gs_matrix[2][1]:12.6f}{gs_matrix[2][2]:12.6f}\n')
+            fw.write(
+                f'{grid_point[0]:5d}{gs_matrix[0][0]:12.6f}{gs_matrix[0][1]:12.6f}{gs_matrix[0][2]:12.6f}\n')
+            fw.write(
+                f'{grid_point[1]:5d}{gs_matrix[1][0]:12.6f}{gs_matrix[1][1]:12.6f}{gs_matrix[1][2]:12.6f}\n')
+            fw.write(
+                f'{grid_point[2]:5d}{gs_matrix[2][0]:12.6f}{gs_matrix[2][1]:12.6f}{gs_matrix[2][2]:12.6f}\n')
             # structure information
             for atom in self.stc:
-                fw.write(f'{atom.number:5d}{0:12.6f}{atom.position[0]/au2A:12.6f}{atom.position[1]/au2A:12.6f}{atom.position[2]/au2A:12.6f}\n')
+                fw.write(
+                    f'{atom.number:5d}{0:12.6f}{atom.position[0]/au2A:12.6f}{atom.position[1]/au2A:12.6f}{atom.position[2]/au2A:12.6f}\n')
             # cube values
             # cp2k write cube loop in z, y, x order
             # https://github.com/cp2k/cp2k/blob/01090ebf0718ff6885d11f89fe10938d80eb0a02/src/pw/realspace_grid_cube.F#L99
@@ -341,10 +349,10 @@ class Cp2kCube(MSONable):
                         # cp2k:   0.20871E+00
                         # python: 2.08710E-01
                         fw.write(f'{self.cube_vals[i,j,k]:13.5E}')
-                        if (k+1)%6 == 0:
+                        if (k+1) % 6 == 0:
                             fw.write('\n')
                     # write a blank line after each z value
-                    if grid_point[2]%6 != 0:
+                    if grid_point[2] % 6 != 0:
                         fw.write('\n')
 
     def get_integration(self):
@@ -375,22 +383,26 @@ class Cp2kCube(MSONable):
         new_cube.cell.grid_point = grid_point
 
         # increase the grid spacing
-        new_cube.cell.grid_spacing_matrix = self.cell.grid_spacing_matrix * stride_array[:, np.newaxis]
+        new_cube.cell.grid_spacing_matrix = self.cell.grid_spacing_matrix * \
+            stride_array[:, np.newaxis]
 
-        new_cube.cube_vals = self.cube_vals[::stride_array[0], ::stride_array[1], ::stride_array[2]]
+        new_cube.cube_vals = self.cube_vals[::stride_array[0],
+                                            ::stride_array[1], ::stride_array[2]]
 
         return new_cube
 
-
     @staticmethod
     def read_gs_matrix(fname):
-        content_list = file_content(fname, (3,6))
+        content_list = file_content(fname, (3, 6))
         content_list = content_list.split()
 
         gs_matrix = [
-            [float(content_list[1]), float(content_list[2]), float(content_list[3])],
-            [float(content_list[5]), float(content_list[6]), float(content_list[7])],
-            [float(content_list[9]), float(content_list[10]), float(content_list[11])]
+            [float(content_list[1]), float(
+                content_list[2]), float(content_list[3])],
+            [float(content_list[5]), float(
+                content_list[6]), float(content_list[7])],
+            [float(content_list[9]), float(
+                content_list[10]), float(content_list[11])]
         ]
         gs_matrix = np.array(gs_matrix)
         return gs_matrix
@@ -398,7 +410,7 @@ class Cp2kCube(MSONable):
     @staticmethod
     def read_grid_point(fname):
         # read grid point and grid size, unit: angstrom
-        content_list = file_content(fname, (3,6))
+        content_list = file_content(fname, (3, 6))
         content_list = content_list.split()
         num_x = int(content_list[0])
         num_y = int(content_list[4])
@@ -410,11 +422,11 @@ class Cp2kCube(MSONable):
         # read the cube value from file
         cube_vals = file_content(fname, (6+num_atoms,))
         cube_vals = cube_vals.split()
-        cube_vals = np.array(cube_vals, dtype = float)
+        cube_vals = np.array(cube_vals, dtype=float)
         cube_vals = cube_vals.reshape(grid_point)
         return cube_vals
+
 
 class Cp2kCubeTraj:
     def __init__(cube_dir, prefix):
         pass
-

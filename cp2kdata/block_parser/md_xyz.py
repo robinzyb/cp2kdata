@@ -1,4 +1,4 @@
-#from monty.io import zopen
+# from monty.io import zopen
 import regex as re
 import numpy as np
 ENERGY_RE = re.compile(
@@ -7,10 +7,12 @@ ENERGY_RE = re.compile(
     """
 )
 
+
 def parse_md_ener(ener_file):
     print(f"Parsing Energies from {ener_file}")
     energies_list = np.loadtxt(ener_file, usecols=4, ndmin=1, dtype=np.float64)
     return energies_list
+
 
 def parse_pos_xyz(posxyz_file):
     print(f"Parsing Structures from {posxyz_file}")
@@ -35,6 +37,7 @@ def parse_pos_xyz(posxyz_file):
     pos_list = np.array(pos_list, dtype=np.float64)
     return pos_list, energies_list, chemical_symbols
 
+
 def parse_frc_xyz(frcxyz_file):
     print(f"Parsing Froces from {frcxyz_file}")
     fp = open(frcxyz_file, "r")
@@ -55,7 +58,9 @@ def parse_frc_xyz(frcxyz_file):
     force_list = np.array(force_list, dtype=np.float64)
     return force_list
 
-#NOTE: incomplete function, do not release!
+# NOTE: incomplete function, do not release!
+
+
 def parse_pos_xyz_from_wannier(wannier_xyz_fiel):
     print(f"Parsing Structures from {wannier_xyz_fiel}")
     fp = open(wannier_xyz_fiel, "r")
@@ -78,6 +83,7 @@ def parse_pos_xyz_from_wannier(wannier_xyz_fiel):
     force_list = np.array(force_list, dtype=np.float64)
     return force_list
 
+
 def parse_md_stress(stress_file):
     print(f"Parsing Stresses from {stress_file}")
     stresses_list = np.loadtxt(
@@ -85,11 +91,12 @@ def parse_md_stress(stress_file):
         usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10),
         ndmin=2,
         dtype=np.float64
-        )
+    )
 
     numb_frames = stresses_list.shape[0]
 
     return stresses_list.reshape(numb_frames, 3, 3)
+
 
 def parse_md_cell(cell_file):
     print(f"Parsing Cells from {cell_file}")
@@ -98,7 +105,7 @@ def parse_md_cell(cell_file):
         usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10),
         ndmin=2,
         dtype=np.float64
-        )
+    )
     numb_frames = cells_list.shape[0]
 
     return cells_list.reshape(numb_frames, 3, 3)

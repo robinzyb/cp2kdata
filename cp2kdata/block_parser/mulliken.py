@@ -41,10 +41,10 @@ def parse_mulliken_pop_list(output_file, DFTInfo):
     mulliken_pop_list = []
     if DFTInfo.ks_type == 'UKS':
         for match in MULLIKEN_UKS_RE.finditer(output_file):
-            #print(match)
+            # print(match)
             mulliken_pop = []
             for element, alpha, beta, net_charge, spin_moment in zip(*match.captures("element", "alpha", "beta", "net_charge", "spin_moment")):
-                #print(match.captures("element", "alpha", "beta", "net_charge", "spin_moment"))
+                # print(match.captures("element", "alpha", "beta", "net_charge", "spin_moment"))
                 mulliken_pop.append(
                     {
                         "element": element,
@@ -56,7 +56,8 @@ def parse_mulliken_pop_list(output_file, DFTInfo):
                 )
             mulliken_pop_list.append(mulliken_pop)
     elif DFTInfo.ks_type == "RKS":
-        raise NotImplementedError("RKS Mulliken population analysis not implemented")
+        raise NotImplementedError(
+            "RKS Mulliken population analysis not implemented")
         for match in MULLIKEN_RKS_RE.finditer(output_file):
             mulliken_pop = []
             for element, alpha, net_charge in zip(*match.captures("element", "alpha", "net_charge")):
@@ -69,7 +70,7 @@ def parse_mulliken_pop_list(output_file, DFTInfo):
                 )
             mulliken_pop_list.append(mulliken_pop)
 
-    if  mulliken_pop_list:
-        return  mulliken_pop_list
+    if mulliken_pop_list:
+        return mulliken_pop_list
     else:
         return None

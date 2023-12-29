@@ -13,18 +13,20 @@ import shutil
 au2eV = 27.211386245988
 au2A = 0.529177210903
 
+
 def create_path(path):
     path += '/'
     if os.path.isdir(path):
         dirname = os.path.dirname(path)
         counter = 0
-        while True :
+        while True:
             bk_dirname = dirname + ".bk%03d" % counter
             if not os.path.isdir(bk_dirname):
-                shutil.move (dirname, bk_dirname)
+                shutil.move(dirname, bk_dirname)
                 break
             counter += 1
     os.makedirs(path)
+
 
 def interpolate_spline(old_x, old_y, new_x):
     from scipy import interpolate
@@ -32,11 +34,13 @@ def interpolate_spline(old_x, old_y, new_x):
     new_y = interpolate.splev(new_x, f)
     return new_x, new_y
 
+
 def set_pbc(pos, cell):
     """set pbc for a list of Atoms object"""
     for single_pos in pos:
         single_pos.set_cell(cell)
         single_pos.set_pbc(True)
+
 
 def get_rdf_list(pos, r, nbin, frames, elements):
     """
@@ -48,8 +52,10 @@ def get_rdf_list(pos, r, nbin, frames, elements):
     """
     tmp_info = Analysis(pos)
     # this wil get a rdf for every snapshot
-    tmp_rdf_list = tmp_info.get_rdf(r, nbin, imageIdx=slice(0, frames, 1), elements=elements)
+    tmp_rdf_list = tmp_info.get_rdf(
+        r, nbin, imageIdx=slice(0, frames, 1), elements=elements)
     return tmp_rdf_list
+
 
 def get_rdf(pos, r, nbin, frames, elements):
     """
@@ -61,12 +67,14 @@ def get_rdf(pos, r, nbin, frames, elements):
         tot_gr += s_gr/frames
     return tot_gr
 
+
 def printtbox(arg):
     """
     This function is a print decorated with a few characters so that the
     print function present a characteristic string. Useful for postprocess.
     """
     print("--> CP2KDATA: {0}".format(arg))
+
 
 def file_content(file, num):
     # read a specific line of file or return the block
@@ -96,7 +104,7 @@ def file_content(file, num):
         elif len(num) == 1:
             with open(file) as f:
                 for _idx, line in enumerate(f):
-                    if (_idx >= num[0]) :
+                    if (_idx >= num[0]):
                         content += line
             return content
         else:

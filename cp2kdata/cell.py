@@ -5,13 +5,14 @@ import numpy as np
 from numpy.linalg import LinAlgError
 from copy import deepcopy
 
+
 class Cp2kCell:
     def __init__(
         self,
         cell_param: npt.NDArray[np.float64],
         grid_point: npt.NDArray[np.int_] = None,
         grid_spacing_matrix: npt.NDArray[np.float64] = None
-        ):
+    ):
         """
         The documentation of Cell class used in cp2kdata
         Parameters
@@ -27,7 +28,6 @@ class Cp2kCell:
         grid_point   : array
         grid_spacing_matrix : matrix 3x3
         """
-
 
         if isinstance(cell_param, float):
             self.cell_matrix = np.array(
@@ -60,24 +60,24 @@ class Cp2kCell:
         else:
             raise ValueError("The input cell_param is not supported")
 
-
         if (grid_point is None) and (grid_spacing_matrix is None):
             self.grid_point = None
             self.grid_spacing_matrix = None
             print("No grid point information")
         elif (grid_point is None) and (grid_spacing_matrix is not None):
             self.grid_spacing_matrix = grid_spacing_matrix
-            self.grid_point = np.round(self.cell_matrix/self.grid_spacing_matrix)
+            self.grid_point = np.round(
+                self.cell_matrix/self.grid_spacing_matrix)
         elif (grid_point is not None) and (grid_spacing_matrix is None):
             self.grid_point = np.array(grid_point)
-            self.grid_spacing_matrix = self.cell_matrix/self.grid_point[:, np.newaxis]
+            self.grid_spacing_matrix = self.cell_matrix / \
+                self.grid_point[:, np.newaxis]
         elif (grid_point is not None) and (grid_spacing_matrix is not None):
             self.grid_point = np.array(grid_point)
             self.grid_spacing_matrix = np.array(grid_spacing_matrix)
 
         if grid_point is not None:
             self.grid_point = self.grid_point.astype(int)
-
 
         self.cell_param = cell_to_cellpar(self.cell_matrix)
 
@@ -101,4 +101,3 @@ class Cp2kCell:
 
     def get_cell_lengths(self):
         return self.cell_param[:3]
-

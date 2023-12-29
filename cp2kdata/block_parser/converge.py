@@ -7,10 +7,12 @@ from monty.re import regrep
 class ConvergeInfo:
     converge: bool = False
 
+
 CONVERGE_PATTERN = \
     r"""(?xm)
     ^\s{1,2}\*\*\*\sSCF\srun\sconverged\sin
     """
+
 
 def parse_e_f_converge(filename) -> ConvergeInfo:
 
@@ -19,13 +21,14 @@ def parse_e_f_converge(filename) -> ConvergeInfo:
         reverse=True,
         patterns={"converge": CONVERGE_PATTERN},
         terminate_on_match=True
-        )
+    )
 
     if info_dict['converge']:
         converge_info = ConvergeInfo(converge=True)
     else:
         converge_info = ConvergeInfo(converge=False)
     return converge_info
+
 
 def parse_md_converge(filename):
 
@@ -34,8 +37,8 @@ def parse_md_converge(filename):
         reverse=True,
         patterns={"converge": CONVERGE_PATTERN},
         terminate_on_match=False
-        )
-    #print(info_dict['converge'])
+    )
+    # print(info_dict['converge'])
 
 # if __name__ == "__main__":
 #     file_name = "e_f"

@@ -30,10 +30,11 @@ ALL_CELL_RE = re.compile(
     re.VERBOSE
 )
 
+
 def parse_all_cells(output_file):
     all_cells = []
     for match in ALL_CELL_RE.finditer(output_file):
-        #print(match)
+        # print(match)
         cell = [
             [match["xx"], match["xy"], match["xz"]],
             [match["yx"], match["yy"], match["yz"]],
@@ -45,6 +46,7 @@ def parse_all_cells(output_file):
         return np.array(all_cells, dtype=float)
     else:
         return None
+
 
 ALL_MD_CELL_RE_V7 = re.compile(
     r"""
@@ -83,6 +85,7 @@ ALL_MD_CELL_RE_V2023 = re.compile(
     re.VERBOSE
 )
 
+
 def parse_all_md_cells(output_file: List[str],
                        cp2k_info: Cp2kInfo,
                        init_cell_info=None):
@@ -105,9 +108,9 @@ def parse_all_md_cells(output_file: List[str],
     if init_cell_info is None:
         # for NPT_F parser, cell info is complete in MD| block
         for match in ALL_MD_CELL_RE.finditer(output_file):
-            #print(match)
+            # print(match)
             cell = [match["a"], match["b"], match["c"],
-                match["alpha"], match["beta"], match["gamma"]]
+                    match["alpha"], match["beta"], match["gamma"]]
             cell = np.array(cell, dtype=float)
             # convert bohr to angstrom
             cell[:3] = cell[:3] * au2A
@@ -119,14 +122,13 @@ def parse_all_md_cells(output_file: List[str],
         init_cell_param = cell_to_cellpar(init_cell_info)
         init_cell_angles = init_cell_param[3:]
         for match in ALL_MD_CELL_RE.finditer(output_file):
-            #print(match)
+            # print(match)
             cell = [match["a"], match["b"], match["c"],
-                match["alpha"], match["beta"], match["gamma"]]
+                    match["alpha"], match["beta"], match["gamma"]]
             cell = np.array(cell, dtype=float)
             cell[3:] = init_cell_angles
             cell = cellpar_to_cell(cell)
             all_md_cells.append(cell)
-
 
     if all_md_cells:
         return np.array(all_md_cells, dtype=float)

@@ -8,6 +8,7 @@ ENERGIES_RE = re.compile(
     re.VERBOSE
 )
 
+
 def parse_energies_list(output_file):
 
     energies_list = []
@@ -17,5 +18,3 @@ def parse_energies_list(output_file):
         return np.array(energies_list, dtype=float)
     else:
         return None
-
-
