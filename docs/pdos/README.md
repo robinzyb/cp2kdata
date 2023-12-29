@@ -16,6 +16,6 @@ from cp2kdata.pdos import quick_plot_uks, quick_plot_rks
 Calculation_dir = "./"
 # if uks calculation use this
 quick_plot_uks(Calculation_dir)
-# if rks calculation use this 
+# if rks calculation use this
 quick_plot_rks(Calculation_dir)
 ```

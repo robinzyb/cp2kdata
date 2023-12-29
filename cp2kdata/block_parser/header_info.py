@@ -17,8 +17,8 @@ CP2K_INFO_VERSION_PATTERN = \
 def parse_cp2k_info(filename) -> Cp2kInfo:
 
     cp2k_info = regrep(
-        filename=filename, 
-        patterns={"version": CP2K_INFO_VERSION_PATTERN}, 
+        filename=filename,
+        patterns={"version": CP2K_INFO_VERSION_PATTERN},
         terminate_on_match=True
         )
 
@@ -42,10 +42,10 @@ GLOBAL_INFO_PRINT_LEVEL_PATTERN = \
 
 def parse_global_info(filename) -> GlobalInfo:
     global_info = {}
-    
+
     global_info = regrep(
-        filename=filename, 
-        patterns={"run_type": GLOBAL_INFO_RUN_TYPE_PATTERN, 
+        filename=filename,
+        patterns={"run_type": GLOBAL_INFO_RUN_TYPE_PATTERN,
                   "print_level": GLOBAL_INFO_PRINT_LEVEL_PATTERN
                   },
         terminate_on_match=True
@@ -78,16 +78,16 @@ DFT_INFO_MULTIPLICITY_PATTERN = \
 
 def parse_dft_info(filename) -> DFTInfo:
     dft_info = {}
-    
+
     dft_info = regrep(
-        filename=filename, 
+        filename=filename,
         patterns={
             "ks_type": DFT_INFO_KS_TYPE_PATTERN,
             "multiplicity": DFT_INFO_MULTIPLICITY_PATTERN
         },
         terminate_on_match=True
         )
-    
+
     if dft_info:
         return DFTInfo(ks_type=dft_info["ks_type"][0][0][0], multiplicity=dft_info["multiplicity"][0][0][0])
     else:
@@ -108,12 +108,12 @@ MD_INFO_ENSEMBLE_TYPE_PATTERN = \
 
 def parse_md_info(filename):
     md_info = {}
-    
+
     md_info = regrep(
-        filename=filename, 
+        filename=filename,
         patterns={
             "ensemble_type": MD_INFO_ENSEMBLE_TYPE_PATTERN
-        }, 
+        },
         terminate_on_match=True
         )
 

@@ -9,20 +9,20 @@ from ..units import au2A
 ALL_CELL_RE = re.compile(
     r"""
     \s+CELL\|\sVector\sa\s\[angstrom\]:
-    \s+(?P<xx>[\s-]\d+\.\d+) 
-    \s+(?P<xy>[\s-]\d+\.\d+) 
+    \s+(?P<xx>[\s-]\d+\.\d+)
+    \s+(?P<xy>[\s-]\d+\.\d+)
     \s+(?P<xz>[\s-]\d+\.\d+)
     \s+\|a\|\s+=\s+\S+
     \n
     \s+CELL\|\sVector\sb\s\[angstrom\]:
-    \s+(?P<yx>[\s-]\d+\.\d+) 
-    \s+(?P<yy>[\s-]\d+\.\d+) 
+    \s+(?P<yx>[\s-]\d+\.\d+)
+    \s+(?P<yy>[\s-]\d+\.\d+)
     \s+(?P<yz>[\s-]\d+\.\d+)
     \s+\|b\|\s+=\s+\S+
     \n
     \s+CELL\|\sVector\sc\s\[angstrom\]:
-    \s+(?P<zx>[\s-]\d+\.\d+) 
-    \s+(?P<zy>[\s-]\d+\.\d+) 
+    \s+(?P<zx>[\s-]\d+\.\d+)
+    \s+(?P<zy>[\s-]\d+\.\d+)
     \s+(?P<zz>[\s-]\d+\.\d+)
     \s+\|c\|\s+=\s+\S+
     \n
@@ -45,7 +45,7 @@ def parse_all_cells(output_file):
         return np.array(all_cells, dtype=float)
     else:
         return None
-    
+
 ALL_MD_CELL_RE_V7 = re.compile(
     r"""
     \sCELL\sLNTHS\[bohr\]\s{13}=\s
@@ -75,7 +75,7 @@ ALL_MD_CELL_RE_V2023 = re.compile(
     #skip three lines
     (.{80}\n){3}
     #parse angles
-    (\sMD\|\sCell\sangles\s\[deg\]\s{10} 
+    (\sMD\|\sCell\sangles\s\[deg\]\s{10}
     \s{2}(?P<alpha>\d\.\d{8}E(\+|\-)\d{2})
     \s{2}(?P<beta>\d\.\d{8}E(\+|\-)\d{2})
     \s{2}(?P<gamma>\d\.\d{8}E(\+|\-)\d{2}))?
@@ -83,14 +83,14 @@ ALL_MD_CELL_RE_V2023 = re.compile(
     re.VERBOSE
 )
 
-def parse_all_md_cells(output_file: List[str], 
+def parse_all_md_cells(output_file: List[str],
                        cp2k_info: Cp2kInfo,
                        init_cell_info=None):
     # init_cell_info are used for npt_I parse.
     # because npt_I doesn't include angle info in MD| block
 
     # notice that the cell of step 0 is excluded from MD| block
-    
+
     # choose parser according to cp2k_info.version
     if cp2k_info.version in ['2023.1']:
         ALL_MD_CELL_RE = ALL_MD_CELL_RE_V2023

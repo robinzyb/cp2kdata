@@ -17,7 +17,7 @@ def parse_e_f_converge(filename) -> ConvergeInfo:
     info_dict = regrep(
         filename=filename,
         reverse=True,
-        patterns={"converge": CONVERGE_PATTERN}, 
+        patterns={"converge": CONVERGE_PATTERN},
         terminate_on_match=True
         )
 
@@ -32,7 +32,7 @@ def parse_md_converge(filename):
     info_dict = regrep(
         filename=filename,
         reverse=True,
-        patterns={"converge": CONVERGE_PATTERN}, 
+        patterns={"converge": CONVERGE_PATTERN},
         terminate_on_match=False
         )
     #print(info_dict['converge'])

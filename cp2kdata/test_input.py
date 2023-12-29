@@ -56,11 +56,11 @@ def get_batch_inp(
         new_cp2k.create_cell(SUBSYS, stc)
         new_cp2k.create_coord(SUBSYS, stc)
         cp2k_list.append(new_cp2k)
-    
+
     return cp2k_list
 
 def batch_sub(
-    sub_cmd: str="bsub<cp2k", 
+    sub_cmd: str="bsub<cp2k",
     target_dir: str = ".",
     sub_dir_name_list: list=None
     ):
@@ -92,19 +92,19 @@ def write_batch_inp(
         copy_file_list(file_list=other_file_list, target_dir=calc_sub_dir)
 
         input_path = os.path.join(calc_sub_dir, "input.inp")
-        
+
         cp2k.write_input_file(input_path)
 
-        
+
 
 
 def write_cutoff_test_inp(
-    cp2k: CP2K, 
+    cp2k: CP2K,
     target_dir: str=".",
     cutoff_range: tuple=(300, 601, 50),
     other_file_list: list=[],
     scf_converge: bool = False
-    
+
     ):
     """_summary_
 
@@ -115,7 +115,7 @@ def write_cutoff_test_inp(
         target_dir (str, optional): _description_. Defaults to ".".
         cutoff_range (tuple, optional): _description_. Defaults to (300, 601, 50).
         other_file_list (list, optional): _description_. Defaults to [].
-    """    
+    """
     FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
 
     FORCE_EVAL.Stress_tensor = "ANALYTICAL"
@@ -147,7 +147,7 @@ def write_cutoff_test_inp(
 
         cutoff_test_sub_dir = os.path.join(target_dir, f"cutoff_{param:04d}")
         create_path(cutoff_test_sub_dir)
-        
+
         copy_file_list(file_list=other_file_list, target_dir=cutoff_test_sub_dir)
 
         input_path = os.path.join(cutoff_test_sub_dir, "input.inp")
@@ -172,7 +172,7 @@ basis_molopt_sr_test_suit = {
 }
 
 def write_basis_test_inp(
-    cp2k: CP2K, 
+    cp2k: CP2K,
     target_dir: str=".",
     test_element: str= "O",
     short_range: bool=True,
@@ -189,9 +189,9 @@ def write_basis_test_inp(
 
     DFT.Basis_set_file_name = \
         [
-            "BASIS_MOLOPT", 
-            "BASIS_MOLOPT_AcPP1", 
-            "BASIS_MOLOPT_LnPP1", 
+            "BASIS_MOLOPT",
+            "BASIS_MOLOPT_AcPP1",
+            "BASIS_MOLOPT_LnPP1",
             "BASIS_MOLOPT_UCL",
             "BASIS_MOLOPT_UZH"
         ]
@@ -209,7 +209,7 @@ def write_basis_test_inp(
         for KIND in FORCE_EVAL.SUBSYS.KIND_list:
             if (KIND.Element is None) and (KIND.Section_parameters == test_element):
                 KIND.Basis_set= [basis_set]
-            elif (KIND.Element == test_element): 
+            elif (KIND.Element == test_element):
                 KIND.Basis_set= [basis_set]
             else:
                 pass
@@ -220,7 +220,7 @@ def write_basis_test_inp(
         cp2k.write_input_file(input_path)
 
 def write_hubbard_U_test_inp(
-    cp2k: CP2K, 
+    cp2k: CP2K,
     target_dir: str=".",
     u_range: tuple=(0, 8, 1),
     test_element: str= "O",
@@ -228,7 +228,7 @@ def write_hubbard_U_test_inp(
     other_file_list: list=[]
     ):
     FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
-    
+
     FORCE_EVAL.Stress_tensor = "ANALYTICAL"
     FORCE_EVAL.PRINT.STRESS_TENSOR.Section_parameters = "ON"
     FORCE_EVAL.PRINT.FORCES.Section_parameters  = "ON"
@@ -243,7 +243,7 @@ def write_hubbard_U_test_inp(
     MOTION = cp2k.CP2K_INPUT.MOTION
     MOTION.CELL_OPT.Optimizer = "LBFGS"
     MOTION.CELL_OPT.Keep_angles = True
-    
+
 
     ang_quant_num_dict = {
         "s": 0,
@@ -257,7 +257,7 @@ def write_hubbard_U_test_inp(
             if (KIND.Element is None) and (KIND.Section_parameters == test_element):
                 KIND.DFT_PLUS_U.L = ang_quant_num_dict[test_orbital]
                 KIND.DFT_PLUS_U.U_minus_j = f"[eV] {U}"
-            elif (KIND.Element == test_element): 
+            elif (KIND.Element == test_element):
                 KIND.DFT_PLUS_U.L = ang_quant_num_dict[test_orbital]
                 KIND.DFT_PLUS_U.U_minus_j = f"[eV] {U}"
             else:

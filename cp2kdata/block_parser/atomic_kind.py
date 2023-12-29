@@ -28,7 +28,7 @@ def parse_atomic_kinds(output_file):
     for match in ATOMIC_KINDS_RE.finditer(output_file):
         atomic_kinds.append(match["atomic_kind"])
     if atomic_kinds:
-        # only return the last atomic kinds 
+        # only return the last atomic kinds
         return np.array(atomic_kinds[-num_atomic_kinds_list[-1]:], dtype=str)
     else:
         return None

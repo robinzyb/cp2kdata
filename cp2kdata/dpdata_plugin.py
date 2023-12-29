@@ -37,14 +37,14 @@ class CP2KEnergyForceFormat(Format):
             return data
 
         cp2k_e_f = Cp2kOutput(file_name)
-        
+
         chemical_symbols = get_chemical_symbols_from_cp2kdata(
-            cp2koutput=cp2k_e_f, 
+            cp2koutput=cp2k_e_f,
             true_symbols=true_symbols
-            )        
+            )
 
         # -- data dict collects information, and return to dpdata --
-        
+
         data = {}
         data['atom_names'], data['atom_numbs'], data["atom_types"] = get_uniq_atom_names_and_types(chemical_symbols=chemical_symbols)
         # atom_numbs not total num of atoms!
@@ -69,15 +69,15 @@ class CP2KMDFormat(Format):
         cells = kwargs.get('cells', None)
         cp2k_output_name = kwargs.get('cp2k_output_name', None)
 
-        # -- start parsing -- 
+        # -- start parsing --
         print(WRAPPER)
 
         cp2kmd = Cp2kOutput(output_file=cp2k_output_name, run_type="MD", path_prefix=path_prefix)
-       
+
         num_frames = cp2kmd.get_num_frames()
 
         chemical_symbols = get_chemical_symbols_from_cp2kdata(
-            cp2koutput=cp2kmd, 
+            cp2koutput=cp2kmd,
             true_symbols=true_symbols
             )
 
@@ -98,9 +98,9 @@ class CP2KMDFormat(Format):
             else:
                 print("Illegal Cell Information, cells shape should be (num_frames, 3, 3) or (3, 3)")
         else:
-            print("Illegal Cell Information, cp2kdata accepts np.ndarray as cells information") 
+            print("Illegal Cell Information, cp2kdata accepts np.ndarray as cells information")
 
-        
+
         # -- data dict collects information, and return to dpdata --
         data = {}
         data['atom_names'], data['atom_numbs'], data["atom_types"] = get_uniq_atom_names_and_types(chemical_symbols=chemical_symbols)
@@ -122,7 +122,7 @@ def get_chemical_symbols_from_cp2kdata(cp2koutput, true_symbols):
     elif true_symbols:
         print("You have manually true_symbols=True, atom names are true chemical symbols.")
         chemical_symbols = cp2koutput.get_chemical_symbols()
-    else: 
+    else:
         print("Atom names are fake chemical symbols as you set in cp2k input.")
         chemical_symbols = cp2koutput.get_chemical_symbols_fake()
     chemical_symbols = np.array(chemical_symbols)
@@ -157,15 +157,15 @@ class CP2KMDWannierFormat(Format):
         cells = kwargs.get('cells', None)
         cp2k_output_name = kwargs.get('cp2k_output_name', None)
 
-        # -- start parsing -- 
+        # -- start parsing --
         print(WRAPPER)
 
         cp2kmd = Cp2kOutput(output_file=cp2k_output_name, run_type="MD", path_prefix=path_prefix)
-       
+
         num_frames = cp2kmd.get_num_frames()
 
         chemical_symbols = get_chemical_symbols_from_cp2kdata(
-            cp2koutput=cp2kmd, 
+            cp2koutput=cp2kmd,
             true_symbols=true_symbols
             )
 
@@ -186,9 +186,9 @@ class CP2KMDWannierFormat(Format):
             else:
                 print("Illegal Cell Information, cells shape should be (num_frames, 3, 3) or (3, 3)")
         else:
-            print("Illegal Cell Information, cp2kdata accepts np.ndarray as cells information") 
+            print("Illegal Cell Information, cp2kdata accepts np.ndarray as cells information")
 
-        
+
         # -- data dict collects information, and return to dpdata --
         data = {}
         data['atom_names'], data['atom_numbs'], data["atom_types"] = get_uniq_atom_names_and_types(chemical_symbols=chemical_symbols)

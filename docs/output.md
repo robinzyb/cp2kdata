@@ -29,9 +29,9 @@ Force in Output    : Yes
 
 Stress in Output   : Yes
 
-Element List       : Fe1  Fe2  O    
+Element List       : Fe1  Fe2  O
 
-Element Numb       : 6    6    18   
+Element Numb       : 6    6    18
 --------------------------------------
 ```
 
@@ -70,15 +70,15 @@ print(cp2koutput.get_chemical_symbols())
 print(cp2koutput.get_chemical_symbols_fake())
 # get the geometry optimization information
 print(cp2koutput.get_geo_opt_info())
-# quick plot of geometry optimization information 
+# quick plot of geometry optimization information
 cp2koutput.get_geo_opt_info_plot()
 ```
 ![geo_opt_plot](./figures/geo_opt_info.png)
 
 ## Parse MD outputs
-On parsing MD outputs, you can choose parse *with* or *without* standard outputs. Three additional files, `Project-1.ener`, `Project-pos-1.xyz`, and `Project-frc-1.xyz` files, are required to obtain `energies`, `position`, and `forces` information. 
+On parsing MD outputs, you can choose parse *with* or *without* standard outputs. Three additional files, `Project-1.ener`, `Project-pos-1.xyz`, and `Project-frc-1.xyz` files, are required to obtain `energies`, `position`, and `forces` information.
 
-If you parse with standard outputs, `Cp2kOutput` can collect full information from outputs. In specific, cell information and kind symbols can be obtained. 
+If you parse with standard outputs, `Cp2kOutput` can collect full information from outputs. In specific, cell information and kind symbols can be obtained.
 
 ```python
 from cp2kdata import Cp2kOutput

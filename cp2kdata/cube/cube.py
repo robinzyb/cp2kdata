@@ -67,7 +67,7 @@ class Cp2kCubeOld:
             stc_vals = file_content(self.file, (6+i, 6+i+1))
             stc_vals = stc_vals.split()
             atom = Atom(
-                symbol=int(stc_vals[0]), 
+                symbol=int(stc_vals[0]),
                 position=(float(stc_vals[2])*au2A, float(stc_vals[3])*au2A, float(stc_vals[4])*au2A)
                 )
             atom_list.append(atom)
@@ -75,7 +75,7 @@ class Cp2kCubeOld:
         stc = Atoms(atom_list)
         stc.set_cell([self.cell_x, self.cell_y, self.cell_z])
         return stc
-        
+
     def read_cube_vals(self):
         # read the cube value from file
         cube_vals = file_content(self.file, (6+self.num_atoms,))
@@ -112,7 +112,7 @@ class Cp2kCubeOld:
             return new_points, new_vals
         else:
             return points, vals
-    
+
     def get_mav(self, l1, l2=0, ncov=1, interpolate=False):
         axis="z"
         pav_x, pav = self.get_pav(axis=axis, interpolate=interpolate)
@@ -162,8 +162,8 @@ class Cp2kCube(MSONable):
             self.stc = stc
 
         if cube_vals is None:
-            self.cube_vals = self.read_cube_vals(self.file, 
-                                                self.num_atoms, 
+            self.cube_vals = self.read_cube_vals(self.file,
+                                                self.num_atoms,
                                                 self.cell.grid_point
                                                 )
         else:
@@ -180,7 +180,7 @@ class Cp2kCube(MSONable):
         line = file_content(self.file, 2)
         num_atoms = int(line.split()[0])
         return num_atoms
-    
+
     def as_dict(self):
         """Returns data dict of Cp2kCube instance."""
         data_dict = {
@@ -202,7 +202,7 @@ class Cp2kCube(MSONable):
         else:
             raise RuntimeError("Unspported Class")
         return other_copy
-    
+
     def __sub__(self, others):
         """magic method for subtracting two Cp2kCube instances"""
         self_copy = self.copy()
@@ -212,14 +212,14 @@ class Cp2kCube(MSONable):
         else:
             raise RuntimeError("Unspported Class")
         return other_copy
-        
+
     def get_stc(self):
         atom_list = []
         for i in range(self.num_atoms):
             stc_vals = file_content(self.file, (6+i, 6+i+1))
             stc_vals = stc_vals.split()
             atom = Atom(
-                symbol=int(stc_vals[0]), 
+                symbol=int(stc_vals[0]),
                 position=(float(stc_vals[2])*au2A, float(stc_vals[3])*au2A, float(stc_vals[4])*au2A)
                 )
             atom_list.append(atom)
@@ -227,7 +227,7 @@ class Cp2kCube(MSONable):
         stc = Atoms(atom_list)
         stc.set_cell(self.cell.cell_matrix*au2A)
         return stc
-    
+
     def copy(self):
         return deepcopy(self)
 
@@ -237,7 +237,7 @@ class Cp2kCube(MSONable):
             np.array([90.0, 90.0, 90.0]),
             err_msg="The cell is not orthorhombic, the pav can not be used!"
             )
-       
+
         # do the planar average along specific axis
         lengths = self.cell.get_cell_lengths()
         grid_point = self.cell.grid_point
@@ -267,7 +267,7 @@ class Cp2kCube(MSONable):
             return new_points, new_vals
         else:
             return points, vals
-    
+
     def get_mav(self, l1, l2=0, ncov=1, interpolate=False, axis="z"):
         cell_length = {
             "x": self.cell.get_cell_lengths()[0],
@@ -287,7 +287,7 @@ class Cp2kCube(MSONable):
         return pav_x, np.real(mav)
 
     def quick_plot(self, axis="z", interpolate=False):
-        
+
         x, y = self.get_pav(axis=axis, interpolate=interpolate)
         plt.style.use('cp2kdata.matplotlibstyle.jcp')
         row = 1
@@ -306,7 +306,7 @@ class Cp2kCube(MSONable):
             x, y = self.get_mav(l1, l2, ncov, axis=axis)
         else:
             x, y = self.get_pav(axis=axis)
-        
+
         if unit == 'au':
             pass
         elif unit == 'eV':
@@ -315,7 +315,7 @@ class Cp2kCube(MSONable):
             print("not such unit, the available options are 'au' and 'eV'")
         step = int(len(y)/width)
         print(acp.plot(y[::step], {'height': 20}))
-    
+
     def write_cube(self, fname, comments='#'):
         grid_point = self.cell.grid_point
         gs_matrix = self.cell.grid_spacing_matrix
@@ -343,7 +343,7 @@ class Cp2kCube(MSONable):
                         fw.write(f'{self.cube_vals[i,j,k]:13.5E}')
                         if (k+1)%6 == 0:
                             fw.write('\n')
-                    # write a blank line after each z value 
+                    # write a blank line after each z value
                     if grid_point[2]%6 != 0:
                         fw.write('\n')
 
@@ -351,7 +351,7 @@ class Cp2kCube(MSONable):
         dv = self.cell.get_dv()
         result = np.sum(self.cube_vals)*dv
         return result
-    
+
     def get_cell(self):
         return self.cell.copy()
 
@@ -404,7 +404,7 @@ class Cp2kCube(MSONable):
         num_y = int(content_list[4])
         num_z = int(content_list[8])
         return np.array([num_x, num_y, num_z])
-    
+
     @staticmethod
     def read_cube_vals(fname, num_atoms, grid_point):
         # read the cube value from file

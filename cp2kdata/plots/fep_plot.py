@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import glob
 import os
 from cp2kdata.block_parser.fep import parse_vertical_gap
-from scipy import integrate 
+from scipy import integrate
 from cycler import cycler
 from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 
@@ -27,7 +27,7 @@ def plot_ti(fig_name):
 
 def get_fep_gaps(eta_sub_dir_list):
     vgap_list = []
-    cum_vgap_list = [] 
+    cum_vgap_list = []
     ave_vgap_list = []
     for eta in eta_sub_dir_list:
         mix_ener_file_list = glob.glob(f"{eta}/*-mix-1.ener")
