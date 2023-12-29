@@ -30,7 +30,7 @@ MULLIKEN_RKS_RE = re.compile(
         \s+(?P<kind>\d+)
         \s+(?P<alpha>[\s-]\d+\.\d+)
         \s+(?P<net_charge>[\s-]\d+\.\d+)
-        
+
     )+
     """,
     re.VERBOSE
@@ -67,7 +67,7 @@ def parse_mulliken_pop_list(output_file, DFTInfo):
                         "net_charge": float(net_charge),
                     }
                 )
-            mulliken_pop_list.append(mulliken_pop)      
+            mulliken_pop_list.append(mulliken_pop)
 
     if  mulliken_pop_list:
         return  mulliken_pop_list

@@ -28,13 +28,13 @@ def parse_dipole_list(output_file):
 
 """
    Reference Point [Bohr]              0.00000000      0.00000000      0.00000000
-   Charges                                                                       
+   Charges
      Electronic=    864.00000000    Core=  -864.00000000    Total=     0.00000000
-   Dipole vectors are based on the periodic (Berry phase) operator.              
-   They are defined modulo integer multiples of the cell matrix [Debye].         
-   [X] [   46.55265580     0.00000000     0.00000000 ] [i]                       
-   [Y]=[    0.00000000    54.46353324     0.00000000 ]*[j]                       
-   [Z] [    0.00000000     0.00000000    54.47313965 ] [k]                       
-   Dipole moment [Debye]                                                         
+   Dipole vectors are based on the periodic (Berry phase) operator.
+   They are defined modulo integer multiples of the cell matrix [Debye].
+   [X] [   46.55265580     0.00000000     0.00000000 ] [i]
+   [Y]=[    0.00000000    54.46353324     0.00000000 ]*[j]
+   [Z] [    0.00000000     0.00000000    54.47313965 ] [k]
+   Dipole moment [Debye]
      X=   -0.07183634 Y=   -0.07690441 Z=    1.13302571     Total=     1.13790246
 """

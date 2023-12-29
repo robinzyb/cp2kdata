@@ -7,9 +7,9 @@ from copy import deepcopy
 
 class Cp2kCell:
     def __init__(
-        self, 
-        cell_param: npt.NDArray[np.float64], 
-        grid_point: npt.NDArray[np.int_] = None, 
+        self,
+        cell_param: npt.NDArray[np.float64],
+        grid_point: npt.NDArray[np.int_] = None,
         grid_spacing_matrix: npt.NDArray[np.float64] = None
         ):
         """
@@ -32,8 +32,8 @@ class Cp2kCell:
         if isinstance(cell_param, float):
             self.cell_matrix = np.array(
                 [
-                    [cell_param, 0, 0], 
-                    [0, cell_param, 0], 
+                    [cell_param, 0, 0],
+                    [0, cell_param, 0],
                     [0, 0, cell_param]
                 ]
             )
@@ -41,12 +41,12 @@ class Cp2kCell:
         elif cell_param.shape == (3,):
             self.cell_matrix = np.array(
                 [
-                    [cell_param[0], 0, 0], 
-                    [0, cell_param[1], 0], 
+                    [cell_param[0], 0, 0],
+                    [0, cell_param[1], 0],
                     [0, 0, cell_param[2]]
                 ]
             )
-            print("the length of input cell_param is 3, " 
+            print("the length of input cell_param is 3, "
                   "the cell is assumed to be orthorhombic")
         elif cell_param.shape == (6,):
             self.cell_matrix = cellpar_to_cell(cell_param)
@@ -55,12 +55,12 @@ class Cp2kCell:
                   "which will be converted to cell matrix")
         elif cell_param.shape == (3, 3):
             self.cell_matrix = cell_param
-            print("input cell_param is a matrix with shape of (3,3), " 
+            print("input cell_param is a matrix with shape of (3,3), "
                   "the cell is read as is")
         else:
             raise ValueError("The input cell_param is not supported")
-        
-        
+
+
         if (grid_point is None) and (grid_spacing_matrix is None):
             self.grid_point = None
             self.grid_spacing_matrix = None
@@ -74,7 +74,7 @@ class Cp2kCell:
         elif (grid_point is not None) and (grid_spacing_matrix is not None):
             self.grid_point = np.array(grid_point)
             self.grid_spacing_matrix = np.array(grid_spacing_matrix)
-        
+
         if grid_point is not None:
             self.grid_point = self.grid_point.astype(int)
 
@@ -83,7 +83,7 @@ class Cp2kCell:
 
     def copy(self):
         return deepcopy(self)
-        
+
     def get_volume(self):
         return np.linalg.det(self.cell_matrix)
 
@@ -92,14 +92,13 @@ class Cp2kCell:
             return np.linalg.det(self.grid_spacing_matrix)
         except LinAlgError as ae:
             print("No grid point information is available")
-    
+
     def get_cell_param(self):
         return self.cell_param
 
     def get_cell_angles(self):
         return self.cell_param[3:]
-    
+
     def get_cell_lengths(self):
         return self.cell_param[:3]
 
-        

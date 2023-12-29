@@ -38,7 +38,7 @@ class Cp2kOutput:
             raise FileNotFoundError(f'cp2k output file {output_file} is not found')
 
         try:
-            self.global_info = self.get_global_info(run_type=run_type, 
+            self.global_info = self.get_global_info(run_type=run_type,
                                                    filename=self.filename
                                                    )
         except ValueError as err:
@@ -47,7 +47,7 @@ class Cp2kOutput:
             "Cannot Obtain CP2K RUN_TYPE information.\n"
 
             "Please check if you have provided an existing cp2k output file.\n"
-            "If not, you can manually set RUN_TYPE through run_type argument\n" 
+            "If not, you can manually set RUN_TYPE through run_type argument\n"
             "for md calculation.\n"
             "Example:\n"
                 "Cp2kOutput(run_type='MD')\n"
@@ -65,14 +65,14 @@ class Cp2kOutput:
         if self.global_info.print_level == 'LOW':
             raise ValueError("please provide cp2k output file with MEDIUM print level. Print Level Low doesn't provide necessary information for initialize the cp2kdata class.")
 
-        # -- set some basic attribute -- 
+        # -- set some basic attribute --
         self.num_frames = None
         self.init_atomic_coordinates = None
         self.atomic_kind = None
         self.atom_kind_list = None
 
         # -- start parse necessary information --
-        # sometimes I use self.filename and sometimes I use self.output_file 
+        # sometimes I use self.filename and sometimes I use self.output_file
         # self.filename is used for parsing information by monty package.
         if self.filename:
             with open(self.filename, 'r') as fp:
@@ -81,7 +81,7 @@ class Cp2kOutput:
             self.dft_info = parse_dft_info(self.filename)
         else:
             self.cp2k_info = Cp2kInfo(version="Unknown")
-        
+
         self.check_run_type(run_type=self.global_info.run_type)
 
         run_type_parser_candidates = {
@@ -267,9 +267,9 @@ class Cp2kOutput:
             spin_moment_mulliken = np.array([mulliken_atom['spin_moment'] for mulliken_atom in mulliken_pop], dtype=float)
             spin_moment_mulliken_list.append(spin_moment_mulliken)
         spin_moment_mulliken_list = np.array(spin_moment_mulliken_list)
-        
+
         return spin_moment_mulliken_list
-    
+
     def get_spin_moment_list(self, type='mulliken'):
         if type == 'mulliken':
             return self.get_spin_moment_mulliken_list()
@@ -309,7 +309,7 @@ class Cp2kOutput:
             "atomic_kinds": parse_atomic_kinds,
             "cells": parse_all_cells
         }
-        #TODO: convert kwargs to flexible attribute! 
+        #TODO: convert kwargs to flexible attribute!
         self.geo_opt_info = None
         self.num_frames = 1
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
@@ -351,7 +351,7 @@ class Cp2kOutput:
     def parse_md(self):
         self.md_info = parse_md_info(self.filename)
         self.check_md_type(md_type=self.md_info.ensemble_type)
-        
+
         ener_file_list = glob.glob(os.path.join(self.path_prefix, "*.ener"))
         if ener_file_list:
             self.energies_list = parse_md_ener(ener_file_list[0])
@@ -386,13 +386,13 @@ class Cp2kOutput:
             (
             "\n"
             "cp2kdata is parsing md cell information from output file.\n"
-            "The raw data of cell information are lengths and angles,\n" 
+            "The raw data of cell information are lengths and angles,\n"
             "which are latter transformed to cell matrices by codes.\n"
-            "However, the a axis of the cell are always assumed to be aligned to " 
-            "the x axis of the coordinate.\n" 
+            "However, the a axis of the cell are always assumed to be aligned to "
+            "the x axis of the coordinate.\n"
             "Make sure the a axis in real cell matrices are always aligned to x axis.\n"
             "Otherwise, parsing cell information from `-1.cell` file is recommended.\n"
-            
+
             "CP2K input setting\n"
             "------------------\n"
             "&MOTION\n"
@@ -406,7 +406,7 @@ class Cp2kOutput:
             "&END MOTION\n"
             "------------------\n"
             )
-        
+
         WARNING_MSG = "cp2kdata obtains more than one initial cell from the output file, \
                     please check if your output file has duplicated header information."
 
@@ -436,11 +436,11 @@ class Cp2kOutput:
                 first_cell = parse_all_cells(self.output_file)
                 assert first_cell.shape == (1, 3, 3), WARNING_MSG
                 # parse the rest of the cells
-                self.all_cells = parse_all_md_cells(self.output_file, 
+                self.all_cells = parse_all_md_cells(self.output_file,
                                                     cp2k_info=self.cp2k_info)
                 # prepend the first cell
                 self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)
-        
+
         elif (self.md_info.ensemble_type == "NPT_I"):
             if cell_file_list:
                 self.all_cells = parse_md_cell(cell_file_list[0])
@@ -451,12 +451,12 @@ class Cp2kOutput:
                 first_cell = parse_all_cells(self.output_file)
                 assert first_cell.shape == (1, 3, 3), WARNING_MSG
                 # parse the rest of the cells
-                self.all_cells = parse_all_md_cells(self.output_file, 
-                                                    cp2k_info=self.cp2k_info, 
+                self.all_cells = parse_all_md_cells(self.output_file,
+                                                    cp2k_info=self.cp2k_info,
                                                     init_cell_info=first_cell[0])
                 # prepend the first cell
                 self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)
-            
+
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
         self.output_file)
         self.atomic_kind = parse_atomic_kinds(self.output_file)
@@ -470,7 +470,7 @@ class Cp2kOutput:
         else:
             raise ValueError("cp2kdata dosen't know your run type!")
         return global_info
-    
+
     @staticmethod
     def check_run_type(run_type):
         implemented_run_type_parsers = \
@@ -480,7 +480,7 @@ class Cp2kOutput:
                 f"Parser for Run Type {run_type} haven't been implemented yet!"
                 "Please contact the developer for more information."
                 )
-    
+
     @staticmethod
     def check_md_type(md_type):
         implemented_ensemble_type_parsers = \
@@ -490,4 +490,4 @@ class Cp2kOutput:
                 f"Parser for MD Type {md_type} haven't been implemented yet!\n"
                 "Please contact the developer for more information."
             )
-        
+

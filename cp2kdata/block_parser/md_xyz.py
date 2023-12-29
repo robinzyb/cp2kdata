@@ -81,12 +81,12 @@ def parse_pos_xyz_from_wannier(wannier_xyz_fiel):
 def parse_md_stress(stress_file):
     print(f"Parsing Stresses from {stress_file}")
     stresses_list = np.loadtxt(
-        stress_file, 
-        usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10), 
+        stress_file,
+        usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10),
         ndmin=2,
         dtype=np.float64
         )
-    
+
     numb_frames = stresses_list.shape[0]
 
     return stresses_list.reshape(numb_frames, 3, 3)
@@ -94,8 +94,8 @@ def parse_md_stress(stress_file):
 def parse_md_cell(cell_file):
     print(f"Parsing Cells from {cell_file}")
     cells_list = np.loadtxt(
-        cell_file, 
-        usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10), 
+        cell_file,
+        usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10),
         ndmin=2,
         dtype=np.float64
         )

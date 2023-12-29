@@ -43,8 +43,8 @@ repository = "https://github.com/robinzyb/cp2kdata"
 [project.entry-points.console_scripts]
 cp2kdata = "cp2kdata.cli.cmd:cli"
 
-[project.entry-points.'dpdata.plugins']                                       
-'cp2kdata/e_f' = "cp2kdata.dpdata_plugin:CP2KEnergyForceFormat"              
+[project.entry-points.'dpdata.plugins']
+'cp2kdata/e_f' = "cp2kdata.dpdata_plugin:CP2KEnergyForceFormat"
 'cp2kdata/md' = "cp2kdata.dpdata_plugin:CP2KMDFormat"
 
 

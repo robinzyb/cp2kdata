@@ -15,13 +15,13 @@ au2A = 0.529177210903
 
 def create_path(path):
     path += '/'
-    if os.path.isdir(path): 
-        dirname = os.path.dirname(path)        
+    if os.path.isdir(path):
+        dirname = os.path.dirname(path)
         counter = 0
         while True :
             bk_dirname = dirname + ".bk%03d" % counter
-            if not os.path.isdir(bk_dirname): 
-                shutil.move (dirname, bk_dirname) 
+            if not os.path.isdir(bk_dirname):
+                shutil.move (dirname, bk_dirname)
                 break
             counter += 1
     os.makedirs(path)

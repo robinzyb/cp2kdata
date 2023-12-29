@@ -63,14 +63,14 @@ def get_matrix_rmse_and_max_err(matrix_list):
     abs_err = np.abs(err)
     max_abs_err = np.max(abs_err, axis=(1,2))
     return rmse, max_abs_err
-    
+
 def plot_axes_cutoff(cutoff_list, y_list, ax, idx):
     marker_cycle = ["o", "v", "d"]
     title_cycle = ["Energy", "Force", "Stress"]
     ylabel_cycle = ["error per atom [eV/atom]", r"RMSE [eV$\cdot$A$^{-1}$]", r"RMSE [eV$\cdot$A$^{-3}$]"]
-    
+
     fontdict = {"fontsize": 22}
- 
+
     ax.plot(cutoff_list[1:], y_list, color=f"C{idx}", marker=marker_cycle[idx], markeredgecolor="black")
 
     #ylim = ax.get_ylim()
@@ -81,16 +81,16 @@ def plot_axes_cutoff(cutoff_list, y_list, ax, idx):
     ax.set_title(title_cycle[idx], fontdict=fontdict)
     ax.set_xlabel("Cutoff [Ry]", fontdict=fontdict)
     ax.set_ylabel(ylabel_cycle[idx], fontdict=fontdict)
-    
+
 def plot_cutoff_test(target_dir="."):
     cutoff_test_sub_dir_list = glob.glob(os.path.join(target_dir,"cutoff_*"))
     cutoff_test_sub_dir_list.sort()
     num_atoms = get_num_atoms(cutoff_test_sub_dir_list)
     cutoff_list = get_cutoff_list(cutoff_test_sub_dir_list)
     ener_list, forces_list, stresses_list = get_multiple_e_f_s(cutoff_test_sub_dir_list)
-    ener_err_per_atom = get_err_per_atom(ener_list * AU_TO_EV, num_atoms) 
-    forces_rmse, forces_max_err = get_matrix_rmse_and_max_err(forces_list * AU_TO_EV/AU_TO_ANG )  
-    stresses_rmse, stresses_max_err = get_matrix_rmse_and_max_err(stresses_list/EV_ANG_m3_TO_GPa) 
+    ener_err_per_atom = get_err_per_atom(ener_list * AU_TO_EV, num_atoms)
+    forces_rmse, forces_max_err = get_matrix_rmse_and_max_err(forces_list * AU_TO_EV/AU_TO_ANG )
+    stresses_rmse, stresses_max_err = get_matrix_rmse_and_max_err(stresses_list/EV_ANG_m3_TO_GPa)
 
     test_collect = (ener_err_per_atom, forces_rmse, stresses_rmse)
 
@@ -126,7 +126,7 @@ def plot_cutoff_test(target_dir="."):
 def basis_dir_name_converter(basis_test_sub_dir):
     name_split_list = basis_test_sub_dir.split(sep="-")
     if "SR" in name_split_list:
-        basis_name = name_split_list[0].split(sep="_")[1] + "-SR" 
+        basis_name = name_split_list[0].split(sep="_")[1] + "-SR"
     else:
         basis_name = name_split_list[0].split(sep="_")[1]
     return basis_name
@@ -160,19 +160,19 @@ def get_basis_name_list(basis_test_sub_dir_list):
 
     return basis_list
 
-    
+
 def plot_axes_basis(basis_list, y_list, ax, idx):
     marker_cycle = ["o", "v", "d"]
     title_cycle = ["Energy", "Force", "Stress"]
     ylabel_cycle = ["error per atom [eV/atom]", r"RMSE [eV$\cdot$A$^{-1}$]", r"RMSE [eV$\cdot$A$^{-3}$]"]
-    
+
     fontdict = {"fontsize": 22}
-    
+
     x_list = list(range(len(basis_list)))
 
     ax.plot(x_list[1:], y_list, color=f"C{idx}", marker=marker_cycle[idx], markeredgecolor="black")
     #print(len(y_list))
-    
+
     #ylim = ax.get_ylim()
     ax.ticklabel_format(style='plain', useOffset=False)
     ax.tick_params(direction="in")
@@ -190,9 +190,9 @@ def plot_basis_test(target_dir="."):
     num_atoms = get_num_atoms(basis_test_sub_dir_list)
     basis_list = get_basis_name_list(basis_test_sub_dir_list)
     ener_list, forces_list, stresses_list = get_multiple_e_f_s(basis_test_sub_dir_list)
-    ener_err_per_atom = get_err_per_atom(ener_list * AU_TO_EV, num_atoms) 
-    forces_rmse, forces_max_err = get_matrix_rmse_and_max_err(forces_list * AU_TO_EV/AU_TO_ANG )  
-    stresses_rmse, stresses_max_err = get_matrix_rmse_and_max_err(stresses_list/EV_ANG_m3_TO_GPa) 
+    ener_err_per_atom = get_err_per_atom(ener_list * AU_TO_EV, num_atoms)
+    forces_rmse, forces_max_err = get_matrix_rmse_and_max_err(forces_list * AU_TO_EV/AU_TO_ANG )
+    stresses_rmse, stresses_max_err = get_matrix_rmse_and_max_err(stresses_list/EV_ANG_m3_TO_GPa)
 
     test_collect = (ener_err_per_atom, forces_rmse, stresses_rmse)
 
@@ -262,7 +262,7 @@ def get_multiple_cell_param(U_test_sub_dir_list):
     return np.array(a_list), np.array(b_list), np.array(c_list), np.array(alpha_list), np.array(beta_list), np.array(gamma_list)
 
 def get_dos_param(cp2k_pdos):
-    
+
     homo = cp2k_pdos.get_homo_ener()
     lumo = cp2k_pdos.get_lumo_ener()
     return homo, lumo
@@ -278,7 +278,7 @@ def get_min_gap(U_test_sub_dir):
         homo = a_homo
     else:
         homo = b_homo
-    
+
     if a_lumo < b_lumo:
         lumo = a_lumo
     else:
@@ -301,9 +301,9 @@ def plot_axes_U(U_list, y_list, ax, idx):
     marker_cycle = ["o", "o", "o", "o", "v", "d", "s", "p", "h"]
     title_cycle = ["band gap", "p1", "p2","a", "b", "c", "alpha", "beta", "gamma"]
     ylabel_cycle = ["energy [eV]", "length [A]", "length [A]", "length [A]", "length [A]", "length [A]", "angle [deg]", "angle [deg]", "angle [deg]"]
-    
+
     fontdict = {"fontsize": 22}
- 
+
     ax.plot(U_list, y_list, color=f"C{idx}", marker=marker_cycle[idx], markeredgecolor="black")
 
     #ylim = ax.get_ylim()
@@ -325,17 +325,17 @@ def plot_axes_exp(exp_value, ax, idx):
 
 
 def plot_U_test(
-    target_dir=".", 
+    target_dir=".",
     exp_collect=(None, None, None, None, None, None, None, None, None)
     ):
     U_test_sub_dir_list = glob.glob(os.path.join(target_dir,"U_*"))
     U_test_sub_dir_list.sort()
     U_list = get_U_list(U_test_sub_dir_list)
     gap_collect = get_multiple_min_gap(U_test_sub_dir_list)
-    property_collect = (gap_collect, None, None) 
+    property_collect = (gap_collect, None, None)
     cell_param_collect = get_multiple_cell_param(U_test_sub_dir_list)
 
-    total_collect = property_collect + cell_param_collect 
+    total_collect = property_collect + cell_param_collect
 
     plt.rc('font', size=18)
     plt.rc('axes', titlesize=23) #fontsize of the title

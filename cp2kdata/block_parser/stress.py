@@ -6,17 +6,17 @@ STRESS_RE = re.compile(
     (\sSTRESS\sTENSOR\s\[GPa\]
     \n
     \s+X\s+Y\s+Z\s*\n
-    \s+X 
-    \s+(?P<xx>[\s-]\d+\.\d+) 
-    \s+(?P<xy>[\s-]\d+\.\d+) 
+    \s+X
+    \s+(?P<xx>[\s-]\d+\.\d+)
+    \s+(?P<xy>[\s-]\d+\.\d+)
     \s+(?P<xz>[\s-]\d+\.\d+)\n
     \s+Y
-    \s+(?P<yx>[\s-]\d+\.\d+) 
-    \s+(?P<yy>[\s-]\d+\.\d+) 
+    \s+(?P<yx>[\s-]\d+\.\d+)
+    \s+(?P<yy>[\s-]\d+\.\d+)
     \s+(?P<yz>[\s-]\d+\.\d+)\n
-    \s+Z 
-    \s+(?P<zx>[\s-]\d+\.\d+) 
-    \s+(?P<zy>[\s-]\d+\.\d+) 
+    \s+Z
+    \s+(?P<zx>[\s-]\d+\.\d+)
+    \s+(?P<zy>[\s-]\d+\.\d+)
     \s+(?P<zz>[\s-]\d+\.\d+)\n
     |# or another pattern used in v8.1
     \s+STRESS\|\sAnalytical\sstress\stensor\s\[GPa\]\s*\n
