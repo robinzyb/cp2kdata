@@ -417,7 +417,7 @@ document.write(`
             <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cp2k output file </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s1"> is not found&#39;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_global_info</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="n">run_type</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_global_info</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="n">run_type</span><span class="p">,</span>
                                                    <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span>
                                                    <span class="p">)</span>
         <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
@@ -426,7 +426,7 @@ document.write(`
             <span class="s2">&quot;Cannot Obtain CP2K RUN_TYPE information.</span><span class="se">\n</span><span class="s2">&quot;</span>
 
             <span class="s2">&quot;Please check if you have provided an existing cp2k output file.</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;If not, you can manually set RUN_TYPE through run_type argument</span><span class="se">\n</span><span class="s2">&quot;</span> 
+            <span class="s2">&quot;If not, you can manually set RUN_TYPE through run_type argument</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="s2">&quot;for md calculation.</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="s2">&quot;Example:</span><span class="se">\n</span><span class="s2">&quot;</span>
                 <span class="s2">&quot;Cp2kOutput(run_type=&#39;MD&#39;)</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -444,14 +444,14 @@ document.write(`
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">print_level</span> <span class="o">==</span> <span class="s1">&#39;LOW&#39;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;please provide cp2k output file with MEDIUM print level. Print Level Low doesn&#39;t provide necessary information for initialize the cp2kdata class.&quot;</span><span class="p">)</span>
 
-        <span class="c1"># -- set some basic attribute -- </span>
+        <span class="c1"># -- set some basic attribute --</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># -- start parse necessary information --</span>
-        <span class="c1"># sometimes I use self.filename and sometimes I use self.output_file </span>
+        <span class="c1"># sometimes I use self.filename and sometimes I use self.output_file</span>
         <span class="c1"># self.filename is used for parsing information by monty package.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
@@ -460,7 +460,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">dft_info</span> <span class="o">=</span> <span class="n">parse_dft_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span> <span class="o">=</span> <span class="n">Cp2kInfo</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="s2">&quot;Unknown&quot;</span><span class="p">)</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">check_run_type</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">run_type</span><span class="p">)</span>
 
         <span class="n">run_type_parser_candidates</span> <span class="o">=</span> <span class="p">{</span>
@@ -646,9 +646,9 @@ document.write(`
             <span class="n">spin_moment_mulliken</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mulliken_atom</span><span class="p">[</span><span class="s1">&#39;spin_moment&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">mulliken_atom</span> <span class="ow">in</span> <span class="n">mulliken_pop</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
             <span class="n">spin_moment_mulliken_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spin_moment_mulliken</span><span class="p">)</span>
         <span class="n">spin_moment_mulliken_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">spin_moment_mulliken_list</span><span class="p">)</span>
-        
+
         <span class="k">return</span> <span class="n">spin_moment_mulliken_list</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kOutput.get_spin_moment_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_spin_moment_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_spin_moment_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mulliken&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;mulliken&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_spin_moment_mulliken_list</span><span class="p">()</span>
@@ -688,7 +688,7 @@ document.write(`
             <span class="s2">&quot;atomic_kinds&quot;</span><span class="p">:</span> <span class="n">parse_atomic_kinds</span><span class="p">,</span>
             <span class="s2">&quot;cells&quot;</span><span class="p">:</span> <span class="n">parse_all_cells</span>
         <span class="p">}</span>
-        <span class="c1">#TODO: convert kwargs to flexible attribute! </span>
+        <span class="c1">#TODO: convert kwargs to flexible attribute!</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geo_opt_info</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_init_atomic_coordinates</span><span class="p">(</span>
@@ -730,7 +730,7 @@ document.write(`
 <div class="viewcode-block" id="Cp2kOutput.parse_md"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_md">[docs]</a>    <span class="k">def</span> <span class="nf">parse_md</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">md_info</span> <span class="o">=</span> <span class="n">parse_md_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_md_type</span><span class="p">(</span><span class="n">md_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span><span class="p">)</span>
-        
+
         <span class="n">ener_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*.ener&quot;</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">ener_file_list</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="n">parse_md_ener</span><span class="p">(</span><span class="n">ener_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -765,13 +765,13 @@ document.write(`
             <span class="p">(</span>
             <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="s2">&quot;cp2kdata is parsing md cell information from output file.</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;The raw data of cell information are lengths and angles,</span><span class="se">\n</span><span class="s2">&quot;</span> 
+            <span class="s2">&quot;The raw data of cell information are lengths and angles,</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="s2">&quot;which are latter transformed to cell matrices by codes.</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;However, the a axis of the cell are always assumed to be aligned to &quot;</span> 
-            <span class="s2">&quot;the x axis of the coordinate.</span><span class="se">\n</span><span class="s2">&quot;</span> 
+            <span class="s2">&quot;However, the a axis of the cell are always assumed to be aligned to &quot;</span>
+            <span class="s2">&quot;the x axis of the coordinate.</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="s2">&quot;Make sure the a axis in real cell matrices are always aligned to x axis.</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="s2">&quot;Otherwise, parsing cell information from `-1.cell` file is recommended.</span><span class="se">\n</span><span class="s2">&quot;</span>
-            
+
             <span class="s2">&quot;CP2K input setting</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="s2">&quot;------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="s2">&quot;&amp;MOTION</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -785,7 +785,7 @@ document.write(`
             <span class="s2">&quot;&amp;END MOTION</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="s2">&quot;------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="p">)</span>
-        
+
         <span class="n">WARNING_MSG</span> <span class="o">=</span> <span class="s2">&quot;cp2kdata obtains more than one initial cell from the output file, </span><span class="se">\</span>
 <span class="s2">                    please check if your output file has duplicated header information.&quot;</span>
 
@@ -815,11 +815,11 @@ document.write(`
                 <span class="n">first_cell</span> <span class="o">=</span> <span class="n">parse_all_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
                 <span class="k">assert</span> <span class="n">first_cell</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">WARNING_MSG</span>
                 <span class="c1"># parse the rest of the cells</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">parse_all_md_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">parse_all_md_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span>
                                                     <span class="n">cp2k_info</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">)</span>
                 <span class="c1"># prepend the first cell</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">first_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        
+
         <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">==</span> <span class="s2">&quot;NPT_I&quot;</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">cell_file_list</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">parse_md_cell</span><span class="p">(</span><span class="n">cell_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -830,12 +830,12 @@ document.write(`
                 <span class="n">first_cell</span> <span class="o">=</span> <span class="n">parse_all_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
                 <span class="k">assert</span> <span class="n">first_cell</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">WARNING_MSG</span>
                 <span class="c1"># parse the rest of the cells</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">parse_all_md_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> 
-                                                    <span class="n">cp2k_info</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">parse_all_md_cells</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span>
+                                                    <span class="n">cp2k_info</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span>
                                                     <span class="n">init_cell_info</span><span class="o">=</span><span class="n">first_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
                 <span class="c1"># prepend the first cell</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">first_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            
+
         <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_init_atomic_coordinates</span><span class="p">(</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="o">=</span> <span class="n">parse_atomic_kinds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span></div>
@@ -849,7 +849,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cp2kdata dosen&#39;t know your run type!&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">global_info</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kOutput.check_run_type"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.check_run_type">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">check_run_type</span><span class="p">(</span><span class="n">run_type</span><span class="p">):</span>
         <span class="n">implemented_run_type_parsers</span> <span class="o">=</span> \
@@ -859,7 +859,7 @@ document.write(`
                 <span class="sa">f</span><span class="s2">&quot;Parser for Run Type </span><span class="si">{</span><span class="n">run_type</span><span class="si">}</span><span class="s2"> haven&#39;t been implemented yet!&quot;</span>
                 <span class="s2">&quot;Please contact the developer for more information.&quot;</span>
                 <span class="p">)</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kOutput.check_md_type"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.check_md_type">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">check_md_type</span><span class="p">(</span><span class="n">md_type</span><span class="p">):</span>
         <span class="n">implemented_ensemble_type_parsers</span> <span class="o">=</span> \
@@ -869,7 +869,7 @@ document.write(`
                 <span class="sa">f</span><span class="s2">&quot;Parser for MD Type </span><span class="si">{</span><span class="n">md_type</span><span class="si">}</span><span class="s2"> haven&#39;t been implemented yet!</span><span class="se">\n</span><span class="s2">&quot;</span>
                 <span class="s2">&quot;Please contact the developer for more information.&quot;</span>
             <span class="p">)</span></div></div>
-        
+
 </pre></div>
 
                 </article>

@@ -460,12 +460,12 @@ document.write(`
 <div class="viewcode-block" id="parse_md_stress"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_md_stress">[docs]</a><span class="k">def</span> <span class="nf">parse_md_stress</span><span class="p">(</span><span class="n">stress_file</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsing Stresses from </span><span class="si">{</span><span class="n">stress_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">stresses_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span>
-        <span class="n">stress_file</span><span class="p">,</span> 
-        <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> 
+        <span class="n">stress_file</span><span class="p">,</span>
+        <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
         <span class="n">ndmin</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span>
         <span class="p">)</span>
-    
+
     <span class="n">numb_frames</span> <span class="o">=</span> <span class="n">stresses_list</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">stresses_list</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">numb_frames</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span></div>
@@ -473,8 +473,8 @@ document.write(`
 <div class="viewcode-block" id="parse_md_cell"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_md_cell">[docs]</a><span class="k">def</span> <span class="nf">parse_md_cell</span><span class="p">(</span><span class="n">cell_file</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsing Cells from </span><span class="si">{</span><span class="n">cell_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">cells_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span>
-        <span class="n">cell_file</span><span class="p">,</span> 
-        <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> 
+        <span class="n">cell_file</span><span class="p">,</span>
+        <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
         <span class="n">ndmin</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span>
         <span class="p">)</span>

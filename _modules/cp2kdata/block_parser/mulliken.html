@@ -409,7 +409,7 @@ document.write(`
 <span class="sd">        \s+(?P&lt;kind&gt;\d+)</span>
 <span class="sd">        \s+(?P&lt;alpha&gt;[\s-]\d+\.\d+)</span>
 <span class="sd">        \s+(?P&lt;net_charge&gt;[\s-]\d+\.\d+)</span>
-<span class="sd">        </span>
+
 <span class="sd">    )+</span>
 <span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
     <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span>
@@ -446,7 +446,7 @@ document.write(`
                         <span class="s2">&quot;net_charge&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">net_charge</span><span class="p">),</span>
                     <span class="p">}</span>
                 <span class="p">)</span>
-            <span class="n">mulliken_pop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mulliken_pop</span><span class="p">)</span>      
+            <span class="n">mulliken_pop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mulliken_pop</span><span class="p">)</span>
 
     <span class="k">if</span>  <span class="n">mulliken_pop_list</span><span class="p">:</span>
         <span class="k">return</span>  <span class="n">mulliken_pop_list</span>

@@ -394,13 +394,13 @@ document.write(`
 
 <div class="viewcode-block" id="create_path"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.create_path">[docs]</a><span class="k">def</span> <span class="nf">create_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
     <span class="n">path</span> <span class="o">+=</span> <span class="s1">&#39;/&#39;</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span> 
-        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>        
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="kc">True</span> <span class="p">:</span>
             <span class="n">bk_dirname</span> <span class="o">=</span> <span class="n">dirname</span> <span class="o">+</span> <span class="s2">&quot;.bk</span><span class="si">%03d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">counter</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">bk_dirname</span><span class="p">):</span> 
-                <span class="n">shutil</span><span class="o">.</span><span class="n">move</span> <span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">bk_dirname</span><span class="p">)</span> 
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">bk_dirname</span><span class="p">):</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">move</span> <span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">bk_dirname</span><span class="p">)</span>
                 <span class="k">break</span>
             <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>

@@ -446,7 +446,7 @@ document.write(`
             <span class="n">stc_vals</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">6</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="mi">6</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
             <span class="n">stc_vals</span> <span class="o">=</span> <span class="n">stc_vals</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
             <span class="n">atom</span> <span class="o">=</span> <span class="n">Atom</span><span class="p">(</span>
-                <span class="n">symbol</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> 
+                <span class="n">symbol</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
                 <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">)</span>
                 <span class="p">)</span>
             <span class="n">atom_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
@@ -454,7 +454,7 @@ document.write(`
         <span class="n">stc</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span><span class="n">atom_list</span><span class="p">)</span>
         <span class="n">stc</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_z</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">stc</span></div>
-        
+
 <div class="viewcode-block" id="Cp2kCubeOld.read_cube_vals"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.read_cube_vals">[docs]</a>    <span class="k">def</span> <span class="nf">read_cube_vals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># read the cube value from file</span>
         <span class="n">cube_vals</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">6</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">num_atoms</span><span class="p">,))</span>
@@ -491,7 +491,7 @@ document.write(`
             <span class="k">return</span> <span class="n">new_points</span><span class="p">,</span> <span class="n">new_vals</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">points</span><span class="p">,</span> <span class="n">vals</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kCubeOld.get_mav"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCubeOld.get_mav">[docs]</a>    <span class="k">def</span> <span class="nf">get_mav</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ncov</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;z&quot;</span>
         <span class="n">pav_x</span><span class="p">,</span> <span class="n">pav</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pav</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="n">interpolate</span><span class="p">)</span>
@@ -541,8 +541,8 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">stc</span> <span class="o">=</span> <span class="n">stc</span>
 
         <span class="k">if</span> <span class="n">cube_vals</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_cube_vals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> 
-                                                <span class="bp">self</span><span class="o">.</span><span class="n">num_atoms</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_cube_vals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">num_atoms</span><span class="p">,</span>
                                                 <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">grid_point</span>
                                                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -559,7 +559,7 @@ document.write(`
         <span class="n">line</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">num_atoms</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">num_atoms</span>
-    
+
 <div class="viewcode-block" id="Cp2kCube.as_dict"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns data dict of Cp2kCube instance.&quot;&quot;&quot;</span>
         <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span>
@@ -581,7 +581,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unspported Class&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">other_copy</span>
-    
+
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">others</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;magic method for subtracting two Cp2kCube instances&quot;&quot;&quot;</span>
         <span class="n">self_copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -591,14 +591,14 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unspported Class&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">other_copy</span>
-        
+
 <div class="viewcode-block" id="Cp2kCube.get_stc"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_stc">[docs]</a>    <span class="k">def</span> <span class="nf">get_stc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">atom_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_atoms</span><span class="p">):</span>
             <span class="n">stc_vals</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="p">(</span><span class="mi">6</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="mi">6</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
             <span class="n">stc_vals</span> <span class="o">=</span> <span class="n">stc_vals</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
             <span class="n">atom</span> <span class="o">=</span> <span class="n">Atom</span><span class="p">(</span>
-                <span class="n">symbol</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> 
+                <span class="n">symbol</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
                 <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">stc_vals</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span><span class="o">*</span><span class="n">au2A</span><span class="p">)</span>
                 <span class="p">)</span>
             <span class="n">atom_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
@@ -606,7 +606,7 @@ document.write(`
         <span class="n">stc</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span><span class="n">atom_list</span><span class="p">)</span>
         <span class="n">stc</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">cell_matrix</span><span class="o">*</span><span class="n">au2A</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">stc</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kCube.copy"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
@@ -616,7 +616,7 @@ document.write(`
             <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">90.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">]),</span>
             <span class="n">err_msg</span><span class="o">=</span><span class="s2">&quot;The cell is not orthorhombic, the pav can not be used!&quot;</span>
             <span class="p">)</span>
-       
+
         <span class="c1"># do the planar average along specific axis</span>
         <span class="n">lengths</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">get_cell_lengths</span><span class="p">()</span>
         <span class="n">grid_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">grid_point</span>
@@ -646,7 +646,7 @@ document.write(`
             <span class="k">return</span> <span class="n">new_points</span><span class="p">,</span> <span class="n">new_vals</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">points</span><span class="p">,</span> <span class="n">vals</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kCube.get_mav"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_mav">[docs]</a>    <span class="k">def</span> <span class="nf">get_mav</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ncov</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">):</span>
         <span class="n">cell_length</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">get_cell_lengths</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
@@ -666,7 +666,7 @@ document.write(`
         <span class="k">return</span> <span class="n">pav_x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">mav</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Cp2kCube.quick_plot"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.quick_plot">[docs]</a>    <span class="k">def</span> <span class="nf">quick_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        
+
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pav</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="n">interpolate</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;cp2kdata.matplotlibstyle.jcp&#39;</span><span class="p">)</span>
         <span class="n">row</span> <span class="o">=</span> <span class="mi">1</span>
@@ -685,7 +685,7 @@ document.write(`
             <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mav</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="n">ncov</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pav</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-        
+
         <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s1">&#39;au&#39;</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="k">elif</span> <span class="n">unit</span> <span class="o">==</span> <span class="s1">&#39;eV&#39;</span><span class="p">:</span>
@@ -694,7 +694,7 @@ document.write(`
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;not such unit, the available options are &#39;au&#39; and &#39;eV&#39;&quot;</span><span class="p">)</span>
         <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="n">width</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">acp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">[::</span><span class="n">step</span><span class="p">],</span> <span class="p">{</span><span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}))</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kCube.write_cube"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.write_cube">[docs]</a>    <span class="k">def</span> <span class="nf">write_cube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
         <span class="n">grid_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">grid_point</span>
         <span class="n">gs_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">grid_spacing_matrix</span>
@@ -722,7 +722,7 @@ document.write(`
                         <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]</span><span class="si">:</span><span class="s1">13.5E</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">6</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                             <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-                    <span class="c1"># write a blank line after each z value </span>
+                    <span class="c1"># write a blank line after each z value</span>
                     <span class="k">if</span> <span class="n">grid_point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">%</span><span class="mi">6</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
@@ -730,7 +730,7 @@ document.write(`
         <span class="n">dv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">get_dv</span><span class="p">()</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="p">)</span><span class="o">*</span><span class="n">dv</span>
         <span class="k">return</span> <span class="n">result</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kCube.get_cell"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_cell">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
@@ -783,7 +783,7 @@ document.write(`
         <span class="n">num_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
         <span class="n">num_z</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">content_list</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">num_x</span><span class="p">,</span> <span class="n">num_y</span><span class="p">,</span> <span class="n">num_z</span><span class="p">])</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kCube.read_cube_vals"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.read_cube_vals">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read_cube_vals</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">num_atoms</span><span class="p">,</span> <span class="n">grid_point</span><span class="p">):</span>
         <span class="c1"># read the cube value from file</span>

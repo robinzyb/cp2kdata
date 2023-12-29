@@ -396,8 +396,8 @@ document.write(`
 <div class="viewcode-block" id="parse_cp2k_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_cp2k_info">[docs]</a><span class="k">def</span> <span class="nf">parse_cp2k_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cp2kInfo</span><span class="p">:</span>
 
     <span class="n">cp2k_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> 
-        <span class="n">patterns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">CP2K_INFO_VERSION_PATTERN</span><span class="p">},</span> 
+        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+        <span class="n">patterns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">CP2K_INFO_VERSION_PATTERN</span><span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
 
@@ -421,10 +421,10 @@ document.write(`
 
 <div class="viewcode-block" id="parse_global_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_global_info">[docs]</a><span class="k">def</span> <span class="nf">parse_global_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GlobalInfo</span><span class="p">:</span>
     <span class="n">global_info</span> <span class="o">=</span> <span class="p">{}</span>
-    
+
     <span class="n">global_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> 
-        <span class="n">patterns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;run_type&quot;</span><span class="p">:</span> <span class="n">GLOBAL_INFO_RUN_TYPE_PATTERN</span><span class="p">,</span> 
+        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+        <span class="n">patterns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;run_type&quot;</span><span class="p">:</span> <span class="n">GLOBAL_INFO_RUN_TYPE_PATTERN</span><span class="p">,</span>
                   <span class="s2">&quot;print_level&quot;</span><span class="p">:</span> <span class="n">GLOBAL_INFO_PRINT_LEVEL_PATTERN</span>
                   <span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
@@ -457,16 +457,16 @@ document.write(`
 
 <div class="viewcode-block" id="parse_dft_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_dft_info">[docs]</a><span class="k">def</span> <span class="nf">parse_dft_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DFTInfo</span><span class="p">:</span>
     <span class="n">dft_info</span> <span class="o">=</span> <span class="p">{}</span>
-    
+
     <span class="n">dft_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> 
+        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
         <span class="n">patterns</span><span class="o">=</span><span class="p">{</span>
             <span class="s2">&quot;ks_type&quot;</span><span class="p">:</span> <span class="n">DFT_INFO_KS_TYPE_PATTERN</span><span class="p">,</span>
             <span class="s2">&quot;multiplicity&quot;</span><span class="p">:</span> <span class="n">DFT_INFO_MULTIPLICITY_PATTERN</span>
         <span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
-    
+
     <span class="k">if</span> <span class="n">dft_info</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">DFTInfo</span><span class="p">(</span><span class="n">ks_type</span><span class="o">=</span><span class="n">dft_info</span><span class="p">[</span><span class="s2">&quot;ks_type&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">multiplicity</span><span class="o">=</span><span class="n">dft_info</span><span class="p">[</span><span class="s2">&quot;multiplicity&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
@@ -487,12 +487,12 @@ document.write(`
 
 <div class="viewcode-block" id="parse_md_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_md_info">[docs]</a><span class="k">def</span> <span class="nf">parse_md_info</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="n">md_info</span> <span class="o">=</span> <span class="p">{}</span>
-    
+
     <span class="n">md_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> 
+        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
         <span class="n">patterns</span><span class="o">=</span><span class="p">{</span>
             <span class="s2">&quot;ensemble_type&quot;</span><span class="p">:</span> <span class="n">MD_INFO_ENSEMBLE_TYPE_PATTERN</span>
-        <span class="p">},</span> 
+        <span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
 

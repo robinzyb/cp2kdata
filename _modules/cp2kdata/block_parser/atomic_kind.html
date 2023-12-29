@@ -407,7 +407,7 @@ document.write(`
     <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">ATOMIC_KINDS_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
         <span class="n">atomic_kinds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="s2">&quot;atomic_kind&quot;</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">atomic_kinds</span><span class="p">:</span>
-        <span class="c1"># only return the last atomic kinds </span>
+        <span class="c1"># only return the last atomic kinds</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atomic_kinds</span><span class="p">[</span><span class="o">-</span><span class="n">num_atomic_kinds_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span></div>

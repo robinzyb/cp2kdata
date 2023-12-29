@@ -14,9 +14,9 @@ cp2kdata gen basis <template input> <a list of other neccessary files> -e <test 
 cp2kdata gen basis input.inp coord.xyz cp2k.lsf -e Fe -sr True
 
 # generate Hubbard U test files
-cp2kdata gen hubbardu <template input> <a list of other neccessary files> -ur u <test value: min, max, step> -e <test element> -orb <test orbital>  
+cp2kdata gen hubbardu <template input> <a list of other neccessary files> -ur u <test value: min, max, step> -e <test element> -orb <test orbital>
 # example
-cp2kdata gen hubbardu input.inp coord.xyz cp2k.lsf -ur 0 8.1 1 -e Fe -orb d  
+cp2kdata gen hubbardu input.inp coord.xyz cp2k.lsf -ur 0 8.1 1 -e Fe -orb d
 ```
 # Plot Standard Test Output
 Once you have completed the tests mentioned above, you can easily generate plots of the results using the following commands:

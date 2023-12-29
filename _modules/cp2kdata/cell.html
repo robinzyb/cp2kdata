@@ -386,9 +386,9 @@ document.write(`
 
 <div class="viewcode-block" id="Cp2kCell"><a class="viewcode-back" href="../../_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell">[docs]</a><span class="k">class</span> <span class="nc">Cp2kCell</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> 
-        <span class="n">cell_param</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span> 
-        <span class="n">grid_point</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cell_param</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
+        <span class="n">grid_point</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">grid_spacing_matrix</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -411,8 +411,8 @@ document.write(`
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cell_param</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cell_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
                 <span class="p">[</span>
-                    <span class="p">[</span><span class="n">cell_param</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> 
-                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cell_param</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> 
+                    <span class="p">[</span><span class="n">cell_param</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cell_param</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cell_param</span><span class="p">]</span>
                 <span class="p">]</span>
             <span class="p">)</span>
@@ -420,12 +420,12 @@ document.write(`
         <span class="k">elif</span> <span class="n">cell_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cell_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
                 <span class="p">[</span>
-                    <span class="p">[</span><span class="n">cell_param</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> 
-                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cell_param</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> 
+                    <span class="p">[</span><span class="n">cell_param</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cell_param</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span>
                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cell_param</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
                 <span class="p">]</span>
             <span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the length of input cell_param is 3, &quot;</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the length of input cell_param is 3, &quot;</span>
                   <span class="s2">&quot;the cell is assumed to be orthorhombic&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">cell_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">6</span><span class="p">,):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cell_matrix</span> <span class="o">=</span> <span class="n">cellpar_to_cell</span><span class="p">(</span><span class="n">cell_param</span><span class="p">)</span>
@@ -434,12 +434,12 @@ document.write(`
                   <span class="s2">&quot;which will be converted to cell matrix&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">cell_param</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cell_matrix</span> <span class="o">=</span> <span class="n">cell_param</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;input cell_param is a matrix with shape of (3,3), &quot;</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;input cell_param is a matrix with shape of (3,3), &quot;</span>
                   <span class="s2">&quot;the cell is read as is&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The input cell_param is not supported&quot;</span><span class="p">)</span>
-        
-        
+
+
         <span class="k">if</span> <span class="p">(</span><span class="n">grid_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">grid_spacing_matrix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">grid_point</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">grid_spacing_matrix</span> <span class="o">=</span> <span class="kc">None</span>
@@ -453,7 +453,7 @@ document.write(`
         <span class="k">elif</span> <span class="p">(</span><span class="n">grid_point</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">grid_spacing_matrix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">grid_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grid_point</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">grid_spacing_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grid_spacing_matrix</span><span class="p">)</span>
-        
+
         <span class="k">if</span> <span class="n">grid_point</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">grid_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_point</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
@@ -462,7 +462,7 @@ document.write(`
 
 <div class="viewcode-block" id="Cp2kCell.copy"><a class="viewcode-back" href="../../_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
-        
+
 <div class="viewcode-block" id="Cp2kCell.get_volume"><a class="viewcode-back" href="../../_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.get_volume">[docs]</a>    <span class="k">def</span> <span class="nf">get_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_matrix</span><span class="p">)</span></div>
 
@@ -471,17 +471,16 @@ document.write(`
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_spacing_matrix</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">LinAlgError</span> <span class="k">as</span> <span class="n">ae</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No grid point information is available&quot;</span><span class="p">)</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kCell.get_cell_param"><a class="viewcode-back" href="../../_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.get_cell_param">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell_param</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_param</span></div>
 
 <div class="viewcode-block" id="Cp2kCell.get_cell_angles"><a class="viewcode-back" href="../../_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.get_cell_angles">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell_angles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_param</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span></div>
-    
+
 <div class="viewcode-block" id="Cp2kCell.get_cell_lengths"><a class="viewcode-back" href="../../_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.get_cell_lengths">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_param</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span></div></div>
 
-        
 </pre></div>
 
                 </article>

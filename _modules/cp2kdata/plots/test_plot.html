@@ -442,14 +442,14 @@ document.write(`
     <span class="n">abs_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
     <span class="n">max_abs_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">abs_err</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">rmse</span><span class="p">,</span> <span class="n">max_abs_err</span></div>
-    
+
 <div class="viewcode-block" id="plot_axes_cutoff"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_cutoff">[docs]</a><span class="k">def</span> <span class="nf">plot_axes_cutoff</span><span class="p">(</span><span class="n">cutoff_list</span><span class="p">,</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
     <span class="n">marker_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span>
     <span class="n">title_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Energy&quot;</span><span class="p">,</span> <span class="s2">&quot;Force&quot;</span><span class="p">,</span> <span class="s2">&quot;Stress&quot;</span><span class="p">]</span>
     <span class="n">ylabel_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;error per atom [eV/atom]&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;RMSE [eV$\cdot$A$^{-1}$]&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;RMSE [eV$\cdot$A$^{-3}$]&quot;</span><span class="p">]</span>
-    
+
     <span class="n">fontdict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
- 
+
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cutoff_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker_cycle</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
 
     <span class="c1">#ylim = ax.get_ylim()</span>
@@ -460,16 +460,16 @@ document.write(`
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title_cycle</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">fontdict</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Cutoff [Ry]&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">fontdict</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel_cycle</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">fontdict</span><span class="p">)</span></div>
-    
+
 <div class="viewcode-block" id="plot_cutoff_test"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_cutoff_test">[docs]</a><span class="k">def</span> <span class="nf">plot_cutoff_test</span><span class="p">(</span><span class="n">target_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
     <span class="n">cutoff_test_sub_dir_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span><span class="s2">&quot;cutoff_*&quot;</span><span class="p">))</span>
     <span class="n">cutoff_test_sub_dir_list</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="n">num_atoms</span> <span class="o">=</span> <span class="n">get_num_atoms</span><span class="p">(</span><span class="n">cutoff_test_sub_dir_list</span><span class="p">)</span>
     <span class="n">cutoff_list</span> <span class="o">=</span> <span class="n">get_cutoff_list</span><span class="p">(</span><span class="n">cutoff_test_sub_dir_list</span><span class="p">)</span>
     <span class="n">ener_list</span><span class="p">,</span> <span class="n">forces_list</span><span class="p">,</span> <span class="n">stresses_list</span> <span class="o">=</span> <span class="n">get_multiple_e_f_s</span><span class="p">(</span><span class="n">cutoff_test_sub_dir_list</span><span class="p">)</span>
-    <span class="n">ener_err_per_atom</span> <span class="o">=</span> <span class="n">get_err_per_atom</span><span class="p">(</span><span class="n">ener_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="p">,</span> <span class="n">num_atoms</span><span class="p">)</span> 
-    <span class="n">forces_rmse</span><span class="p">,</span> <span class="n">forces_max_err</span> <span class="o">=</span> <span class="n">get_matrix_rmse_and_max_err</span><span class="p">(</span><span class="n">forces_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="o">/</span><span class="n">AU_TO_ANG</span> <span class="p">)</span>  
-    <span class="n">stresses_rmse</span><span class="p">,</span> <span class="n">stresses_max_err</span> <span class="o">=</span> <span class="n">get_matrix_rmse_and_max_err</span><span class="p">(</span><span class="n">stresses_list</span><span class="o">/</span><span class="n">EV_ANG_m3_TO_GPa</span><span class="p">)</span> 
+    <span class="n">ener_err_per_atom</span> <span class="o">=</span> <span class="n">get_err_per_atom</span><span class="p">(</span><span class="n">ener_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="p">,</span> <span class="n">num_atoms</span><span class="p">)</span>
+    <span class="n">forces_rmse</span><span class="p">,</span> <span class="n">forces_max_err</span> <span class="o">=</span> <span class="n">get_matrix_rmse_and_max_err</span><span class="p">(</span><span class="n">forces_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="o">/</span><span class="n">AU_TO_ANG</span> <span class="p">)</span>
+    <span class="n">stresses_rmse</span><span class="p">,</span> <span class="n">stresses_max_err</span> <span class="o">=</span> <span class="n">get_matrix_rmse_and_max_err</span><span class="p">(</span><span class="n">stresses_list</span><span class="o">/</span><span class="n">EV_ANG_m3_TO_GPa</span><span class="p">)</span>
 
     <span class="n">test_collect</span> <span class="o">=</span> <span class="p">(</span><span class="n">ener_err_per_atom</span><span class="p">,</span> <span class="n">forces_rmse</span><span class="p">,</span> <span class="n">stresses_rmse</span><span class="p">)</span>
 
@@ -505,7 +505,7 @@ document.write(`
 <div class="viewcode-block" id="basis_dir_name_converter"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.basis_dir_name_converter">[docs]</a><span class="k">def</span> <span class="nf">basis_dir_name_converter</span><span class="p">(</span><span class="n">basis_test_sub_dir</span><span class="p">):</span>
     <span class="n">name_split_list</span> <span class="o">=</span> <span class="n">basis_test_sub_dir</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s2">&quot;SR&quot;</span> <span class="ow">in</span> <span class="n">name_split_list</span><span class="p">:</span>
-        <span class="n">basis_name</span> <span class="o">=</span> <span class="n">name_split_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;-SR&quot;</span> 
+        <span class="n">basis_name</span> <span class="o">=</span> <span class="n">name_split_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;-SR&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">basis_name</span> <span class="o">=</span> <span class="n">name_split_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">basis_name</span></div>
@@ -539,19 +539,19 @@ document.write(`
 
     <span class="k">return</span> <span class="n">basis_list</span></div>
 
-    
+
 <div class="viewcode-block" id="plot_axes_basis"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_basis">[docs]</a><span class="k">def</span> <span class="nf">plot_axes_basis</span><span class="p">(</span><span class="n">basis_list</span><span class="p">,</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
     <span class="n">marker_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span>
     <span class="n">title_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Energy&quot;</span><span class="p">,</span> <span class="s2">&quot;Force&quot;</span><span class="p">,</span> <span class="s2">&quot;Stress&quot;</span><span class="p">]</span>
     <span class="n">ylabel_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;error per atom [eV/atom]&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;RMSE [eV$\cdot$A$^{-1}$]&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;RMSE [eV$\cdot$A$^{-3}$]&quot;</span><span class="p">]</span>
-    
+
     <span class="n">fontdict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
-    
+
     <span class="n">x_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">basis_list</span><span class="p">)))</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker_cycle</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
     <span class="c1">#print(len(y_list))</span>
-    
+
     <span class="c1">#ylim = ax.get_ylim()</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">ticklabel_format</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;plain&#39;</span><span class="p">,</span> <span class="n">useOffset</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s2">&quot;in&quot;</span><span class="p">)</span>
@@ -569,9 +569,9 @@ document.write(`
     <span class="n">num_atoms</span> <span class="o">=</span> <span class="n">get_num_atoms</span><span class="p">(</span><span class="n">basis_test_sub_dir_list</span><span class="p">)</span>
     <span class="n">basis_list</span> <span class="o">=</span> <span class="n">get_basis_name_list</span><span class="p">(</span><span class="n">basis_test_sub_dir_list</span><span class="p">)</span>
     <span class="n">ener_list</span><span class="p">,</span> <span class="n">forces_list</span><span class="p">,</span> <span class="n">stresses_list</span> <span class="o">=</span> <span class="n">get_multiple_e_f_s</span><span class="p">(</span><span class="n">basis_test_sub_dir_list</span><span class="p">)</span>
-    <span class="n">ener_err_per_atom</span> <span class="o">=</span> <span class="n">get_err_per_atom</span><span class="p">(</span><span class="n">ener_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="p">,</span> <span class="n">num_atoms</span><span class="p">)</span> 
-    <span class="n">forces_rmse</span><span class="p">,</span> <span class="n">forces_max_err</span> <span class="o">=</span> <span class="n">get_matrix_rmse_and_max_err</span><span class="p">(</span><span class="n">forces_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="o">/</span><span class="n">AU_TO_ANG</span> <span class="p">)</span>  
-    <span class="n">stresses_rmse</span><span class="p">,</span> <span class="n">stresses_max_err</span> <span class="o">=</span> <span class="n">get_matrix_rmse_and_max_err</span><span class="p">(</span><span class="n">stresses_list</span><span class="o">/</span><span class="n">EV_ANG_m3_TO_GPa</span><span class="p">)</span> 
+    <span class="n">ener_err_per_atom</span> <span class="o">=</span> <span class="n">get_err_per_atom</span><span class="p">(</span><span class="n">ener_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="p">,</span> <span class="n">num_atoms</span><span class="p">)</span>
+    <span class="n">forces_rmse</span><span class="p">,</span> <span class="n">forces_max_err</span> <span class="o">=</span> <span class="n">get_matrix_rmse_and_max_err</span><span class="p">(</span><span class="n">forces_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="o">/</span><span class="n">AU_TO_ANG</span> <span class="p">)</span>
+    <span class="n">stresses_rmse</span><span class="p">,</span> <span class="n">stresses_max_err</span> <span class="o">=</span> <span class="n">get_matrix_rmse_and_max_err</span><span class="p">(</span><span class="n">stresses_list</span><span class="o">/</span><span class="n">EV_ANG_m3_TO_GPa</span><span class="p">)</span>
 
     <span class="n">test_collect</span> <span class="o">=</span> <span class="p">(</span><span class="n">ener_err_per_atom</span><span class="p">,</span> <span class="n">forces_rmse</span><span class="p">,</span> <span class="n">stresses_rmse</span><span class="p">)</span>
 
@@ -641,7 +641,7 @@ document.write(`
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">b_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">alpha_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">beta_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gamma_list</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="get_dos_param"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_dos_param">[docs]</a><span class="k">def</span> <span class="nf">get_dos_param</span><span class="p">(</span><span class="n">cp2k_pdos</span><span class="p">):</span>
-    
+
     <span class="n">homo</span> <span class="o">=</span> <span class="n">cp2k_pdos</span><span class="o">.</span><span class="n">get_homo_ener</span><span class="p">()</span>
     <span class="n">lumo</span> <span class="o">=</span> <span class="n">cp2k_pdos</span><span class="o">.</span><span class="n">get_lumo_ener</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">homo</span><span class="p">,</span> <span class="n">lumo</span></div>
@@ -657,7 +657,7 @@ document.write(`
         <span class="n">homo</span> <span class="o">=</span> <span class="n">a_homo</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">homo</span> <span class="o">=</span> <span class="n">b_homo</span>
-    
+
     <span class="k">if</span> <span class="n">a_lumo</span> <span class="o">&lt;</span> <span class="n">b_lumo</span><span class="p">:</span>
         <span class="n">lumo</span> <span class="o">=</span> <span class="n">a_lumo</span>
     <span class="k">else</span><span class="p">:</span>
@@ -680,9 +680,9 @@ document.write(`
     <span class="n">marker_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">]</span>
     <span class="n">title_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;band gap&quot;</span><span class="p">,</span> <span class="s2">&quot;p1&quot;</span><span class="p">,</span> <span class="s2">&quot;p2&quot;</span><span class="p">,</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span><span class="p">,</span> <span class="s2">&quot;gamma&quot;</span><span class="p">]</span>
     <span class="n">ylabel_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;energy [eV]&quot;</span><span class="p">,</span> <span class="s2">&quot;length [A]&quot;</span><span class="p">,</span> <span class="s2">&quot;length [A]&quot;</span><span class="p">,</span> <span class="s2">&quot;length [A]&quot;</span><span class="p">,</span> <span class="s2">&quot;length [A]&quot;</span><span class="p">,</span> <span class="s2">&quot;length [A]&quot;</span><span class="p">,</span> <span class="s2">&quot;angle [deg]&quot;</span><span class="p">,</span> <span class="s2">&quot;angle [deg]&quot;</span><span class="p">,</span> <span class="s2">&quot;angle [deg]&quot;</span><span class="p">]</span>
-    
+
     <span class="n">fontdict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
- 
+
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">U_list</span><span class="p">,</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker_cycle</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
 
     <span class="c1">#ylim = ax.get_ylim()</span>
@@ -704,17 +704,17 @@ document.write(`
 
 
 <div class="viewcode-block" id="plot_U_test"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_U_test">[docs]</a><span class="k">def</span> <span class="nf">plot_U_test</span><span class="p">(</span>
-    <span class="n">target_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> 
+    <span class="n">target_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
     <span class="n">exp_collect</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="p">):</span>
     <span class="n">U_test_sub_dir_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span><span class="s2">&quot;U_*&quot;</span><span class="p">))</span>
     <span class="n">U_test_sub_dir_list</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="n">U_list</span> <span class="o">=</span> <span class="n">get_U_list</span><span class="p">(</span><span class="n">U_test_sub_dir_list</span><span class="p">)</span>
     <span class="n">gap_collect</span> <span class="o">=</span> <span class="n">get_multiple_min_gap</span><span class="p">(</span><span class="n">U_test_sub_dir_list</span><span class="p">)</span>
-    <span class="n">property_collect</span> <span class="o">=</span> <span class="p">(</span><span class="n">gap_collect</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> 
+    <span class="n">property_collect</span> <span class="o">=</span> <span class="p">(</span><span class="n">gap_collect</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">cell_param_collect</span> <span class="o">=</span> <span class="n">get_multiple_cell_param</span><span class="p">(</span><span class="n">U_test_sub_dir_list</span><span class="p">)</span>
 
-    <span class="n">total_collect</span> <span class="o">=</span> <span class="n">property_collect</span> <span class="o">+</span> <span class="n">cell_param_collect</span> 
+    <span class="n">total_collect</span> <span class="o">=</span> <span class="n">property_collect</span> <span class="o">+</span> <span class="n">cell_param_collect</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">titlesize</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span> <span class="c1">#fontsize of the title</span>
