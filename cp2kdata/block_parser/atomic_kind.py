@@ -15,12 +15,14 @@ ATOMIC_KINDS_RE = re.compile(
     re.VERBOSE
 )
 
+
 def parse_num_atomic_kinds(output_file):
     num_atomic_kinds_list = []
 
     for match in NUM_ATOMIC_KINDS_RE.finditer(output_file):
         num_atomic_kinds_list.append(int(match["num_atomic_kind"]))
     return num_atomic_kinds_list
+
 
 def parse_atomic_kinds(output_file):
     num_atomic_kinds_list = parse_num_atomic_kinds(output_file)

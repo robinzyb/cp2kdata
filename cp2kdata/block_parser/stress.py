@@ -38,6 +38,7 @@ STRESS_RE = re.compile(
     re.VERBOSE
 )
 
+
 def parse_stress_tensor_list(output_file):
     stress_tensor_list = []
     for match in STRESS_RE.finditer(output_file):

@@ -22,10 +22,11 @@ from cp2kdata.block_parser.stress import parse_stress_tensor_list
 from cp2kdata.block_parser.cells import parse_all_cells, parse_all_md_cells
 from cp2kdata.block_parser.md_xyz import parse_md_ener, parse_pos_xyz, parse_frc_xyz, parse_md_stress, parse_md_cell
 
+
 class Cp2kOutput:
     """Class for parsing cp2k output"""
 
-    def __init__(self, output_file=None, run_type: str=None, path_prefix=".", **kwargs):
+    def __init__(self, output_file=None, run_type: str = None, path_prefix=".", **kwargs):
         # --set some basic information
         self.required_information = kwargs
         self.path_prefix = path_prefix
@@ -35,35 +36,36 @@ class Cp2kOutput:
         elif os.path.isfile(os.path.join(self.path_prefix, output_file)):
             self.filename = os.path.join(self.path_prefix, output_file)
         else:
-            raise FileNotFoundError(f'cp2k output file {output_file} is not found')
+            raise FileNotFoundError(
+                f'cp2k output file {output_file} is not found')
 
         try:
             self.global_info = self.get_global_info(run_type=run_type,
-                                                   filename=self.filename
-                                                   )
+                                                    filename=self.filename
+                                                    )
         except ValueError as err:
             print(
-            "---------------------------------------------\n"
-            "Cannot Obtain CP2K RUN_TYPE information.\n"
+                "---------------------------------------------\n"
+                "Cannot Obtain CP2K RUN_TYPE information.\n"
 
-            "Please check if you have provided an existing cp2k output file.\n"
-            "If not, you can manually set RUN_TYPE through run_type argument\n"
-            "for md calculation.\n"
-            "Example:\n"
+                "Please check if you have provided an existing cp2k output file.\n"
+                "If not, you can manually set RUN_TYPE through run_type argument\n"
+                "for md calculation.\n"
+                "Example:\n"
                 "Cp2kOutput(run_type='MD')\n"
-            "Currently, mannual setup of run_type only supports 'MD'.\n"
-            "Other run_types, such as 'ENERGY_FORCE', \n"
-            "require output file as well.\n"
-            "\n"
-            " Σ(っ °Д °;)っ \n"
-            "\n"
-            "---------------------------------------------\n"
+                "Currently, mannual setup of run_type only supports 'MD'.\n"
+                "Other run_types, such as 'ENERGY_FORCE', \n"
+                "require output file as well.\n"
+                "\n"
+                " Σ(っ °Д °;)っ \n"
+                "\n"
+                "---------------------------------------------\n"
             )
             sys.exit()
 
-
         if self.global_info.print_level == 'LOW':
-            raise ValueError("please provide cp2k output file with MEDIUM print level. Print Level Low doesn't provide necessary information for initialize the cp2kdata class.")
+            raise ValueError(
+                "please provide cp2k output file with MEDIUM print level. Print Level Low doesn't provide necessary information for initialize the cp2kdata class.")
 
         # -- set some basic attribute --
         self.num_frames = None
@@ -96,14 +98,13 @@ class Cp2kOutput:
         parse_run_type = run_type_parser_candidates[self.global_info.run_type]
         parse_run_type()
 
-        #self.errors_info = parse_errors(self.output_file)
-        #if ignore_error:
+        # self.errors_info = parse_errors(self.output_file)
+        # if ignore_error:
         #    pass
-        #else:
+        # else:
         #    if self.errors_info:
         #        if self.errors_info.get("exceed_wall_time", None):
         #            raise ValueError("Your output exceeds wall time, it might be incomplete, if you want to continue, please add set Cp2kOutput(output, ignore_error=True)")
-
 
         # elif self.global_info.run_type == "GEO_OPT":
         #     # parse global info
@@ -181,7 +182,7 @@ class Cp2kOutput:
             kind_idx, counts = np.unique(
                 self.get_atom_kinds_list(),
                 return_counts=True
-                )
+            )
             return counts
 
     def get_atom_kinds_list(self):
@@ -222,6 +223,7 @@ class Cp2kOutput:
             return True
         else:
             return False
+
     def get_force_status(self):
         if self.has_force():
             return "Yes"
@@ -248,7 +250,8 @@ class Cp2kOutput:
         symbols = self.get_chemical_symbols()
         positions = self.init_atomic_coordinates.copy()
         cell = self.get_init_cell()
-        ase_atoms = Atoms(symbols=symbols, positions=positions, cell=cell, pbc=True)
+        ase_atoms = Atoms(
+            symbols=symbols, positions=positions, cell=cell, pbc=True)
         return ase_atoms
 
     @cached_property
@@ -264,7 +267,8 @@ class Cp2kOutput:
         spin_moment_mulliken_list = []
 
         for mulliken_pop in mulliken_pop_list:
-            spin_moment_mulliken = np.array([mulliken_atom['spin_moment'] for mulliken_atom in mulliken_pop], dtype=float)
+            spin_moment_mulliken = np.array(
+                [mulliken_atom['spin_moment'] for mulliken_atom in mulliken_pop], dtype=float)
             spin_moment_mulliken_list.append(spin_moment_mulliken)
         spin_moment_mulliken_list = np.array(spin_moment_mulliken_list)
 
@@ -274,7 +278,8 @@ class Cp2kOutput:
         if type == 'mulliken':
             return self.get_spin_moment_mulliken_list()
         else:
-            raise NotImplementedError("Only Mulliken Spin Moment is implemented now")
+            raise NotImplementedError(
+                "Only Mulliken Spin Moment is implemented now")
 
     # def get_hirshfeld_pop_list(self):
     #     return self.hirshfeld_pop_list
@@ -295,8 +300,6 @@ class Cp2kOutput:
         except Exception as err:
             print(f"{self.global_info.run_type} can't use this method!")
 
-
-
     def to_ase_atoms(self):
         print("haven't implemented yet")
         pass
@@ -309,7 +312,7 @@ class Cp2kOutput:
             "atomic_kinds": parse_atomic_kinds,
             "cells": parse_all_cells
         }
-        #TODO: convert kwargs to flexible attribute!
+        # TODO: convert kwargs to flexible attribute!
         self.geo_opt_info = None
         self.num_frames = 1
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
@@ -336,10 +339,11 @@ class Cp2kOutput:
             self.output_file)
         self.atomic_kind = parse_atomic_kinds(self.output_file)
 
-
-        pos_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*pos*.xyz"))
+        pos_xyz_file_list = glob.glob(
+            os.path.join(self.path_prefix, "*pos*.xyz"))
         if pos_xyz_file_list:
-            self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(pos_xyz_file_list[0])
+            self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(
+                pos_xyz_file_list[0])
             self.energies_list = energies_list_from_pos
 
         self.all_cells = parse_all_cells(self.output_file)
@@ -356,55 +360,61 @@ class Cp2kOutput:
         if ener_file_list:
             self.energies_list = parse_md_ener(ener_file_list[0])
 
-        pos_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*pos*.xyz"))
+        pos_xyz_file_list = glob.glob(
+            os.path.join(self.path_prefix, "*pos*.xyz"))
         if pos_xyz_file_list:
-            self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(pos_xyz_file_list[0])
+            self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(
+                pos_xyz_file_list[0])
 
             if not hasattr(self, "energies_list"):
                 self.energies_list = energies_list_from_pos
 
-        frc_xyz_file_list = glob.glob(os.path.join(self.path_prefix,"*frc*.xyz"))
+        frc_xyz_file_list = glob.glob(
+            os.path.join(self.path_prefix, "*frc*.xyz"))
         if frc_xyz_file_list:
             self.atomic_forces_list = parse_frc_xyz(frc_xyz_file_list[0])
         else:
-            print(f"Parsing Forces from the CP2K output/log file: {self.filename}")
-            self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
+            print(
+                f"Parsing Forces from the CP2K output/log file: {self.filename}")
+            self.atomic_forces_list = parse_atomic_forces_list(
+                self.output_file)
 
-        stress_file_list = glob.glob(os.path.join(self.path_prefix,"*.stress"))
+        stress_file_list = glob.glob(
+            os.path.join(self.path_prefix, "*.stress"))
         if stress_file_list:
             self.stress_tensor_list = parse_md_stress(stress_file_list[0])
         else:
-            print(f"Parsing Stress from the CP2K output/log file: {self.filename}")
-            self.stress_tensor_list = parse_stress_tensor_list(self.output_file)
-
-
+            print(
+                f"Parsing Stress from the CP2K output/log file: {self.filename}")
+            self.stress_tensor_list = parse_stress_tensor_list(
+                self.output_file)
 
         self.num_frames = len(self.energies_list)
 
         # here parse cell information
         WARNING_MSG_PARSE_CELL_FROM_OUTPUT = \
             (
-            "\n"
-            "cp2kdata is parsing md cell information from output file.\n"
-            "The raw data of cell information are lengths and angles,\n"
-            "which are latter transformed to cell matrices by codes.\n"
-            "However, the a axis of the cell are always assumed to be aligned to "
-            "the x axis of the coordinate.\n"
-            "Make sure the a axis in real cell matrices are always aligned to x axis.\n"
-            "Otherwise, parsing cell information from `-1.cell` file is recommended.\n"
+                "\n"
+                "cp2kdata is parsing md cell information from output file.\n"
+                "The raw data of cell information are lengths and angles,\n"
+                "which are latter transformed to cell matrices by codes.\n"
+                "However, the a axis of the cell are always assumed to be aligned to "
+                "the x axis of the coordinate.\n"
+                "Make sure the a axis in real cell matrices are always aligned to x axis.\n"
+                "Otherwise, parsing cell information from `-1.cell` file is recommended.\n"
 
-            "CP2K input setting\n"
-            "------------------\n"
-            "&MOTION\n"
-            " &PRINT\n"
-            "   &CELL\n"
-            "     &EACH\n"
-            "       MD 1\n"
-            "     &END EACH\n"
-            "   &END CELL\n"
-            " &END PRINT\n"
-            "&END MOTION\n"
-            "------------------\n"
+                "CP2K input setting\n"
+                "------------------\n"
+                "&MOTION\n"
+                " &PRINT\n"
+                "   &CELL\n"
+                "     &EACH\n"
+                "       MD 1\n"
+                "     &END EACH\n"
+                "   &END CELL\n"
+                " &END PRINT\n"
+                "&END MOTION\n"
+                "------------------\n"
             )
 
         WARNING_MSG = "cp2kdata obtains more than one initial cell from the output file, \
@@ -413,7 +423,7 @@ class Cp2kOutput:
         cell_file_list = glob.glob(os.path.join(self.path_prefix, "*.cell"))
         if (self.md_info.ensemble_type == "NVT") or \
             (self.md_info.ensemble_type == "NVE") or \
-            (self.md_info.ensemble_type == "REFTRAJ"):
+                (self.md_info.ensemble_type == "REFTRAJ"):
             if cell_file_list:
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
@@ -423,7 +433,8 @@ class Cp2kOutput:
                 first_cell = parse_all_cells(self.output_file)
                 assert first_cell.shape == (1, 3, 3), WARNING_MSG
                 self.all_cells = first_cell
-                self.all_cells = np.repeat(self.all_cells, repeats=self.num_frames, axis=0)
+                self.all_cells = np.repeat(
+                    self.all_cells, repeats=self.num_frames, axis=0)
 
         elif (self.md_info.ensemble_type == "NPT_F"):
             if cell_file_list:
@@ -439,7 +450,8 @@ class Cp2kOutput:
                 self.all_cells = parse_all_md_cells(self.output_file,
                                                     cp2k_info=self.cp2k_info)
                 # prepend the first cell
-                self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)
+                self.all_cells = np.insert(
+                    self.all_cells, 0, first_cell[0], axis=0)
 
         elif (self.md_info.ensemble_type == "NPT_I"):
             if cell_file_list:
@@ -455,10 +467,11 @@ class Cp2kOutput:
                                                     cp2k_info=self.cp2k_info,
                                                     init_cell_info=first_cell[0])
                 # prepend the first cell
-                self.all_cells = np.insert(self.all_cells, 0, first_cell[0], axis=0)
+                self.all_cells = np.insert(
+                    self.all_cells, 0, first_cell[0], axis=0)
 
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
-        self.output_file)
+            self.output_file)
         self.atomic_kind = parse_atomic_kinds(self.output_file)
 
     @staticmethod
@@ -479,7 +492,7 @@ class Cp2kOutput:
             raise ValueError(
                 f"Parser for Run Type {run_type} haven't been implemented yet!"
                 "Please contact the developer for more information."
-                )
+            )
 
     @staticmethod
     def check_md_type(md_type):
@@ -490,4 +503,3 @@ class Cp2kOutput:
                 f"Parser for MD Type {md_type} haven't been implemented yet!\n"
                 "Please contact the developer for more information."
             )
-

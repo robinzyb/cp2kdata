@@ -13,7 +13,8 @@ DIPOLE_RE = re.compile(
     re.VERBOSE
 )
 
-#TODO write a pytest for this
+# TODO write a pytest for this
+
 
 def parse_dipole_list(output_file):
     dipole_list = []
@@ -25,6 +26,7 @@ def parse_dipole_list(output_file):
         return np.array(dipole_list, dtype=float)
     else:
         return None
+
 
 """
    Reference Point [Bohr]              0.00000000      0.00000000      0.00000000

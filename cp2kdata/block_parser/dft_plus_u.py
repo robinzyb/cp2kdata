@@ -25,6 +25,8 @@ PLUS_U_RE = re.compile(
 #        \s+(?P<spin_moment>[\s-]\d+\.\d+)
 #        \n
 #    )+
+
+
 def parse_dft_plus_u_occ(output_file):
     dft_plus_u_occ = []
     for match in PLUS_U_RE.finditer(output_file):
@@ -40,7 +42,7 @@ def parse_dft_plus_u_occ(output_file):
 #                    "spin_moment": float(spin_moment)
 #                }
 #            )
-    if  dft_plus_u_occ:
+    if dft_plus_u_occ:
         return dft_plus_u_occ
     else:
         return None

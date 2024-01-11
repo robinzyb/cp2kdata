@@ -24,6 +24,7 @@ def remove_section(sec_obj):
         value = sec_obj.__dict__[attname]
         remove_section(value)
 
+
 def copy_file_list(file_list, target_dir):
     for file in file_list:
         src = file
@@ -33,15 +34,17 @@ def copy_file_list(file_list, target_dir):
         elif os.path.isfile(src):
             shutil.copy2(src, dst)
 
+
 def get_CP2K(cp2k_input_file):
     inp = CP2K()
     inp.parse(cp2k_input_file)
     return inp
 
+
 def get_batch_inp(
     cp2k: CP2K,
     stc_list: list
-    ):
+):
 
     FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
     SUBSYS = FORCE_EVAL.SUBSYS
@@ -59,16 +62,18 @@ def get_batch_inp(
 
     return cp2k_list
 
+
 def batch_sub(
-    sub_cmd: str="bsub<cp2k",
+    sub_cmd: str = "bsub<cp2k",
     target_dir: str = ".",
-    sub_dir_name_list: list=None
-    ):
+    sub_dir_name_list: list = None
+):
     target_dir = os.path.abspath(target_dir)
     if sub_dir_name_list is None:
         sub_dir_list = glob.glob(os.path.join(target_dir, "*"))
     else:
-        sub_dir_list = [ os.path.join(target_dir, sub_dir_name) for sub_dir_name in sub_dir_name_list]
+        sub_dir_list = [os.path.join(target_dir, sub_dir_name)
+                        for sub_dir_name in sub_dir_name_list]
 
     for sub_dir in sub_dir_list:
         os.chdir(sub_dir)
@@ -77,17 +82,18 @@ def batch_sub(
 
 def write_batch_inp(
     cp2k_list: list,
-    target_dir: str=".",
-    dir_name: str= "calc",
-    suffix_list: list=None,
-    other_file_list: list=[]
-    ):
+    target_dir: str = ".",
+    dir_name: str = "calc",
+    suffix_list: list = None,
+    other_file_list: list = []
+):
     if suffix_list is None:
-        suffix_list = [ str(i) for i in range(len(cp2k_list)) ]
-    sub_dir_name_list = [ dir_name+"_"+suffix  for suffix in suffix_list ]
+        suffix_list = [str(i) for i in range(len(cp2k_list))]
+    sub_dir_name_list = [dir_name+"_"+suffix for suffix in suffix_list]
 
     for idx, cp2k in enumerate(cp2k_list):
-        calc_sub_dir = os.path.join(target_dir, f"{idx:03d}.{sub_dir_name_list[idx]}")
+        calc_sub_dir = os.path.join(
+            target_dir, f"{idx:03d}.{sub_dir_name_list[idx]}")
         create_path(calc_sub_dir)
         copy_file_list(file_list=other_file_list, target_dir=calc_sub_dir)
 
@@ -96,16 +102,14 @@ def write_batch_inp(
         cp2k.write_input_file(input_path)
 
 
-
-
 def write_cutoff_test_inp(
     cp2k: CP2K,
-    target_dir: str=".",
-    cutoff_range: tuple=(300, 601, 50),
-    other_file_list: list=[],
+    target_dir: str = ".",
+    cutoff_range: tuple = (300, 601, 50),
+    other_file_list: list = [],
     scf_converge: bool = False
 
-    ):
+):
     """_summary_
 
     _extended_summary_
@@ -121,10 +125,10 @@ def write_cutoff_test_inp(
     FORCE_EVAL.Stress_tensor = "ANALYTICAL"
 
     FORCE_EVAL.PRINT.STRESS_TENSOR.Section_parameters = "ON"
-    FORCE_EVAL.PRINT.FORCES.Section_parameters  = "ON"
+    FORCE_EVAL.PRINT.FORCES.Section_parameters = "ON"
 
     DFT = FORCE_EVAL.DFT
-    #DFT.MGRID.Rel_cutoff = rel_cutoff
+    # DFT.MGRID.Rel_cutoff = rel_cutoff
     DFT.MGRID.Ngrids = 4
 
     if scf_converge:
@@ -133,8 +137,7 @@ def write_cutoff_test_inp(
         SCF = DFT.SCF
         SCF.Max_scf = 1
         remove_section(SCF.OUTER_SCF)
-    #SCF.Scf_guess = "RESTART"
-
+    # SCF.Scf_guess = "RESTART"
 
     GLOBAL = cp2k.CP2K_INPUT.GLOBAL
     GLOBAL.Run_type = "ENERGY_FORCE"
@@ -148,11 +151,11 @@ def write_cutoff_test_inp(
         cutoff_test_sub_dir = os.path.join(target_dir, f"cutoff_{param:04d}")
         create_path(cutoff_test_sub_dir)
 
-        copy_file_list(file_list=other_file_list, target_dir=cutoff_test_sub_dir)
+        copy_file_list(file_list=other_file_list,
+                       target_dir=cutoff_test_sub_dir)
 
         input_path = os.path.join(cutoff_test_sub_dir, "input.inp")
         cp2k.write_input_file(input_path)
-
 
 
 basis_molopt_test_suit = {
@@ -171,20 +174,21 @@ basis_molopt_sr_test_suit = {
     "Co": ["SZV-MOLOPT-SR-GTH", "DZVP-MOLOPT-SR-GTH", "TZVP-MOLOPT-SR-GTH", "TZV2P-MOLOPT-SR-GTH"],
 }
 
+
 def write_basis_test_inp(
     cp2k: CP2K,
-    target_dir: str=".",
-    test_element: str= "O",
-    short_range: bool=True,
-    other_file_list: list=[]
-    ):
+    target_dir: str = ".",
+    test_element: str = "O",
+    short_range: bool = True,
+    other_file_list: list = []
+):
     FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
 
     FORCE_EVAL.Stress_tensor = "ANALYTICAL"
     FORCE_EVAL.PRINT.STRESS_TENSOR.Section_parameters = "ON"
-    FORCE_EVAL.PRINT.FORCES.Section_parameters  = "ON"
+    FORCE_EVAL.PRINT.FORCES.Section_parameters = "ON"
     DFT = FORCE_EVAL.DFT
-    #DFT.MGRID.Rel_cutoff = rel_cutoff
+    # DFT.MGRID.Rel_cutoff = rel_cutoff
     DFT.MGRID.Ngrids = 4
 
     DFT.Basis_set_file_name = \
@@ -208,30 +212,32 @@ def write_basis_test_inp(
 
         for KIND in FORCE_EVAL.SUBSYS.KIND_list:
             if (KIND.Element is None) and (KIND.Section_parameters == test_element):
-                KIND.Basis_set= [basis_set]
+                KIND.Basis_set = [basis_set]
             elif (KIND.Element == test_element):
-                KIND.Basis_set= [basis_set]
+                KIND.Basis_set = [basis_set]
             else:
                 pass
         basis_test_sub_dir = os.path.join(target_dir, f"basis_{basis_set}")
         create_path(basis_test_sub_dir)
-        copy_file_list(file_list=other_file_list, target_dir=basis_test_sub_dir)
+        copy_file_list(file_list=other_file_list,
+                       target_dir=basis_test_sub_dir)
         input_path = os.path.join(basis_test_sub_dir, "input.inp")
         cp2k.write_input_file(input_path)
 
+
 def write_hubbard_U_test_inp(
     cp2k: CP2K,
-    target_dir: str=".",
-    u_range: tuple=(0, 8, 1),
-    test_element: str= "O",
-    test_orbital: str="p",
-    other_file_list: list=[]
-    ):
+    target_dir: str = ".",
+    u_range: tuple = (0, 8, 1),
+    test_element: str = "O",
+    test_orbital: str = "p",
+    other_file_list: list = []
+):
     FORCE_EVAL = cp2k.CP2K_INPUT.FORCE_EVAL_list[0]
 
     FORCE_EVAL.Stress_tensor = "ANALYTICAL"
     FORCE_EVAL.PRINT.STRESS_TENSOR.Section_parameters = "ON"
-    FORCE_EVAL.PRINT.FORCES.Section_parameters  = "ON"
+    FORCE_EVAL.PRINT.FORCES.Section_parameters = "ON"
     DFT = FORCE_EVAL.DFT
 
     DFT.MGRID.Ngrids = 4
@@ -243,7 +249,6 @@ def write_hubbard_U_test_inp(
     MOTION = cp2k.CP2K_INPUT.MOTION
     MOTION.CELL_OPT.Optimizer = "LBFGS"
     MOTION.CELL_OPT.Keep_angles = True
-
 
     ang_quant_num_dict = {
         "s": 0,

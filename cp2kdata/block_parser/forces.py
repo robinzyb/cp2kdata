@@ -19,6 +19,7 @@ ATOMIC_FORCES_RE = re.compile(
     re.VERBOSE
 )
 
+
 def parse_atomic_forces_list(output_file):
     atomic_forces_list = []
     for match in ATOMIC_FORCES_RE.finditer(output_file):
