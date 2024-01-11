@@ -398,6 +398,7 @@ document.write(`
     <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span>
 <span class="p">)</span>
 
+
 <div class="viewcode-block" id="parse_atomic_forces_list"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.forces.html#cp2kdata.block_parser.forces.parse_atomic_forces_list">[docs]</a><span class="k">def</span> <span class="nf">parse_atomic_forces_list</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
     <span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">ATOMIC_FORCES_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>

@@ -386,10 +386,12 @@ document.write(`
 <span class="k">class</span> <span class="nc">ConvergeInfo</span><span class="p">:</span>
     <span class="n">converge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></div>
 
+
 <span class="n">CONVERGE_PATTERN</span> <span class="o">=</span> \
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;(?xm)</span>
 <span class="sd">    ^\s{1,2}\*\*\*\sSCF\srun\sconverged\sin</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
 
 <div class="viewcode-block" id="parse_e_f_converge"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_e_f_converge">[docs]</a><span class="k">def</span> <span class="nf">parse_e_f_converge</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConvergeInfo</span><span class="p">:</span>
 
@@ -398,13 +400,14 @@ document.write(`
         <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">patterns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;converge&quot;</span><span class="p">:</span> <span class="n">CONVERGE_PATTERN</span><span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">info_dict</span><span class="p">[</span><span class="s1">&#39;converge&#39;</span><span class="p">]:</span>
         <span class="n">converge_info</span> <span class="o">=</span> <span class="n">ConvergeInfo</span><span class="p">(</span><span class="n">converge</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">converge_info</span> <span class="o">=</span> <span class="n">ConvergeInfo</span><span class="p">(</span><span class="n">converge</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">converge_info</span></div>
+
 
 <div class="viewcode-block" id="parse_md_converge"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_md_converge">[docs]</a><span class="k">def</span> <span class="nf">parse_md_converge</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 
@@ -413,8 +416,8 @@ document.write(`
         <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">patterns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;converge&quot;</span><span class="p">:</span> <span class="n">CONVERGE_PATTERN</span><span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">False</span>
-        <span class="p">)</span></div>
-    <span class="c1">#print(info_dict[&#39;converge&#39;])</span>
+    <span class="p">)</span></div>
+    <span class="c1"># print(info_dict[&#39;converge&#39;])</span>
 
 <span class="c1"># if __name__ == &quot;__main__&quot;:</span>
 <span class="c1">#     file_name = &quot;e_f&quot;</span>

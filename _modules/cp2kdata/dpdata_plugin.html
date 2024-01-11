@@ -392,6 +392,7 @@ document.write(`
 
 <span class="n">WRAPPER</span> <span class="o">=</span> <span class="s2">&quot;--- You are parsing data using package Cp2kData ---&quot;</span>
 
+
 <div class="viewcode-block" id="CP2KEnergyForceFormat"><a class="viewcode-back" href="../../_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KEnergyForceFormat">[docs]</a><span class="nd">@Format</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;cp2k/output&quot;</span><span class="p">)</span>
 <span class="nd">@Format</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;cp2kdata/e_f&quot;</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">CP2KEnergyForceFormat</span><span class="p">(</span><span class="n">Format</span><span class="p">):</span>
@@ -420,12 +421,13 @@ document.write(`
         <span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">get_chemical_symbols_from_cp2kdata</span><span class="p">(</span>
             <span class="n">cp2koutput</span><span class="o">=</span><span class="n">cp2k_e_f</span><span class="p">,</span>
             <span class="n">true_symbols</span><span class="o">=</span><span class="n">true_symbols</span>
-            <span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="c1"># -- data dict collects information, and return to dpdata --</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_names&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_numbs&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;atom_types&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_uniq_atom_names_and_types</span><span class="p">(</span><span class="n">chemical_symbols</span><span class="o">=</span><span class="n">chemical_symbols</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_names&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_numbs&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;atom_types&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_uniq_atom_names_and_types</span><span class="p">(</span>
+            <span class="n">chemical_symbols</span><span class="o">=</span><span class="n">chemical_symbols</span><span class="p">)</span>
         <span class="c1"># atom_numbs not total num of atoms!</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;energies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp2k_e_f</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cells&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp2k_e_f</span><span class="o">.</span><span class="n">get_init_cell</span><span class="p">()[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
@@ -437,13 +439,14 @@ document.write(`
         <span class="nb">print</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 
+
 <div class="viewcode-block" id="CP2KMDFormat"><a class="viewcode-back" href="../../_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KMDFormat">[docs]</a><span class="nd">@Format</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;cp2k/aimd_output&quot;</span><span class="p">)</span>
 <span class="nd">@Format</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;cp2kdata/md&quot;</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">CP2KMDFormat</span><span class="p">(</span><span class="n">Format</span><span class="p">):</span>
 <div class="viewcode-block" id="CP2KMDFormat.from_labeled_system"><a class="viewcode-back" href="../../_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KMDFormat.from_labeled_system">[docs]</a>    <span class="k">def</span> <span class="nf">from_labeled_system</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="c1"># -- Set Basic Parameters --</span>
-        <span class="n">path_prefix</span> <span class="o">=</span> <span class="n">file_name</span> <span class="c1">#in cp2k md, file_name is directory name.</span>
+        <span class="n">path_prefix</span> <span class="o">=</span> <span class="n">file_name</span>  <span class="c1"># in cp2k md, file_name is directory name.</span>
         <span class="n">true_symbols</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;true_symbols&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">cells</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">cp2k_output_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cp2k_output_name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -451,14 +454,15 @@ document.write(`
         <span class="c1"># -- start parsing --</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
 
-        <span class="n">cp2kmd</span> <span class="o">=</span> <span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">output_file</span><span class="o">=</span><span class="n">cp2k_output_name</span><span class="p">,</span> <span class="n">run_type</span><span class="o">=</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span> <span class="n">path_prefix</span><span class="o">=</span><span class="n">path_prefix</span><span class="p">)</span>
+        <span class="n">cp2kmd</span> <span class="o">=</span> <span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">output_file</span><span class="o">=</span><span class="n">cp2k_output_name</span><span class="p">,</span>
+                            <span class="n">run_type</span><span class="o">=</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span> <span class="n">path_prefix</span><span class="o">=</span><span class="n">path_prefix</span><span class="p">)</span>
 
         <span class="n">num_frames</span> <span class="o">=</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">get_num_frames</span><span class="p">()</span>
 
         <span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">get_chemical_symbols_from_cp2kdata</span><span class="p">(</span>
             <span class="n">cp2koutput</span><span class="o">=</span><span class="n">cp2kmd</span><span class="p">,</span>
             <span class="n">true_symbols</span><span class="o">=</span><span class="n">true_symbols</span>
-            <span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">cells</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
@@ -469,20 +473,22 @@ document.write(`
             <span class="k">else</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No cell information, please check if your inputs are correct.&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">cells</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cells</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
                 <span class="n">cells</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
                 <span class="n">cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">repeats</span><span class="o">=</span><span class="n">num_frames</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">cells</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">num_frames</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Illegal Cell Information, cells shape should be (num_frames, 3, 3) or (3, 3)&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Illegal Cell Information, cells shape should be (num_frames, 3, 3) or (3, 3)&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Illegal Cell Information, cp2kdata accepts np.ndarray as cells information&quot;</span><span class="p">)</span>
-
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Illegal Cell Information, cp2kdata accepts np.ndarray as cells information&quot;</span><span class="p">)</span>
 
         <span class="c1"># -- data dict collects information, and return to dpdata --</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_names&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_numbs&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;atom_types&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_uniq_atom_names_and_types</span><span class="p">(</span><span class="n">chemical_symbols</span><span class="o">=</span><span class="n">chemical_symbols</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_names&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_numbs&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;atom_types&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_uniq_atom_names_and_types</span><span class="p">(</span>
+            <span class="n">chemical_symbols</span><span class="o">=</span><span class="n">chemical_symbols</span><span class="p">)</span>
         <span class="c1"># atom_numbs not total num of atoms!</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;energies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cells&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cells</span>
@@ -493,6 +499,7 @@ document.write(`
 
         <span class="nb">print</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
+
 
 <div class="viewcode-block" id="get_chemical_symbols_from_cp2kdata"><a class="viewcode-back" href="../../_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.get_chemical_symbols_from_cp2kdata">[docs]</a><span class="k">def</span> <span class="nf">get_chemical_symbols_from_cp2kdata</span><span class="p">(</span><span class="n">cp2koutput</span><span class="p">,</span> <span class="n">true_symbols</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">cp2koutput</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -516,7 +523,7 @@ document.write(`
     <span class="n">atom_names</span> <span class="o">=</span> <span class="n">chemical_symbols</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">symbol_idx</span><span class="p">)]</span>
     <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="n">chemical_symbols</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">atom_names</span><span class="p">):</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">jj</span> <span class="o">==</span> <span class="n">ii</span><span class="p">)</span> <span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">jj</span> <span class="o">==</span> <span class="n">ii</span><span class="p">):</span>
                 <span class="n">atom_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atom_names</span><span class="p">)):</span>
         <span class="n">atom_numbs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom_types</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
@@ -525,13 +532,15 @@ document.write(`
 
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">atom_names</span><span class="p">),</span> <span class="n">atom_numbs</span><span class="p">,</span> <span class="n">atom_types</span></div>
 
-<span class="c1">#NOTE: incomplete function, do not release!</span>
+<span class="c1"># NOTE: incomplete function, do not release!</span>
+
+
 <div class="viewcode-block" id="CP2KMDWannierFormat"><a class="viewcode-back" href="../../_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KMDWannierFormat">[docs]</a><span class="nd">@Format</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;cp2kdata/md_wannier&quot;</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">CP2KMDWannierFormat</span><span class="p">(</span><span class="n">Format</span><span class="p">):</span>
 <div class="viewcode-block" id="CP2KMDWannierFormat.from_labeled_system"><a class="viewcode-back" href="../../_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.CP2KMDWannierFormat.from_labeled_system">[docs]</a>    <span class="k">def</span> <span class="nf">from_labeled_system</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="c1"># -- Set Basic Parameters --</span>
-        <span class="n">path_prefix</span> <span class="o">=</span> <span class="n">file_name</span> <span class="c1">#in cp2k md, file_name is directory name.</span>
+        <span class="n">path_prefix</span> <span class="o">=</span> <span class="n">file_name</span>  <span class="c1"># in cp2k md, file_name is directory name.</span>
         <span class="n">true_symbols</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;true_symbols&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">cells</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">cp2k_output_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cp2k_output_name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -539,14 +548,15 @@ document.write(`
         <span class="c1"># -- start parsing --</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
 
-        <span class="n">cp2kmd</span> <span class="o">=</span> <span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">output_file</span><span class="o">=</span><span class="n">cp2k_output_name</span><span class="p">,</span> <span class="n">run_type</span><span class="o">=</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span> <span class="n">path_prefix</span><span class="o">=</span><span class="n">path_prefix</span><span class="p">)</span>
+        <span class="n">cp2kmd</span> <span class="o">=</span> <span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">output_file</span><span class="o">=</span><span class="n">cp2k_output_name</span><span class="p">,</span>
+                            <span class="n">run_type</span><span class="o">=</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span> <span class="n">path_prefix</span><span class="o">=</span><span class="n">path_prefix</span><span class="p">)</span>
 
         <span class="n">num_frames</span> <span class="o">=</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">get_num_frames</span><span class="p">()</span>
 
         <span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">get_chemical_symbols_from_cp2kdata</span><span class="p">(</span>
             <span class="n">cp2koutput</span><span class="o">=</span><span class="n">cp2kmd</span><span class="p">,</span>
             <span class="n">true_symbols</span><span class="o">=</span><span class="n">true_symbols</span>
-            <span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">cells</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
@@ -557,20 +567,22 @@ document.write(`
             <span class="k">else</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No cell information, please check if your inputs are correct.&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">cells</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cells</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
                 <span class="n">cells</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
                 <span class="n">cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">repeats</span><span class="o">=</span><span class="n">num_frames</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">cells</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">num_frames</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Illegal Cell Information, cells shape should be (num_frames, 3, 3) or (3, 3)&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Illegal Cell Information, cells shape should be (num_frames, 3, 3) or (3, 3)&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Illegal Cell Information, cp2kdata accepts np.ndarray as cells information&quot;</span><span class="p">)</span>
-
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Illegal Cell Information, cp2kdata accepts np.ndarray as cells information&quot;</span><span class="p">)</span>
 
         <span class="c1"># -- data dict collects information, and return to dpdata --</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_names&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_numbs&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;atom_types&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_uniq_atom_names_and_types</span><span class="p">(</span><span class="n">chemical_symbols</span><span class="o">=</span><span class="n">chemical_symbols</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_names&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;atom_numbs&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;atom_types&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_uniq_atom_names_and_types</span><span class="p">(</span>
+            <span class="n">chemical_symbols</span><span class="o">=</span><span class="n">chemical_symbols</span><span class="p">)</span>
         <span class="c1"># atom_numbs not total num of atoms!</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;energies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cells&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cells</span>
@@ -589,7 +601,7 @@ document.write(`
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;forces&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="o">/</span><span class="n">AU_TO_ANG</span>
         <span class="k">if</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">has_stress</span><span class="p">():</span>
             <span class="n">data</span><span class="p">[</span><span class="s1">&#39;virials&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">stress_tensor_list</span><span class="o">/</span><span class="n">EV_ANG_m3_TO_GPa</span>
-        <span class="c1">#print(len(data[&#39;cells&#39;]), len(data[&#39;coords&#39;]), len(data[&#39;energies&#39;]))</span>
+        <span class="c1"># print(len(data[&#39;cells&#39;]), len(data[&#39;coords&#39;]), len(data[&#39;energies&#39;]))</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 </pre></div>

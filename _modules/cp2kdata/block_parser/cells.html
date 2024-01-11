@@ -409,10 +409,11 @@ document.write(`
     <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span>
 <span class="p">)</span>
 
+
 <div class="viewcode-block" id="parse_all_cells"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.cells.html#cp2kdata.block_parser.cells.parse_all_cells">[docs]</a><span class="k">def</span> <span class="nf">parse_all_cells</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
     <span class="n">all_cells</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">ALL_CELL_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
-        <span class="c1">#print(match)</span>
+        <span class="c1"># print(match)</span>
         <span class="n">cell</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="s2">&quot;xx&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;xy&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;xz&quot;</span><span class="p">]],</span>
             <span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="s2">&quot;yx&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;yy&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;yz&quot;</span><span class="p">]],</span>
@@ -424,6 +425,7 @@ document.write(`
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_cells</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span></div>
+
 
 <span class="n">ALL_MD_CELL_RE_V7</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -462,6 +464,7 @@ document.write(`
     <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span>
 <span class="p">)</span>
 
+
 <div class="viewcode-block" id="parse_all_md_cells"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.cells.html#cp2kdata.block_parser.cells.parse_all_md_cells">[docs]</a><span class="k">def</span> <span class="nf">parse_all_md_cells</span><span class="p">(</span><span class="n">output_file</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
                        <span class="n">cp2k_info</span><span class="p">:</span> <span class="n">Cp2kInfo</span><span class="p">,</span>
                        <span class="n">init_cell_info</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -484,9 +487,9 @@ document.write(`
     <span class="k">if</span> <span class="n">init_cell_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># for NPT_F parser, cell info is complete in MD| block</span>
         <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">ALL_MD_CELL_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
-            <span class="c1">#print(match)</span>
+            <span class="c1"># print(match)</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">],</span>
-                <span class="k">match</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;beta&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;gamma&quot;</span><span class="p">]]</span>
+                    <span class="k">match</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;beta&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;gamma&quot;</span><span class="p">]]</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
             <span class="c1"># convert bohr to angstrom</span>
             <span class="n">cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">au2A</span>
@@ -498,14 +501,13 @@ document.write(`
         <span class="n">init_cell_param</span> <span class="o">=</span> <span class="n">cell_to_cellpar</span><span class="p">(</span><span class="n">init_cell_info</span><span class="p">)</span>
         <span class="n">init_cell_angles</span> <span class="o">=</span> <span class="n">init_cell_param</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
         <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">ALL_MD_CELL_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
-            <span class="c1">#print(match)</span>
+            <span class="c1"># print(match)</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">],</span>
-                <span class="k">match</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;beta&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;gamma&quot;</span><span class="p">]]</span>
+                    <span class="k">match</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;beta&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;gamma&quot;</span><span class="p">]]</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
             <span class="n">cell</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="n">init_cell_angles</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="n">cellpar_to_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
             <span class="n">all_md_cells</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
-
 
     <span class="k">if</span> <span class="n">all_md_cells</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_md_cells</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>

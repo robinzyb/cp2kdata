@@ -387,11 +387,13 @@ document.write(`
 <span class="k">class</span> <span class="nc">Cp2kInfo</span><span class="p">:</span>
     <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
 
+
 <span class="n">CP2K_INFO_VERSION_PATTERN</span> <span class="o">=</span> \
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;(?xm)</span>
 <span class="sd">    ^\sCP2K\|\sversion\sstring:\s{10,42}</span>
 <span class="sd">    CP2K\sversion\s(?P&lt;version&gt;\d{1,4}\.\d)(?:\s\(Development\sVersion\))?$</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
 
 <div class="viewcode-block" id="parse_cp2k_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_cp2k_info">[docs]</a><span class="k">def</span> <span class="nf">parse_cp2k_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cp2kInfo</span><span class="p">:</span>
 
@@ -399,7 +401,7 @@ document.write(`
         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
         <span class="n">patterns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">CP2K_INFO_VERSION_PATTERN</span><span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">Cp2kInfo</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">cp2k_info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span></div>
 
@@ -408,6 +410,7 @@ document.write(`
 <span class="k">class</span> <span class="nc">GlobalInfo</span><span class="p">:</span>
     <span class="n">run_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">print_level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
+
 
 <span class="c1"># PATTERNS</span>
 <span class="n">GLOBAL_INFO_RUN_TYPE_PATTERN</span> <span class="o">=</span> \
@@ -419,6 +422,7 @@ document.write(`
 <span class="sd">    ^\sGLOBAL\|\sGlobal\sprint\slevel\s{42,}(?P&lt;print_level&gt;\w+)\n</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+
 <div class="viewcode-block" id="parse_global_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_global_info">[docs]</a><span class="k">def</span> <span class="nf">parse_global_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GlobalInfo</span><span class="p">:</span>
     <span class="n">global_info</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -428,7 +432,7 @@ document.write(`
                   <span class="s2">&quot;print_level&quot;</span><span class="p">:</span> <span class="n">GLOBAL_INFO_PRINT_LEVEL_PATTERN</span>
                   <span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">GlobalInfo</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="n">global_info</span><span class="p">[</span><span class="s2">&quot;run_type&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
                       <span class="n">print_level</span><span class="o">=</span><span class="n">global_info</span><span class="p">[</span><span class="s2">&quot;print_level&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -455,6 +459,7 @@ document.write(`
 <span class="sd">    ^\sDFT\|\sMultiplicity\s{57,}(\d{1,4})$</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+
 <div class="viewcode-block" id="parse_dft_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_dft_info">[docs]</a><span class="k">def</span> <span class="nf">parse_dft_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DFTInfo</span><span class="p">:</span>
     <span class="n">dft_info</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -465,7 +470,7 @@ document.write(`
             <span class="s2">&quot;multiplicity&quot;</span><span class="p">:</span> <span class="n">DFT_INFO_MULTIPLICITY_PATTERN</span>
         <span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">dft_info</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">DFTInfo</span><span class="p">(</span><span class="n">ks_type</span><span class="o">=</span><span class="n">dft_info</span><span class="p">[</span><span class="s2">&quot;ks_type&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">multiplicity</span><span class="o">=</span><span class="n">dft_info</span><span class="p">[</span><span class="s2">&quot;multiplicity&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
@@ -473,17 +478,17 @@ document.write(`
         <span class="k">return</span> <span class="kc">None</span></div>
 
 
-
-
 <div class="viewcode-block" id="MDInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.MDInfo">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">MDInfo</span><span class="p">:</span>
     <span class="n">ensemble_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
+
 
 <span class="c1"># PATTERNS</span>
 <span class="n">MD_INFO_ENSEMBLE_TYPE_PATTERN</span> <span class="o">=</span> \
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;(?xm)</span>
 <span class="sd">    ^\s(?:MD_PAR|MD)\|\sEnsemble\s(?:t|T)ype\s{39,60}(?P&lt;ensemble_type&gt;\w{3,16})</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
 
 <div class="viewcode-block" id="parse_md_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_md_info">[docs]</a><span class="k">def</span> <span class="nf">parse_md_info</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="n">md_info</span> <span class="o">=</span> <span class="p">{}</span>
@@ -494,7 +499,7 @@ document.write(`
             <span class="s2">&quot;ensemble_type&quot;</span><span class="p">:</span> <span class="n">MD_INFO_ENSEMBLE_TYPE_PATTERN</span>
         <span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">MDInfo</span><span class="p">(</span><span class="n">ensemble_type</span><span class="o">=</span><span class="n">md_info</span><span class="p">[</span><span class="s2">&quot;ensemble_type&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span></div>
 </pre></div>

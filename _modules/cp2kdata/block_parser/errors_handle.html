@@ -386,12 +386,11 @@ document.write(`
 <span class="p">)</span>
 
 
-
 <div class="viewcode-block" id="parse_errors"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.errors_handle.html#cp2kdata.block_parser.errors_handle.parse_errors">[docs]</a><span class="k">def</span> <span class="nf">parse_errors</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
     <span class="n">errors_info</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">EXCEED_WALL_TIME_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
-        <span class="c1">#print(match)</span>
+        <span class="c1"># print(match)</span>
         <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
             <span class="n">errors_info</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;exceed_wall_time&quot;</span><span class="p">:</span> <span class="kc">True</span>

@@ -420,10 +420,10 @@ document.write(`
     <span class="n">mulliken_pop_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="n">DFTInfo</span><span class="o">.</span><span class="n">ks_type</span> <span class="o">==</span> <span class="s1">&#39;UKS&#39;</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">MULLIKEN_UKS_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
-            <span class="c1">#print(match)</span>
+            <span class="c1"># print(match)</span>
             <span class="n">mulliken_pop</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">element</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">net_charge</span><span class="p">,</span> <span class="n">spin_moment</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">match</span><span class="o">.</span><span class="n">captures</span><span class="p">(</span><span class="s2">&quot;element&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span><span class="p">,</span> <span class="s2">&quot;net_charge&quot;</span><span class="p">,</span> <span class="s2">&quot;spin_moment&quot;</span><span class="p">)):</span>
-                <span class="c1">#print(match.captures(&quot;element&quot;, &quot;alpha&quot;, &quot;beta&quot;, &quot;net_charge&quot;, &quot;spin_moment&quot;))</span>
+                <span class="c1"># print(match.captures(&quot;element&quot;, &quot;alpha&quot;, &quot;beta&quot;, &quot;net_charge&quot;, &quot;spin_moment&quot;))</span>
                 <span class="n">mulliken_pop</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="p">{</span>
                         <span class="s2">&quot;element&quot;</span><span class="p">:</span> <span class="n">element</span><span class="p">,</span>
@@ -435,7 +435,8 @@ document.write(`
                 <span class="p">)</span>
             <span class="n">mulliken_pop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mulliken_pop</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">DFTInfo</span><span class="o">.</span><span class="n">ks_type</span> <span class="o">==</span> <span class="s2">&quot;RKS&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;RKS Mulliken population analysis not implemented&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;RKS Mulliken population analysis not implemented&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">MULLIKEN_RKS_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
             <span class="n">mulliken_pop</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">element</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">net_charge</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">match</span><span class="o">.</span><span class="n">captures</span><span class="p">(</span><span class="s2">&quot;element&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">,</span> <span class="s2">&quot;net_charge&quot;</span><span class="p">)):</span>
@@ -448,8 +449,8 @@ document.write(`
                 <span class="p">)</span>
             <span class="n">mulliken_pop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mulliken_pop</span><span class="p">)</span>
 
-    <span class="k">if</span>  <span class="n">mulliken_pop_list</span><span class="p">:</span>
-        <span class="k">return</span>  <span class="n">mulliken_pop_list</span>
+    <span class="k">if</span> <span class="n">mulliken_pop_list</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">mulliken_pop_list</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 </pre></div>

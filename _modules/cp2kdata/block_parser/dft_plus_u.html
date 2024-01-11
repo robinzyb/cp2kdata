@@ -404,6 +404,8 @@ document.write(`
 <span class="c1">#        \s+(?P&lt;spin_moment&gt;[\s-]\d+\.\d+)</span>
 <span class="c1">#        \n</span>
 <span class="c1">#    )+</span>
+
+
 <div class="viewcode-block" id="parse_dft_plus_u_occ"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.dft_plus_u.html#cp2kdata.block_parser.dft_plus_u.parse_dft_plus_u_occ">[docs]</a><span class="k">def</span> <span class="nf">parse_dft_plus_u_occ</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
     <span class="n">dft_plus_u_occ</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">PLUS_U_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
@@ -419,7 +421,7 @@ document.write(`
 <span class="c1">#                    &quot;spin_moment&quot;: float(spin_moment)</span>
 <span class="c1">#                }</span>
 <span class="c1">#            )</span>
-    <span class="k">if</span>  <span class="n">dft_plus_u_occ</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">dft_plus_u_occ</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dft_plus_u_occ</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span></div>
