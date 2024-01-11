@@ -235,11 +235,7 @@ class Cp2kCube(MSONable):
         return deepcopy(self)
 
     def get_pav(self, axis='z', interpolate=False):
-        np.testing.assert_array_equal(
-            self.cell.get_cell_angles(),
-            np.array([90.0, 90.0, 90.0]),
-            err_msg="The cell is not orthorhombic, the pav can not be used!"
-        )
+
 
         # do the planar average along specific axis
         lengths = self.cell.get_cell_lengths()
@@ -249,14 +245,35 @@ class Cp2kCube(MSONable):
             vals = self.cube_vals.mean(axis=(1, 2))
             points = np.arange(0, grid_point[0])*gs_matrix[0][0]
             length = lengths[0]
+
+            np.testing.assert_array_equal(
+                self.cell.get_cell_angles()[[1,2]],
+                np.array([90.0, 90.0]),
+                err_msg=f"The axis x is not perpendicular to yz plane, the pav can not be used!"
+            )
+
         elif axis == 'y':
             vals = self.cube_vals.mean(axis=(0, 2))
             points = np.arange(0, grid_point[1])*gs_matrix[1][1]
             length = lengths[1]
+
+            np.testing.assert_array_equal(
+                self.cell.get_cell_angles()[[0, 2]],
+                np.array([90.0, 90.0]),
+                err_msg=f"The axis y is not perpendicular to xz plane, the pav can not be used!"
+            )
+
         elif axis == 'z':
             vals = self.cube_vals.mean(axis=(0, 1))
             points = np.arange(0, grid_point[2])*gs_matrix[2][2]
             length = lengths[2]
+
+            np.testing.assert_array_equal(
+                self.cell.get_cell_angles()[[0,1]],
+                np.array([90.0, 90.0]),
+                err_msg=f"The axis z is not perpendicular to xy plane, the pav can not be used!"
+            )
+
         else:
             print("not such plane average style, the avaialble options are 'x', 'y', 'z'")
 
