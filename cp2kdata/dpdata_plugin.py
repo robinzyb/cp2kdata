@@ -12,6 +12,11 @@ EV_ANG_m3_TO_GPa = PressureConversion("eV/angstrom^3", "GPa").value()
 
 
 WRAPPER = "--- You are parsing data using package Cp2kData ---"
+VIRIAL_WRN = (
+    "Virial Parsing using cp2kdata as plug in for dpdata\n"
+    "was not multiplied by volume before cp2kdata v0.6.4\n"
+    "please check the cp2kdata version and the virial.npy\n"
+    )
 
 
 @Format.register("cp2k/output")
@@ -55,7 +60,10 @@ class CP2KEnergyForceFormat(Format):
         data['coords'] = cp2k_e_f.init_atomic_coordinates[np.newaxis, :, :]
         data['forces'] = cp2k_e_f.atomic_forces_list * AU_TO_EV/AU_TO_ANG
         if cp2k_e_f.has_stress():
-            data['virials'] = cp2k_e_f.stress_tensor_list/EV_ANG_m3_TO_GPa
+            # note that virial = stress * volume
+            print(VIRIAL_WRN)
+            volume = np.linalg.det(data['cells'][0])
+            data['virials'] = cp2k_e_f.stress_tensor_list*volume/EV_ANG_m3_TO_GPa
 
         print(WRAPPER)
         return data
@@ -116,7 +124,13 @@ class CP2KMDFormat(Format):
         data['coords'] = cp2kmd.atomic_frames_list
         data['forces'] = cp2kmd.atomic_forces_list * AU_TO_EV/AU_TO_ANG
         if cp2kmd.has_stress():
-            data['virials'] = cp2kmd.stress_tensor_list/EV_ANG_m3_TO_GPa
+            # note that virial = stress * volume
+            print(VIRIAL_WRN)
+            # the shape of cells should be (num_frames, 3, 3)
+            # the np.linalg.det() function can handle this and return (num_frames,)
+            volumes = np.linalg.det(data['cells'])
+            volumes = volumes[:, np.newaxis, np.newaxis]
+            data['virials'] = cp2kmd.stress_tensor_list*volumes/EV_ANG_m3_TO_GPa
 
         print(WRAPPER)
         return data

@@ -397,7 +397,7 @@ class Cp2kOutput:
                 "\n"
                 "cp2kdata is parsing md cell information from output file.\n"
                 "The raw data of cell information are lengths and angles,\n"
-                "which are latter transformed to cell matrices by codes.\n"
+                "which are later transformed to cell matrices by codes.\n"
                 "However, the a axis of the cell are always assumed to be aligned to "
                 "the x axis of the coordinate.\n"
                 "Make sure the a axis in real cell matrices are always aligned to x axis.\n"
