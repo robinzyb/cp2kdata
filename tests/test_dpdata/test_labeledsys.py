@@ -18,6 +18,7 @@ aimd_output_path_list = [
     "tests/test_dpdata/v7.1/aimd_npt_f",
     "tests/test_dpdata/v9.1/xTBmd_npt_i",
     "tests/test_dpdata/v2022.1/aimd",
+    "tests/test_dpdata/v2022.2/aimd_npt_i",
     "tests/test_dpdata/v2023.1/aimd_nvt",
     "tests/test_dpdata/v2023.1/aimd_npt_f"
 ]
@@ -64,7 +65,7 @@ test_params = list(
 def cp2k_and_ref(request):
     return request.param
 
-
+#@pytest.mark.parametrize(id=(e_f_output_path_list+aimd_output_path_list))
 class TestLabeledSys():
     def test_len_func(self, cp2k_and_ref):
         assert len(cp2k_and_ref[0]) == len(cp2k_and_ref[1])
@@ -126,9 +127,13 @@ class TestLabeledSys():
             )
 
     def test_virial(self, cp2k_and_ref):
-        if not 'virials' in cp2k_and_ref[0]:
-            assert False == ('virials' in cp2k_and_ref[1])
+        print(cp2k_and_ref[0])
+        print(cp2k_and_ref[0].has_virial())
+        if not cp2k_and_ref[0].has_virial():
+            
+            assert False == (cp2k_and_ref[1].has_virial())
             return
+        print("if code works ok")
         np.testing.assert_almost_equal(
             cp2k_and_ref[0]['virials'],
             cp2k_and_ref[1]['virials'],

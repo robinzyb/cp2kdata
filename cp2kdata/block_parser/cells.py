@@ -95,7 +95,7 @@ def parse_all_md_cells(output_file: List[str],
     # notice that the cell of step 0 is excluded from MD| block
 
     # choose parser according to cp2k_info.version
-    if cp2k_info.version in ['2023.1']:
+    if cp2k_info.version in ['2022.2', '2023.1']:
         ALL_MD_CELL_RE = ALL_MD_CELL_RE_V2023
     elif cp2k_info.version in ['7.1']:
         ALL_MD_CELL_RE = ALL_MD_CELL_RE_V7
