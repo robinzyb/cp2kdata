@@ -49,7 +49,7 @@ Currently, `CP2KData` supports two formats for use with `dpdata`:
    @SET frequency 100
    &FORCE_EVAL
       # if stress tensor is not need to computed, comment out the below line.
-      STRESS_TENSOR ANALYTICAL d
+      STRESS_TENSOR ANALYTICAL 
       &PRINT
          # if stress tensor is not need to computed, comment out the below line
          &STRESS_TENSOR ON
