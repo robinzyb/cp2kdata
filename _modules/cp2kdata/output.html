@@ -761,7 +761,15 @@ document.write(`
         <span class="n">stress_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*.stress&quot;</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">stress_file_list</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="n">parse_md_stress</span><span class="p">(</span><span class="n">stress_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;cp2kdata found a stress file: </span><span class="si">{</span><span class="n">stress_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;But the parser for stress is not supported yet&quot;</span>
+                <span class="p">)</span>
+            <span class="c1">#TODO: the unit of stress is bar in -1.stress file, but not GPa in the output file</span>
+            <span class="c1">#TODO: however, covert bar to GPa is not consistent with the output file!</span>
+            <span class="c1">#TODO: check this latter</span>
+            <span class="c1">#self.stress_tensor_list = parse_md_stress(stress_file_list[0])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Parsing Stress from the CP2K output/log file: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
