@@ -382,7 +382,15 @@ class Cp2kOutput:
         stress_file_list = glob.glob(
             os.path.join(self.path_prefix, "*.stress"))
         if stress_file_list:
-            self.stress_tensor_list = parse_md_stress(stress_file_list[0])
+            print(
+                f"cp2kdata found a stress file: {stress_file_list[0]}"
+                "But the parser for stress is not supported yet"
+                )
+            #TODO: the unit of stress is bar in -1.stress file, but not GPa in the output file
+            #TODO: however, covert bar to GPa is not consistent with the output file!
+            #TODO: check this latter
+            #self.stress_tensor_list = parse_md_stress(stress_file_list[0])
+            self.stress_tensor_list = None
         else:
             print(
                 f"Parsing Stress from the CP2K output/log file: {self.filename}")
