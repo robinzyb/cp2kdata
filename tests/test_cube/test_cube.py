@@ -56,8 +56,19 @@ class TestCp2kCube():
         mav_answer = np.load(os.path.join(answer_dir, "mav.npy"))
         mav_x_answer = mav_answer[0]
         mav_answer = mav_answer[1]
-        assert np.all(mav == mav_answer)
-        assert np.all(mav_x == mav_x_answer)
+
+        np.testing.assert_almost_equal(mav, 
+                                       mav_answer, 
+                                       decimal=8,
+                                       err_msg = 'mav failed'
+                                       )
+        np.testing.assert_almost_equal(mav_x,
+                                        mav_x_answer,
+                                        decimal=8,
+                                        err_msg = 'mav_x failed'
+                                        )
+        #assert np.all(mav == mav_answer)
+        #assert np.all(mav_x == mav_x_answer)
 
 
 

@@ -127,6 +127,9 @@ def parse_all_md_cells(output_file: List[str],
                     match["alpha"], match["beta"], match["gamma"]]
             cell = np.array(cell, dtype=float)
             cell[3:] = init_cell_angles
+            # convert bohr to angstrom
+            cell[:3] = cell[:3] * au2A
+            # make sure cell length are in angstrom and cell angles are in degree before sent to cellpar_to_cell
             cell = cellpar_to_cell(cell)
             all_md_cells.append(cell)
 
