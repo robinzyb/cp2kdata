@@ -506,6 +506,9 @@ document.write(`
                     <span class="k">match</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;beta&quot;</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;gamma&quot;</span><span class="p">]]</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
             <span class="n">cell</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="n">init_cell_angles</span>
+            <span class="c1"># convert bohr to angstrom</span>
+            <span class="n">cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">au2A</span>
+            <span class="c1"># make sure cell length are in angstrom and cell angles are in degree before sent to cellpar_to_cell</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="n">cellpar_to_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
             <span class="n">all_md_cells</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
 
