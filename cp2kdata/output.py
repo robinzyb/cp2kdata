@@ -26,9 +26,17 @@ from cp2kdata.block_parser.md_xyz import parse_md_ener, parse_pos_xyz, parse_frc
 class Cp2kOutput:
     """Class for parsing cp2k output"""
 
-    def __init__(self, output_file=None, run_type: str = None, path_prefix=".", **kwargs):
+    def __init__(
+            self,
+            output_file: str=None,
+            run_type: str=None,
+            path_prefix: str=".",
+            restart: bool=None,
+            **kwargs
+            ):
+
         # --set some basic information
-        self.required_information = kwargs
+        #self.required_information = kwargs
         self.path_prefix = path_prefix
 
         if output_file is None:
@@ -83,6 +91,11 @@ class Cp2kOutput:
             self.dft_info = parse_dft_info(self.filename)
         else:
             self.cp2k_info = Cp2kInfo(version="Unknown")
+
+        # overwrite the restart if users provide restart information
+        # restart should be true or false
+        if restart is not None:
+            self.cp2k_info.restart = restart
 
         self.check_run_type(run_type=self.global_info.run_type)
 
@@ -368,6 +381,10 @@ class Cp2kOutput:
 
             if not hasattr(self, "energies_list"):
                 self.energies_list = energies_list_from_pos
+        else:
+            # if no pos file and ener file, parse energies from the output file
+            format_logger(info="Energies", filename=self.filename)
+            self.energies_list = parse_energies_list(self.output_file)
 
         frc_xyz_file_list = glob.glob(
             os.path.join(self.path_prefix, "*frc*.xyz"))
