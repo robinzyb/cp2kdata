@@ -1,6 +1,7 @@
 # from monty.io import zopen
 import regex as re
 import numpy as np
+from cp2kdata.utils import format_logger
 ENERGY_RE = re.compile(
     r"""(?x)
     \sE\s=\s+(?P<energy>[\s-]\d+\.\d+)
@@ -8,14 +9,17 @@ ENERGY_RE = re.compile(
 )
 
 
+
 def parse_md_ener(ener_file):
-    print(f"Parsing Energies from {ener_file}")
+    format_logger(info="Energies", filename=ener_file)
+    #print(f"Parsing Energies from {ener_file}")
     energies_list = np.loadtxt(ener_file, usecols=4, ndmin=1, dtype=np.float64)
     return energies_list
 
 
 def parse_pos_xyz(posxyz_file):
-    print(f"Parsing Structures from {posxyz_file}")
+    format_logger(info="Structures", filename=posxyz_file)
+    #print(f"Parsing Structures from {posxyz_file}")
     fp = open(posxyz_file, "r")
     lines = fp.readlines()
     energies_list = []
@@ -39,7 +43,8 @@ def parse_pos_xyz(posxyz_file):
 
 
 def parse_frc_xyz(frcxyz_file):
-    print(f"Parsing Froces from {frcxyz_file}")
+    format_logger(info="Forces", filename=frcxyz_file)
+    #print(f"Parsing Froces from {frcxyz_file}")
     fp = open(frcxyz_file, "r")
     lines = fp.readlines()
     force_list = []
@@ -62,7 +67,8 @@ def parse_frc_xyz(frcxyz_file):
 
 
 def parse_pos_xyz_from_wannier(wannier_xyz_fiel):
-    print(f"Parsing Structures from {wannier_xyz_fiel}")
+    #
+    #print(f"Parsing Structures from {wannier_xyz_fiel}")
     fp = open(wannier_xyz_fiel, "r")
     lines = fp.readlines()
     force_list = []
@@ -85,7 +91,8 @@ def parse_pos_xyz_from_wannier(wannier_xyz_fiel):
 
 
 def parse_md_stress(stress_file):
-    print(f"Parsing Stresses from {stress_file}")
+    format_logger(info="Stresses", filename=stress_file)
+    #print(f"Parsing Stresses from {stress_file}")
     stresses_list = np.loadtxt(
         stress_file,
         usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10),
@@ -99,7 +106,8 @@ def parse_md_stress(stress_file):
 
 
 def parse_md_cell(cell_file):
-    print(f"Parsing Cells from {cell_file}")
+    format_logger(info="Cells", filename=cell_file)
+    #print(f"Parsing Cells from {cell_file}")
     cells_list = np.loadtxt(
         cell_file,
         usecols=(2, 3, 4, 5, 6, 7, 8, 9, 10),
