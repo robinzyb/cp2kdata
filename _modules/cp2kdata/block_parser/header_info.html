@@ -385,7 +385,8 @@ document.write(`
 
 <div class="viewcode-block" id="Cp2kInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.Cp2kInfo">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">Cp2kInfo</span><span class="p">:</span>
-    <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
+    <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">restart</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 
 <span class="n">CP2K_INFO_VERSION_PATTERN</span> <span class="o">=</span> \
@@ -394,17 +395,34 @@ document.write(`
 <span class="sd">    CP2K\sversion\s(?P&lt;version&gt;\d{1,4}\.\d)(?:\s\(Development\sVersion\))?$</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="n">CP2K_INFO_RESTART_PATTERN</span> <span class="o">=</span> \
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;(?xm)</span>
+<span class="sd">    ^\s\*\s{28}RESTART\sINFORMATION\s{30}\*$</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="parse_cp2k_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_cp2k_info">[docs]</a><span class="k">def</span> <span class="nf">parse_cp2k_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cp2kInfo</span><span class="p">:</span>
 
     <span class="n">cp2k_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-        <span class="n">patterns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">CP2K_INFO_VERSION_PATTERN</span><span class="p">},</span>
+        <span class="n">patterns</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">CP2K_INFO_VERSION_PATTERN</span><span class="p">,</span>
+            <span class="s2">&quot;restart&quot;</span><span class="p">:</span> <span class="n">CP2K_INFO_RESTART_PATTERN</span>
+            <span class="p">},</span>
         <span class="n">terminate_on_match</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">Cp2kInfo</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">cp2k_info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span></div>
+    <span class="n">num_match_restart</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cp2k_info</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">num_match_restart</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;More than one restart information found in </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">num_match_restart</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cp2k_restart</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">num_match_restart</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">cp2k_restart</span> <span class="o">=</span> <span class="kc">False</span>
 
+    <span class="k">return</span> <span class="n">Cp2kInfo</span><span class="p">(</span>
+        <span class="n">version</span><span class="o">=</span><span class="n">cp2k_info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">restart</span><span class="o">=</span><span class="n">cp2k_restart</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="GlobalInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">GlobalInfo</span><span class="p">:</span>

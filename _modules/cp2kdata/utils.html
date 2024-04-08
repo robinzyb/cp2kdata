@@ -383,7 +383,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">turtle</span> <span class="kn">import</span> <span class="n">pos</span>
 <span class="kn">from</span> <span class="nn">ase.geometry.analysis</span> <span class="kn">import</span> <span class="n">Analysis</span>
 <span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span><span class="p">,</span> <span class="n">write</span>
-<span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kOutput</span>
+<span class="c1">#from cp2kdata import Cp2kOutput</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
@@ -454,6 +454,8 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--&gt; CP2KDATA: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span></div>
 
+<div class="viewcode-block" id="format_logger"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.format_logger">[docs]</a><span class="k">def</span> <span class="nf">format_logger</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsing </span><span class="si">{</span><span class="n">info</span><span class="si">:</span><span class="s2">10</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="file_content"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.file_content">[docs]</a><span class="k">def</span> <span class="nf">file_content</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
     <span class="c1"># read a specific line of file or return the block</span>
@@ -490,13 +492,13 @@ document.write(`
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The length of range is wrong!&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_opt_cell_stc"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.get_opt_cell_stc">[docs]</a><span class="k">def</span> <span class="nf">get_opt_cell_stc</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="n">pos_file</span><span class="p">):</span>
-    <span class="n">op</span> <span class="o">=</span> <span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
-    <span class="n">opt_cell</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">get_all_cells</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">opt_pos</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">pos_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;-1&quot;</span><span class="p">)</span>
-    <span class="n">opt_pos</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="n">opt_cell</span><span class="p">)</span>
-    <span class="n">opt_pos</span><span class="o">.</span><span class="n">set_pbc</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">write</span><span class="p">(</span><span class="s2">&quot;opt_stc.cif&quot;</span><span class="p">,</span> <span class="n">opt_pos</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;cif&quot;</span><span class="p">)</span></div>
+<span class="c1"># def get_opt_cell_stc(output_file, pos_file):</span>
+<span class="c1">#     op = Cp2kOutput(output_file)</span>
+<span class="c1">#     opt_cell = op.get_all_cells()[-1]</span>
+<span class="c1">#     opt_pos = read(pos_file, index=&quot;-1&quot;)</span>
+<span class="c1">#     opt_pos.set_cell(opt_cell)</span>
+<span class="c1">#     opt_pos.set_pbc(True)</span>
+<span class="c1">#     write(&quot;opt_stc.cif&quot;, opt_pos, format=&quot;cif&quot;)</span>
 </pre></div>
 
                 </article>
