@@ -4,7 +4,7 @@ this script put misc function here.
 from turtle import pos
 from ase.geometry.analysis import Analysis
 from ase.io import read, write
-from cp2kdata import Cp2kOutput
+#from cp2kdata import Cp2kOutput
 import numpy as np
 import os
 import shutil
@@ -75,6 +75,8 @@ def printtbox(arg):
     """
     print("--> CP2KDATA: {0}".format(arg))
 
+def format_logger(info, filename):
+    print(f"Parsing {info:10} from {filename}")
 
 def file_content(file, num):
     # read a specific line of file or return the block
@@ -111,10 +113,10 @@ def file_content(file, num):
             raise ValueError("The length of range is wrong!")
 
 
-def get_opt_cell_stc(output_file, pos_file):
-    op = Cp2kOutput(output_file)
-    opt_cell = op.get_all_cells()[-1]
-    opt_pos = read(pos_file, index="-1")
-    opt_pos.set_cell(opt_cell)
-    opt_pos.set_pbc(True)
-    write("opt_stc.cif", opt_pos, format="cif")
+# def get_opt_cell_stc(output_file, pos_file):
+#     op = Cp2kOutput(output_file)
+#     opt_cell = op.get_all_cells()[-1]
+#     opt_pos = read(pos_file, index="-1")
+#     opt_pos.set_cell(opt_cell)
+#     opt_pos.set_pbc(True)
+#     write("opt_stc.cif", opt_pos, format="cif")

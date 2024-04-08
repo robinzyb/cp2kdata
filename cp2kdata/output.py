@@ -7,7 +7,7 @@ from functools import cached_property
 from .plots.geo_opt_plot import geo_opt_info_plot
 from .block_parser.header_info import GlobalInfo, Cp2kInfo, DFTInfo
 
-
+from cp2kdata.utils import format_logger
 from cp2kdata.block_parser.dft_plus_u import parse_dft_plus_u_occ
 from cp2kdata.block_parser.forces import parse_atomic_forces_list
 from cp2kdata.block_parser.geo_opt import parse_geo_opt_info
@@ -26,9 +26,17 @@ from cp2kdata.block_parser.md_xyz import parse_md_ener, parse_pos_xyz, parse_frc
 class Cp2kOutput:
     """Class for parsing cp2k output"""
 
-    def __init__(self, output_file=None, run_type: str = None, path_prefix=".", **kwargs):
+    def __init__(
+            self,
+            output_file: str=None,
+            run_type: str=None,
+            path_prefix: str=".",
+            restart: bool=None,
+            **kwargs
+            ):
+
         # --set some basic information
-        self.required_information = kwargs
+        #self.required_information = kwargs
         self.path_prefix = path_prefix
 
         if output_file is None:
@@ -83,6 +91,11 @@ class Cp2kOutput:
             self.dft_info = parse_dft_info(self.filename)
         else:
             self.cp2k_info = Cp2kInfo(version="Unknown")
+
+        # overwrite the restart if users provide restart information
+        # restart should be true or false
+        if restart is not None:
+            self.cp2k_info.restart = restart
 
         self.check_run_type(run_type=self.global_info.run_type)
 
@@ -368,14 +381,17 @@ class Cp2kOutput:
 
             if not hasattr(self, "energies_list"):
                 self.energies_list = energies_list_from_pos
+        else:
+            # if no pos file and ener file, parse energies from the output file
+            format_logger(info="Energies", filename=self.filename)
+            self.energies_list = parse_energies_list(self.output_file)
 
         frc_xyz_file_list = glob.glob(
             os.path.join(self.path_prefix, "*frc*.xyz"))
         if frc_xyz_file_list:
             self.atomic_forces_list = parse_frc_xyz(frc_xyz_file_list[0])
         else:
-            print(
-                f"Parsing Forces from the CP2K output/log file: {self.filename}")
+            format_logger(info="Forces", filename=self.filename)
             self.atomic_forces_list = parse_atomic_forces_list(
                 self.output_file)
 
@@ -383,8 +399,8 @@ class Cp2kOutput:
             os.path.join(self.path_prefix, "*.stress"))
         if stress_file_list:
             print(
-                f"cp2kdata found a stress file: {stress_file_list[0]}"
-                "But the parser for stress is not supported yet"
+                f"cp2kdata found a file recording stresses: {stress_file_list[0]}"
+                f"But the parser for {stress_file_list[0]} is not supported yet"
                 )
             #TODO: the unit of stress is bar in -1.stress file, but not GPa in the output file
             #TODO: however, covert bar to GPa is not consistent with the output file!
@@ -392,8 +408,7 @@ class Cp2kOutput:
             #self.stress_tensor_list = parse_md_stress(stress_file_list[0])
             self.stress_tensor_list = None
         else:
-            print(
-                f"Parsing Stress from the CP2K output/log file: {self.filename}")
+            format_logger(info="Stresses", filename=self.filename)
             self.stress_tensor_list = parse_stress_tensor_list(
                 self.output_file)
 
@@ -411,7 +426,7 @@ class Cp2kOutput:
                 "Make sure the a axis in real cell matrices are always aligned to x axis.\n"
                 "Otherwise, parsing cell information from `-1.cell` file is recommended.\n"
 
-                "CP2K input setting\n"
+                "CP2K input setup for write `-1.cell` file\n"
                 "------------------\n"
                 "&MOTION\n"
                 " &PRINT\n"
@@ -435,7 +450,7 @@ class Cp2kOutput:
             if cell_file_list:
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
-                print(f"Parsing Cells Information from {self.filename}")
+                format_logger(info="Cells", filename=self.filename)
                 print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
                 # parse the first cell
                 first_cell = parse_all_cells(self.output_file)
@@ -449,7 +464,7 @@ class Cp2kOutput:
                 # all cells include initial cell
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
-                print(f"Parsing Cells Information from {self.filename}")
+                format_logger(info="Cells", filename=self.filename)
                 print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
                 # only parse the first cell
                 first_cell = parse_all_cells(self.output_file)
@@ -465,7 +480,7 @@ class Cp2kOutput:
             if cell_file_list:
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
-                print(f"Parsing Cells Information from {self.filename}")
+                format_logger(info="Cells", filename=self.filename)
                 print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
                 # only parse the first cell
                 first_cell = parse_all_cells(self.output_file)

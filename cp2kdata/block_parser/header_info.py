@@ -7,6 +7,7 @@ from monty.re import regrep
 @dataclass
 class Cp2kInfo:
     version: str = None
+    restart: bool = None
 
 
 CP2K_INFO_VERSION_PATTERN = \
@@ -15,17 +16,34 @@ CP2K_INFO_VERSION_PATTERN = \
     CP2K\sversion\s(?P<version>\d{1,4}\.\d)(?:\s\(Development\sVersion\))?$
     """
 
+CP2K_INFO_RESTART_PATTERN = \
+    r"""(?xm)
+    ^\s\*\s{28}RESTART\sINFORMATION\s{30}\*$
+    """
 
 def parse_cp2k_info(filename) -> Cp2kInfo:
 
     cp2k_info = regrep(
         filename=filename,
-        patterns={"version": CP2K_INFO_VERSION_PATTERN},
+        patterns={
+            "version": CP2K_INFO_VERSION_PATTERN,
+            "restart": CP2K_INFO_RESTART_PATTERN
+            },
         terminate_on_match=True
     )
 
-    return Cp2kInfo(version=cp2k_info["version"][0][0][0])
+    num_match_restart = len(cp2k_info['restart'])
+    if num_match_restart > 1:
+        raise ValueError(f"More than one restart information found in {filename}")
+    elif num_match_restart == 1:
+        cp2k_restart = True
+    elif num_match_restart == 0:
+        cp2k_restart = False
 
+    return Cp2kInfo(
+        version=cp2k_info["version"][0][0][0],
+        restart=cp2k_restart
+        )
 
 @dataclass
 class GlobalInfo:
