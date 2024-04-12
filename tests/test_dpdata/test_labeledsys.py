@@ -62,7 +62,7 @@ test_params = list(
     )
 
 # test case
-@pytest.fixture(params=test_params, scope='class')
+@pytest.fixture(params=test_params, scope='class', ids=e_f_output_path_list+aimd_output_path_list)
 def cp2k_and_ref(request):
     return request.param
 

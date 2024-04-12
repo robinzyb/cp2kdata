@@ -59,7 +59,7 @@ parsed_values = [pdos_name_parser(pdos_file) for pdos_file in pdos_file_list]
 
 test_params = list(zip(parsed_values, test_answer))
 
-@pytest.fixture(params=test_params, scope='class')
+@pytest.fixture(params=test_params, scope='class', ids=pdos_file_list)
 def output_and_answer(request):
     return request.param
 
