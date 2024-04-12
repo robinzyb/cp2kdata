@@ -431,6 +431,7 @@ document.write(`
 <h1>CP2KData Plugin for dpdata<a class="headerlink" href="#cp2kdata-plugin-for-dpdata" title="Permalink to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">CP2KData</span></code> supports a plugin for <code class="docutils literal notranslate"><span class="pre">dpdata</span></code>. When you install <code class="docutils literal notranslate"><span class="pre">CP2KData</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code>, the plugin for <code class="docutils literal notranslate"><span class="pre">dpdata</span></code> is automatically installed as well.</p>
 <p>For instructions on how to use <code class="docutils literal notranslate"><span class="pre">dpdata</span></code>, please refer to the official repository: <a class="github reference external" href="https://github.com/deepmodeling/dpdata">deepmodeling/dpdata</a>.</p>
+<p>In the following, we provide two exmples that demonstrate how to use <code class="docutils literal notranslate"><span class="pre">Cp2kData</span></code> with <code class="docutils literal notranslate"><span class="pre">dpdata</span></code> to parse data from CP2K simulations in specified formats.</p>
 <p>Currently, <code class="docutils literal notranslate"><span class="pre">CP2KData</span></code> supports two formats for use with <code class="docutils literal notranslate"><span class="pre">dpdata</span></code>:</p>
 <ol class="arabic">
 <li><p><code class="docutils literal notranslate"><span class="pre">cp2kdata/e_f</span></code> format for parsing <code class="docutils literal notranslate"><span class="pre">ENERGY_FORCE</span></code> outputs.</p>
@@ -515,9 +516,48 @@ document.write(`
 <span class="p">&amp;</span>END<span class="w"> </span>MOTION
 </pre></div>
 </div>
+<p>In some cases, cp2k md simulations are restarted from <code class="docutils literal notranslate"><span class="pre">-1.restart</span></code> file in which the initial structure will not be evaluated again.
+Therefore, the initial cell information should not be parsed again. Otherwise, the number of frames for cells is inconsistent with those for <code class="docutils literal notranslate"><span class="pre">poses</span></code>, <code class="docutils literal notranslate"><span class="pre">forces</span></code>, and <code class="docutils literal notranslate"><span class="pre">energies</span></code>.
+Cp2kdata can automatically check whether the simulations are restarted or not through the header information of output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">*******************************************************************************</span>
+ <span class="o">*</span>                            <span class="n">RESTART</span> <span class="n">INFORMATION</span>                              <span class="o">*</span>
+ <span class="o">*******************************************************************************</span>
+ <span class="o">*</span>                                                                             <span class="o">*</span>
+ <span class="o">*</span>    <span class="n">RESTART</span> <span class="n">FILE</span> <span class="n">NAME</span><span class="p">:</span> <span class="n">bivo4</span><span class="o">-</span><span class="n">water</span><span class="o">-</span><span class="mf">1.</span><span class="n">restart</span>                                 <span class="o">*</span>
+ <span class="o">*</span>                                                                             <span class="o">*</span>
+ <span class="o">*</span> <span class="n">RESTARTED</span> <span class="n">QUANTITIES</span><span class="p">:</span>                                                       <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">CELL</span>                                                  <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">COORDINATES</span>                                           <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">RANDOM</span> <span class="n">NUMBER</span> <span class="n">GENERATOR</span>                               <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">VELOCITIES</span>                                            <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">MD</span> <span class="n">COUNTERS</span>                                           <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">MD</span> <span class="n">AVERAGES</span>                                           <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">PARTICLE</span> <span class="n">THERMOSTAT</span>                                   <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">REAL</span> <span class="n">TIME</span> <span class="n">PROPAGATION</span>                                 <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">PINT</span> <span class="n">BEAD</span> <span class="n">POSITIONS</span>                                   <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">PINT</span> <span class="n">BEAD</span> <span class="n">VELOCITIES</span>                                  <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">PINT</span> <span class="n">NOSE</span> <span class="n">THERMOSTAT</span>                                  <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">PINT</span> <span class="n">GLE</span> <span class="n">THERMOSTAT</span>                                   <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">HELIUM</span> <span class="n">BEAD</span> <span class="n">POSITIONS</span>                                 <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">HELIUM</span> <span class="n">PERMUTATION</span> <span class="n">STATE</span>                              <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">HELIUM</span> <span class="n">FORCES</span> <span class="n">ON</span> <span class="n">SOLUTE</span>                               <span class="o">*</span>
+ <span class="o">*</span>                       <span class="n">HELIUM</span> <span class="n">RNG</span> <span class="n">STATE</span>                                      <span class="o">*</span>
+ <span class="o">*******************************************************************************</span>
+</pre></div>
+</div>
+<p>if the simulations are restarted using:</p>
+<div class="highlight-cp2k notranslate"><div class="highlight"><pre><span></span>&amp;EXT_RESTART
+   RESTART_FILE_NAME Li-LiFSI-DME-1-2-1.restart
+&amp;END EXT_RESTART
+</pre></div>
+</div>
+<p>In case your restarted output doesn’t have the above header, you can explicitly tell the cp2kdata/dpdata by setting <code class="docutils literal notranslate"><span class="pre">restart=True</span></code>,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># restart = True in case the output doesn&#39;t contains header</span>
+<span class="n">dp</span> <span class="o">=</span> <span class="n">dpdata</span><span class="o">.</span><span class="n">LabeledSystem</span><span class="p">(</span><span class="n">cp2kmd_dir</span><span class="p">,</span> <span class="n">cp2k_output_name</span><span class="o">=</span><span class="n">cp2kmd_output_name</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;cp2kdata/md&quot;</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </li>
 </ol>
-<p>These examples demonstrate how to use <code class="docutils literal notranslate"><span class="pre">Cp2kData</span></code> with <code class="docutils literal notranslate"><span class="pre">dpdata</span></code> to parse and work with data from CP2K simulations in the specified formats.</p>
 </section>
 
     <script type="text/x-thebe-config">

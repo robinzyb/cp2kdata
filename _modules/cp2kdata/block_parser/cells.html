@@ -494,6 +494,7 @@ document.write(`
             <span class="c1"># convert bohr to angstrom</span>
             <span class="n">cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">au2A</span>
             <span class="c1"># make sure cell length are in angstrom and cell angles are in degree before sent to cellpar_to_cell</span>
+            <span class="c1">#TODO: replace this cellpar_to_cell with more accurate functions in the future</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="n">cellpar_to_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
             <span class="n">all_md_cells</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -509,6 +510,7 @@ document.write(`
             <span class="c1"># convert bohr to angstrom</span>
             <span class="n">cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">au2A</span>
             <span class="c1"># make sure cell length are in angstrom and cell angles are in degree before sent to cellpar_to_cell</span>
+            <span class="c1">#TODO: replace this cellpar_to_cell with more accurate functions in the future</span>
             <span class="n">cell</span> <span class="o">=</span> <span class="n">cellpar_to_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
             <span class="n">all_md_cells</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
 
