@@ -115,6 +115,7 @@ def parse_all_md_cells(output_file: List[str],
             # convert bohr to angstrom
             cell[:3] = cell[:3] * au2A
             # make sure cell length are in angstrom and cell angles are in degree before sent to cellpar_to_cell
+            #TODO: replace this cellpar_to_cell with more accurate functions in the future
             cell = cellpar_to_cell(cell)
             all_md_cells.append(cell)
     else:
@@ -130,6 +131,7 @@ def parse_all_md_cells(output_file: List[str],
             # convert bohr to angstrom
             cell[:3] = cell[:3] * au2A
             # make sure cell length are in angstrom and cell angles are in degree before sent to cellpar_to_cell
+            #TODO: replace this cellpar_to_cell with more accurate functions in the future
             cell = cellpar_to_cell(cell)
             all_md_cells.append(cell)
 

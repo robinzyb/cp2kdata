@@ -440,21 +440,21 @@ class Cp2kOutput:
                 "------------------\n"
             )
 
-        WARNING_MSG = "cp2kdata obtains more than one initial cell from the output file, \
-                    please check if your output file has duplicated header information."
 
         cell_file_list = glob.glob(os.path.join(self.path_prefix, "*.cell"))
         if (self.md_info.ensemble_type == "NVT") or \
             (self.md_info.ensemble_type == "NVE") or \
-                (self.md_info.ensemble_type == "REFTRAJ"):
+                (self.md_info.ensemble_type == "REFTRAJ"): # not ture REFTRAJ also contrains different cell?
             if cell_file_list:
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
                 format_logger(info="Cells", filename=self.filename)
                 print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
+
+                #self.organize_md_cell()
                 # parse the first cell
                 first_cell = parse_all_cells(self.output_file)
-                assert first_cell.shape == (1, 3, 3), WARNING_MSG
+                assert first_cell.shape == (1, 3, 3)
                 self.all_cells = first_cell
                 self.all_cells = np.repeat(
                     self.all_cells, repeats=self.num_frames, axis=0)
@@ -466,15 +466,8 @@ class Cp2kOutput:
             elif self.filename:
                 format_logger(info="Cells", filename=self.filename)
                 print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
-                # only parse the first cell
-                first_cell = parse_all_cells(self.output_file)
-                assert first_cell.shape == (1, 3, 3), WARNING_MSG
-                # parse the rest of the cells
-                self.all_cells = parse_all_md_cells(self.output_file,
-                                                    cp2k_info=self.cp2k_info)
-                # prepend the first cell
-                self.all_cells = np.insert(
-                    self.all_cells, 0, first_cell[0], axis=0)
+
+                self.organize_md_cell()
 
         elif (self.md_info.ensemble_type == "NPT_I"):
             if cell_file_list:
@@ -482,20 +475,30 @@ class Cp2kOutput:
             elif self.filename:
                 format_logger(info="Cells", filename=self.filename)
                 print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
-                # only parse the first cell
-                first_cell = parse_all_cells(self.output_file)
-                assert first_cell.shape == (1, 3, 3), WARNING_MSG
-                # parse the rest of the cells
-                self.all_cells = parse_all_md_cells(self.output_file,
-                                                    cp2k_info=self.cp2k_info,
-                                                    init_cell_info=first_cell[0])
-                # prepend the first cell
-                self.all_cells = np.insert(
-                    self.all_cells, 0, first_cell[0], axis=0)
+
+                self.organize_md_cell()
 
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
             self.output_file)
         self.atomic_kind = parse_atomic_kinds(self.output_file)
+
+    def organize_md_cell(self):
+        # whether reserve the first cell is determined by the restart
+
+        WARNING_MSG = "cp2kdata obtains more than one initial cell from the output file, \
+                    please check if your output file has duplicated header information."
+
+        # only parse the first cell
+        first_cell = parse_all_cells(self.output_file)
+        assert first_cell.shape == (1, 3, 3), WARNING_MSG
+        # parse the rest of the cells
+        self.all_cells = parse_all_md_cells(self.output_file,
+                                            cp2k_info=self.cp2k_info,
+                                            init_cell_info=first_cell[0])
+        # prepend the first cell
+        if self.cp2k_info.restart is not True:
+            self.all_cells = np.insert(
+                self.all_cells, 0, first_cell[0], axis=0)
 
     @staticmethod
     def get_global_info(run_type=None, filename=None):

@@ -4,6 +4,8 @@
 
 For instructions on how to use `dpdata`, please refer to the official repository: https://github.com/deepmodeling/dpdata.
 
+In the following, we provide two exmples that demonstrate how to use `Cp2kData` with `dpdata` to parse data from CP2K simulations in specified formats.
+
 Currently, `CP2KData` supports two formats for use with `dpdata`:
 
 1. `cp2kdata/e_f` format for parsing `ENERGY_FORCE` outputs.
@@ -93,4 +95,45 @@ Currently, `CP2KData` supports two formats for use with `dpdata`:
    &END MOTION
    ```
 
-These examples demonstrate how to use `Cp2kData` with `dpdata` to parse and work with data from CP2K simulations in the specified formats.
+
+   In some cases, cp2k md simulations are restarted from `-1.restart` file in which the initial structure will not be evaluated again.
+   Therefore, the initial cell information should not be parsed again. Otherwise, the number of frames for cells is inconsistent with those for `poses`, `forces`, and `energies`.
+   Cp2kdata can automatically check whether the simulations are restarted or not through the header information of output:
+   ```
+    *******************************************************************************
+    *                            RESTART INFORMATION                              *
+    *******************************************************************************
+    *                                                                             *
+    *    RESTART FILE NAME: bivo4-water-1.restart                                 *
+    *                                                                             *
+    * RESTARTED QUANTITIES:                                                       *
+    *                       CELL                                                  *
+    *                       COORDINATES                                           *
+    *                       RANDOM NUMBER GENERATOR                               *
+    *                       VELOCITIES                                            *
+    *                       MD COUNTERS                                           *
+    *                       MD AVERAGES                                           *
+    *                       PARTICLE THERMOSTAT                                   *
+    *                       REAL TIME PROPAGATION                                 *
+    *                       PINT BEAD POSITIONS                                   *
+    *                       PINT BEAD VELOCITIES                                  *
+    *                       PINT NOSE THERMOSTAT                                  *
+    *                       PINT GLE THERMOSTAT                                   *
+    *                       HELIUM BEAD POSITIONS                                 *
+    *                       HELIUM PERMUTATION STATE                              *
+    *                       HELIUM FORCES ON SOLUTE                               *
+    *                       HELIUM RNG STATE                                      *
+    *******************************************************************************
+   ```
+   if the simulations are restarted using:
+   ```cp2k
+   &EXT_RESTART
+      RESTART_FILE_NAME Li-LiFSI-DME-1-2-1.restart
+   &END EXT_RESTART
+   ```
+   In case your restarted output doesn't have the above header, you can explicitly tell the cp2kdata/dpdata by setting `restart=True`,
+   ```python
+   # restart = True in case the output doesn't contains header
+   dp = dpdata.LabeledSystem(cp2kmd_dir, cp2k_output_name=cp2kmd_output_name, fmt="cp2kdata/md", restart=True)
+   ```
+
