@@ -72,7 +72,7 @@ class CP2KEnergyForceFormat(Format):
 @Format.register("cp2k/aimd_output")
 @Format.register("cp2kdata/md")
 class CP2KMDFormat(Format):
-    def from_labeled_system(self, file_name, **kwargs):
+    def from_labeled_system(self, file_name, restart: bool=None, **kwargs):
 
         # -- Set Basic Parameters --
         path_prefix = file_name  # in cp2k md, file_name is directory name.
@@ -84,7 +84,9 @@ class CP2KMDFormat(Format):
         print(WRAPPER)
 
         cp2kmd = Cp2kOutput(output_file=cp2k_output_name,
-                            run_type="MD", path_prefix=path_prefix)
+                            run_type="MD",
+                            path_prefix=path_prefix,
+                            restart=restart)
 
         num_frames = cp2kmd.get_num_frames()
 

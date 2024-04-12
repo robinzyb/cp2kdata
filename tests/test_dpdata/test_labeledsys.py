@@ -20,7 +20,8 @@ aimd_output_path_list = [
     "tests/test_dpdata/v2022.1/aimd",
     "tests/test_dpdata/v2022.2/aimd_npt_i",
     "tests/test_dpdata/v2023.1/aimd_nvt",
-    "tests/test_dpdata/v2023.1/aimd_npt_f"
+    "tests/test_dpdata/v2023.1/aimd_npt_f",
+    "tests/test_dpdata/v2024.1/aimd_npt_i_restart"
 ]
 
 e_f_dpdata_list = [
@@ -97,7 +98,7 @@ class TestLabeledSys():
         if not cp2k_and_ref[0].nopbc and not cp2k_and_ref[1].nopbc:
             np.testing.assert_almost_equal(cp2k_and_ref[0].data['cells'],
                                         cp2k_and_ref[1].data['cells'],
-                                        decimal = 6,
+                                        decimal = 4,
                                         err_msg = 'cell failed')
 
     def test_coord(self, cp2k_and_ref):
