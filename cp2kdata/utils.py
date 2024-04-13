@@ -1,7 +1,6 @@
 """
 this script put misc function here.
 """
-from turtle import pos
 from ase.geometry.analysis import Analysis
 from ase.io import read, write
 #from cp2kdata import Cp2kOutput

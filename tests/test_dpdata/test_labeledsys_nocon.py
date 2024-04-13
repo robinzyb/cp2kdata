@@ -14,7 +14,7 @@ e_f_dpdata_list = [
         ) for path in e_f_output_path_list
 ]
 
-@pytest.fixture(params=e_f_dpdata_list, scope='class')
+@pytest.fixture(params=e_f_dpdata_list, scope='class', ids=e_f_output_path_list)
 def cp2k_and_ref(request):
     return request.param
 

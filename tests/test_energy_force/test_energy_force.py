@@ -28,7 +28,7 @@ test_params = list(zip(energy_force_output_list,
                    energy_force_output_path_list))
 
 
-@pytest.fixture(params=test_params, scope='class')
+@pytest.fixture(params=test_params, scope='class', ids=energy_force_output_path_list)
 def output_and_answer_path(request):
     return request.param
 
