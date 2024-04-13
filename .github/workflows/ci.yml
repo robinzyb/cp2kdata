@@ -32,4 +32,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           coverage run --source=./cp2kdata -m pytest && coverage report
-          coveralls --service=github
+      - name: Run Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: robinzyb/cp2kdata
