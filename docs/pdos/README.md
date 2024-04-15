@@ -6,8 +6,18 @@
 from cp2kdata import Cp2kPdos
 dosfile = "Universality-ALPHA_k2-1_50.pdos"
 mypdos = Cp2kPdos(dosfile)
-dos, ener = mypdos.get_dos()
+dos, ener = mypdos.get_dos(sigma=1, dos_type="total")
 ```
+
+If DOS is parsed from LDOS files, `dos_type=custom` is preferred, which can be used together with `usecols`. `usecols` accepts tuple with `int` elements. For example, `usecols=(3, 4, 5)`
+
+```python
+dosfile = "water-list1-1_0.pdos
+mypdos = Cp2kPdos(dosfile)
+dos, ener = mypdos.get_dos(dos_type='custom', usecols=(3, 4, 5))
+```
+
+
 
 ## Quickplot of  PDOS Files in Single Point Energy Calculation
 
