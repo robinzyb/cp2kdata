@@ -1,7 +1,10 @@
-from cp2kdata.pdos.pdos import pdos_name_parser
 import pytest
 
-pdos_file_list = [
+from cp2kdata.pdos.pdos import pdos_name_parser
+
+
+
+pdos_file_name_list = [
     "SFO-3.000-pdos.dat-ALPHA_k1-1.pdos",
     "Hematite-ALPHA_k1-1_21.pdos",
     "Hematite-BETA_k1-1_21.pdos",
@@ -55,15 +58,15 @@ test_answer = [
     }
 ]
 
-parsed_values = [pdos_name_parser(pdos_file) for pdos_file in pdos_file_list]
+parsed_values = [pdos_name_parser(pdos_file) for pdos_file in pdos_file_name_list]
 
 test_params = list(zip(parsed_values, test_answer))
 
-@pytest.fixture(params=test_params, scope='class', ids=pdos_file_list)
+@pytest.fixture(params=test_params, scope='class', ids=pdos_file_name_list)
 def output_and_answer(request):
     return request.param
 
-class TestNameParser():
+class TestNameParser:
     def test_project_name(self, output_and_answer):
         assert output_and_answer[0][0] == output_and_answer[1]["project_name"]
 

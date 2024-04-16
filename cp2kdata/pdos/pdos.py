@@ -1,5 +1,6 @@
 import glob
 import os
+from typing import Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -190,14 +191,48 @@ class Cp2kPdos():
             self.project_name, self.spin, self.listidx, self.kind, self.timestep = pdos_name_parser(
                 self.file)
 
+    def get_dos(self,
+                sigma: float=1,
+                dos_type: str="total",
+                usecols: Tuple[int]=None):
+        """
+        Get the density of states (DOS) from the CP2K DOS file.
+
+        Parameters:
+        - sigma (float): The standard deviation for Gaussian smoothing of the DOS.
+        - dos_type (str): The type of DOS to retrieve. Can be "total", "s", "p", "d", or "f".
+        - usecols (Tuple[int]): The columns to use for custom DOS. Only applicable if dos_type is "custom".
+
+        Returns:
+        - smth_dos (np.ndarray): The smoothed DOS.
+        - ener (np.ndarray): The energy values corresponding to the DOS.
+        """
+        # smooth the dos data
+        dos, ener = self.get_raw_dos(dos_type=dos_type, usecols=usecols)
+        smth_dos = gaussian_filter1d(dos, sigma)
+        self.smth_dos = smth_dos
+
+        return smth_dos, ener
+
     def read_dos_element(self):
+        """
+        Reads the element from the first line of the file.
+
+        Returns:
+            str: The element extracted from the first line of the file.
+        """
         with open(self.file) as f:
             first_line = f.readline()
             element = first_line.split()[6]
-#        element = ''.join([i for i in self.kind if not i.isdigit()])
         return element
 
     def read_dos_fermi(self):
+        """
+        Reads the Fermi energy from the file.
+
+        Returns:
+            float: The Fermi energy in eV.
+        """
         # this is fermi energy not fermi level!
         # fermi energy is same as HOMO energy
         with open(self.file) as f:
@@ -208,9 +243,15 @@ class Cp2kPdos():
         return fermi
 
     def read_dos_energies(self):
-        energies = np.loadtxt(self.file, usecols=1)
-        energies = energies * au2eV
-        return energies
+            """
+            Reads the DOS energies from the file and converts them to electron volts (eV).
+
+            Returns:
+                numpy.ndarray: An array of DOS energies in eV.
+            """
+            energies = np.loadtxt(self.file, usecols=1)
+            energies = energies * au2eV
+            return energies
 
     @property
     def occupation(self):
@@ -219,23 +260,37 @@ class Cp2kPdos():
         return occupation
 
     def get_homo_ener(self):
-        homo_idx = np.where(self.occupation == 0)[0][0]-1
-        homo_ener = self.energies[homo_idx]
+            """
+            Get the energy of the highest occupied molecular orbital (HOMO).
 
-        return homo_ener
+            Returns:
+                float: The energy of the HOMO.
+            """
+            homo_idx = np.where(self.occupation == 0)[0][0]-1
+            homo_ener = self.energies[homo_idx]
+
+            return homo_ener
 
     def get_lumo_ener(self):
-        lumo_ener = self.energies[self.occupation == 0][0]
-        return lumo_ener
+            """
+            Get the energy of the lowest unoccupied molecular orbital (LUMO).
 
-    def get_raw_dos(self, dos_type="total", steplen=0.1):
+            Returns:
+                lumo_ener (float): The energy of the LUMO.
+            """
+            lumo_ener = self.energies[self.occupation == 0][0]
+            return lumo_ener
+
+    def get_raw_dos(self, dos_type="total", steplen=0.1, usecols=None):
 
         file = self.file
         energies = self.energies
         fermi = self.fermi
-        steplen = 0.1
-
-        if dos_type == "total":
+        #steplen = 0.1
+        if (dos_type == "custom") and (usecols is not None):
+            weights = np.loadtxt(file, usecols=usecols).sum(axis=1)
+            print("use customed columns")
+        elif dos_type == "total":
             tmp_len = len(np.loadtxt(file, usecols=2))
             weights = np.ones(tmp_len)
         elif dos_type == "s":
@@ -259,13 +314,7 @@ class Cp2kPdos():
         self.ener = ener
         return dos, ener
 
-    def get_dos(self, sigma=1, dos_type="total"):
-        # smooth the dos data
-        dos, ener = self.get_raw_dos(dos_type=dos_type)
-        smth_dos = gaussian_filter1d(dos, sigma)
-        self.smth_dos = smth_dos
 
-        return smth_dos, ener
 
 
 PDOS_NAME_RE = re.compile(
