@@ -435,22 +435,48 @@ document.write(`
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.pdos.pdos.Cp2kPdos.get_dos">
-<span class="sig-name descname"><span class="pre">get_dos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dos_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'total'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/pdos/pdos.html#Cp2kPdos.get_dos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.pdos.pdos.Cp2kPdos.get_dos" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">get_dos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dos_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'total'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usecols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/pdos/pdos.html#Cp2kPdos.get_dos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.pdos.pdos.Cp2kPdos.get_dos" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the density of states (DOS) from the CP2K DOS file.</p>
+<p>Parameters:
+- sigma (float): The standard deviation for Gaussian smoothing of the DOS.
+- dos_type (str): The type of DOS to retrieve. Can be “total”, “s”, “p”, “d”, or “f”.
+- usecols (Tuple[int]): The columns to use for custom DOS. Only applicable if dos_type is “custom”.</p>
+<p>Returns:
+- smth_dos (np.ndarray): The smoothed DOS.
+- ener (np.ndarray): The energy values corresponding to the DOS.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.pdos.pdos.Cp2kPdos.get_homo_ener">
 <span class="sig-name descname"><span class="pre">get_homo_ener</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/pdos/pdos.html#Cp2kPdos.get_homo_ener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_ener" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Get the energy of the highest occupied molecular orbital (HOMO).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The energy of the HOMO.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.pdos.pdos.Cp2kPdos.get_lumo_ener">
 <span class="sig-name descname"><span class="pre">get_lumo_ener</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/pdos/pdos.html#Cp2kPdos.get_lumo_ener"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.pdos.pdos.Cp2kPdos.get_lumo_ener" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Get the energy of the lowest unoccupied molecular orbital (LUMO).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The energy of the LUMO.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>lumo_ener (float)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.pdos.pdos.Cp2kPdos.get_raw_dos">
-<span class="sig-name descname"><span class="pre">get_raw_dos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dos_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'total'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steplen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/pdos/pdos.html#Cp2kPdos.get_raw_dos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.pdos.pdos.Cp2kPdos.get_raw_dos" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_raw_dos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dos_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'total'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steplen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usecols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/pdos/pdos.html#Cp2kPdos.get_raw_dos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.pdos.pdos.Cp2kPdos.get_raw_dos" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -461,17 +487,44 @@ document.write(`
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.pdos.pdos.Cp2kPdos.read_dos_element">
 <span class="sig-name descname"><span class="pre">read_dos_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/pdos/pdos.html#Cp2kPdos.read_dos_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_element" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Reads the element from the first line of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The element extracted from the first line of the file.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.pdos.pdos.Cp2kPdos.read_dos_energies">
 <span class="sig-name descname"><span class="pre">read_dos_energies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/pdos/pdos.html#Cp2kPdos.read_dos_energies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_energies" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Reads the DOS energies from the file and converts them to electron volts (eV).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An array of DOS energies in eV.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.pdos.pdos.Cp2kPdos.read_dos_fermi">
 <span class="sig-name descname"><span class="pre">read_dos_fermi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/pdos/pdos.html#Cp2kPdos.read_dos_fermi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_fermi" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Reads the Fermi energy from the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Fermi energy in eV.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

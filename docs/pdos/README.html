@@ -425,6 +425,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-setups-of-cp2k-inputs-for-writing-cp2k-pdos-files">Recommended Setups of CP2K inputs for Writing CP2K Pdos files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-pdos-for-each-type-of-elements">Normal Pdos for Each Type of Elements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ldos-pdos-for-selected-atoms">Ldos: Pdos for Selected Atoms</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-single-pdos-file">Processing Single PDOS File</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickplot-of-pdos-files-in-single-point-energy-calculation">Quickplot of  PDOS Files in Single Point Energy Calculation</a></li>
 </ul>
@@ -440,12 +445,50 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="manipulate-cp2k-pdos-files">
 <h1>Manipulate CP2K Pdos Files<a class="headerlink" href="#manipulate-cp2k-pdos-files" title="Permalink to this heading">#</a></h1>
+<section id="recommended-setups-of-cp2k-inputs-for-writing-cp2k-pdos-files">
+<h2>Recommended Setups of CP2K inputs for Writing CP2K Pdos files<a class="headerlink" href="#recommended-setups-of-cp2k-inputs-for-writing-cp2k-pdos-files" title="Permalink to this heading">#</a></h2>
+<section id="normal-pdos-for-each-type-of-elements">
+<h3>Normal Pdos for Each Type of Elements<a class="headerlink" href="#normal-pdos-for-each-type-of-elements" title="Permalink to this heading">#</a></h3>
+<p>Under the <code class="docutils literal notranslate"><span class="pre">DFT/PRINT/PDOS</span></code> Section</p>
+<div class="highlight-cp2k notranslate"><div class="highlight"><pre><span></span>
+&amp;PDOS
+    COMPONENTS
+    NLUMO -1
+    ADD_LAST  NUMERIC
+    COMMON_ITERATION_LEVELS 0
+    APPEND T
+&amp;END PDOS
+</pre></div>
+</div>
+</section>
+<section id="ldos-pdos-for-selected-atoms">
+<h3>Ldos: Pdos for Selected Atoms<a class="headerlink" href="#ldos-pdos-for-selected-atoms" title="Permalink to this heading">#</a></h3>
+<div class="highlight-cp2k notranslate"><div class="highlight"><pre><span></span>&amp;PDOS
+    COMPONENTS
+    NLUMO -1
+    ADD_LAST  NUMERIC
+    COMMON_ITERATION_LEVELS 0
+    APPEND T
+    &amp;LODS
+        LIST 5 6 7 8
+    &amp;END LDOS
+&amp;END PDOS
+</pre></div>
+</div>
+</section>
+</section>
 <section id="processing-single-pdos-file">
 <h2>Processing Single PDOS File<a class="headerlink" href="#processing-single-pdos-file" title="Permalink to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kPdos</span>
 <span class="n">dosfile</span> <span class="o">=</span> <span class="s2">&quot;Universality-ALPHA_k2-1_50.pdos&quot;</span>
 <span class="n">mypdos</span> <span class="o">=</span> <span class="n">Cp2kPdos</span><span class="p">(</span><span class="n">dosfile</span><span class="p">)</span>
-<span class="n">dos</span><span class="p">,</span> <span class="n">ener</span> <span class="o">=</span> <span class="n">mypdos</span><span class="o">.</span><span class="n">get_dos</span><span class="p">()</span>
+<span class="n">dos</span><span class="p">,</span> <span class="n">ener</span> <span class="o">=</span> <span class="n">mypdos</span><span class="o">.</span><span class="n">get_dos</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dos_type</span><span class="o">=</span><span class="s2">&quot;total&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If DOS is parsed from LDOS files, <code class="docutils literal notranslate"><span class="pre">dos_type=custom</span></code> is preferred, which can be used together with <code class="docutils literal notranslate"><span class="pre">usecols</span></code>. <code class="docutils literal notranslate"><span class="pre">usecols</span></code> accepts tuple with <code class="docutils literal notranslate"><span class="pre">int</span></code> elements. For example, <code class="docutils literal notranslate"><span class="pre">usecols=(3,</span> <span class="pre">4,</span> <span class="pre">5)</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dosfile</span> <span class="o">=</span> <span class="s2">&quot;water-list1-1_0.pdos</span>
+<span class="n">mypdos</span> <span class="o">=</span> <span class="n">Cp2kPdos</span><span class="p">(</span><span class="n">dosfile</span><span class="p">)</span>
+<span class="n">dos</span><span class="p">,</span> <span class="n">ener</span> <span class="o">=</span> <span class="n">mypdos</span><span class="o">.</span><span class="n">get_dos</span><span class="p">(</span><span class="n">dos_type</span><span class="o">=</span><span class="s1">&#39;custom&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
@@ -525,6 +568,11 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-setups-of-cp2k-inputs-for-writing-cp2k-pdos-files">Recommended Setups of CP2K inputs for Writing CP2K Pdos files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-pdos-for-each-type-of-elements">Normal Pdos for Each Type of Elements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ldos-pdos-for-selected-atoms">Ldos: Pdos for Selected Atoms</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-single-pdos-file">Processing Single PDOS File</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickplot-of-pdos-files-in-single-point-energy-calculation">Quickplot of  PDOS Files in Single Point Energy Calculation</a></li>
 </ul>

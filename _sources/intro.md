@@ -5,6 +5,7 @@
 ![pythonv](https://img.shields.io/pypi/pyversions/cp2kdata)
 ![pypiv](https://img.shields.io/pypi/v/cp2kdata)
 ![PyPI - pip install](https://img.shields.io/pypi/dm/cp2kdata?logo=pypi&label=pip%20install)
+![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/cp2kdata?label=conda-forge)
 
 Python Package to postprocess cp2k data, including cube, pdos, output files
 
