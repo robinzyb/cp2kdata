@@ -1,5 +1,35 @@
 # Manipulate CP2K Pdos Files
 
+## Recommended Setups of CP2K inputs for Writing CP2K Pdos files
+
+### Normal Pdos for Each Type of Elements
+Under the `DFT/PRINT/PDOS` Section
+
+```cp2k
+
+&PDOS
+    COMPONENTS
+    NLUMO -1
+    ADD_LAST  NUMERIC
+    COMMON_ITERATION_LEVELS 0
+    APPEND T
+&END PDOS
+```
+
+### Ldos: Pdos for Selected Atoms
+```cp2k
+&PDOS
+    COMPONENTS
+    NLUMO -1
+    ADD_LAST  NUMERIC
+    COMMON_ITERATION_LEVELS 0
+    APPEND T
+    &LODS
+        LIST 5 6 7 8
+    &END LDOS
+&END PDOS
+```
+
 ## Processing Single PDOS File
 
 ```python

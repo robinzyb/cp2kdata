@@ -32,6 +32,16 @@ test_params = list(zip(energy_force_output_list,
 def output_and_answer_path(request):
     return request.param
 
+@pytest.fixture
+def answer_in_dict(output_and_answer_path):
+    answer = json_to_dict(
+            os.path.join(
+                output_and_answer_path[1],
+                "answer",
+                "answer.json"
+            )
+        )
+    return answer
 
 class TestEnergyForce():
     def test_run_type(self, output_and_answer_path):
@@ -39,65 +49,30 @@ class TestEnergyForce():
         run_type = a_test_output.get_run_type()
         assert run_type == 'ENERGY_FORCE'
 
-    def test_chemical_symbols(self, output_and_answer_path):
+    def test_chemical_symbols(self, output_and_answer_path, answer_in_dict):
         a_test_output = output_and_answer_path[0]
         chemical_symbols = a_test_output.get_chemical_symbols()
-        answer = json_to_dict(
-            os.path.join(
-                output_and_answer_path[1],
-                "answer",
-                "answer.json"
-            )
-        )
-        assert chemical_symbols == answer["chemical_symbols"]
+        assert chemical_symbols == answer_in_dict["chemical_symbols"]
 
-    def test_chemical_symbols_fake(self, output_and_answer_path):
+    def test_chemical_symbols_fake(self, output_and_answer_path, answer_in_dict):
         a_test_output = output_and_answer_path[0]
         chemical_symbols_fake = a_test_output.get_chemical_symbols_fake()
-        answer = json_to_dict(
-            os.path.join(
-                output_and_answer_path[1],
-                "answer",
-                "answer.json"
-            )
-        )
-        assert list(chemical_symbols_fake) == answer["chemical_symbols_fake"]
+        assert list(chemical_symbols_fake) == answer_in_dict["chemical_symbols_fake"]
 
-    def test_atomic_kind(self, output_and_answer_path):
+    def test_atomic_kind(self, output_and_answer_path, answer_in_dict):
         a_test_output = output_and_answer_path[0]
         atomic_kind = a_test_output.get_atomic_kind()
-        answer = json_to_dict(
-            os.path.join(
-                output_and_answer_path[1],
-                "answer",
-                "answer.json"
-            )
-        )
-        assert list(atomic_kind) == answer["atomic_kind"]
+        assert list(atomic_kind) == answer_in_dict["atomic_kind"]
 
-    def test_atomic_kind_list(self, output_and_answer_path):
+    def test_atomic_kind_list(self, output_and_answer_path, answer_in_dict):
         a_test_output = output_and_answer_path[0]
         atom_kinds_list = a_test_output.get_atom_kinds_list()
-        answer = json_to_dict(
-            os.path.join(
-                output_and_answer_path[1],
-                "answer",
-                "answer.json"
-            )
-        )
-        assert list(atom_kinds_list) == answer["atom_kinds_list"]
+        assert list(atom_kinds_list) == answer_in_dict["atom_kinds_list"]
 
-    def test_atom_num(self, output_and_answer_path):
+    def test_atom_num(self, output_and_answer_path, answer_in_dict):
         a_test_output = output_and_answer_path[0]
         atom_num = a_test_output.get_atom_num()
-        answer = json_to_dict(
-            os.path.join(
-                output_and_answer_path[1],
-                "answer",
-                "answer.json"
-            )
-        )
-        assert list(atom_num) == answer["atom_num"]
+        assert list(atom_num) == answer_in_dict["atom_num"]
 
     def test_init_cell(self, output_and_answer_path):
         a_test_output = output_and_answer_path[0]
@@ -156,18 +131,11 @@ class TestEnergyForce():
         else:
             assert stress_tensor_list == None
 
-    def test_pot_energy(self, output_and_answer_path):
+    def test_pot_energy(self, output_and_answer_path, answer_in_dict):
         a_test_output = output_and_answer_path[0]
         pot_energy = a_test_output.get_energies_list()
-        answer = json_to_dict(
-            os.path.join(
-                output_and_answer_path[1],
-                "answer",
-                "answer.json"
-            )
-        )
         assert len(pot_energy) == 1
-        assert list(pot_energy) == answer["pot_energy"]        
+        assert list(pot_energy) == answer_in_dict["pot_energy"]        
 
 #    def test_mulliken_charges(self):
 #        pass
