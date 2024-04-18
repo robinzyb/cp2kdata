@@ -376,6 +376,7 @@ class Cp2kOutput:
         pos_xyz_file_list = glob.glob(
             os.path.join(self.path_prefix, "*pos*.xyz"))
         if pos_xyz_file_list:
+            #TODO: Is it possible to have no pos file?
             self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(
                 pos_xyz_file_list[0])
 
@@ -386,6 +387,8 @@ class Cp2kOutput:
             format_logger(info="Energies", filename=self.filename)
             self.energies_list = parse_energies_list(self.output_file)
 
+            self.energies_list = self.drop_last_info(self.cp2k_info, self.energies_list)
+
         frc_xyz_file_list = glob.glob(
             os.path.join(self.path_prefix, "*frc*.xyz"))
         if frc_xyz_file_list:
@@ -394,6 +397,7 @@ class Cp2kOutput:
             format_logger(info="Forces", filename=self.filename)
             self.atomic_forces_list = parse_atomic_forces_list(
                 self.output_file)
+            self.atomic_forces_list = self.drop_last_info(self.cp2k_info, self.atomic_forces_list)
 
         stress_file_list = glob.glob(
             os.path.join(self.path_prefix, "*.stress"))
@@ -411,6 +415,8 @@ class Cp2kOutput:
             format_logger(info="Stresses", filename=self.filename)
             self.stress_tensor_list = parse_stress_tensor_list(
                 self.output_file)
+
+            self.stress_tensor_list = self.drop_last_info(self.cp2k_info, self.stress_tensor_list)
 
         self.num_frames = len(self.energies_list)
 
@@ -499,6 +505,14 @@ class Cp2kOutput:
         if self.cp2k_info.restart is not True:
             self.all_cells = np.insert(
                 self.all_cells, 0, first_cell[0], axis=0)
+
+    @staticmethod
+    def drop_last_info(cp2k_info, array):
+        # drop last info parsed from output if it is terminated by request (touch EXIT)
+        if cp2k_info.terminated_by_request == True:
+            print("cp2kdata found the cp2k output is terminated by request, drop the last info.")
+            array = array[:-1]
+        return array
 
     @staticmethod
     def get_global_info(run_type=None, filename=None):
