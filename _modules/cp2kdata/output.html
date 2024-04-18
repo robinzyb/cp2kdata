@@ -755,6 +755,7 @@ document.write(`
         <span class="n">pos_xyz_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*pos*.xyz&quot;</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">pos_xyz_file_list</span><span class="p">:</span>
+            <span class="c1">#TODO: Is it possible to have no pos file?</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomic_frames_list</span><span class="p">,</span> <span class="n">energies_list_from_pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_pos_xyz</span><span class="p">(</span>
                 <span class="n">pos_xyz_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
@@ -765,6 +766,8 @@ document.write(`
             <span class="n">format_logger</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;Energies&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="n">parse_energies_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
 
+            <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span><span class="p">)</span>
+
         <span class="n">frc_xyz_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*frc*.xyz&quot;</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">frc_xyz_file_list</span><span class="p">:</span>
@@ -773,6 +776,7 @@ document.write(`
             <span class="n">format_logger</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;Forces&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="n">parse_atomic_forces_list</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span><span class="p">)</span>
 
         <span class="n">stress_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*.stress&quot;</span><span class="p">))</span>
@@ -790,6 +794,8 @@ document.write(`
             <span class="n">format_logger</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;Stresses&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="n">parse_stress_tensor_list</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span><span class="p">)</span>
 
@@ -878,6 +884,14 @@ document.write(`
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="o">.</span><span class="n">restart</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">first_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Cp2kOutput.drop_last_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.drop_last_info">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">drop_last_info</span><span class="p">(</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="n">array</span><span class="p">):</span>
+        <span class="c1"># drop last info parsed from output if it is terminated by request (touch EXIT)</span>
+        <span class="k">if</span> <span class="n">cp2k_info</span><span class="o">.</span><span class="n">terminated_by_request</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cp2kdata found the cp2k output is terminated by request, drop the last info.&quot;</span><span class="p">)</span>
+            <span class="n">array</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">array</span></div>
 
 <div class="viewcode-block" id="Cp2kOutput.get_global_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_global_info">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_global_info</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
