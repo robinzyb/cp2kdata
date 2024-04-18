@@ -8,6 +8,7 @@ from monty.re import regrep
 class Cp2kInfo:
     version: str = None
     restart: bool = None
+    terminated_by_request: bool = None
 
 
 CP2K_INFO_VERSION_PATTERN = \
@@ -19,6 +20,11 @@ CP2K_INFO_VERSION_PATTERN = \
 CP2K_INFO_RESTART_PATTERN = \
     r"""(?xm)
     ^\s\*\s{28}RESTART\sINFORMATION\s{30}\*$
+    """
+
+CP2K_INFO_TERMINATED_BY_REQUEST = \
+    r"""(?xm)
+    ^\s\*{3}\sMD\srun\sterminated\sby\sexternal\srequest\s\*{3}
     """
 
 def parse_cp2k_info(filename) -> Cp2kInfo:
@@ -40,9 +46,29 @@ def parse_cp2k_info(filename) -> Cp2kInfo:
     elif num_match_restart == 0:
         cp2k_restart = False
 
+
+    tmp_info = regrep(
+        filename=filename,
+        patterns={
+            "terminated_by_request": CP2K_INFO_TERMINATED_BY_REQUEST
+            },
+        reverse=True,
+        terminate_on_match=True
+    )
+
+    # parse the termination information
+    num_match_terminated_by_request = len(tmp_info['terminated_by_request'])
+    if num_match_terminated_by_request > 1:
+        raise ValueError(f"More than one termination information found in {filename}")
+    elif num_match_terminated_by_request == 1:
+        cp2k_terminated_by_request = True
+    elif num_match_terminated_by_request == 0:
+        cp2k_terminated_by_request = False
+
     return Cp2kInfo(
         version=cp2k_info["version"][0][0][0],
-        restart=cp2k_restart
+        restart=cp2k_restart,
+        terminated_by_request=cp2k_terminated_by_request
         )
 
 @dataclass

@@ -18,6 +18,7 @@ aimd_output_path_list = [
     "tests/test_dpdata/v7.1/aimd_npt_f",
     "tests/test_dpdata/v9.1/xTBmd_npt_i",
     "tests/test_dpdata/v2022.1/aimd",
+    "tests/test_dpdata/v2022.1/aimd_exit",
     "tests/test_dpdata/v2022.2/aimd_npt_i",
     "tests/test_dpdata/v2023.1/aimd_nvt",
     "tests/test_dpdata/v2023.1/aimd_npt_f",
@@ -53,7 +54,7 @@ aimd_dpdata_ref_list = [
         ) for path in aimd_output_path_list
 ]
 
-# zip the test case and its reference.
+# zip the test cases and its reference.
 test_params = list(
     zip(
         e_f_dpdata_list + aimd_dpdata_list,
