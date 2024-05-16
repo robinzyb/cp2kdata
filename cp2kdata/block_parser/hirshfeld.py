@@ -2,7 +2,7 @@ import regex as re
 import numpy as np
 
 HIRSHFELD_RE = re.compile(
-    """
+    r"""
     \s+Hirshfeld\sCharges\s*\n
     \n
     \s\#.+\n
