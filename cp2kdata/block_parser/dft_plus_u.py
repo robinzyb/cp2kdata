@@ -2,7 +2,7 @@ import regex as re
 import numpy as np
 
 PLUS_U_RE = re.compile(
-    """
+    r"""
     \sDFT\+U\soccupations\sof\sspin\s(?P<spin>\d)
     \sfor\sthe\satoms\sof\satomic\skind\s(?P<kind>\d+):\s\w+\s*\n
     \n
