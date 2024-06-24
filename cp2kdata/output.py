@@ -21,6 +21,7 @@ from cp2kdata.block_parser.errors_handle import parse_errors
 from cp2kdata.block_parser.stress import parse_stress_tensor_list
 from cp2kdata.block_parser.cells import parse_all_cells, parse_all_md_cells
 from cp2kdata.block_parser.md_xyz import parse_md_ener, parse_pos_xyz, parse_frc_xyz, parse_md_stress, parse_md_cell
+from cp2kdata.block_parser.vibration import parse_vibration_freq_list
 
 
 class Cp2kOutput:
@@ -104,12 +105,16 @@ class Cp2kOutput:
             "ENERGY_FORCE": self.parse_energy_force,
             "GEO_OPT": self.parse_geo_opt,
             "CELL_OPT": self.parse_cell_opt,
-            "MD": self.parse_md
+            "MD": self.parse_md,
+            "VIBRATIONAL_ANALYSIS": self.parse_vibrational_analysis
         }
 
         # call corresponding parser for run types
-        parse_run_type = run_type_parser_candidates[self.global_info.run_type]
-        parse_run_type()
+        parse_run_type = run_type_parser_candidates.get(self.global_info.run_type, None)
+        if parse_run_type:
+            parse_run_type()
+        else:
+            f"parser for run type {self.global_info.run_type} is not implemented yet!"
 
         # self.errors_info = parse_errors(self.output_file)
         # if ignore_error:
@@ -337,6 +342,9 @@ class Cp2kOutput:
         self.atomic_forces_list = parse_atomic_forces_list(self.output_file)
         self.stress_tensor_list = parse_stress_tensor_list(self.output_file)
 
+    def parse_vibrational_analysis(self):
+        self.parse_energy_force()
+
     def parse_geo_opt(self):
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
             self.output_file)
@@ -506,6 +514,15 @@ class Cp2kOutput:
             self.all_cells = np.insert(
                 self.all_cells, 0, first_cell[0], axis=0)
 
+    @cached_property
+    def vib_freq_list(self):
+        assert self.global_info.run_type == "VIBRATIONAL_ANALYSIS", "vibrational frequency is only available for VIBRATIONAL_ANALYSIS run type."
+        # use cached property to prase only once
+        return parse_vibration_freq_list(self.output_file)
+
+    def get_vib_freq_list(self):
+        return self.vib_freq_list
+
     @staticmethod
     def drop_last_info(cp2k_info, array):
         # drop last info parsed from output if it is terminated by request (touch EXIT)
@@ -527,7 +544,7 @@ class Cp2kOutput:
     @staticmethod
     def check_run_type(run_type):
         implemented_run_type_parsers = \
-            ["ENERGY_FORCE", "ENERGY", "MD", "GEO_OPT", "CELL_OPT"]
+            ["ENERGY_FORCE", "ENERGY", "MD", "GEO_OPT", "CELL_OPT", "VIBRATIONAL_ANALYSIS"]
         if run_type not in implemented_run_type_parsers:
             raise ValueError(
                 f"Parser for Run Type {run_type} haven't been implemented yet!"
