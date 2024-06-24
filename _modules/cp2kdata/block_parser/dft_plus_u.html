@@ -195,6 +195,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.md_xyz.html">cp2kdata.block_parser.md_xyz module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.mulliken.html">cp2kdata.block_parser.mulliken module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.stress.html">cp2kdata.block_parser.stress module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.block_parser.vibration.html">cp2kdata.block_parser.vibration module</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.cli.html">cp2kdata.cli package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -381,7 +382,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">PLUS_U_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    \sDFT\+U\soccupations\sof\sspin\s(?P&lt;spin&gt;\d)</span>
 <span class="sd">    \sfor\sthe\satoms\sof\satomic\skind\s(?P&lt;kind&gt;\d+):\s\w+\s*\n</span>
 <span class="sd">    \n</span>

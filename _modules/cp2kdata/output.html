@@ -195,6 +195,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../../_api/cp2kdata.block_parser.md_xyz.html">cp2kdata.block_parser.md_xyz module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../_api/cp2kdata.block_parser.mulliken.html">cp2kdata.block_parser.mulliken module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../_api/cp2kdata.block_parser.stress.html">cp2kdata.block_parser.stress module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_api/cp2kdata.block_parser.vibration.html">cp2kdata.block_parser.vibration module</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../_api/cp2kdata.cli.html">cp2kdata.cli package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -400,6 +401,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">cp2kdata.block_parser.stress</span> <span class="kn">import</span> <span class="n">parse_stress_tensor_list</span>
 <span class="kn">from</span> <span class="nn">cp2kdata.block_parser.cells</span> <span class="kn">import</span> <span class="n">parse_all_cells</span><span class="p">,</span> <span class="n">parse_all_md_cells</span>
 <span class="kn">from</span> <span class="nn">cp2kdata.block_parser.md_xyz</span> <span class="kn">import</span> <span class="n">parse_md_ener</span><span class="p">,</span> <span class="n">parse_pos_xyz</span><span class="p">,</span> <span class="n">parse_frc_xyz</span><span class="p">,</span> <span class="n">parse_md_stress</span><span class="p">,</span> <span class="n">parse_md_cell</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.vibration</span> <span class="kn">import</span> <span class="n">parse_vibration_freq_list</span>
 
 
 <div class="viewcode-block" id="Cp2kOutput"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput">[docs]</a><span class="k">class</span> <span class="nc">Cp2kOutput</span><span class="p">:</span>
@@ -483,12 +485,16 @@ document.write(`
             <span class="s2">&quot;ENERGY_FORCE&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_energy_force</span><span class="p">,</span>
             <span class="s2">&quot;GEO_OPT&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_geo_opt</span><span class="p">,</span>
             <span class="s2">&quot;CELL_OPT&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_cell_opt</span><span class="p">,</span>
-            <span class="s2">&quot;MD&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_md</span>
+            <span class="s2">&quot;MD&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_md</span><span class="p">,</span>
+            <span class="s2">&quot;VIBRATIONAL_ANALYSIS&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_vibrational_analysis</span>
         <span class="p">}</span>
 
         <span class="c1"># call corresponding parser for run types</span>
-        <span class="n">parse_run_type</span> <span class="o">=</span> <span class="n">run_type_parser_candidates</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">run_type</span><span class="p">]</span>
-        <span class="n">parse_run_type</span><span class="p">()</span>
+        <span class="n">parse_run_type</span> <span class="o">=</span> <span class="n">run_type_parser_candidates</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">run_type</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parse_run_type</span><span class="p">:</span>
+            <span class="n">parse_run_type</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="sa">f</span><span class="s2">&quot;parser for run type </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">run_type</span><span class="si">}</span><span class="s2"> is not implemented yet!&quot;</span>
 
         <span class="c1"># self.errors_info = parse_errors(self.output_file)</span>
         <span class="c1"># if ignore_error:</span>
@@ -716,6 +722,9 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="n">parse_atomic_forces_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="n">parse_stress_tensor_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="Cp2kOutput.parse_vibrational_analysis"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_vibrational_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">parse_vibrational_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_energy_force</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="Cp2kOutput.parse_geo_opt"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_geo_opt">[docs]</a>    <span class="k">def</span> <span class="nf">parse_geo_opt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_init_atomic_coordinates</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
@@ -885,6 +894,15 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">first_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">vib_freq_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">run_type</span> <span class="o">==</span> <span class="s2">&quot;VIBRATIONAL_ANALYSIS&quot;</span><span class="p">,</span> <span class="s2">&quot;vibrational frequency is only available for VIBRATIONAL_ANALYSIS run type.&quot;</span>
+        <span class="c1"># use cached property to prase only once</span>
+        <span class="k">return</span> <span class="n">parse_vibration_freq_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Cp2kOutput.get_vib_freq_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_vib_freq_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_vib_freq_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vib_freq_list</span></div>
+
 <div class="viewcode-block" id="Cp2kOutput.drop_last_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.drop_last_info">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">drop_last_info</span><span class="p">(</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="n">array</span><span class="p">):</span>
         <span class="c1"># drop last info parsed from output if it is terminated by request (touch EXIT)</span>
@@ -906,7 +924,7 @@ document.write(`
 <div class="viewcode-block" id="Cp2kOutput.check_run_type"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.check_run_type">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">check_run_type</span><span class="p">(</span><span class="n">run_type</span><span class="p">):</span>
         <span class="n">implemented_run_type_parsers</span> <span class="o">=</span> \
-            <span class="p">[</span><span class="s2">&quot;ENERGY_FORCE&quot;</span><span class="p">,</span> <span class="s2">&quot;ENERGY&quot;</span><span class="p">,</span> <span class="s2">&quot;MD&quot;</span><span class="p">,</span> <span class="s2">&quot;GEO_OPT&quot;</span><span class="p">,</span> <span class="s2">&quot;CELL_OPT&quot;</span><span class="p">]</span>
+            <span class="p">[</span><span class="s2">&quot;ENERGY_FORCE&quot;</span><span class="p">,</span> <span class="s2">&quot;ENERGY&quot;</span><span class="p">,</span> <span class="s2">&quot;MD&quot;</span><span class="p">,</span> <span class="s2">&quot;GEO_OPT&quot;</span><span class="p">,</span> <span class="s2">&quot;CELL_OPT&quot;</span><span class="p">,</span> <span class="s2">&quot;VIBRATIONAL_ANALYSIS&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">run_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">implemented_run_type_parsers</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Parser for Run Type </span><span class="si">{</span><span class="n">run_type</span><span class="si">}</span><span class="s2"> haven&#39;t been implemented yet!&quot;</span>

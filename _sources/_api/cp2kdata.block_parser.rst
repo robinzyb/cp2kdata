@@ -23,6 +23,7 @@ Submodules
    cp2kdata.block_parser.md_xyz
    cp2kdata.block_parser.mulliken
    cp2kdata.block_parser.stress
+   cp2kdata.block_parser.vibration
 
 Module contents
 ---------------

@@ -198,6 +198,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../_api/cp2kdata.block_parser.md_xyz.html">cp2kdata.block_parser.md_xyz module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../_api/cp2kdata.block_parser.mulliken.html">cp2kdata.block_parser.mulliken module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../_api/cp2kdata.block_parser.stress.html">cp2kdata.block_parser.stress module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_api/cp2kdata.block_parser.vibration.html">cp2kdata.block_parser.vibration module</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../_api/cp2kdata.cli.html">cp2kdata.cli package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -429,6 +430,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-energy-force-outputs">Parse ENERGY_FORCE Outputs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-geo-opt-outputs">Parse GEO_OPT Outputs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-md-outputs">Parse MD outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-vibrational-analysis-outputs">Parse VIBRATIONAL_ANALYSIS outputs</a></li>
 </ul>
             </nav>
         </div>
@@ -534,6 +536,73 @@ Element Numb       : 6    6    18
 </pre></div>
 </div>
 </section>
+<section id="parse-vibrational-analysis-outputs">
+<h2>Parse VIBRATIONAL_ANALYSIS outputs<a class="headerlink" href="#parse-vibrational-analysis-outputs" title="Permalink to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kOutput</span>
+<span class="n">cp2k_output_file</span> <span class="o">=</span> <span class="s2">&quot;output&quot;</span>
+<span class="n">cp2koutput</span><span class="o">=</span><span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">cp2k_output_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="n">Cp2k</span> <span class="n">Output</span> <span class="n">Summary</span>
+
+<span class="o">--------------------------------------</span>
+
+<span class="n">Cp2k</span> <span class="n">Version</span>       <span class="p">:</span> <span class="mf">7.1</span>
+
+<span class="n">Run</span> <span class="n">Type</span>           <span class="p">:</span> <span class="n">VIBRATIONAL_ANALYSIS</span>
+
+<span class="n">Atom</span> <span class="n">Numbers</span>       <span class="p">:</span> <span class="mi">84</span>
+
+<span class="n">Frame</span> <span class="n">Numbers</span>      <span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">Force</span> <span class="ow">in</span> <span class="n">Output</span>    <span class="p">:</span> <span class="n">No</span>
+
+<span class="n">Stress</span> <span class="ow">in</span> <span class="n">Output</span>   <span class="p">:</span> <span class="n">No</span>
+
+<span class="n">Element</span> <span class="n">List</span>       <span class="p">:</span> <span class="n">Ir</span>   <span class="n">O</span>    <span class="n">H</span>
+
+<span class="n">Element</span> <span class="n">Numb</span>       <span class="p">:</span> <span class="mi">20</span>   <span class="mi">48</span>   <span class="mi">16</span>
+<span class="o">--------------------------------------</span>
+</pre></div>
+</div>
+<p>The frequencies of normal modes can be easily obtained through</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">vib_freq</span> <span class="o">=</span> <span class="n">cp2koutput</span><span class="o">.</span><span class="n">get_vib_freq_list</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vib_freq</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">array</span><span class="p">([</span>  <span class="mf">86.376632</span><span class="p">,</span>   <span class="mf">97.513035</span><span class="p">,</span>  <span class="mf">121.216151</span><span class="p">,</span>  <span class="mf">129.190651</span><span class="p">,</span>  <span class="mf">132.227782</span><span class="p">,</span>
+        <span class="mf">136.462792</span><span class="p">,</span>  <span class="mf">142.615702</span><span class="p">,</span>  <span class="mf">147.191117</span><span class="p">,</span>  <span class="mf">159.80634</span> <span class="p">,</span>  <span class="mf">162.154751</span><span class="p">,</span>
+        <span class="mf">168.906485</span><span class="p">,</span>  <span class="mf">170.829935</span><span class="p">,</span>  <span class="mf">173.900984</span><span class="p">,</span>  <span class="mf">177.693402</span><span class="p">,</span>  <span class="mf">183.401291</span><span class="p">,</span>
+        <span class="mf">184.730182</span><span class="p">,</span>  <span class="mf">187.076345</span><span class="p">,</span>  <span class="mf">189.403066</span><span class="p">,</span>  <span class="mf">191.336104</span><span class="p">,</span>  <span class="mf">192.041037</span><span class="p">,</span>
+        <span class="mf">193.255332</span><span class="p">,</span>  <span class="mf">195.888228</span><span class="p">,</span>  <span class="mf">198.675828</span><span class="p">,</span>  <span class="mf">199.922815</span><span class="p">,</span>  <span class="mf">206.417016</span><span class="p">,</span>
+        <span class="mf">210.953256</span><span class="p">,</span>  <span class="mf">218.001682</span><span class="p">,</span>  <span class="mf">219.425306</span><span class="p">,</span>  <span class="mf">222.52259</span> <span class="p">,</span>  <span class="mf">224.924497</span><span class="p">,</span>
+        <span class="mf">234.303527</span><span class="p">,</span>  <span class="mf">234.913409</span><span class="p">,</span>  <span class="mf">238.023057</span><span class="p">,</span>  <span class="mf">248.354352</span><span class="p">,</span>  <span class="mf">255.550832</span><span class="p">,</span>
+        <span class="mf">258.840498</span><span class="p">,</span>  <span class="mf">261.863363</span><span class="p">,</span>  <span class="mf">276.005055</span><span class="p">,</span>  <span class="mf">283.689727</span><span class="p">,</span>  <span class="mf">291.995009</span><span class="p">,</span>
+        <span class="mf">301.789878</span><span class="p">,</span>  <span class="mf">310.297048</span><span class="p">,</span>  <span class="mf">323.748766</span><span class="p">,</span>  <span class="mf">329.656908</span><span class="p">,</span>  <span class="mf">346.17215</span> <span class="p">,</span>
+        <span class="mf">353.855895</span><span class="p">,</span>  <span class="mf">360.270334</span><span class="p">,</span>  <span class="mf">376.393988</span><span class="p">,</span>  <span class="mf">378.928125</span><span class="p">,</span>  <span class="mf">392.873287</span><span class="p">,</span>
+        <span class="mf">396.863859</span><span class="p">,</span>  <span class="mf">402.392675</span><span class="p">,</span>  <span class="mf">406.699951</span><span class="p">,</span>  <span class="mf">413.228256</span><span class="p">,</span>  <span class="mf">416.512902</span><span class="p">,</span>
+        <span class="mf">427.329694</span><span class="p">,</span>  <span class="mf">435.765748</span><span class="p">,</span>  <span class="mf">438.283727</span><span class="p">,</span>  <span class="mf">452.313934</span><span class="p">,</span>  <span class="mf">458.465777</span><span class="p">,</span>
+        <span class="mf">460.79924</span> <span class="p">,</span>  <span class="mf">465.321668</span><span class="p">,</span>  <span class="mf">472.298302</span><span class="p">,</span>  <span class="mf">475.940439</span><span class="p">,</span>  <span class="mf">483.095673</span><span class="p">,</span>
+        <span class="mf">484.024696</span><span class="p">,</span>  <span class="mf">485.946038</span><span class="p">,</span>  <span class="mf">488.381279</span><span class="p">,</span>  <span class="mf">501.80579</span> <span class="p">,</span>  <span class="mf">508.714296</span><span class="p">,</span>
+        <span class="mf">515.24576</span> <span class="p">,</span>  <span class="mf">524.550782</span><span class="p">,</span>  <span class="mf">548.347144</span><span class="p">,</span>  <span class="mf">553.286646</span><span class="p">,</span>  <span class="mf">561.806014</span><span class="p">,</span>
+        <span class="mf">568.374944</span><span class="p">,</span>  <span class="mf">575.581685</span><span class="p">,</span>  <span class="mf">581.82834</span> <span class="p">,</span>  <span class="mf">593.158413</span><span class="p">,</span>  <span class="mf">603.508201</span><span class="p">,</span>
+        <span class="mf">612.45818</span> <span class="p">,</span>  <span class="mf">615.321528</span><span class="p">,</span>  <span class="mf">617.676424</span><span class="p">,</span>  <span class="mf">628.791272</span><span class="p">,</span>  <span class="mf">632.70203</span> <span class="p">,</span>
+        <span class="mf">634.782343</span><span class="p">,</span>  <span class="mf">637.505407</span><span class="p">,</span>  <span class="mf">646.571283</span><span class="p">,</span>  <span class="mf">647.068464</span><span class="p">,</span>  <span class="mf">665.866031</span><span class="p">,</span>
+        <span class="mf">668.360042</span><span class="p">,</span>  <span class="mf">674.062077</span><span class="p">,</span>  <span class="mf">675.781939</span><span class="p">,</span>  <span class="mf">691.829219</span><span class="p">,</span>  <span class="mf">692.289219</span><span class="p">,</span>
+        <span class="mf">702.477412</span><span class="p">,</span>  <span class="mf">703.782994</span><span class="p">,</span>  <span class="mf">709.119554</span><span class="p">,</span>  <span class="mf">717.545042</span><span class="p">,</span>  <span class="mf">725.023678</span><span class="p">,</span>
+        <span class="mf">725.974217</span><span class="p">,</span>  <span class="mf">732.039541</span><span class="p">,</span>  <span class="mf">735.313457</span><span class="p">,</span>  <span class="mf">738.154712</span><span class="p">,</span>  <span class="mf">741.528806</span><span class="p">,</span>
+        <span class="mf">743.384134</span><span class="p">,</span>  <span class="mf">752.69417</span> <span class="p">,</span>  <span class="mf">753.024109</span><span class="p">,</span>  <span class="mf">754.98813</span> <span class="p">,</span>  <span class="mf">758.675974</span><span class="p">,</span>
+        <span class="mf">760.589761</span><span class="p">,</span>  <span class="mf">767.204112</span><span class="p">,</span>  <span class="mf">773.037322</span><span class="p">,</span>  <span class="mf">778.035202</span><span class="p">,</span>  <span class="mf">790.192429</span><span class="p">,</span>
+        <span class="mf">793.116029</span><span class="p">,</span>  <span class="mf">793.676956</span><span class="p">,</span>  <span class="mf">797.698711</span><span class="p">,</span>  <span class="mf">799.368024</span><span class="p">,</span>  <span class="mf">803.600176</span><span class="p">,</span>
+        <span class="mf">809.272806</span><span class="p">,</span>  <span class="mf">822.118902</span><span class="p">,</span>  <span class="mf">840.188822</span><span class="p">,</span>  <span class="mf">850.058458</span><span class="p">,</span>  <span class="mf">895.024762</span><span class="p">,</span>
+        <span class="mf">905.977585</span><span class="p">,</span>  <span class="mf">973.556033</span><span class="p">,</span>  <span class="mf">992.515143</span><span class="p">,</span> <span class="mf">1014.623025</span><span class="p">,</span> <span class="mf">1017.337562</span><span class="p">,</span>
+       <span class="mf">1023.263474</span><span class="p">,</span> <span class="mf">1027.645573</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -603,6 +672,7 @@ Element Numb       : 6    6    18
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-energy-force-outputs">Parse ENERGY_FORCE Outputs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-geo-opt-outputs">Parse GEO_OPT Outputs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-md-outputs">Parse MD outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-vibrational-analysis-outputs">Parse VIBRATIONAL_ANALYSIS outputs</a></li>
 </ul>
   </nav></div>
 

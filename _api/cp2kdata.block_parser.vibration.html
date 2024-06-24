@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>cp2kdata.cli.funcs module &#8212; CP2KData Reference</title>
+    <title>cp2kdata.block_parser.vibration module &#8212; CP2KData Reference</title>
   
   
   
@@ -62,11 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_api/cp2kdata.cli.funcs';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_api/cp2kdata.block_parser.vibration';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="cp2kdata.cube package" href="cp2kdata.cube.html" />
-    <link rel="prev" title="cp2kdata.cli.cmd module" href="cp2kdata.cli.cmd.html" />
+    <link rel="next" title="cp2kdata.cli package" href="cp2kdata.cli.html" />
+    <link rel="prev" title="cp2kdata.block_parser.stress module" href="cp2kdata.block_parser.stress.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,7 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">cp2kdata</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="cp2kdata.html">cp2kdata package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3 has-children"><a class="reference internal" href="cp2kdata.block_parser.html">cp2kdata.block_parser package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="cp2kdata.block_parser.html">cp2kdata.block_parser package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.atomic_kind.html">cp2kdata.block_parser.atomic_kind module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.cells.html">cp2kdata.block_parser.cells module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.converge.html">cp2kdata.block_parser.converge module</a></li>
@@ -198,12 +198,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.md_xyz.html">cp2kdata.block_parser.md_xyz module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.mulliken.html">cp2kdata.block_parser.mulliken module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.stress.html">cp2kdata.block_parser.stress module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.vibration.html">cp2kdata.block_parser.vibration module</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">cp2kdata.block_parser.vibration module</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current active has-children"><a class="reference internal" href="cp2kdata.cli.html">cp2kdata.cli package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="cp2kdata.cli.html">cp2kdata.cli package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.cli.cmd.html">cp2kdata.cli.cmd module</a></li>
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">cp2kdata.cli.funcs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp2kdata.cli.funcs.html">cp2kdata.cli.funcs module</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="cp2kdata.cube.html">cp2kdata.cube package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -302,7 +302,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_api/cp2kdata.cli.funcs.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_api/cp2kdata.block_parser.vibration.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -332,7 +332,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/_api/cp2kdata.cli.funcs.rst" target="_blank"
+      <li><a href="../_sources/_api/cp2kdata.block_parser.vibration.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -414,7 +414,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>cp2kdata.cli.funcs module</h1>
+    <h1>cp2kdata.block_parser.vibration module</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -428,8 +428,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="module-cp2kdata.cli.funcs">
-<span id="cp2kdata-cli-funcs-module"></span><h1>cp2kdata.cli.funcs module<a class="headerlink" href="#module-cp2kdata.cli.funcs" title="Permalink to this heading">#</a></h1>
+  <section id="module-cp2kdata.block_parser.vibration">
+<span id="cp2kdata-block-parser-vibration-module"></span><h1>cp2kdata.block_parser.vibration module<a class="headerlink" href="#module-cp2kdata.block_parser.vibration" title="Permalink to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="cp2kdata.block_parser.vibration.parse_vibration_freq_list">
+<span class="sig-prename descclassname"><span class="pre">cp2kdata.block_parser.vibration.</span></span><span class="sig-name descname"><span class="pre">parse_vibration_freq_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/block_parser/vibration.html#parse_vibration_freq_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.block_parser.vibration.parse_vibration_freq_list" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </section>
 
     <script type="text/x-thebe-config">
@@ -463,20 +468,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="cp2kdata.cli.cmd.html"
+       href="cp2kdata.block_parser.stress.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">cp2kdata.cli.cmd module</p>
+        <p class="prev-next-title">cp2kdata.block_parser.stress module</p>
       </div>
     </a>
     <a class="right-next"
-       href="cp2kdata.cube.html"
+       href="cp2kdata.cli.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">cp2kdata.cube package</p>
+        <p class="prev-next-title">cp2kdata.cli package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

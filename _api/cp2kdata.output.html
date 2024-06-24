@@ -198,6 +198,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.md_xyz.html">cp2kdata.block_parser.md_xyz module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.mulliken.html">cp2kdata.block_parser.mulliken module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.stress.html">cp2kdata.block_parser.stress module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp2kdata.block_parser.vibration.html">cp2kdata.block_parser.vibration module</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="cp2kdata.cli.html">cp2kdata.cli package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -570,6 +571,11 @@ document.write(`
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cp2kdata.output.Cp2kOutput.get_vib_freq_list">
+<span class="sig-name descname"><span class="pre">get_vib_freq_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/output.html#Cp2kOutput.get_vib_freq_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.output.Cp2kOutput.get_vib_freq_list" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.output.Cp2kOutput.has_force">
 <span class="sig-name descname"><span class="pre">has_force</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/output.html#Cp2kOutput.has_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.output.Cp2kOutput.has_force" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
@@ -610,8 +616,18 @@ document.write(`
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cp2kdata.output.Cp2kOutput.parse_vibrational_analysis">
+<span class="sig-name descname"><span class="pre">parse_vibrational_analysis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/output.html#Cp2kOutput.parse_vibrational_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.output.Cp2kOutput.parse_vibrational_analysis" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cp2kdata.output.Cp2kOutput.to_ase_atoms">
 <span class="sig-name descname"><span class="pre">to_ase_atoms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/output.html#Cp2kOutput.to_ase_atoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.output.Cp2kOutput.to_ase_atoms" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cp2kdata.output.Cp2kOutput.vib_freq_list">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vib_freq_list</span></span><a class="headerlink" href="#cp2kdata.output.Cp2kOutput.vib_freq_list" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

@@ -195,6 +195,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.md_xyz.html">cp2kdata.block_parser.md_xyz module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.mulliken.html">cp2kdata.block_parser.mulliken module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.stress.html">cp2kdata.block_parser.stress module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.block_parser.vibration.html">cp2kdata.block_parser.vibration module</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="_api/cp2kdata.cli.html">cp2kdata.cli package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -572,13 +573,20 @@ document.write(`
         <li><a href="_api/cp2kdata.block_parser.mulliken.html#module-cp2kdata.block_parser.mulliken">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cp2kdata.block_parser.stress
 
       <ul>
         <li><a href="_api/cp2kdata.block_parser.stress.html#module-cp2kdata.block_parser.stress">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    cp2kdata.block_parser.vibration
+
+      <ul>
+        <li><a href="_api/cp2kdata.block_parser.vibration.html#module-cp2kdata.block_parser.vibration">module</a>
 </li>
       </ul></li>
       <li>
@@ -907,6 +915,8 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_version_string">get_version_string() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_vib_freq_list">get_vib_freq_list() (cp2kdata.output.Cp2kOutput method)</a>
+</li>
       <li><a href="_api/cp2kdata.cell.html#cp2kdata.cell.Cp2kCell.get_volume">get_volume() (cp2kdata.cell.Cp2kCell method)</a>
 </li>
       <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo">GlobalInfo (class in cp2kdata.block_parser.header_info)</a>
@@ -990,6 +1000,8 @@ document.write(`
         <li><a href="_api/cp2kdata.block_parser.mulliken.html#module-cp2kdata.block_parser.mulliken">cp2kdata.block_parser.mulliken</a>
 </li>
         <li><a href="_api/cp2kdata.block_parser.stress.html#module-cp2kdata.block_parser.stress">cp2kdata.block_parser.stress</a>
+</li>
+        <li><a href="_api/cp2kdata.block_parser.vibration.html#module-cp2kdata.block_parser.vibration">cp2kdata.block_parser.vibration</a>
 </li>
         <li><a href="_api/cp2kdata.cell.html#module-cp2kdata.cell">cp2kdata.cell</a>
 </li>
@@ -1106,10 +1118,10 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_md_cell">parse_md_cell() (in module cp2kdata.block_parser.md_xyz)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_md_converge">parse_md_converge() (in module cp2kdata.block_parser.converge)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/cp2kdata.block_parser.md_xyz.html#cp2kdata.block_parser.md_xyz.parse_md_ener">parse_md_ener() (in module cp2kdata.block_parser.md_xyz)</a>
 </li>
       <li><a href="_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_md_info">parse_md_info() (in module cp2kdata.block_parser.header_info)</a>
@@ -1127,6 +1139,10 @@ document.write(`
       <li><a href="_api/cp2kdata.block_parser.stress.html#cp2kdata.block_parser.stress.parse_stress_tensor_list">parse_stress_tensor_list() (in module cp2kdata.block_parser.stress)</a>
 </li>
       <li><a href="_api/cp2kdata.block_parser.fep.html#cp2kdata.block_parser.fep.parse_vertical_gap">parse_vertical_gap() (in module cp2kdata.block_parser.fep)</a>
+</li>
+      <li><a href="_api/cp2kdata.block_parser.vibration.html#cp2kdata.block_parser.vibration.parse_vibration_freq_list">parse_vibration_freq_list() (in module cp2kdata.block_parser.vibration)</a>
+</li>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_vibrational_analysis">parse_vibrational_analysis() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
       <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.pdos_name_parser">pdos_name_parser() (in module cp2kdata.pdos.pdos)</a>
 </li>
@@ -1238,6 +1254,8 @@ document.write(`
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.vib_freq_list">vib_freq_list (cp2kdata.output.Cp2kOutput property)</a>
+</li>
       <li><a href="_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.view_cube_acsii">view_cube_acsii() (cp2kdata.cube.cube.Cp2kCube method)</a>
 </li>
   </ul></td>
