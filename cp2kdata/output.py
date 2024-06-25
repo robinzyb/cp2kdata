@@ -394,8 +394,8 @@ class Cp2kOutput:
             # if no pos file and ener file, parse energies from the output file
             format_logger(info="Energies", filename=self.filename)
             self.energies_list = parse_energies_list(self.output_file)
-
             self.energies_list = self.drop_last_info(self.cp2k_info, self.energies_list)
+            self.atomic_frames_list = None
 
         frc_xyz_file_list = glob.glob(
             os.path.join(self.path_prefix, "*frc*.xyz"))
