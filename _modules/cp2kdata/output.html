@@ -774,8 +774,8 @@ document.write(`
             <span class="c1"># if no pos file and ener file, parse energies from the output file</span>
             <span class="n">format_logger</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;Energies&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="n">parse_energies_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
-
             <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">atomic_frames_list</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">frc_xyz_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*frc*.xyz&quot;</span><span class="p">))</span>
