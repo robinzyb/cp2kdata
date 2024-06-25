@@ -475,7 +475,7 @@ document.write(`
     <span class="c1"># notice that the cell of step 0 is excluded from MD| block</span>
 
     <span class="c1"># choose parser according to cp2k_info.version</span>
-    <span class="k">if</span> <span class="n">cp2k_info</span><span class="o">.</span><span class="n">version</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;2022.2&#39;</span><span class="p">,</span> <span class="s1">&#39;2023.1&#39;</span><span class="p">,</span> <span class="s1">&#39;2023.2&#39;</span><span class="p">,</span> <span class="s1">&#39;2024.1&#39;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">cp2k_info</span><span class="o">.</span><span class="n">version</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;9.1&#39;</span><span class="p">,</span> <span class="s1">&#39;2022.2&#39;</span><span class="p">,</span> <span class="s1">&#39;2023.1&#39;</span><span class="p">,</span> <span class="s1">&#39;2023.2&#39;</span><span class="p">,</span> <span class="s1">&#39;2024.1&#39;</span><span class="p">]:</span>
         <span class="n">ALL_MD_CELL_RE</span> <span class="o">=</span> <span class="n">ALL_MD_CELL_RE_V2023</span>
     <span class="k">elif</span> <span class="n">cp2k_info</span><span class="o">.</span><span class="n">version</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;7.1&#39;</span><span class="p">]:</span>
         <span class="n">ALL_MD_CELL_RE</span> <span class="o">=</span> <span class="n">ALL_MD_CELL_RE_V7</span>
