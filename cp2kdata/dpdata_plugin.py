@@ -1,10 +1,15 @@
+from .log import get_logger
+import numpy as np
+
 from dpdata.unit import EnergyConversion, LengthConversion, ForceConversion, PressureConversion
 from dpdata.format import Format
+
 from . import Cp2kOutput
 from .block_parser.converge import parse_e_f_converge
-import numpy as np
-from cp2kdata.block_parser.md_xyz import parse_pos_xyz_from_wannier
-import os
+from .block_parser.md_xyz import parse_pos_xyz_from_wannier
+
+logger = get_logger(__name__)
+
 
 AU_TO_EV = EnergyConversion("hartree", "eV").value()
 AU_TO_ANG = LengthConversion("bohr", "angstrom").value()
@@ -13,9 +18,9 @@ EV_ANG_m3_TO_GPa = PressureConversion("eV/angstrom^3", "GPa").value()
 
 WRAPPER = "--- You are parsing data using package Cp2kData ---"
 VIRIAL_WRN = (
-    "Virial Parsing using cp2kdata as plug in for dpdata\n"
-    "was not multiplied by volume before cp2kdata v0.6.4\n"
-    "please check the cp2kdata version and the virial.npy\n"
+    "Virial Parsing using cp2kdata as plug in for dpdata "
+    "was not multiplied by volume before cp2kdata v0.6.4 "
+    "please check the cp2kdata version and the virial.npy"
     )
 
 
@@ -28,7 +33,7 @@ class CP2KEnergyForceFormat(Format):
         true_symbols = kwargs.get('true_symbols', False)
 
         # -- start parsing --
-        print(WRAPPER)
+        logger.debug(WRAPPER)
         converge_info = parse_e_f_converge(file_name)
         if not converge_info.converge:
             data = {
@@ -61,11 +66,11 @@ class CP2KEnergyForceFormat(Format):
         data['forces'] = cp2k_e_f.atomic_forces_list * AU_TO_EV/AU_TO_ANG
         if cp2k_e_f.has_stress():
             # note that virial = stress * volume
-            print(VIRIAL_WRN)
+            logger.warning(VIRIAL_WRN)
             volume = np.linalg.det(data['cells'][0])
             data['virials'] = cp2k_e_f.stress_tensor_list*volume/EV_ANG_m3_TO_GPa
 
-        print(WRAPPER)
+        logger.debug(WRAPPER)
         return data
 
 
@@ -81,7 +86,7 @@ class CP2KMDFormat(Format):
         cp2k_output_name = kwargs.get('cp2k_output_name', None)
 
         # -- start parsing --
-        print(WRAPPER)
+        logger.debug(WRAPPER)
 
         cp2kmd = Cp2kOutput(output_file=cp2k_output_name,
                             run_type="MD",
@@ -130,26 +135,26 @@ class CP2KMDFormat(Format):
         data['forces'] = cp2kmd.atomic_forces_list * AU_TO_EV/AU_TO_ANG
         if cp2kmd.has_stress():
             # note that virial = stress * volume
-            print(VIRIAL_WRN)
+            logger.warning(VIRIAL_WRN)
             # the shape of cells should be (num_frames, 3, 3)
             # the np.linalg.det() function can handle this and return (num_frames,)
             volumes = np.linalg.det(data['cells'])
             volumes = volumes[:, np.newaxis, np.newaxis]
             data['virials'] = cp2kmd.stress_tensor_list*volumes/EV_ANG_m3_TO_GPa
 
-        print(WRAPPER)
+        logger.debug(WRAPPER)
         return data
 
 
 def get_chemical_symbols_from_cp2kdata(cp2koutput, true_symbols):
     if cp2koutput.atomic_kind is None:
-        print("Missing the atomic kind informations, atom names are true chemical symbols.")
+        logger.debug("Missing the atomic kind informations, atom names are true chemical symbols.")
         chemical_symbols = cp2koutput.get_chemical_symbols()
     elif true_symbols:
-        print("You have manually true_symbols=True, atom names are true chemical symbols.")
+        logger.debug("You have manually true_symbols=True, atom names are true chemical symbols.")
         chemical_symbols = cp2koutput.get_chemical_symbols()
     else:
-        print("Atom names are fake chemical symbols as you set in cp2k input.")
+        logger.debug("Atom names are fake chemical symbols as you set in cp2k input.")
         chemical_symbols = cp2koutput.get_chemical_symbols_fake()
     chemical_symbols = np.array(chemical_symbols)
     return chemical_symbols
