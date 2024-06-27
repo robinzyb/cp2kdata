@@ -39,7 +39,8 @@ pip install .
 # Feature Request
 Any advice is welcome. If you would like to request a new feature, please open an issue in github and upload example input and output files.
 
-
+# Developer
+set environment variable CP2KDATA_LOG_LEVEL to DEBUG to get the complete information.
 
 
 

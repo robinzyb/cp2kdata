@@ -1,13 +1,17 @@
 """
 this script put misc function here.
 """
-from ase.geometry.analysis import Analysis
-from ase.io import read, write
 #from cp2kdata import Cp2kOutput
 import numpy as np
 import os
 import shutil
 
+from ase.geometry.analysis import Analysis
+from ase.io import read, write
+
+from .log import get_logger
+
+logger = get_logger(__name__)
 # frequently used unit convertion
 au2eV = 27.211386245988
 au2A = 0.529177210903
@@ -75,7 +79,7 @@ def printtbox(arg):
     print("--> CP2KDATA: {0}".format(arg))
 
 def format_logger(info, filename):
-    print(f"Parsing {info:10} from {filename}")
+    logger.debug(f"Parsing {info:10} from {filename}")
 
 def file_content(file, num):
     # read a specific line of file or return the block
