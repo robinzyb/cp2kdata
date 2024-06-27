@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>cp2kdata.dpdata_plugin module &#8212; CP2KData Reference</title>
+    <title>cp2kdata.log module &#8212; CP2KData Reference</title>
   
   
   
@@ -62,11 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_api/cp2kdata.dpdata_plugin';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_api/cp2kdata.log';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="cp2kdata.log module" href="cp2kdata.log.html" />
-    <link rel="prev" title="cp2kdata.cell module" href="cp2kdata.cell.html" />
+    <link rel="next" title="cp2kdata.output module" href="cp2kdata.output.html" />
+    <link rel="prev" title="cp2kdata.dpdata_plugin module" href="cp2kdata.dpdata_plugin.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -222,8 +222,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cp2kdata.cell.html">cp2kdata.cell module</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">cp2kdata.dpdata_plugin module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cp2kdata.log.html">cp2kdata.log module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cp2kdata.dpdata_plugin.html">cp2kdata.dpdata_plugin module</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">cp2kdata.log module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cp2kdata.output.html">cp2kdata.output module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cp2kdata.test_input.html">cp2kdata.test_input module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cp2kdata.units.html">cp2kdata.units module</a></li>
@@ -303,7 +303,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_api/cp2kdata.dpdata_plugin.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_api/cp2kdata.log.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -333,7 +333,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/_api/cp2kdata.dpdata_plugin.rst" target="_blank"
+      <li><a href="../_sources/_api/cp2kdata.log.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -415,7 +415,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>cp2kdata.dpdata_plugin module</h1>
+    <h1>cp2kdata.log module</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -429,68 +429,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="module-cp2kdata.dpdata_plugin">
-<span id="cp2kdata-dpdata-plugin-module"></span><h1>cp2kdata.dpdata_plugin module<a class="headerlink" href="#module-cp2kdata.dpdata_plugin" title="Permalink to this heading">#</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="cp2kdata.dpdata_plugin.CP2KEnergyForceFormat">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cp2kdata.dpdata_plugin.</span></span><span class="sig-name descname"><span class="pre">CP2KEnergyForceFormat</span></span><a class="reference internal" href="../_modules/cp2kdata/dpdata_plugin.html#CP2KEnergyForceFormat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.dpdata_plugin.CP2KEnergyForceFormat" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Format</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="cp2kdata.dpdata_plugin.CP2KEnergyForceFormat.from_labeled_system">
-<span class="sig-name descname"><span class="pre">from_labeled_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/dpdata_plugin.html#CP2KEnergyForceFormat.from_labeled_system"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.dpdata_plugin.CP2KEnergyForceFormat.from_labeled_system" title="Permalink to this definition">#</a></dt>
-<dd><p>Implement LabeledSystem.from that converts from this format to LabeledSystem.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file_name</strong> (<em>str</em>) – file name, i.e. the first argument</p></li>
-<li><p><strong>**kwargs</strong> (<em>dict</em>) – keyword arguments that will be passed from the method</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>data</strong> – system data, whose keys are defined in LabeledSystem.DTYPES</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="cp2kdata.dpdata_plugin.CP2KMDFormat">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cp2kdata.dpdata_plugin.</span></span><span class="sig-name descname"><span class="pre">CP2KMDFormat</span></span><a class="reference internal" href="../_modules/cp2kdata/dpdata_plugin.html#CP2KMDFormat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.dpdata_plugin.CP2KMDFormat" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Format</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="cp2kdata.dpdata_plugin.CP2KMDFormat.from_labeled_system">
-<span class="sig-name descname"><span class="pre">from_labeled_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restart</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/dpdata_plugin.html#CP2KMDFormat.from_labeled_system"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.dpdata_plugin.CP2KMDFormat.from_labeled_system" title="Permalink to this definition">#</a></dt>
-<dd><p>Implement LabeledSystem.from that converts from this format to LabeledSystem.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file_name</strong> (<em>str</em>) – file name, i.e. the first argument</p></li>
-<li><p><strong>**kwargs</strong> (<em>dict</em>) – keyword arguments that will be passed from the method</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>data</strong> – system data, whose keys are defined in LabeledSystem.DTYPES</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+  <section id="module-cp2kdata.log">
+<span id="cp2kdata-log-module"></span><h1>cp2kdata.log module<a class="headerlink" href="#module-cp2kdata.log" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="cp2kdata.dpdata_plugin.get_chemical_symbols_from_cp2kdata">
-<span class="sig-prename descclassname"><span class="pre">cp2kdata.dpdata_plugin.</span></span><span class="sig-name descname"><span class="pre">get_chemical_symbols_from_cp2kdata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cp2koutput</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_symbols</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/dpdata_plugin.html#get_chemical_symbols_from_cp2kdata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.dpdata_plugin.get_chemical_symbols_from_cp2kdata" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cp2kdata.dpdata_plugin.get_uniq_atom_names_and_types">
-<span class="sig-prename descclassname"><span class="pre">cp2kdata.dpdata_plugin.</span></span><span class="sig-name descname"><span class="pre">get_uniq_atom_names_and_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chemical_symbols</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/dpdata_plugin.html#get_uniq_atom_names_and_types"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.dpdata_plugin.get_uniq_atom_names_and_types" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="cp2kdata.log.get_logger">
+<span class="sig-prename descclassname"><span class="pre">cp2kdata.log.</span></span><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cp2kdata/log.html#get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cp2kdata.log.get_logger" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </section>
@@ -526,20 +469,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="cp2kdata.cell.html"
+       href="cp2kdata.dpdata_plugin.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">cp2kdata.cell module</p>
+        <p class="prev-next-title">cp2kdata.dpdata_plugin module</p>
       </div>
     </a>
     <a class="right-next"
-       href="cp2kdata.log.html"
+       href="cp2kdata.output.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">cp2kdata.log module</p>
+        <p class="prev-next-title">cp2kdata.output module</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

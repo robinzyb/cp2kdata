@@ -22,6 +22,7 @@ Submodules
 
    cp2kdata.cell
    cp2kdata.dpdata_plugin
+   cp2kdata.log
    cp2kdata.output
    cp2kdata.test_input
    cp2kdata.units

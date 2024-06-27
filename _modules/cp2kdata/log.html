@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cp2kdata.utils &#8212; CP2KData Reference</title>
+    <title>cp2kdata.log &#8212; CP2KData Reference</title>
   
   
   
@@ -61,7 +61,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/cp2kdata/utils';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/cp2kdata/log';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -300,7 +300,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_modules/cp2kdata/utils.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2F_modules/cp2kdata/log.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -378,132 +378,20 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <h1>Source code for cp2kdata.utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">this script put misc function here.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="c1">#from cp2kdata import Cp2kOutput</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+  <h1>Source code for cp2kdata.log</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
 
-<span class="kn">from</span> <span class="nn">ase.geometry.analysis</span> <span class="kn">import</span> <span class="n">Analysis</span>
-<span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span><span class="p">,</span> <span class="n">write</span>
+<span class="n">level_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CP2KDATA_LOG_LEVEL&#39;</span><span class="p">,</span> <span class="s1">&#39;INFO&#39;</span><span class="p">)</span>
+<span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">_nameToLevel</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">level_name</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">.log</span> <span class="kn">import</span> <span class="n">get_logger</span>
+<span class="c1"># format to include timestamp and module</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)-8s</span><span class="s1"> </span><span class="si">%(name)-40s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+<span class="c1"># suppress transitions logging</span>
+<span class="c1"># logging.getLogger(&#39;transitions.core&#39;).setLevel(logging.WARNING)</span>
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-<span class="c1"># frequently used unit convertion</span>
-<span class="n">au2eV</span> <span class="o">=</span> <span class="mf">27.211386245988</span>
-<span class="n">au2A</span> <span class="o">=</span> <span class="mf">0.529177210903</span>
-
-
-<div class="viewcode-block" id="create_path"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.create_path">[docs]</a><span class="k">def</span> <span class="nf">create_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="n">path</span> <span class="o">+=</span> <span class="s1">&#39;/&#39;</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">bk_dirname</span> <span class="o">=</span> <span class="n">dirname</span> <span class="o">+</span> <span class="s2">&quot;.bk</span><span class="si">%03d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">counter</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">bk_dirname</span><span class="p">):</span>
-                <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">bk_dirname</span><span class="p">)</span>
-                <span class="k">break</span>
-            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="interpolate_spline"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.interpolate_spline">[docs]</a><span class="k">def</span> <span class="nf">interpolate_spline</span><span class="p">(</span><span class="n">old_x</span><span class="p">,</span> <span class="n">old_y</span><span class="p">,</span> <span class="n">new_x</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">splrep</span><span class="p">(</span><span class="n">old_x</span><span class="p">,</span> <span class="n">old_y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">per</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">new_y</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">splev</span><span class="p">(</span><span class="n">new_x</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span></div>
-
-
-<div class="viewcode-block" id="set_pbc"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.set_pbc">[docs]</a><span class="k">def</span> <span class="nf">set_pbc</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;set pbc for a list of Atoms object&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">single_pos</span> <span class="ow">in</span> <span class="n">pos</span><span class="p">:</span>
-        <span class="n">single_pos</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
-        <span class="n">single_pos</span><span class="o">.</span><span class="n">set_pbc</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="get_rdf_list"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.get_rdf_list">[docs]</a><span class="k">def</span> <span class="nf">get_rdf_list</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">nbin</span><span class="p">,</span> <span class="n">frames</span><span class="p">,</span> <span class="n">elements</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    pos: a list of atoms object</span>
-<span class="sd">    r: the radial length</span>
-<span class="sd">    nbin: the bin number in the radial range</span>
-<span class="sd">    frames: how much pos number will you consider</span>
-<span class="sd">    elements: the atom pair</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">tmp_info</span> <span class="o">=</span> <span class="n">Analysis</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
-    <span class="c1"># this wil get a rdf for every snapshot</span>
-    <span class="n">tmp_rdf_list</span> <span class="o">=</span> <span class="n">tmp_info</span><span class="o">.</span><span class="n">get_rdf</span><span class="p">(</span>
-        <span class="n">r</span><span class="p">,</span> <span class="n">nbin</span><span class="p">,</span> <span class="n">imageIdx</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">frames</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">elements</span><span class="o">=</span><span class="n">elements</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">tmp_rdf_list</span></div>
-
-
-<div class="viewcode-block" id="get_rdf"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.get_rdf">[docs]</a><span class="k">def</span> <span class="nf">get_rdf</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">nbin</span><span class="p">,</span> <span class="n">frames</span><span class="p">,</span> <span class="n">elements</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">tmp_rdf_list</span> <span class="o">=</span> <span class="n">get_rdf_list</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">nbin</span><span class="p">,</span> <span class="n">frames</span><span class="p">,</span> <span class="n">elements</span><span class="p">)</span>
-    <span class="n">tot_gr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nbin</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">s_gr</span> <span class="ow">in</span> <span class="n">tmp_rdf_list</span><span class="p">:</span>
-        <span class="n">tot_gr</span> <span class="o">+=</span> <span class="n">s_gr</span><span class="o">/</span><span class="n">frames</span>
-    <span class="k">return</span> <span class="n">tot_gr</span></div>
-
-
-<div class="viewcode-block" id="printtbox"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.printtbox">[docs]</a><span class="k">def</span> <span class="nf">printtbox</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function is a print decorated with a few characters so that the</span>
-<span class="sd">    print function present a characteristic string. Useful for postprocess.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--&gt; CP2KDATA: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span></div>
-
-<div class="viewcode-block" id="format_logger"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.format_logger">[docs]</a><span class="k">def</span> <span class="nf">format_logger</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsing </span><span class="si">{</span><span class="n">info</span><span class="si">:</span><span class="s2">10</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="file_content"><a class="viewcode-back" href="../../_api/cp2kdata.utils.html#cp2kdata.utils.file_content">[docs]</a><span class="k">def</span> <span class="nf">file_content</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
-    <span class="c1"># read a specific line of file or return the block</span>
-    <span class="c1"># file: enter file name</span>
-    <span class="c1"># num: a integer -&gt; return specific line content</span>
-    <span class="c1">#      a tuple (num1, num2) -&gt; return the line content</span>
-    <span class="c1">#                              between num1 and num2-1</span>
-    <span class="c1">#      a tuple (num1, ) -&gt; return the line content from</span>
-    <span class="c1">#                          num1, to the end of file</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">_idx</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">_idx</span> <span class="o">==</span> <span class="n">num</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="n">line</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-        <span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">_idx</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">_idx</span> <span class="o">&gt;=</span> <span class="n">num</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">_idx</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-                        <span class="n">content</span> <span class="o">+=</span> <span class="n">line</span>
-                    <span class="k">elif</span> <span class="n">_idx</span> <span class="o">&gt;=</span> <span class="n">num</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-                        <span class="k">break</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="k">continue</span>
-            <span class="k">return</span> <span class="n">content</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">_idx</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">_idx</span> <span class="o">&gt;=</span> <span class="n">num</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-                        <span class="n">content</span> <span class="o">+=</span> <span class="n">line</span>
-            <span class="k">return</span> <span class="n">content</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The length of range is wrong!&quot;</span><span class="p">)</span></div>
-
-
-<span class="c1"># def get_opt_cell_stc(output_file, pos_file):</span>
-<span class="c1">#     op = Cp2kOutput(output_file)</span>
-<span class="c1">#     opt_cell = op.get_all_cells()[-1]</span>
-<span class="c1">#     opt_pos = read(pos_file, index=&quot;-1&quot;)</span>
-<span class="c1">#     opt_pos.set_cell(opt_cell)</span>
-<span class="c1">#     opt_pos.set_pbc(True)</span>
-<span class="c1">#     write(&quot;opt_stc.cif&quot;, opt_pos, format=&quot;cif&quot;)</span>
+<div class="viewcode-block" id="get_logger"><a class="viewcode-back" href="../../_api/cp2kdata.log.html#cp2kdata.log.get_logger">[docs]</a><span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
 </pre></div>
 
                 </article>

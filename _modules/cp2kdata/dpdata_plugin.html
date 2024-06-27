@@ -220,6 +220,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.cell.html">cp2kdata.cell module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.dpdata_plugin.html">cp2kdata.dpdata_plugin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.log.html">cp2kdata.log module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.output.html">cp2kdata.output module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.test_input.html">cp2kdata.test_input module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../_api/cp2kdata.units.html">cp2kdata.units module</a></li>
@@ -378,13 +379,18 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.dpdata_plugin</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">dpdata.unit</span> <span class="kn">import</span> <span class="n">EnergyConversion</span><span class="p">,</span> <span class="n">LengthConversion</span><span class="p">,</span> <span class="n">ForceConversion</span><span class="p">,</span> <span class="n">PressureConversion</span>
+<span></span><span class="kn">from</span> <span class="nn">.log</span> <span class="kn">import</span> <span class="n">get_logger</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">dpdata.unit</span> <span class="kn">import</span> <span class="n">EnergyConversion</span><span class="p">,</span> <span class="n">LengthConversion</span><span class="p">,</span> <span class="n">ForceConversion</span><span class="p">,</span> <span class="n">PressureConversion</span>
 <span class="kn">from</span> <span class="nn">dpdata.format</span> <span class="kn">import</span> <span class="n">Format</span>
+
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Cp2kOutput</span>
 <span class="kn">from</span> <span class="nn">.block_parser.converge</span> <span class="kn">import</span> <span class="n">parse_e_f_converge</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.md_xyz</span> <span class="kn">import</span> <span class="n">parse_pos_xyz_from_wannier</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">.block_parser.md_xyz</span> <span class="kn">import</span> <span class="n">parse_pos_xyz_from_wannier</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
 
 <span class="n">AU_TO_EV</span> <span class="o">=</span> <span class="n">EnergyConversion</span><span class="p">(</span><span class="s2">&quot;hartree&quot;</span><span class="p">,</span> <span class="s2">&quot;eV&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
 <span class="n">AU_TO_ANG</span> <span class="o">=</span> <span class="n">LengthConversion</span><span class="p">(</span><span class="s2">&quot;bohr&quot;</span><span class="p">,</span> <span class="s2">&quot;angstrom&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
@@ -393,9 +399,9 @@ document.write(`
 
 <span class="n">WRAPPER</span> <span class="o">=</span> <span class="s2">&quot;--- You are parsing data using package Cp2kData ---&quot;</span>
 <span class="n">VIRIAL_WRN</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;Virial Parsing using cp2kdata as plug in for dpdata</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="s2">&quot;was not multiplied by volume before cp2kdata v0.6.4</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="s2">&quot;please check the cp2kdata version and the virial.npy</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Virial Parsing using cp2kdata as plug in for dpdata &quot;</span>
+    <span class="s2">&quot;was not multiplied by volume before cp2kdata v0.6.4 &quot;</span>
+    <span class="s2">&quot;please check the cp2kdata version and the virial.npy&quot;</span>
     <span class="p">)</span>
 
 
@@ -408,7 +414,7 @@ document.write(`
         <span class="n">true_symbols</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;true_symbols&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
         <span class="c1"># -- start parsing --</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
         <span class="n">converge_info</span> <span class="o">=</span> <span class="n">parse_e_f_converge</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">converge_info</span><span class="o">.</span><span class="n">converge</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
@@ -441,11 +447,11 @@ document.write(`
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;forces&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp2k_e_f</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="o">/</span><span class="n">AU_TO_ANG</span>
         <span class="k">if</span> <span class="n">cp2k_e_f</span><span class="o">.</span><span class="n">has_stress</span><span class="p">():</span>
             <span class="c1"># note that virial = stress * volume</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">VIRIAL_WRN</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">VIRIAL_WRN</span><span class="p">)</span>
             <span class="n">volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;cells&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
             <span class="n">data</span><span class="p">[</span><span class="s1">&#39;virials&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp2k_e_f</span><span class="o">.</span><span class="n">stress_tensor_list</span><span class="o">*</span><span class="n">volume</span><span class="o">/</span><span class="n">EV_ANG_m3_TO_GPa</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 
 
@@ -461,7 +467,7 @@ document.write(`
         <span class="n">cp2k_output_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cp2k_output_name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="c1"># -- start parsing --</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
 
         <span class="n">cp2kmd</span> <span class="o">=</span> <span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">output_file</span><span class="o">=</span><span class="n">cp2k_output_name</span><span class="p">,</span>
                             <span class="n">run_type</span><span class="o">=</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span>
@@ -510,26 +516,26 @@ document.write(`
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;forces&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">*</span> <span class="n">AU_TO_EV</span><span class="o">/</span><span class="n">AU_TO_ANG</span>
         <span class="k">if</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">has_stress</span><span class="p">():</span>
             <span class="c1"># note that virial = stress * volume</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">VIRIAL_WRN</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">VIRIAL_WRN</span><span class="p">)</span>
             <span class="c1"># the shape of cells should be (num_frames, 3, 3)</span>
             <span class="c1"># the np.linalg.det() function can handle this and return (num_frames,)</span>
             <span class="n">volumes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;cells&#39;</span><span class="p">])</span>
             <span class="n">volumes</span> <span class="o">=</span> <span class="n">volumes</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
             <span class="n">data</span><span class="p">[</span><span class="s1">&#39;virials&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">stress_tensor_list</span><span class="o">*</span><span class="n">volumes</span><span class="o">/</span><span class="n">EV_ANG_m3_TO_GPa</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 
 
 <div class="viewcode-block" id="get_chemical_symbols_from_cp2kdata"><a class="viewcode-back" href="../../_api/cp2kdata.dpdata_plugin.html#cp2kdata.dpdata_plugin.get_chemical_symbols_from_cp2kdata">[docs]</a><span class="k">def</span> <span class="nf">get_chemical_symbols_from_cp2kdata</span><span class="p">(</span><span class="n">cp2koutput</span><span class="p">,</span> <span class="n">true_symbols</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">cp2koutput</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing the atomic kind informations, atom names are true chemical symbols.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Missing the atomic kind informations, atom names are true chemical symbols.&quot;</span><span class="p">)</span>
         <span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">cp2koutput</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
     <span class="k">elif</span> <span class="n">true_symbols</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You have manually true_symbols=True, atom names are true chemical symbols.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;You have manually true_symbols=True, atom names are true chemical symbols.&quot;</span><span class="p">)</span>
         <span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">cp2koutput</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Atom names are fake chemical symbols as you set in cp2k input.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Atom names are fake chemical symbols as you set in cp2k input.&quot;</span><span class="p">)</span>
         <span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">cp2koutput</span><span class="o">.</span><span class="n">get_chemical_symbols_fake</span><span class="p">()</span>
     <span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">chemical_symbols</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">chemical_symbols</span></div>
