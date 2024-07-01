@@ -22,7 +22,7 @@ classifiers = [
     "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)"
 ]
 dependencies = [
-    "numpy>=1.24.3",
+    "numpy>=1.21.6",
     "scipy>=1.5.4",
     "matplotlib>=3.3.2",
     "ase>=3.20.1",
