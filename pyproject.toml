@@ -15,7 +15,6 @@ authors = [
 license = {file = "LICENSE"}
 readme = "README.md"
 classifiers = [
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -35,7 +34,7 @@ dependencies = [
     "pycp2k",
     "asciichartpy"
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 keywords = ["cp2k", "cp2kdata"]
 
 [project.urls]
