@@ -1,7 +1,9 @@
-from cp2kdata import Cp2kCube
 import os
+
 import pytest
 import numpy as np
+
+from cp2kdata import Cp2kCube
 
 
 path_prefix = "tests/test_cube/"
