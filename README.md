@@ -1,7 +1,8 @@
 # CP2KData
 
 
-[![Python package](https://github.com/robinzyb/cp2kdata/actions/workflows/ci.yml/badge.svg)](https://github.com/robinzyb/cp2kdata/actions/workflows/ci.yml)[![Coverage Status](https://coveralls.io/repos/github/robinzyb/cp2kdata/badge.svg)](https://coveralls.io/github/robinzyb/cp2kdata)
+[![Python package](https://github.com/robinzyb/cp2kdata/actions/workflows/ci.yml/badge.svg)](https://github.com/robinzyb/cp2kdata/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/robinzyb/cp2kdata/badge.svg)](https://img.shields.io/codecov/c/github/robinzyb/cp2kdata)
 ![pythonv](https://img.shields.io/pypi/pyversions/cp2kdata)
 ![pypiv](https://img.shields.io/pypi/v/cp2kdata)
 ![PyPI - pip install](https://img.shields.io/pypi/dm/cp2kdata?logo=pypi&label=pip%20install)
