@@ -386,7 +386,10 @@ document.write(`
 <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">_nameToLevel</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">level_name</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 
 <span class="c1"># format to include timestamp and module</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;CP2KDATA| </span><span class="si">%(levelname)-8s</span><span class="s1"> </span><span class="si">%(name)-40s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">level_name</span> <span class="o">==</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">:</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;CP2KDATA| </span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)-8s</span><span class="s1"> </span><span class="si">%(name)-40s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;CP2KDATA| </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
 <span class="c1"># suppress transitions logging</span>
 <span class="c1"># logging.getLogger(&#39;transitions.core&#39;).setLevel(logging.WARNING)</span>
 

@@ -379,8 +379,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.cube.cube</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">numpy.typing</span> <span class="k">as</span> <span class="nn">npt</span>
@@ -391,8 +390,10 @@ document.write(`
 <span class="kn">import</span> <span class="nn">asciichartpy</span> <span class="k">as</span> <span class="nn">acp</span>
 
 <span class="kn">from</span> <span class="nn">cp2kdata.log</span> <span class="kn">import</span> <span class="n">get_logger</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.utils</span> <span class="kn">import</span> <span class="n">file_content</span><span class="p">,</span> <span class="n">interpolate_spline</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.utils</span> <span class="kn">import</span> <span class="n">au2A</span><span class="p">,</span> <span class="n">au2eV</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.utils</span> <span class="kn">import</span> <span class="n">file_content</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.utils</span> <span class="kn">import</span> <span class="n">interpolate_spline</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.utils</span> <span class="kn">import</span> <span class="n">find_closet_idx_by_value</span>
+<span class="kn">from</span> <span class="nn">cp2kdata.units</span> <span class="kn">import</span> <span class="n">au2A</span><span class="p">,</span> <span class="n">au2eV</span>
 <span class="kn">from</span> <span class="nn">cp2kdata.cell</span> <span class="kn">import</span> <span class="n">Cp2kCell</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -612,9 +613,72 @@ document.write(`
                     <span class="k">if</span> <span class="n">grid_point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">%</span> <span class="mi">6</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="n">fw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Cp2kCube.get_integration"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_integration">[docs]</a>    <span class="k">def</span> <span class="nf">get_integration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kCube.get_integration"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_integration">[docs]</a>    <span class="k">def</span> <span class="nf">get_integration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                        <span class="n">start_x</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">end_x</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">start_y</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">end_y</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">start_z</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">end_z</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="kc">None</span>
+                        <span class="p">)</span><span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Start to calculate the integration of the cube file&quot;</span><span class="p">)</span>
+
+
+        <span class="n">_cell_angles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">get_cell_angles</span><span class="p">()</span>
+        <span class="n">_grid_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">grid_point</span>
+        <span class="n">_gs_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">grid_spacing_matrix</span>
+
+        <span class="n">_x_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">_grid_point</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="n">_gs_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">_y_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">_grid_point</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">_gs_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">_z_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">_grid_point</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="n">_gs_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">start_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">end_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">start_y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">end_y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">start_z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">end_z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">_cell_angles</span> <span class="o">==</span> <span class="mf">90.0</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">start_x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_idx_start_x</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_idx_start_x</span> <span class="o">=</span> <span class="n">find_closet_idx_by_value</span><span class="p">(</span><span class="n">_x_array</span><span class="p">,</span> <span class="n">start_x</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">end_x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_idx_end_x</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_idx_end_x</span> <span class="o">=</span> <span class="n">find_closet_idx_by_value</span><span class="p">(</span><span class="n">_x_array</span><span class="p">,</span> <span class="n">end_x</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">start_y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_idx_start_y</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_idx_start_y</span> <span class="o">=</span> <span class="n">find_closet_idx_by_value</span><span class="p">(</span><span class="n">_y_array</span><span class="p">,</span> <span class="n">start_y</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">end_y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_idx_end_y</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_idx_end_y</span> <span class="o">=</span> <span class="n">find_closet_idx_by_value</span><span class="p">(</span><span class="n">_y_array</span><span class="p">,</span> <span class="n">end_y</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">start_z</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_idx_start_z</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_idx_start_z</span> <span class="o">=</span> <span class="n">find_closet_idx_by_value</span><span class="p">(</span><span class="n">_z_array</span><span class="p">,</span> <span class="n">start_z</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">end_z</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_idx_end_z</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">_idx_end_z</span> <span class="o">=</span> <span class="n">find_closet_idx_by_value</span><span class="p">(</span><span class="n">_z_array</span><span class="p">,</span> <span class="n">end_z</span><span class="p">)</span>
+
+                <span class="n">_slice_x</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">_idx_start_x</span><span class="p">,</span> <span class="n">_idx_end_x</span><span class="p">)</span>
+                <span class="n">_slice_y</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">_idx_start_y</span><span class="p">,</span> <span class="n">_idx_end_y</span><span class="p">)</span>
+                <span class="n">_slice_z</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">_idx_start_z</span><span class="p">,</span> <span class="n">_idx_end_z</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;To use integration by range, all cell angles should be 90 degree&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_slice_x</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">_slice_y</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">_slice_z</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The integration range for x is from </span><span class="si">{</span><span class="n">_x_array</span><span class="p">[</span><span class="n">_slice_x</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Bohr to </span><span class="si">{</span><span class="n">_x_array</span><span class="p">[</span><span class="n">_slice_x</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Bohr&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The integration range for y is from </span><span class="si">{</span><span class="n">_y_array</span><span class="p">[</span><span class="n">_slice_y</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Bohr to </span><span class="si">{</span><span class="n">_y_array</span><span class="p">[</span><span class="n">_slice_y</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Bohr&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The integration range for z is from </span><span class="si">{</span><span class="n">_z_array</span><span class="p">[</span><span class="n">_slice_z</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Bohr to </span><span class="si">{</span><span class="n">_z_array</span><span class="p">[</span><span class="n">_slice_z</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Bohr&quot;</span><span class="p">)</span>
+
+        <span class="n">_cube_vals_to_integrate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="p">[</span><span class="n">_slice_x</span><span class="p">,</span> <span class="n">_slice_y</span><span class="p">,</span> <span class="n">_slice_z</span><span class="p">]</span>
         <span class="n">dv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">get_dv</span><span class="p">()</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cube_vals</span><span class="p">)</span><span class="o">*</span><span class="n">dv</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">_cube_vals_to_integrate</span><span class="p">)</span><span class="o">*</span><span class="n">dv</span>
+
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Cp2kCube.get_cell"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_cell">[docs]</a>    <span class="k">def</span> <span class="nf">get_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
