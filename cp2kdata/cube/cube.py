@@ -2,18 +2,19 @@ import os
 from copy import deepcopy
 
 import numpy as np
+import numpy.typing as npt
 import matplotlib.pyplot as plt
 from scipy import fft
 from ase import Atom, Atoms
 from monty.json import MSONable
 import asciichartpy as acp
 
+from cp2kdata.log import get_logger
 from cp2kdata.utils import file_content, interpolate_spline
 from cp2kdata.utils import au2A, au2eV
 from cp2kdata.cell import Cp2kCell
 
-# parse cp2kcube
-
+logger = get_logger(__name__)
 
 class Cp2kCubeOld:
     """
@@ -21,8 +22,8 @@ class Cp2kCubeOld:
     """
 
     def __init__(self, cube_file_name, timestep=0):
-        print("Warning: This is Cp2kCubeOld is deprecated after version 0.6.x, use Cp2kCube instead!")
-        print("Warning: to use old one, from cp2kdata.cube.cube import Cp2kCubeOld")
+        logger.warning("Warning: This is Cp2kCubeOld is deprecated after version 0.6.x, use Cp2kCube instead!")
+        logger.warning("Warning: to use old one, from cp2kdata.cube.cube import Cp2kCubeOld")
         self.file = cube_file_name
         self.timestep = timestep
         self.cube_vals = self.read_cube_vals()
@@ -148,49 +149,38 @@ class Cp2kCube(MSONable):
     """
 
     def __init__(self, fname: str = None, cube_vals: np.ndarray = None, cell: Cp2kCell = None, stc: Atoms = None):
-        print("Warning: This is New Cp2kCube Class, if you want to use old Cp2kCube")
-        print("try, from cp2kdata.cube.cube import Cp2kCubeOld")
-        print("New Cp2kCube return raw values in cp2k cube file")
-        print("that is, length in bohr and energy in hartree for potential file")
-        print("that is, length in bohr and density in e/bohr^3 for density file")
-        print("to convert unit: try from cp2kdata.utils import au2A, au2eV")
-
+        """
+        New Cp2kCube return raw values in cp2k cube file
+        Units in Cp2kCube class
+        length in bohr and energy in hartree for potential file
+        length in bohr and density in e/bohr^3 for density file
+        to convert unit: try from cp2kdata.utils import au2A, au2eV
+        """
         self.file = fname
 
         if cell is None:
-            self.cell = self.read_cell()
+            _grid_point = self._parse_grid_point(self.file)
+            _gs_matrix = self._parse_gs_matrix(self.file)
+            self.cell = self._parse_cell(_grid_point, _gs_matrix)
         else:
             self.cell = cell
         if stc is None:
-            self.stc = self._parse_stc()
+            _num_atoms = self._parse_num_atoms(self.file)
+            self.stc = self._parse_stc(_num_atoms, self.file, self.cell)
         else:
             self.stc = stc
 
         if cube_vals is None:
-            self.cube_vals = self.read_cube_vals(self.file,
+            self.cube_vals = self._parse_cube_vals(self.file,
                                                  self.num_atoms,
                                                  self.cell.grid_point
                                                  )
         else:
             self.cube_vals = cube_vals
 
-    def read_cell(self):
-        grid_point = self.read_grid_point(self.file)
-        gs_matrix = self.read_gs_matrix(self.file)
-        cell_param = gs_matrix*grid_point[:, np.newaxis]
-        return Cp2kCell(cell_param, grid_point, gs_matrix)
-
     @property
     def num_atoms(self):
         return len(self.stc)
-
-    def _parse_num_atoms(self):
-        """
-        be used to parse the number of atoms from the cube file only
-        """
-        line = file_content(self.file, 2)
-        num_atoms = int(line.split()[0])
-        return num_atoms
 
     def as_dict(self):
         """Returns data dict of Cp2kCube instance."""
@@ -223,23 +213,6 @@ class Cp2kCube(MSONable):
         else:
             raise RuntimeError("Unspported Class")
         return other_copy
-
-    def _parse_stc(self):
-        num_atoms = self._parse_num_atoms()
-        atom_list = []
-        for i in range(num_atoms):
-            stc_vals = file_content(self.file, (6+i, 6+i+1))
-            stc_vals = stc_vals.split()
-            atom = Atom(
-                symbol=int(stc_vals[0]),
-                position=(
-                    float(stc_vals[2])*au2A, float(stc_vals[3])*au2A, float(stc_vals[4])*au2A)
-            )
-            atom_list.append(atom)
-
-        stc = Atoms(atom_list)
-        stc.set_cell(self.cell.cell_matrix*au2A)
-        return stc
 
     def get_stc(self):
         return self.stc
@@ -380,7 +353,7 @@ class Cp2kCube(MSONable):
                         fw.write(f'{self.cube_vals[i,j,k]:13.5E}')
                         if (k+1) % 6 == 0:
                             fw.write('\n')
-                    # write a blank line after each z value
+                    # write a new line character after each z value
                     if grid_point[2] % 6 != 0:
                         fw.write('\n')
 
@@ -421,7 +394,7 @@ class Cp2kCube(MSONable):
         return new_cube
 
     @staticmethod
-    def read_gs_matrix(fname):
+    def _parse_gs_matrix(fname: str) -> npt.NDArray[np.float64]:
         content_list = file_content(fname, (3, 6))
         content_list = content_list.split()
 
@@ -437,7 +410,7 @@ class Cp2kCube(MSONable):
         return gs_matrix
 
     @staticmethod
-    def read_grid_point(fname):
+    def _parse_grid_point(fname: str) -> npt.NDArray[np.int64]:
         # read grid point and grid size, unit: angstrom
         content_list = file_content(fname, (3, 6))
         content_list = content_list.split()
@@ -447,7 +420,38 @@ class Cp2kCube(MSONable):
         return np.array([num_x, num_y, num_z])
 
     @staticmethod
-    def read_cube_vals(fname, num_atoms, grid_point):
+    def _parse_num_atoms(fname: str) -> int:
+        """
+        be used to parse the number of atoms from the cube file only
+        """
+        line = file_content(fname, 2)
+        num_atoms = int(line.split()[0])
+        return num_atoms
+
+    @staticmethod
+    def _parse_cell(grid_point: npt.NDArray[np.int64], gs_matrix: npt.NDArray[np.float64]) -> Cp2kCell:
+        cell_param = gs_matrix * grid_point[:, np.newaxis]
+        return Cp2kCell(cell_param, grid_point, gs_matrix)
+
+    @staticmethod
+    def _parse_stc(num_atoms: int, fname: str, cell: Cp2kCell) -> Atoms:
+        atom_list = []
+        for i in range(num_atoms):
+            stc_vals = file_content(fname, (6+i, 6+i+1))
+            stc_vals = stc_vals.split()
+            atom = Atom(
+                symbol=int(stc_vals[0]),
+                position=(
+                    float(stc_vals[2])*au2A, float(stc_vals[3])*au2A, float(stc_vals[4])*au2A)
+            )
+            atom_list.append(atom)
+
+        stc = Atoms(atom_list)
+        stc.set_cell(cell.cell_matrix*au2A)
+        return stc
+
+    @staticmethod
+    def _parse_cube_vals(fname: str, num_atoms: int, grid_point: npt.NDArray[np.int64]) -> npt.NDArray[np.float64]:
         # read the cube value from file
         cube_vals = file_content(fname, (6+num_atoms,))
         cube_vals = cube_vals.split()
@@ -456,7 +460,7 @@ class Cp2kCube(MSONable):
         return cube_vals
 
     @staticmethod
-    def square_wave_filter(x, l, cell_z):
+    def square_wave_filter(x: npt.NDArray[np.float64], l: float, cell_z: float) -> npt.NDArray[np.float64]:
         half_l = l/2
         x_1st, x_2nd = np.array_split(x, 2)
         y_1st = np.heaviside(half_l - np.abs(x_1st), 0)/l
