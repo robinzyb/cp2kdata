@@ -8,7 +8,7 @@ import regex as re
 from matplotlib.gridspec import GridSpec
 from scipy.ndimage import gaussian_filter1d
 
-from cp2kdata.utils import au2eV
+from cp2kdata.units import au2eV
 
 atomic_color_map = {
     'Ac': (0.39344, 0.62101, 0.45034),

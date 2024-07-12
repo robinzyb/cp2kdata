@@ -11,7 +11,7 @@ import asciichartpy as acp
 
 from cp2kdata.log import get_logger
 from cp2kdata.utils import file_content, interpolate_spline
-from cp2kdata.utils import au2A, au2eV
+from cp2kdata.units import au2A, au2eV
 from cp2kdata.cell import Cp2kCell
 
 logger = get_logger(__name__)
