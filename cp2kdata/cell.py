@@ -1,10 +1,15 @@
-from ase.geometry.cell import cellpar_to_cell
-from ase.geometry.cell import cell_to_cellpar
-import numpy.typing as npt
-import numpy as np
-from numpy.linalg import LinAlgError
 from copy import deepcopy
 
+
+import numpy as np
+import numpy.typing as npt
+from numpy.linalg import LinAlgError
+from ase.geometry.cell import cellpar_to_cell
+from ase.geometry.cell import cell_to_cellpar
+
+from cp2kdata.log import get_logger
+
+logger = get_logger(__name__)
 
 class Cp2kCell:
     def __init__(
@@ -37,7 +42,7 @@ class Cp2kCell:
                     [0, 0, cell_param]
                 ]
             )
-            print("input cell_param is a float, the cell is assumed to be cubic")
+            logger.info("Input cell_param is a float, the cell is assumed to be cubic")
         elif cell_param.shape == (3,):
             self.cell_matrix = np.array(
                 [
@@ -46,16 +51,16 @@ class Cp2kCell:
                     [0, 0, cell_param[2]]
                 ]
             )
-            print("the length of input cell_param is 3, "
+            logger.info("The length of input cell_param is 3, "
                   "the cell is assumed to be orthorhombic")
         elif cell_param.shape == (6,):
             self.cell_matrix = cellpar_to_cell(cell_param)
-            print("the length of input cell_param is 6, "
+            logger.info("The length of input cell_param is 6, "
                   "the Cp2kCell assumes it is [a, b, c, alpha, beta, gamma], "
                   "which will be converted to cell matrix")
         elif cell_param.shape == (3, 3):
             self.cell_matrix = cell_param
-            print("input cell_param is a matrix with shape of (3,3), "
+            logger.info("Input cell_param is a matrix with shape of (3,3), "
                   "the cell is read as is")
         else:
             raise ValueError("The input cell_param is not supported")
@@ -63,7 +68,7 @@ class Cp2kCell:
         if (grid_point is None) and (grid_spacing_matrix is None):
             self.grid_point = None
             self.grid_spacing_matrix = None
-            print("No grid point information")
+            logger.info("No grid point information")
         elif (grid_point is None) and (grid_spacing_matrix is not None):
             self.grid_spacing_matrix = grid_spacing_matrix
             self.grid_point = np.round(
@@ -91,7 +96,7 @@ class Cp2kCell:
         try:
             return np.linalg.det(self.grid_spacing_matrix)
         except LinAlgError as ae:
-            print("No grid point information is available")
+            logger.exception("No grid point information is available")
 
     def get_cell_param(self):
         return self.cell_param

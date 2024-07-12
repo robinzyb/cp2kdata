@@ -1,4 +1,3 @@
-import os
 from copy import deepcopy
 
 import numpy as np
@@ -10,8 +9,10 @@ from monty.json import MSONable
 import asciichartpy as acp
 
 from cp2kdata.log import get_logger
-from cp2kdata.utils import file_content, interpolate_spline
-from cp2kdata.utils import au2A, au2eV
+from cp2kdata.utils import file_content
+from cp2kdata.utils import interpolate_spline
+from cp2kdata.utils import find_closet_idx_by_value
+from cp2kdata.units import au2A, au2eV
 from cp2kdata.cell import Cp2kCell
 
 logger = get_logger(__name__)
@@ -231,9 +232,72 @@ class Cp2kCube(MSONable):
                     if grid_point[2] % 6 != 0:
                         fw.write('\n')
 
-    def get_integration(self):
+    def get_integration(self,
+                        start_x: float=None,
+                        end_x: float=None,
+                        start_y: float=None,
+                        end_y: float=None,
+                        start_z: float=None,
+                        end_z: float=None
+                        )-> float:
+
+        logger.info("Start to calculate the integration of the cube file")
+
+
+        _cell_angles = self.cell.get_cell_angles()
+        _grid_point = self.cell.grid_point
+        _gs_matrix = self.cell.grid_spacing_matrix
+
+        _x_array = np.arange(0, _grid_point[0])*_gs_matrix[0][0]
+        _y_array = np.arange(0, _grid_point[1])*_gs_matrix[1][1]
+        _z_array = np.arange(0, _grid_point[2])*_gs_matrix[2][2]
+
+        if (start_x is not None) or (end_x is not None) or (start_y is not None) or (end_y is not None) or (start_z is not None) or (end_z is not None):
+            if np.all(_cell_angles == 90.0):
+                if start_x is None:
+                    _idx_start_x = None
+                else:
+                    _idx_start_x = find_closet_idx_by_value(_x_array, start_x)
+                if end_x is None:
+                    _idx_end_x = None
+                else:
+                    _idx_end_x = find_closet_idx_by_value(_x_array, end_x)
+                if start_y is None:
+                    _idx_start_y = None
+                else:
+                    _idx_start_y = find_closet_idx_by_value(_y_array, start_y)
+                if end_y is None:
+                    _idx_end_y = None
+                else:
+                    _idx_end_y = find_closet_idx_by_value(_y_array, end_y)
+                if start_z is None:
+                    _idx_start_z = None
+                else:
+                    _idx_start_z = find_closet_idx_by_value(_z_array, start_z)
+                if end_z is None:
+                    _idx_end_z = None
+                else:
+                    _idx_end_z = find_closet_idx_by_value(_z_array, end_z)
+
+                _slice_x = slice(_idx_start_x, _idx_end_x)
+                _slice_y = slice(_idx_start_y, _idx_end_y)
+                _slice_z = slice(_idx_start_z, _idx_end_z)
+            else:
+                raise ValueError("To use integration by range, all cell angles should be 90 degree")
+        else:
+            _slice_x = slice(None)
+            _slice_y = slice(None)
+            _slice_z = slice(None)
+
+
+        logger.info(f"The integration range for x is from {_x_array[_slice_x][0]:.3f} Bohr to {_x_array[_slice_x][-1]:.3f} Bohr")
+        logger.info(f"The integration range for y is from {_y_array[_slice_y][0]:.3f} Bohr to {_y_array[_slice_y][-1]:.3f} Bohr")
+        logger.info(f"The integration range for z is from {_z_array[_slice_z][0]:.3f} Bohr to {_z_array[_slice_z][-1]:.3f} Bohr")
+
+        _cube_vals_to_integrate = self.cube_vals[_slice_x, _slice_y, _slice_z]
         dv = self.cell.get_dv()
-        result = np.sum(self.cube_vals)*dv
+        result = np.sum(_cube_vals_to_integrate)*dv
+
         return result
 
     def get_cell(self):

@@ -1,21 +1,18 @@
 """
-this script put misc function here.
+this module sotres misc functions
 """
-#from cp2kdata import Cp2kOutput
-import numpy as np
 import os
 import shutil
+from typing import Any
 
+import numpy as np
+import numpy.typing as npt
 from ase.geometry.analysis import Analysis
 from ase.io import read, write
 
-from .log import get_logger
+from cp2kdata.log import get_logger
 
 logger = get_logger(__name__)
-# frequently used unit convertion
-au2eV = 27.211386245988
-au2A = 0.529177210903
-
 
 def create_path(path):
     path += '/'
@@ -30,13 +27,24 @@ def create_path(path):
             counter += 1
     os.makedirs(path)
 
-
 def interpolate_spline(old_x, old_y, new_x):
     from scipy import interpolate
     f = interpolate.splrep(old_x, old_y, s=0, per=True)
     new_y = interpolate.splev(new_x, f)
     return new_x, new_y
 
+def find_closet_idx_by_value(arr: npt.NDArray, value: Any) -> int:
+    """
+    Find the index of the closest value in the given array to the specified value.
+
+    Parameters:
+    arr (numpy.ndarray): The input array.
+    value (Any): The value to find the closest index for.
+
+    Returns:
+    int: The index of the closest value in the array.
+    """
+    return np.abs(arr - value).argmin()
 
 def set_pbc(pos, cell):
     """set pbc for a list of Atoms object"""

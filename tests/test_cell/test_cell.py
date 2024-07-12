@@ -70,13 +70,12 @@ class TestCp2kCell:
         expected_volume = np.linalg.det(self._create_expected_cell_matrix(cell_param))
         assert cell.get_volume() == expected_volume
 
-    def test_get_dv(self, sample_data, capsys):
+    def test_get_dv(self, sample_data, caplog):
         cell_param, grid_point, grid_spacing_matrix = sample_data
         cell = Cp2kCell(cell_param, grid_point, grid_spacing_matrix)
         if (grid_point is None) and (grid_spacing_matrix is None):
             cell.get_dv() 
-            captured = capsys.readouterr()
-            assert captured.out.splitlines()[-1] == "No grid point information is available"
+            assert caplog.messages[-1] == "No grid point information is available"
         else:
             print(cell.cell_matrix, grid_point, grid_spacing_matrix)
             expected_grid_spacing_matrix = self._create_expected_grid_spacing_matrix(cell.cell_matrix, grid_point, grid_spacing_matrix)
