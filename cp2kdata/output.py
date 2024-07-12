@@ -4,10 +4,11 @@ import glob
 import os
 import sys
 from functools import cached_property
-from .plots.geo_opt_plot import geo_opt_info_plot
-from .block_parser.header_info import GlobalInfo, Cp2kInfo, DFTInfo
 
+from cp2kdata.plots.geo_opt_plot import geo_opt_info_plot
+from cp2kdata.log import get_logger
 from cp2kdata.utils import format_logger
+from cp2kdata.block_parser.header_info import GlobalInfo, Cp2kInfo, DFTInfo
 from cp2kdata.block_parser.dft_plus_u import parse_dft_plus_u_occ
 from cp2kdata.block_parser.forces import parse_atomic_forces_list
 from cp2kdata.block_parser.geo_opt import parse_geo_opt_info
@@ -23,21 +24,22 @@ from cp2kdata.block_parser.cells import parse_all_cells, parse_all_md_cells
 from cp2kdata.block_parser.md_xyz import parse_md_ener, parse_pos_xyz, parse_frc_xyz, parse_md_stress, parse_md_cell
 from cp2kdata.block_parser.vibration import parse_vibration_freq_list
 
+logger = get_logger(__name__)
 
 class Cp2kOutput:
     """Class for parsing cp2k output"""
 
     def __init__(
             self,
-            output_file: str=None,
-            run_type: str=None,
-            path_prefix: str=".",
-            restart: bool=None,
+            output_file: str = None,
+            run_type: str = None,
+            path_prefix: str = ".",
+            restart: bool = None,
             **kwargs
-            ):
+    ):
 
         # --set some basic information
-        #self.required_information = kwargs
+        # self.required_information = kwargs
         self.path_prefix = path_prefix
 
         if output_file is None:
@@ -53,7 +55,7 @@ class Cp2kOutput:
                                                     filename=self.filename
                                                     )
         except ValueError as err:
-            print(
+            logger.error(
                 "---------------------------------------------\n"
                 "Cannot Obtain CP2K RUN_TYPE information.\n"
 
@@ -110,7 +112,8 @@ class Cp2kOutput:
         }
 
         # call corresponding parser for run types
-        parse_run_type = run_type_parser_candidates.get(self.global_info.run_type, None)
+        parse_run_type = run_type_parser_candidates.get(
+            self.global_info.run_type, None)
         if parse_run_type:
             parse_run_type()
         else:
@@ -323,14 +326,6 @@ class Cp2kOutput:
         pass
 
     def parse_energy_force(self):
-        parser_candidates = {
-            "energy": parse_energies_list,
-            "forces": parse_atomic_forces_list,
-            "stress_tensor": parse_stress_tensor_list,
-            "atomic_kinds": parse_atomic_kinds,
-            "cells": parse_all_cells
-        }
-        # TODO: convert kwargs to flexible attribute!
         self.geo_opt_info = None
         self.num_frames = 1
         self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
@@ -384,7 +379,7 @@ class Cp2kOutput:
         pos_xyz_file_list = glob.glob(
             os.path.join(self.path_prefix, "*pos*.xyz"))
         if pos_xyz_file_list:
-            #TODO: Is it possible to have no pos file?
+            # TODO: Is it possible to have no pos file?
             self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(
                 pos_xyz_file_list[0])
 
@@ -394,7 +389,8 @@ class Cp2kOutput:
             # if no pos file and ener file, parse energies from the output file
             format_logger(info="Energies", filename=self.filename)
             self.energies_list = parse_energies_list(self.output_file)
-            self.energies_list = self.drop_last_info(self.cp2k_info, self.energies_list)
+            self.energies_list = self.drop_last_info(
+                self.cp2k_info, self.energies_list)
             self.atomic_frames_list = None
 
         frc_xyz_file_list = glob.glob(
@@ -405,26 +401,28 @@ class Cp2kOutput:
             format_logger(info="Forces", filename=self.filename)
             self.atomic_forces_list = parse_atomic_forces_list(
                 self.output_file)
-            self.atomic_forces_list = self.drop_last_info(self.cp2k_info, self.atomic_forces_list)
+            self.atomic_forces_list = self.drop_last_info(
+                self.cp2k_info, self.atomic_forces_list)
 
         stress_file_list = glob.glob(
             os.path.join(self.path_prefix, "*.stress"))
         if stress_file_list:
-            print(
+            logger.warning(
                 f"cp2kdata found a file recording stresses: {stress_file_list[0]}"
                 f"But the parser for {stress_file_list[0]} is not supported yet"
-                )
-            #TODO: the unit of stress is bar in -1.stress file, but not GPa in the output file
-            #TODO: however, covert bar to GPa is not consistent with the output file!
-            #TODO: check this latter
-            #self.stress_tensor_list = parse_md_stress(stress_file_list[0])
+            )
+            # TODO: the unit of stress is bar in -1.stress file, but not GPa in the output file
+            # TODO: however, covert bar to GPa is not consistent with the output file!
+            # TODO: check this latter
+            # self.stress_tensor_list = parse_md_stress(stress_file_list[0])
             self.stress_tensor_list = None
         else:
             format_logger(info="Stresses", filename=self.filename)
             self.stress_tensor_list = parse_stress_tensor_list(
                 self.output_file)
 
-            self.stress_tensor_list = self.drop_last_info(self.cp2k_info, self.stress_tensor_list)
+            self.stress_tensor_list = self.drop_last_info(
+                self.cp2k_info, self.stress_tensor_list)
 
         self.num_frames = len(self.energies_list)
 
@@ -454,18 +452,17 @@ class Cp2kOutput:
                 "------------------\n"
             )
 
-
         cell_file_list = glob.glob(os.path.join(self.path_prefix, "*.cell"))
         if (self.md_info.ensemble_type == "NVT") or \
             (self.md_info.ensemble_type == "NVE") or \
-                (self.md_info.ensemble_type == "REFTRAJ"): # not ture REFTRAJ also contrains different cell?
+                (self.md_info.ensemble_type == "REFTRAJ"):  # not ture REFTRAJ also contrains different cell?
             if cell_file_list:
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
                 format_logger(info="Cells", filename=self.filename)
-                print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
+                logger.warning(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
 
-                #self.organize_md_cell()
+                # self.organize_md_cell()
                 # parse the first cell
                 first_cell = parse_all_cells(self.output_file)
                 assert first_cell.shape == (1, 3, 3)
@@ -479,7 +476,7 @@ class Cp2kOutput:
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
                 format_logger(info="Cells", filename=self.filename)
-                print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
+                logger.warning(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
 
                 self.organize_md_cell()
 
@@ -488,7 +485,7 @@ class Cp2kOutput:
                 self.all_cells = parse_md_cell(cell_file_list[0])
             elif self.filename:
                 format_logger(info="Cells", filename=self.filename)
-                print(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
+                logger.warning(WARNING_MSG_PARSE_CELL_FROM_OUTPUT)
 
                 self.organize_md_cell()
 
@@ -527,7 +524,8 @@ class Cp2kOutput:
     def drop_last_info(cp2k_info, array):
         # drop last info parsed from output if it is terminated by request (touch EXIT)
         if cp2k_info.terminated_by_request == True:
-            print("cp2kdata found the cp2k output is terminated by request, drop the last info.")
+            print(
+                "cp2kdata found the cp2k output is terminated by request, drop the last info.")
             array = array[:-1]
         return array
 
@@ -544,7 +542,8 @@ class Cp2kOutput:
     @staticmethod
     def check_run_type(run_type):
         implemented_run_type_parsers = \
-            ["ENERGY_FORCE", "ENERGY", "MD", "GEO_OPT", "CELL_OPT", "VIBRATIONAL_ANALYSIS"]
+            ["ENERGY_FORCE", "ENERGY", "MD", "GEO_OPT",
+                "CELL_OPT", "VIBRATIONAL_ANALYSIS"]
         if run_type not in implemented_run_type_parsers:
             raise ValueError(
                 f"Parser for Run Type {run_type} haven't been implemented yet!"
