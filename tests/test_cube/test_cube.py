@@ -42,6 +42,35 @@ class TestCp2kCube():
         cube_vals = cube.cube_vals
         cube_vals_answer = np.load(os.path.join(answer_dir, "cube_vals.npy"))
         assert np.all(cube_vals == cube_vals_answer)
+    
+    def test_integration(self, cube_and_answer):
+        cube = cube_and_answer[0]
+        answer_dir = cube_and_answer[1]
+        integration = cube.get_integration()
+        integration_answer = np.load(os.path.join(answer_dir, "integration_all.npy"))
+        assert np.all(integration == integration_answer)
+    
+    def test_integration_by_range_x(self, cube_and_answer):
+        cube = cube_and_answer[0]
+        answer_dir = cube_and_answer[1]
+        integration = cube.get_integration(start_x=5.0, end_x=7.0)
+        integration_answer = np.load(os.path.join(answer_dir, "integration_x_5.0_7.0.npy"))
+        assert np.all(integration == integration_answer)
+    
+    def test_integration_by_range_y(self, cube_and_answer):
+        cube = cube_and_answer[0]
+        answer_dir = cube_and_answer[1]
+        integration = cube.get_integration(start_y=5.0, end_y=7.0)
+        integration_answer = np.load(os.path.join(answer_dir, "integration_y_5.0_7.0.npy"))
+        assert np.all(integration == integration_answer)
+    
+    def test_integration_by_range_z(self, cube_and_answer):
+        cube = cube_and_answer[0]
+        answer_dir = cube_and_answer[1]
+        integration = cube.get_integration(start_z=5.0, end_z=7.0)
+        integration_answer = np.load(os.path.join(answer_dir, "integration_z_5.0_7.0.npy"))
+        assert np.all(integration == integration_answer)
+
     def test_pav(self, cube_and_answer):
         cube = cube_and_answer[0]
         answer_dir = cube_and_answer[1]
