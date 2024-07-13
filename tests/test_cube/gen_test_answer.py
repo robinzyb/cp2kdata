@@ -19,3 +19,4 @@ for file in file_list:
     np.save(os.path.join(dir_name, "integration_z_5.0_7.0.npy"), cube.get_integration(start_z=5.0, end_z=7.0))
     np.save(os.path.join(dir_name, "pav.npy"), cube.get_pav())
     np.save(os.path.join(dir_name, "mav.npy"), cube.get_mav(l1=1, l2=1, ncov=2))
+    cube.write_cube(os.path.join(dir_name, "created_ref.cube"))

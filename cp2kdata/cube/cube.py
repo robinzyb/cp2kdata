@@ -331,6 +331,7 @@ class Cp2kCube(MSONable):
 
         return new_cube
 
+    # methods begin with _ are private methods
     @staticmethod
     def _parse_gs_matrix(fname: str) -> npt.NDArray[np.float64]:
         content_list = file_content(fname, (3, 6))

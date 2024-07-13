@@ -1,4 +1,5 @@
 import os
+import filecmp
 
 import pytest
 import numpy as np
@@ -80,6 +81,7 @@ class TestCp2kCube():
         pav_answer = pav_answer[1]
         assert np.all(pav == pav_answer)
         assert np.all(pav_x == pav_x_answer)
+
     def test_mav(self, cube_and_answer):
         cube = cube_and_answer[0]
         answer_dir = cube_and_answer[1]
@@ -100,6 +102,14 @@ class TestCp2kCube():
                                         )
         #assert np.all(mav == mav_answer)
         #assert np.all(mav_x == mav_x_answer)
+    
+    def test_write_cube(self, cube_and_answer, tmp_path):
+        cube = cube_and_answer[0]
+        answer_dir = cube_and_answer[1]
+        cube.write_cube(tmp_path/"new_cube.cube")
+        assert filecmp.cmp(tmp_path/"new_cube.cube", 
+                           os.path.join(answer_dir, "created_ref.cube")
+                           )
 
 
 
