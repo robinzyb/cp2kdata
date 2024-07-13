@@ -712,6 +712,7 @@ document.write(`
 
         <span class="k">return</span> <span class="n">new_cube</span></div>
 
+    <span class="c1"># methods begin with _ are private methods</span>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_parse_gs_matrix</span><span class="p">(</span><span class="n">fname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]:</span>
         <span class="n">content_list</span> <span class="o">=</span> <span class="n">file_content</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
