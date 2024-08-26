@@ -480,6 +480,7 @@ document.write(`
         <span class="c1"># restart should be true or false</span>
         <span class="k">if</span> <span class="n">restart</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="o">.</span><span class="n">restart</span> <span class="o">=</span> <span class="n">restart</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Overwrite restart information with user provided restart = True.&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">check_run_type</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">run_type</span><span class="p">)</span>
 
@@ -782,8 +783,12 @@ document.write(`
             <span class="n">format_logger</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;Forces&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="n">parse_atomic_forces_list</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_first_info</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;forces&quot;</span><span class="p">)</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;forces&quot;</span><span class="p">)</span>
 
         <span class="n">stress_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*.stress&quot;</span><span class="p">))</span>
@@ -802,8 +807,13 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="n">parse_stress_tensor_list</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span><span class="p">)</span>
+            <span class="c1"># stress tensor could be None if the output file doesn&#39;t contain stress information</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_first_info</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;stresses&quot;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;stresses&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span><span class="p">)</span>
 
@@ -901,12 +911,22 @@ document.write(`
 <div class="viewcode-block" id="Cp2kOutput.get_vib_freq_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_vib_freq_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_vib_freq_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vib_freq_list</span></div>
 
+<div class="viewcode-block" id="Cp2kOutput.drop_first_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.drop_first_info">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">drop_first_info</span><span class="p">(</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">):</span>
+        <span class="c1"># drop first info parsed from output if it restart from preivous MD run</span>
+        <span class="k">if</span> <span class="n">cp2k_info</span><span class="o">.</span><span class="n">restart</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The cp2k output is restarted from previous MD run, drop the first </span><span class="si">{</span><span class="n">info</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">array</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">return</span> <span class="n">array</span></div>
+
 <div class="viewcode-block" id="Cp2kOutput.drop_last_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.drop_last_info">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">drop_last_info</span><span class="p">(</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="n">array</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">drop_last_info</span><span class="p">(</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">):</span>
         <span class="c1"># drop last info parsed from output if it is terminated by request (touch EXIT)</span>
         <span class="k">if</span> <span class="n">cp2k_info</span><span class="o">.</span><span class="n">terminated_by_request</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span>
-                <span class="s2">&quot;cp2kdata found the cp2k output is terminated by request, drop the last info.&quot;</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;The cp2k output is terminated by user request, drop the last </span><span class="si">{</span><span class="n">info</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
             <span class="n">array</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">array</span></div>
 
