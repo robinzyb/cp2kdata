@@ -10,7 +10,7 @@ name = "Cp2kData"
 version = "0.7.1"
 description = "A Small Package to Postprocess Cp2k Output"
 authors = [
-    {name = "Yongbin Zhuang", email = "robinzhuang@outlook.com"}
+    {name = "Yong-Bin Zhuang", email = "robinzhuang@outlook.com"}
     ]
 license = {file = "LICENSE"}
 readme = "README.md"

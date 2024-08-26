@@ -99,6 +99,7 @@ class Cp2kOutput:
         # restart should be true or false
         if restart is not None:
             self.cp2k_info.restart = restart
+            logger.debug("Overwrite restart information with user provided restart = True.")
 
         self.check_run_type(run_type=self.global_info.run_type)
 
@@ -401,8 +402,12 @@ class Cp2kOutput:
             format_logger(info="Forces", filename=self.filename)
             self.atomic_forces_list = parse_atomic_forces_list(
                 self.output_file)
+
+            self.atomic_forces_list = self.drop_first_info(
+                self.cp2k_info, self.atomic_forces_list, info="forces")
+
             self.atomic_forces_list = self.drop_last_info(
-                self.cp2k_info, self.atomic_forces_list)
+                self.cp2k_info, self.atomic_forces_list, info="forces")
 
         stress_file_list = glob.glob(
             os.path.join(self.path_prefix, "*.stress"))
@@ -421,8 +426,13 @@ class Cp2kOutput:
             self.stress_tensor_list = parse_stress_tensor_list(
                 self.output_file)
 
-            self.stress_tensor_list = self.drop_last_info(
-                self.cp2k_info, self.stress_tensor_list)
+            # stress tensor could be None if the output file doesn't contain stress information
+            if self.stress_tensor_list is not None:
+                self.stress_tensor_list = self.drop_first_info(
+                    self.cp2k_info, self.stress_tensor_list, info="stresses")
+
+                self.stress_tensor_list = self.drop_last_info(
+                    self.cp2k_info, self.stress_tensor_list, info="stresses")
 
         self.num_frames = len(self.energies_list)
 
@@ -521,11 +531,21 @@ class Cp2kOutput:
         return self.vib_freq_list
 
     @staticmethod
-    def drop_last_info(cp2k_info, array):
+    def drop_first_info(cp2k_info, array, info="info"):
+        # drop first info parsed from output if it restart from preivous MD run
+        if cp2k_info.restart == True:
+            logger.info(
+                f"The cp2k output is restarted from previous MD run, drop the first {info}."
+            )
+            array = array[1:]
+        return array
+
+    @staticmethod
+    def drop_last_info(cp2k_info, array, info="info"):
         # drop last info parsed from output if it is terminated by request (touch EXIT)
         if cp2k_info.terminated_by_request == True:
             print(
-                "cp2kdata found the cp2k output is terminated by request, drop the last info.")
+                f"The cp2k output is terminated by user request, drop the last {info}.")
             array = array[:-1]
         return array
 

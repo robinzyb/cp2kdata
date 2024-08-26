@@ -78,14 +78,6 @@ def get_rdf(pos, r, nbin, frames, elements):
         tot_gr += s_gr/frames
     return tot_gr
 
-
-def printtbox(arg):
-    """
-    This function is a print decorated with a few characters so that the
-    print function present a characteristic string. Useful for postprocess.
-    """
-    print("--> CP2KDATA: {0}".format(arg))
-
 def format_logger(info, filename):
     logger.debug(f"Parsing {info:10} from {filename}")
 
