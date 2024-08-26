@@ -2,7 +2,9 @@ import regex as re
 from dataclasses import dataclass
 # use monty.re because it can terminate on match
 from monty.re import regrep
+from cp2kdata.log import get_logger
 
+logger = get_logger(__name__)
 
 @dataclass
 class Cp2kInfo:
@@ -43,6 +45,8 @@ def parse_cp2k_info(filename) -> Cp2kInfo:
         raise ValueError(f"More than one restart information found in {filename}")
     elif num_match_restart == 1:
         cp2k_restart = True
+        logger.debug(f"Found restart information in the output header")
+
     elif num_match_restart == 0:
         cp2k_restart = False
 
