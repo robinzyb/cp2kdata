@@ -12,6 +12,9 @@ description = "A Small Package to Postprocess Cp2k Output"
 authors = [
     {name = "Yong-Bin Zhuang", email = "robinzhuang@outlook.com"}
     ]
+maintainers = [
+    {name = "Yong-Bin Zhuang", email = "robinzhuang@outlook.com"}
+    ]
 license = {file = "LICENSE"}
 readme = "README.md"
 classifiers = [
