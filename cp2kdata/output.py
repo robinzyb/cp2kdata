@@ -78,7 +78,7 @@ class Cp2kOutput:
             raise ValueError(
                 "please provide cp2k output file with MEDIUM print level. Print Level Low doesn't provide necessary information for initialize the cp2kdata class.")
 
-        # -- set some basic attribute --
+        # -- set some basic attributes --
         self.num_frames = None
         self.init_atomic_coordinates = None
         self.atomic_kind = None
@@ -373,12 +373,23 @@ class Cp2kOutput:
         self.md_info = parse_md_info(self.filename)
         self.check_md_type(md_type=self.md_info.ensemble_type)
 
+        # parse md energies
         ener_file_list = glob.glob(os.path.join(self.path_prefix, "*.ener"))
         if ener_file_list:
             self.energies_list = parse_md_ener(ener_file_list[0])
 
+        # parse md poses
         pos_xyz_file_list = glob.glob(
-            os.path.join(self.path_prefix, "*pos*.xyz"))
+            os.path.join(self.path_prefix, "*-pos-*.xyz"))
+
+        n_pos_xyz_files = len(pos_xyz_file_list)
+        if n_pos_xyz_files > 1:
+            raise ValueError(
+                f"Cp2kData found {n_pos_xyz_files} pos files.\n"
+                f"{pos_xyz_file_list}.\n"
+                f"Please remove extra pos files and keep only one pos file in the folder."
+                )
+
         if pos_xyz_file_list:
             # TODO: Is it possible to have no pos file?
             self.atomic_frames_list, energies_list_from_pos, self.chemical_symbols = parse_pos_xyz(
@@ -388,10 +399,11 @@ class Cp2kOutput:
                 self.energies_list = energies_list_from_pos
         else:
             # if no pos file and ener file, parse energies from the output file
-            format_logger(info="Energies", filename=self.filename)
-            self.energies_list = parse_energies_list(self.output_file)
-            self.energies_list = self.drop_last_info(
-                self.cp2k_info, self.energies_list)
+            if not hasattr(self, "energies_list"):
+                format_logger(info="Energies", filename=self.filename)
+                self.energies_list = parse_energies_list(self.output_file)
+                self.energies_list = self.drop_last_info(
+                    self.cp2k_info, self.energies_list)
             self.atomic_frames_list = None
 
         frc_xyz_file_list = glob.glob(
