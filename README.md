@@ -8,7 +8,7 @@
 ![PyPI - pip install](https://img.shields.io/pypi/dm/cp2kdata?logo=pypi&label=pip%20install)
 ![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/cp2kdata?label=conda-forge)
 
-Python Package to postprocess cp2k data, including cube, pdos, output files
+A Python Package to postprocess cp2k data, including cube, pdos, output files
 
 
 # Installation
@@ -35,7 +35,7 @@ pip install .
 - [Manipulate CP2K Pdos Files](./docs/pdos/README.md)
 
 # Additional Features
-- [Plug in for dpdata](./docs/dpdata_plugin.md)
+- [The plugin for dpdata](./docs/dpdata_plugin.md)
 
 # Feature Request
 Any advice is welcome. If you would like to request a new feature, please open an issue in github and upload example input and output files.

@@ -12,6 +12,9 @@ parts:
   - caption: Parameter Test
     chapters:
       - file: docs/input_test
+  - caption: Plots
+    chapters:
+      - file: docs/plots
   - caption: Plugin
     chapters:
       - file: docs/dpdata_plugin
