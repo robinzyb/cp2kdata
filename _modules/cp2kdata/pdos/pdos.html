@@ -170,6 +170,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/input_test.html">Generate Standard Test Inputs</a></li>
 
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Plots</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../docs/plots.html">Plotting in CP2KData</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Plugin</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../docs/dpdata_plugin.html">CP2KData Plugin for dpdata</a></li>
@@ -213,6 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../_api/cp2kdata.plots.html">cp2kdata.plots package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.plots.colormaps.html">cp2kdata.plots.colormaps module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.plots.fep_plot.html">cp2kdata.plots.fep_plot module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.plots.geo_opt_plot.html">cp2kdata.plots.geo_opt_plot module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_api/cp2kdata.plots.test_plot.html">cp2kdata.plots.test_plot module</a></li>
@@ -624,15 +629,15 @@ document.write(`
         <span class="k">return</span> <span class="n">fermi</span></div>
 
 <div class="viewcode-block" id="Cp2kPdos.read_dos_energies"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_energies">[docs]</a>    <span class="k">def</span> <span class="nf">read_dos_energies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Reads the DOS energies from the file and converts them to electron volts (eV).</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the DOS energies from the file and converts them to electron volts (eV).</span>
 
-<span class="sd">            Returns:</span>
-<span class="sd">                numpy.ndarray: An array of DOS energies in eV.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">energies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">energies</span> <span class="o">=</span> <span class="n">energies</span> <span class="o">*</span> <span class="n">au2eV</span>
-            <span class="k">return</span> <span class="n">energies</span></div>
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: An array of DOS energies in eV.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">energies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">energies</span> <span class="o">=</span> <span class="n">energies</span> <span class="o">*</span> <span class="n">au2eV</span>
+        <span class="k">return</span> <span class="n">energies</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">occupation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -641,26 +646,33 @@ document.write(`
         <span class="k">return</span> <span class="n">occupation</span>
 
 <div class="viewcode-block" id="Cp2kPdos.get_homo_ener"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_ener">[docs]</a>    <span class="k">def</span> <span class="nf">get_homo_ener</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Get the energy of the highest occupied molecular orbital (HOMO).</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the energy of the highest occupied molecular orbital (HOMO).</span>
 
-<span class="sd">            Returns:</span>
-<span class="sd">                float: The energy of the HOMO.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">homo_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">occupation</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
-            <span class="n">homo_ener</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies</span><span class="p">[</span><span class="n">homo_idx</span><span class="p">]</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: The energy of the HOMO.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">homo_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">occupation</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">homo_ener</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies</span><span class="p">[</span><span class="n">homo_idx</span><span class="p">]</span>
 
-            <span class="k">return</span> <span class="n">homo_ener</span></div>
+        <span class="k">return</span> <span class="n">homo_ener</span></div>
 
 <div class="viewcode-block" id="Cp2kPdos.get_lumo_ener"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_lumo_ener">[docs]</a>    <span class="k">def</span> <span class="nf">get_lumo_ener</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Get the energy of the lowest unoccupied molecular orbital (LUMO).</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the energy of the lowest unoccupied molecular orbital (LUMO).</span>
 
-<span class="sd">            Returns:</span>
-<span class="sd">                lumo_ener (float): The energy of the LUMO.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">lumo_ener</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">occupation</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">return</span> <span class="n">lumo_ener</span></div>
+<span class="sd">        Returns:</span>
+<span class="sd">            lumo_ener (float): The energy of the LUMO.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lumo_ener</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">occupation</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">lumo_ener</span></div>
+
+<div class="viewcode-block" id="Cp2kPdos.get_homo_lumo_gap"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_lumo_gap">[docs]</a>    <span class="k">def</span> <span class="nf">get_homo_lumo_gap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the lumo - homo gap from energy</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gap_ener</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_lumo_ener</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_homo_ener</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">gap_ener</span></div>
 
 <div class="viewcode-block" id="Cp2kPdos.get_raw_dos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_raw_dos">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_dos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dos_type</span><span class="o">=</span><span class="s2">&quot;total&quot;</span><span class="p">,</span> <span class="n">steplen</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 

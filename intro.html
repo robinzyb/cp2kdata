@@ -172,6 +172,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="docs/input_test.html">Generate Standard Test Inputs</a></li>
 
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Plots</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="docs/plots.html">Plotting in CP2KData</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Plugin</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="docs/dpdata_plugin.html">CP2KData Plugin for dpdata</a></li>
@@ -215,6 +219,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="_api/cp2kdata.plots.html">cp2kdata.plots package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.colormaps.html">cp2kdata.plots.colormaps module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.fep_plot.html">cp2kdata.plots.fep_plot module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.geo_opt_plot.html">cp2kdata.plots.geo_opt_plot module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.test_plot.html">cp2kdata.plots.test_plot module</a></li>
@@ -458,7 +463,7 @@ document.write(`
 <img alt="pypiv" src="https://img.shields.io/pypi/v/cp2kdata" />
 <img alt="PyPI - pip install" src="https://img.shields.io/pypi/dm/cp2kdata?logo=pypi&amp;label=pip%20install" />
 <img alt="Conda Downloads" src="https://img.shields.io/conda/dn/conda-forge/cp2kdata?label=conda-forge" /></p>
-<p>Python Package to postprocess cp2k data, including cube, pdos, output files</p>
+<p>A Python Package to postprocess cp2k data, including cube, pdos, output files</p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
@@ -492,7 +497,7 @@ pip<span class="w"> </span>install<span class="w"> </span>.
 <section class="tex2jax_ignore mathjax_ignore" id="additional-features">
 <h1>Additional Features<a class="headerlink" href="#additional-features" title="Permalink to this heading">#</a></h1>
 <ul class="simple">
-<li><p><a class="reference internal" href="docs/dpdata_plugin.html"><span class="doc std std-doc">Plug in for dpdata</span></a></p></li>
+<li><p><a class="reference internal" href="docs/dpdata_plugin.html"><span class="doc std std-doc">The plugin for dpdata</span></a></p></li>
 </ul>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="feature-request">
@@ -502,6 +507,8 @@ pip<span class="w"> </span>install<span class="w"> </span>.
 <section class="tex2jax_ignore mathjax_ignore" id="developer">
 <h1>Developer<a class="headerlink" href="#developer" title="Permalink to this heading">#</a></h1>
 <p>set environment variable CP2KDATA_LOG_LEVEL to DEBUG to get the complete information.</p>
+<div class="toctree-wrapper compound">
+</div>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">

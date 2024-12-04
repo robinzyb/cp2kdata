@@ -170,6 +170,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../../docs/input_test.html">Generate Standard Test Inputs</a></li>
 
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Plots</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../docs/plots.html">Plotting in CP2KData</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Plugin</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../docs/dpdata_plugin.html">CP2KData Plugin for dpdata</a></li>
@@ -213,6 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../_api/cp2kdata.plots.html">cp2kdata.plots package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_api/cp2kdata.plots.colormaps.html">cp2kdata.plots.colormaps module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../_api/cp2kdata.plots.fep_plot.html">cp2kdata.plots.fep_plot module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../_api/cp2kdata.plots.geo_opt_plot.html">cp2kdata.plots.geo_opt_plot module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../_api/cp2kdata.plots.test_plot.html">cp2kdata.plots.test_plot module</a></li>
@@ -459,7 +464,7 @@ document.write(`
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;please provide cp2k output file with MEDIUM print level. Print Level Low doesn&#39;t provide necessary information for initialize the cp2kdata class.&quot;</span><span class="p">)</span>
 
-        <span class="c1"># -- set some basic attribute --</span>
+        <span class="c1"># -- set some basic attributes --</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="o">=</span> <span class="kc">None</span>
@@ -754,12 +759,23 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">md_info</span> <span class="o">=</span> <span class="n">parse_md_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_md_type</span><span class="p">(</span><span class="n">md_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span><span class="p">)</span>
 
+        <span class="c1"># parse md energies</span>
         <span class="n">ener_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*.ener&quot;</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">ener_file_list</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="n">parse_md_ener</span><span class="p">(</span><span class="n">ener_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
+        <span class="c1"># parse md poses</span>
         <span class="n">pos_xyz_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*pos*.xyz&quot;</span><span class="p">))</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*-pos-*.xyz&quot;</span><span class="p">))</span>
+
+        <span class="n">n_pos_xyz_files</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos_xyz_file_list</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_pos_xyz_files</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Cp2kData found </span><span class="si">{</span><span class="n">n_pos_xyz_files</span><span class="si">}</span><span class="s2"> pos files.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pos_xyz_file_list</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Please remove extra pos files and keep only one pos file in the folder.&quot;</span>
+                <span class="p">)</span>
+
         <span class="k">if</span> <span class="n">pos_xyz_file_list</span><span class="p">:</span>
             <span class="c1"># TODO: Is it possible to have no pos file?</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomic_frames_list</span><span class="p">,</span> <span class="n">energies_list_from_pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_pos_xyz</span><span class="p">(</span>
@@ -769,10 +785,11 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="n">energies_list_from_pos</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># if no pos file and ener file, parse energies from the output file</span>
-            <span class="n">format_logger</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;Energies&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="n">parse_energies_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;energies_list&quot;</span><span class="p">):</span>
+                <span class="n">format_logger</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;Energies&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="n">parse_energies_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomic_frames_list</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">frc_xyz_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>

@@ -7,6 +7,7 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   cp2kdata.plots.colormaps
    cp2kdata.plots.fep_plot
    cp2kdata.plots.geo_opt_plot
    cp2kdata.plots.test_plot

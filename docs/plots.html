@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>CP2KData Plugin for dpdata &#8212; CP2KData Reference</title>
+    <title>Plotting in CP2KData &#8212; CP2KData Reference</title>
   
   
   
@@ -62,11 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/dpdata_plugin';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/plots';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="cp2kdata" href="../_api/modules.html" />
-    <link rel="prev" title="Plotting in CP2KData" href="plots.html" />
+    <link rel="next" title="CP2KData Plugin for dpdata" href="dpdata_plugin.html" />
+    <link rel="prev" title="Generate Standard Test Inputs" href="input_test.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -174,12 +174,12 @@ const thebe_selector_output = ".output, .cell_output"
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Plots</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="plots.html">Plotting in CP2KData</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plotting in CP2KData</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Plugin</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">CP2KData Plugin for dpdata</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="dpdata_plugin.html">CP2KData Plugin for dpdata</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -308,7 +308,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2Fdocs/dpdata_plugin.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/robinzyb/cp2kdata/issues/new?title=Issue%20on%20page%20%2Fdocs/plots.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -338,7 +338,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/docs/dpdata_plugin.md" target="_blank"
+      <li><a href="../_sources/docs/plots.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -409,7 +409,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -420,11 +422,19 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>CP2KData Plugin for dpdata</h1>
+    <h1>Plotting in CP2KData</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#color-blind-friendly-colormaps">Color blind friendly colormaps</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -434,137 +444,111 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="cp2kdata-plugin-for-dpdata">
-<h1>CP2KData Plugin for dpdata<a class="headerlink" href="#cp2kdata-plugin-for-dpdata" title="Permalink to this heading">#</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">CP2KData</span></code> supports a plugin for <code class="docutils literal notranslate"><span class="pre">dpdata</span></code>. When you install <code class="docutils literal notranslate"><span class="pre">CP2KData</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code>, the plugin for <code class="docutils literal notranslate"><span class="pre">dpdata</span></code> is automatically installed as well.</p>
-<p>For instructions on how to use <code class="docutils literal notranslate"><span class="pre">dpdata</span></code>, please refer to the official repository: <a class="github reference external" href="https://github.com/deepmodeling/dpdata">deepmodeling/dpdata</a>.</p>
-<p>In the following, we provide two exmples that demonstrate how to use <code class="docutils literal notranslate"><span class="pre">Cp2kData</span></code> with <code class="docutils literal notranslate"><span class="pre">dpdata</span></code> to parse data from CP2K simulations in specified formats.</p>
-<p>Currently, <code class="docutils literal notranslate"><span class="pre">CP2KData</span></code> supports two formats for use with <code class="docutils literal notranslate"><span class="pre">dpdata</span></code>:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="plotting-in-cp2kdata">
+<h1>Plotting in CP2KData<a class="headerlink" href="#plotting-in-cp2kdata" title="Permalink to this heading">#</a></h1>
+<section id="color-blind-friendly-colormaps">
+<h2>Color blind friendly colormaps<a class="headerlink" href="#color-blind-friendly-colormaps" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>If a submitted manuscript happens to go to three male reviewers of Northern European descent, the chance that at least one will be color blind is 22 percent.</p>
+</div></blockquote>
+<p>by <span id="id1">[<a class="reference internal" href="references.html#id2" title="Bang Wong. Points of view: color coding. nature methods, 7(8):573, 2010.">Won10</a>]</span></p>
+<p>This shows the importance of creating color blind friendly plots.
+As suggested by the above reference, I implemented the recommended color blind friendly colormaps in the CP2KData package.
+The usage is summarized in the following,</p>
 <ol class="arabic">
-<li><p><code class="docutils literal notranslate"><span class="pre">cp2kdata/e_f</span></code> format for parsing <code class="docutils literal notranslate"><span class="pre">ENERGY_FORCE</span></code> outputs.</p>
-<p>Example for parsing <code class="docutils literal notranslate"><span class="pre">ENERGY_FORCE</span></code> outputs:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dpdata</span>
-
-<span class="n">dp</span> <span class="o">=</span> <span class="n">dpdata</span><span class="o">.</span><span class="n">LabeledSystem</span><span class="p">(</span><span class="s2">&quot;cp2k_e_f_output&quot;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;cp2kdata/e_f&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span>
+<li><p>Register the colormaps using cp2kdata</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">cp2kdata.plots.colormaps</span>
 </pre></div>
 </div>
-<p>Recommended Setups in the input of  <code class="docutils literal notranslate"><span class="pre">ENERGY_FORCE</span></code> calculation.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span>FORCE_EVAL
-<span class="w">   </span><span class="c1"># if stress tensor is not need to computed, comment out the below line.</span>
-<span class="w">   </span>STRESS_TENSOR<span class="w"> </span>ANALYTICAL
-<span class="w">   </span><span class="p">&amp;</span>PRINT
-<span class="w">      </span><span class="p">&amp;</span>FORCES<span class="w"> </span>ON
-<span class="w">      </span><span class="p">&amp;</span>END<span class="w"> </span>FORCES
-<span class="w">      </span><span class="c1"># if stress tensor is not need to computed, comment out the below line</span>
-<span class="w">      </span><span class="p">&amp;</span>STRESS_TENSOR<span class="w"> </span>ON
-<span class="w">      </span><span class="c1"># if stress tensor is not need to computed, comment out the below line</span>
-<span class="w">      </span><span class="p">&amp;</span>END<span class="w"> </span>STRESS_TENSOR
-<span class="w">   </span><span class="p">&amp;</span>END<span class="w"> </span>PRINT
-<span class="p">&amp;</span>END<span class="w"> </span>FORCE_EVAL
+<div class="highlight-stdout notranslate"><div class="highlight"><pre><span></span>#output
+color blind friendly colormap registered as cp2kdata_cb_lcmap
+color blind friendly colormap registered as cp2kdata_cb_lscmap
 </pre></div>
 </div>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cp2kdata/md</span></code> format for parsing <code class="docutils literal notranslate"><span class="pre">MD</span></code> outputs.</p>
-<p>Example for parsing <code class="docutils literal notranslate"><span class="pre">MD</span></code> outputs:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dpdata</span>
+<li><p>Get the colormaps</p>
+<p>There are two colormaps in the package.
+The first one is a listed colormap, which can also be understood as a discrete colormap.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="s1">&#39;cp2kdata_cb_lcmap&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><img alt="cbl_cbar" src="../_images/cp2kdata_cb_lcmap.png" /></p>
+<p>The second one is a linear segmented colormap, which can also be understood as a continuous colormap.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="s1">&#39;cp2kdata_cb_lscmap&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><img alt="cbls_cbar" src="../_images/cp2kdata_cb_lscmap.png" /></p>
+</li>
+<li><p>Example for using the listed colormap</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cp2kdata.plots.colormaps</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;cp2kdata.matplotlibstyle.jcp&#39;</span><span class="p">)</span>
 
-<span class="n">cp2kmd_dir</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
-<span class="n">cp2kmd_output_name</span> <span class="o">=</span> <span class="s2">&quot;output&quot;</span>
-<span class="n">dp</span> <span class="o">=</span> <span class="n">dpdata</span><span class="o">.</span><span class="n">LabeledSystem</span><span class="p">(</span><span class="n">cp2kmd_dir</span><span class="p">,</span> <span class="n">cp2k_output_name</span><span class="o">=</span><span class="n">cp2kmd_output_name</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;cp2kdata/md&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span>
+
+<span class="n">cp2kdata_cb_lcmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="s1">&#39;cp2kdata_cb_lcmap&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.prop_cycle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cycler</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="n">cp2kdata_cb_lcmap</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
+<span class="n">row</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.37</span><span class="o">*</span><span class="n">col</span><span class="p">,</span> <span class="mf">1.89</span><span class="o">*</span><span class="n">row</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)</span>
+<span class="n">ax</span>  <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t0</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)))</span>
+
+<span class="n">nb_colors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.prop_cycle&#39;</span><span class="p">])</span>
+
+<span class="n">shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">nb_colors</span><span class="p">)</span>
+<span class="n">amplitudes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">nb_colors</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t0</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">shifts</span><span class="p">,</span> <span class="n">amplitudes</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t0</span><span class="p">),</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;cb_lcmap_plot.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Recommended Setups in the input of  <code class="docutils literal notranslate"><span class="pre">MD</span></code> calculation.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>@SET<span class="w"> </span>frequency<span class="w"> </span><span class="m">100</span>
-<span class="p">&amp;</span>FORCE_EVAL
-<span class="w">   </span><span class="c1"># if stress tensor is not need to computed, comment out the below line.</span>
-<span class="w">   </span>STRESS_TENSOR<span class="w"> </span>ANALYTICAL<span class="w"> </span>
-<span class="w">   </span><span class="p">&amp;</span>PRINT
-<span class="w">      </span><span class="c1"># if stress tensor is not need to computed, comment out the below line</span>
-<span class="w">      </span><span class="p">&amp;</span>STRESS_TENSOR<span class="w"> </span>ON
-<span class="w">      </span><span class="c1"># if stress tensor is not need to computed, comment out the below line</span>
-<span class="w">         </span><span class="p">&amp;</span>EACH
-<span class="w">      </span><span class="c1"># if stress tensor is not need to computed, comment out the below line</span>
-<span class="w">            </span>MD<span class="w"> </span><span class="si">${</span><span class="nv">frequency</span><span class="si">}</span>
-<span class="w">      </span><span class="c1"># if stress tensor is not need to computed, comment out the below line</span>
-<span class="w">         </span><span class="p">&amp;</span>END<span class="w"> </span>EACH
-<span class="w">      </span><span class="c1"># if stress tensor is not need to computed, comment out the below line</span>
-<span class="w">      </span><span class="p">&amp;</span>END<span class="w"> </span>STRESS_TENSOR
-<span class="w">   </span><span class="p">&amp;</span>END<span class="w"> </span>PRINT
-<span class="p">&amp;</span>END<span class="w"> </span>FORCE_EVAL
-<span class="p">&amp;</span>MOTION
-<span class="w">   </span><span class="p">&amp;</span>MD
-<span class="w">      </span><span class="p">&amp;</span>PRINT
-<span class="w">         </span><span class="p">&amp;</span>ENERGY
-<span class="w">            </span><span class="p">&amp;</span>EACH
-<span class="w">               </span>MD<span class="w"> </span><span class="si">${</span><span class="nv">frequency</span><span class="si">}</span>
-<span class="w">            </span><span class="p">&amp;</span>END<span class="w"> </span>EACH
-<span class="w">         </span><span class="p">&amp;</span>END<span class="w"> </span>ENERGY
-<span class="w">      </span><span class="p">&amp;</span>END<span class="w"> </span>PRINT
-<span class="w">   </span><span class="p">&amp;</span>END<span class="w"> </span>MD
-<span class="w">   </span><span class="p">&amp;</span>PRINT
-<span class="w">      </span><span class="p">&amp;</span>CELL
-<span class="w">         </span><span class="p">&amp;</span>EACH
-<span class="w">            </span>MD<span class="w"> </span><span class="si">${</span><span class="nv">frequency</span><span class="si">}</span>
-<span class="w">         </span><span class="p">&amp;</span>END<span class="w"> </span>EACH
-<span class="w">      </span><span class="p">&amp;</span>END<span class="w"> </span>CELL
-<span class="w">      </span><span class="p">&amp;</span>FORCES
-<span class="w">         </span><span class="p">&amp;</span>EACH
-<span class="w">            </span>MD<span class="w"> </span><span class="si">${</span><span class="nv">frequency</span><span class="si">}</span>
-<span class="w">         </span><span class="p">&amp;</span>END<span class="w"> </span>EACH
-<span class="w">      </span><span class="p">&amp;</span>END<span class="w"> </span>FORCES
-<span class="w">      </span><span class="p">&amp;</span>TRAJECTORY
-<span class="w">         </span><span class="p">&amp;</span>EACH
-<span class="w">            </span>MD<span class="w"> </span><span class="si">${</span><span class="nv">frequency</span><span class="si">}</span>
-<span class="w">         </span><span class="p">&amp;</span>END<span class="w"> </span>EACH
-<span class="w">      </span><span class="p">&amp;</span>END<span class="w"> </span>TRAJECTORY
-<span class="w">   </span><span class="p">&amp;</span>END<span class="w"> </span>PRINT
-<span class="p">&amp;</span>END<span class="w"> </span>MOTION
+<p><img alt="cbl_plot" src="../_images/cb_lcmap_plot.png" /></p>
+</li>
+<li><p>Example for using the linear segmented colormap</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cp2kdata.plots.colormaps</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;cp2kdata.matplotlibstyle.jcp&#39;</span><span class="p">)</span>
+
+
+<span class="n">cp2kdata_cb_lscmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="s1">&#39;cp2kdata_cb_lscmap&#39;</span><span class="p">]</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.prop_cycle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cycler</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="n">cp2kdata_cb_lscmap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">)))</span>
+<span class="n">row</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.37</span><span class="o">*</span><span class="n">col</span><span class="p">,</span> <span class="mf">1.89</span><span class="o">*</span><span class="n">row</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">col</span><span class="p">)</span>
+<span class="n">ax</span>  <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t0</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)))</span>
+
+<span class="n">nb_colors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.prop_cycle&#39;</span><span class="p">])</span>
+
+<span class="n">shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">nb_colors</span><span class="p">)</span>
+<span class="n">amplitudes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">nb_colors</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t0</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">shifts</span><span class="p">,</span> <span class="n">amplitudes</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t0</span><span class="p">),</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;cb_lscmap_plot.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In some cases, cp2k md simulations are restarted from <code class="docutils literal notranslate"><span class="pre">-1.restart</span></code> file in which the initial structure will not be evaluated again.
-Therefore, the initial cell information should not be parsed again. Otherwise, the number of frames for cells is inconsistent with those for <code class="docutils literal notranslate"><span class="pre">poses</span></code>, <code class="docutils literal notranslate"><span class="pre">forces</span></code>, and <code class="docutils literal notranslate"><span class="pre">energies</span></code>.
-Cp2kdata can automatically check whether the simulations are restarted or not through the header information of output:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">*******************************************************************************</span>
- <span class="o">*</span>                            <span class="n">RESTART</span> <span class="n">INFORMATION</span>                              <span class="o">*</span>
- <span class="o">*******************************************************************************</span>
- <span class="o">*</span>                                                                             <span class="o">*</span>
- <span class="o">*</span>    <span class="n">RESTART</span> <span class="n">FILE</span> <span class="n">NAME</span><span class="p">:</span> <span class="n">bivo4</span><span class="o">-</span><span class="n">water</span><span class="o">-</span><span class="mf">1.</span><span class="n">restart</span>                                 <span class="o">*</span>
- <span class="o">*</span>                                                                             <span class="o">*</span>
- <span class="o">*</span> <span class="n">RESTARTED</span> <span class="n">QUANTITIES</span><span class="p">:</span>                                                       <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">CELL</span>                                                  <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">COORDINATES</span>                                           <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">RANDOM</span> <span class="n">NUMBER</span> <span class="n">GENERATOR</span>                               <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">VELOCITIES</span>                                            <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">MD</span> <span class="n">COUNTERS</span>                                           <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">MD</span> <span class="n">AVERAGES</span>                                           <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">PARTICLE</span> <span class="n">THERMOSTAT</span>                                   <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">REAL</span> <span class="n">TIME</span> <span class="n">PROPAGATION</span>                                 <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">PINT</span> <span class="n">BEAD</span> <span class="n">POSITIONS</span>                                   <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">PINT</span> <span class="n">BEAD</span> <span class="n">VELOCITIES</span>                                  <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">PINT</span> <span class="n">NOSE</span> <span class="n">THERMOSTAT</span>                                  <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">PINT</span> <span class="n">GLE</span> <span class="n">THERMOSTAT</span>                                   <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">HELIUM</span> <span class="n">BEAD</span> <span class="n">POSITIONS</span>                                 <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">HELIUM</span> <span class="n">PERMUTATION</span> <span class="n">STATE</span>                              <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">HELIUM</span> <span class="n">FORCES</span> <span class="n">ON</span> <span class="n">SOLUTE</span>                               <span class="o">*</span>
- <span class="o">*</span>                       <span class="n">HELIUM</span> <span class="n">RNG</span> <span class="n">STATE</span>                                      <span class="o">*</span>
- <span class="o">*******************************************************************************</span>
-</pre></div>
-</div>
-<p>if the simulations are restarted using:</p>
-<div class="highlight-cp2k notranslate"><div class="highlight"><pre><span></span>&amp;EXT_RESTART
-   RESTART_FILE_NAME Li-LiFSI-DME-1-2-1.restart
-&amp;END EXT_RESTART
-</pre></div>
-</div>
-<p>In case your restarted output doesn’t have the above header, you can explicitly tell the cp2kdata/dpdata by setting <code class="docutils literal notranslate"><span class="pre">restart=True</span></code>,</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># restart = True in case the output doesn&#39;t contains header</span>
-<span class="n">dp</span> <span class="o">=</span> <span class="n">dpdata</span><span class="o">.</span><span class="n">LabeledSystem</span><span class="p">(</span><span class="n">cp2kmd_dir</span><span class="p">,</span> <span class="n">cp2k_output_name</span><span class="o">=</span><span class="n">cp2kmd_output_name</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;cp2kdata/md&quot;</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
+<p><img alt="cbls_plot" src="../_images/cb_lscmap_plot.png" /></p>
 </li>
 </ol>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -598,20 +582,20 @@ Cp2kdata can automatically check whether the simulations are restarted or not th
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plots.html"
+       href="input_test.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Plotting in CP2KData</p>
+        <p class="prev-next-title">Generate Standard Test Inputs</p>
       </div>
     </a>
     <a class="right-next"
-       href="../_api/modules.html"
+       href="dpdata_plugin.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">cp2kdata</p>
+        <p class="prev-next-title">CP2KData Plugin for dpdata</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -621,6 +605,20 @@ Cp2kdata can automatically check whether the simulations are restarted or not th
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#color-blind-friendly-colormaps">Color blind friendly colormaps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

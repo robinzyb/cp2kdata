@@ -170,6 +170,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="docs/input_test.html">Generate Standard Test Inputs</a></li>
 
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Plots</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="docs/plots.html">Plotting in CP2KData</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Plugin</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="docs/dpdata_plugin.html">CP2KData Plugin for dpdata</a></li>
@@ -213,6 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="_api/cp2kdata.plots.html">cp2kdata.plots package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.colormaps.html">cp2kdata.plots.colormaps module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.fep_plot.html">cp2kdata.plots.fep_plot module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.geo_opt_plot.html">cp2kdata.plots.geo_opt_plot module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_api/cp2kdata.plots.test_plot.html">cp2kdata.plots.test_plot module</a></li>
@@ -579,8 +584,6 @@ document.write(`
         <li><a href="_api/cp2kdata.block_parser.stress.html#module-cp2kdata.block_parser.stress">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cp2kdata.block_parser.vibration
 
@@ -588,6 +591,8 @@ document.write(`
         <li><a href="_api/cp2kdata.block_parser.vibration.html#module-cp2kdata.block_parser.vibration">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cp2kdata.cell
 
@@ -677,6 +682,13 @@ document.write(`
 
       <ul>
         <li><a href="_api/cp2kdata.plots.html#module-cp2kdata.plots">module</a>
+</li>
+      </ul></li>
+      <li>
+    cp2kdata.plots.colormaps
+
+      <ul>
+        <li><a href="_api/cp2kdata.plots.colormaps.html#module-cp2kdata.plots.colormaps">module</a>
 </li>
       </ul></li>
       <li>
@@ -847,9 +859,11 @@ document.write(`
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_global_info">get_global_info() (cp2kdata.output.Cp2kOutput static method)</a>
 </li>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_ener">get_homo_ener() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_ener">get_homo_ener() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
+      <li><a href="_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_lumo_gap">get_homo_lumo_gap() (cp2kdata.pdos.pdos.Cp2kPdos method)</a>
 </li>
       <li><a href="_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_atomic_coordinates">get_init_atomic_coordinates() (cp2kdata.output.Cp2kOutput method)</a>
 </li>
@@ -1020,6 +1034,8 @@ document.write(`
         <li><a href="_api/cp2kdata.pdos.pdos.html#module-cp2kdata.pdos.pdos">cp2kdata.pdos.pdos</a>
 </li>
         <li><a href="_api/cp2kdata.plots.html#module-cp2kdata.plots">cp2kdata.plots</a>
+</li>
+        <li><a href="_api/cp2kdata.plots.colormaps.html#module-cp2kdata.plots.colormaps">cp2kdata.plots.colormaps</a>
 </li>
         <li><a href="_api/cp2kdata.plots.fep_plot.html#module-cp2kdata.plots.fep_plot">cp2kdata.plots.fep_plot</a>
 </li>
