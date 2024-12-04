@@ -243,15 +243,15 @@ class Cp2kPdos():
         return fermi
 
     def read_dos_energies(self):
-            """
-            Reads the DOS energies from the file and converts them to electron volts (eV).
+        """
+        Reads the DOS energies from the file and converts them to electron volts (eV).
 
-            Returns:
-                numpy.ndarray: An array of DOS energies in eV.
-            """
-            energies = np.loadtxt(self.file, usecols=1)
-            energies = energies * au2eV
-            return energies
+        Returns:
+            numpy.ndarray: An array of DOS energies in eV.
+        """
+        energies = np.loadtxt(self.file, usecols=1)
+        energies = energies * au2eV
+        return energies
 
     @property
     def occupation(self):
@@ -260,26 +260,33 @@ class Cp2kPdos():
         return occupation
 
     def get_homo_ener(self):
-            """
-            Get the energy of the highest occupied molecular orbital (HOMO).
+        """
+        Get the energy of the highest occupied molecular orbital (HOMO).
 
-            Returns:
-                float: The energy of the HOMO.
-            """
-            homo_idx = np.where(self.occupation == 0)[0][0]-1
-            homo_ener = self.energies[homo_idx]
+        Returns:
+            float: The energy of the HOMO.
+        """
+        homo_idx = np.where(self.occupation == 0)[0][0]-1
+        homo_ener = self.energies[homo_idx]
 
-            return homo_ener
+        return homo_ener
 
     def get_lumo_ener(self):
-            """
-            Get the energy of the lowest unoccupied molecular orbital (LUMO).
+        """
+        Get the energy of the lowest unoccupied molecular orbital (LUMO).
 
-            Returns:
-                lumo_ener (float): The energy of the LUMO.
-            """
-            lumo_ener = self.energies[self.occupation == 0][0]
-            return lumo_ener
+        Returns:
+            lumo_ener (float): The energy of the LUMO.
+        """
+        lumo_ener = self.energies[self.occupation == 0][0]
+        return lumo_ener
+
+    def get_homo_lumo_gap(self):
+        """
+        Get the lumo - homo gap from energy
+        """
+        gap_ener = self.get_lumo_ener() - self.get_homo_ener()
+        return gap_ener
 
     def get_raw_dos(self, dos_type="total", steplen=0.1, usecols=None):
 
