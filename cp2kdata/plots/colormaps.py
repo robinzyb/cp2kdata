@@ -7,14 +7,16 @@ import matplotlib as mpl
 # [1] Wong, Bang. "Points of view: Color coding." nature methods 7.8 (2010): 573.
 color_blind_map = [
     #[0.0/256, 0.0/256, 0.0/256, 1], # Black
-    [230.0/256, 159.0/256, 0.0/256, 1], # Orange
-    [86.0/256, 180.0/256, 233.0/256, 1], # Sky Blue
-    [0.0/256, 158.0/256, 115.0/256, 1], # Bluish Green
-    [240.0/256, 228.0/256, 66.0/256, 1], # Yellow
-    [0.0/256, 114.0/256, 178.0/256, 1], # Blue
-    [213.0/256, 94.0/256, 0.0/256, 1], # Vermilion
-    [204.0/256, 121.0/256, 167.0/256, 1], # Reddish Purple
+    [230.0/256, 159.0/256, 0.0/256], # Orange
+    [86.0/256, 180.0/256, 233.0/256], # Sky Blue
+    [0.0/256, 158.0/256, 115.0/256], # Bluish Green
+    [240.0/256, 228.0/256, 66.0/256], # Yellow
+    [0.0/256, 114.0/256, 178.0/256], # Blue
+    [213.0/256, 94.0/256, 0.0/256], # Vermilion
+    [204.0/256, 121.0/256, 167.0/256], # Reddish Purple
 ]
+# I don't under the seabon palatte can be distinguished in grayscale
+# https://seaborn.pydata.org/tutorial/color_palettes.html#qualitative-color-palettes
 
 cb_lcmap = ListedColormap(color_blind_map, name='cp2kdata_cb_lcmap')
 cb_lscmap = LinearSegmentedColormap.from_list(name='cp2kdata_cb_lscmap', colors=color_blind_map)
