@@ -34,6 +34,42 @@ Currently, `CP2KData` supports two formats for use with `dpdata`:
    &END FORCE_EVAL
    ```
 
+   Single-point energy calculations are usually distributed across multiple folders. We need to loop through these folders. Here, I provide a script that can perform this task.
+   ```python
+   import dpdata
+   from pathlib import Path
+
+
+   system_list = [
+      "system_1",
+      "system_2"
+   ]
+   prefix_wkdir = "stc_"
+   cp2k_log_name = "output"
+
+   root=Path("./")
+
+   # make a folder to store the datasets
+   datadir=root/"data_set_new"
+   datadir.mkdir(exist_ok=True, parents=True)
+
+   for system in system_list:
+      wkdirs = root/f"{system}"
+      wkdirs = list(wkdirs.glob(f"{prefix_wkdir}*"))
+      wkdirs.sort()
+
+      dp = None
+      for wkdir in wkdirs:
+         print(f"process {wkdir}")
+         if dp == None:
+               dp = dpdata.LabeledSystem(wkdir/cp2k_log_name, fmt="cp2kdata/e_f")
+         else:
+               dp += dpdata.LabeledSystem(wkdir/cp2k_log_name, fmt="cp2kdata/e_f")
+
+      dp.to_deepmd_npy(datadir/system)
+
+   ```
+
 2. `cp2kdata/md` format for parsing `MD` outputs.
 
    Example for parsing `MD` outputs:

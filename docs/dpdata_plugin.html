@@ -464,6 +464,41 @@ document.write(`
 <span class="p">&amp;</span>END<span class="w"> </span>FORCE_EVAL
 </pre></div>
 </div>
+<p>Single-point energy calculations are usually distributed across multiple folders. We need to loop through these folders. Here, I provide a script that can perform this task.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dpdata</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+
+<span class="n">system_list</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="s2">&quot;system_1&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;system_2&quot;</span>
+<span class="p">]</span>
+<span class="n">prefix_wkdir</span> <span class="o">=</span> <span class="s2">&quot;stc_&quot;</span>
+<span class="n">cp2k_log_name</span> <span class="o">=</span> <span class="s2">&quot;output&quot;</span>
+
+<span class="n">root</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./&quot;</span><span class="p">)</span>
+
+<span class="c1"># make a folder to store the datasets</span>
+<span class="n">datadir</span><span class="o">=</span><span class="n">root</span><span class="o">/</span><span class="s2">&quot;data_set_new&quot;</span>
+<span class="n">datadir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">system</span> <span class="ow">in</span> <span class="n">system_list</span><span class="p">:</span>
+   <span class="n">wkdirs</span> <span class="o">=</span> <span class="n">root</span><span class="o">/</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">system</span><span class="si">}</span><span class="s2">&quot;</span>
+   <span class="n">wkdirs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">wkdirs</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix_wkdir</span><span class="si">}</span><span class="s2">*&quot;</span><span class="p">))</span>
+   <span class="n">wkdirs</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+   <span class="n">dp</span> <span class="o">=</span> <span class="kc">None</span>
+   <span class="k">for</span> <span class="n">wkdir</span> <span class="ow">in</span> <span class="n">wkdirs</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;process </span><span class="si">{</span><span class="n">wkdir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">dp</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dp</span> <span class="o">=</span> <span class="n">dpdata</span><span class="o">.</span><span class="n">LabeledSystem</span><span class="p">(</span><span class="n">wkdir</span><span class="o">/</span><span class="n">cp2k_log_name</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;cp2kdata/e_f&quot;</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+            <span class="n">dp</span> <span class="o">+=</span> <span class="n">dpdata</span><span class="o">.</span><span class="n">LabeledSystem</span><span class="p">(</span><span class="n">wkdir</span><span class="o">/</span><span class="n">cp2k_log_name</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;cp2kdata/e_f&quot;</span><span class="p">)</span>
+
+   <span class="n">dp</span><span class="o">.</span><span class="n">to_deepmd_npy</span><span class="p">(</span><span class="n">datadir</span><span class="o">/</span><span class="n">system</span><span class="p">)</span>
+
+</pre></div>
+</div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cp2kdata/md</span></code> format for parsing <code class="docutils literal notranslate"><span class="pre">MD</span></code> outputs.</p>
 <p>Example for parsing <code class="docutils literal notranslate"><span class="pre">MD</span></code> outputs:</p>
