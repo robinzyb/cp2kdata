@@ -102,3 +102,50 @@ The usage is summarized in the following,
     fig.savefig("cb_lscmap_plot.png", dpi=100)
     ```
     ![cbls_plot](./figures/cb_lscmap_plot.png)
+
+
+## Other color blind friendly colormaps
+
+One of the common used colormaps is viridis.
+We can find it in the seaborn package.
+
+```python
+fig = plt.figure(figsize=(3.37*scale*col, 1.89*scale*row), dpi=300)
+fig.subplots_adjust(hspace=0.3)
+gs = fig.add_gridspec(row,col)
+
+
+# read the averaged FES
+file_fes =  f'fes-ave.dat'
+bin_cn = 101
+bin_d = 101
+X = np.loadtxt(file_fes, usecols=0)
+Y = np.loadtxt(file_fes, usecols=1)
+Z = np.loadtxt(file_fes, usecols=2)
+Z_std = np.loadtxt(file_fes, usecols=3)
+X = X.reshape(bin_cn, bin_d)
+Y = Y.reshape(bin_cn, bin_d)
+Z = Z.reshape(bin_cn, bin_d)
+Z_std = Z_std.reshape(bin_cn, bin_d)
+Z = Z*0.0103636  # to eV
+Z_std = Z_std*0.0103636  # to eV
+Z_min = np.min(Z)
+Z = Z - Z_min
+
+Z = Z.clip(min=vmin, max=vmax)
+
+ax  = fig.add_subplot(gs[0])
+
+my_cmp = sns.color_palette("viridis", as_cmap=True)
+CS = ax.contour(X, Y, Z,levels=int(levels/4), vmin=vmin, vmax=vmax, colors='k', linewidths=0.4, labcex=10)
+CS2 = ax.contourf(X,Y,Z,levels=levels, cmap=my_cmp.reversed(), vmin=vmin, vmax=vmax)
+
+ax.clabel(CS, fontsize=6, inline=True, fmt="%1.2f")
+ax.set_xlim(2.0, 4.5)
+ax.set_ylim(0.6, 2.6)
+ax.set_xlabel(r"X", fontsize=fontsize)
+ax.set_ylabel(r"Y", fontsize=fontsize)
+cbar = fig.colorbar(mappable=CS2, ax=ax)
+cbar.set_label(r"Z", fontsize=fontsize)
+
+```
