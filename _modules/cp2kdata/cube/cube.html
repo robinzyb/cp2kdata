@@ -535,6 +535,10 @@ document.write(`
             <span class="k">return</span> <span class="n">points</span><span class="p">,</span> <span class="n">vals</span></div>
 
 <div class="viewcode-block" id="Cp2kCube.get_mav"><a class="viewcode-back" href="../../../_api/cp2kdata.cube.cube.html#cp2kdata.cube.cube.Cp2kCube.get_mav">[docs]</a>    <span class="k">def</span> <span class="nf">get_mav</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ncov</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get marcoaverage of the cube file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">cell_length</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">get_cell_lengths</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
             <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">get_cell_lengths</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
