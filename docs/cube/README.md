@@ -71,14 +71,15 @@ pav_x, pav = mycube.get_pav(axis="z", interpolate=True)
 ```
 
 ## Macro Averaging
-The `get_mav()` method allows you to compute macro average data with or without interpolation. Specify the length of the first and second periodicity (l1 and l2) and the system type (ncov) as parameters:
+The `get_mav()` method allows you to compute macro average data with or without interpolation.
+The method `get_mav()` is usually used for determining the electrostatic potential difference across two materials.cite`{Junquera.Rabe.2007.10.1088/0953-8984/19/21/213203}` Assume you have an atomic model of a heterojunction with SiO2 and Si with the interface normal to the `z` axis.  You can specify the length of the first and second periodicity (l1 and l2) for SiO2 and Si. The periodicity can be determined from their interlayer distances normal to the `z` axis. In practice, it is recommended to set periodicity to double minimum interlayer distances to obtain better plateau in the bulk regions of the materials. The `ncov` means the types of systems. `ncov=1` indicates one material with vacuum. In this case, `l2` can be None. `ncov=2` indicates two materials in the box, for example, the SiO2 and Si heterojunction. `l1` and `l2` are set to the periodicity of the two materials, respectively.
 
 ```python
 # Get macro average data without interpolation
-mav_x, mav = mycube.get_mav(l1=4.8, l2=4.8, ncov=1, interpolate=False)
+mav_x, mav = mycube.get_mav(l1=4.8, l2=4.8, ncov=1, interpolate=False, axis='z')
 
 # Get macro average data with interpolation
-mav_x, mav = mycube.get_mav(l1=4.8, l2=4.8, ncov=2, interpolate=True)
+mav_x, mav = mycube.get_mav(l1=4.8, l2=4.8, ncov=2, interpolate=True,  axis='z')
 
 ```
 
