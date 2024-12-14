@@ -149,6 +149,10 @@ class Cp2kCube(MSONable):
             return points, vals
 
     def get_mav(self, l1, l2=0, ncov=1, interpolate=False, axis="z"):
+        """
+        Get marcoaverage of the cube file
+        """
+
         cell_length = {
             "x": self.cell.get_cell_lengths()[0],
             "y": self.cell.get_cell_lengths()[1],
