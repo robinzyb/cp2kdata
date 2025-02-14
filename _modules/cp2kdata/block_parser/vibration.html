@@ -384,8 +384,8 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.block_parser.vibration</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">regex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">VIB_FREQ_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -395,7 +395,7 @@ document.write(`
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="parse_vibration_freq_list"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.vibration.html#cp2kdata.block_parser.vibration.parse_vibration_freq_list">[docs]</a><span class="k">def</span> <span class="nf">parse_vibration_freq_list</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_vibration_freq_list"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.vibration.html#cp2kdata.block_parser.vibration.parse_vibration_freq_list">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_vibration_freq_list</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
 
     <span class="n">vib_freq_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">VIB_FREQ_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>

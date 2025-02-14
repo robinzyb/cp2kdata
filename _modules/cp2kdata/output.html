@@ -384,38 +384,38 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.output</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">cached_property</span>
 
-<span class="kn">from</span> <span class="nn">cp2kdata.plots.geo_opt_plot</span> <span class="kn">import</span> <span class="n">geo_opt_info_plot</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.log</span> <span class="kn">import</span> <span class="n">get_logger</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.utils</span> <span class="kn">import</span> <span class="n">format_logger</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.header_info</span> <span class="kn">import</span> <span class="n">GlobalInfo</span><span class="p">,</span> <span class="n">Cp2kInfo</span><span class="p">,</span> <span class="n">DFTInfo</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.dft_plus_u</span> <span class="kn">import</span> <span class="n">parse_dft_plus_u_occ</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.forces</span> <span class="kn">import</span> <span class="n">parse_atomic_forces_list</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.geo_opt</span> <span class="kn">import</span> <span class="n">parse_geo_opt_info</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.header_info</span> <span class="kn">import</span> <span class="n">parse_dft_info</span><span class="p">,</span> <span class="n">parse_global_info</span><span class="p">,</span> <span class="n">parse_cp2k_info</span><span class="p">,</span> <span class="n">parse_md_info</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.hirshfeld</span> <span class="kn">import</span> <span class="n">parse_hirshfeld_pop_list</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.mulliken</span> <span class="kn">import</span> <span class="n">parse_mulliken_pop_list</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.energies</span> <span class="kn">import</span> <span class="n">parse_energies_list</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.coordinates</span> <span class="kn">import</span> <span class="n">parse_init_atomic_coordinates</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.atomic_kind</span> <span class="kn">import</span> <span class="n">parse_atomic_kinds</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.errors_handle</span> <span class="kn">import</span> <span class="n">parse_errors</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.stress</span> <span class="kn">import</span> <span class="n">parse_stress_tensor_list</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.cells</span> <span class="kn">import</span> <span class="n">parse_all_cells</span><span class="p">,</span> <span class="n">parse_all_md_cells</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.md_xyz</span> <span class="kn">import</span> <span class="n">parse_md_ener</span><span class="p">,</span> <span class="n">parse_pos_xyz</span><span class="p">,</span> <span class="n">parse_frc_xyz</span><span class="p">,</span> <span class="n">parse_md_stress</span><span class="p">,</span> <span class="n">parse_md_cell</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.vibration</span> <span class="kn">import</span> <span class="n">parse_vibration_freq_list</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.plots.geo_opt_plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">geo_opt_info_plot</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.header_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">GlobalInfo</span><span class="p">,</span> <span class="n">Cp2kInfo</span><span class="p">,</span> <span class="n">DFTInfo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.dft_plus_u</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_dft_plus_u_occ</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.forces</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_atomic_forces_list</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.geo_opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_geo_opt_info</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.header_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_dft_info</span><span class="p">,</span> <span class="n">parse_global_info</span><span class="p">,</span> <span class="n">parse_cp2k_info</span><span class="p">,</span> <span class="n">parse_md_info</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.hirshfeld</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_hirshfeld_pop_list</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.mulliken</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_mulliken_pop_list</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.energies</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_energies_list</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.coordinates</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_init_atomic_coordinates</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.atomic_kind</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_atomic_kinds</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.errors_handle</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_errors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.stress</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_stress_tensor_list</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.cells</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_all_cells</span><span class="p">,</span> <span class="n">parse_all_md_cells</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.md_xyz</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_md_ener</span><span class="p">,</span> <span class="n">parse_pos_xyz</span><span class="p">,</span> <span class="n">parse_frc_xyz</span><span class="p">,</span> <span class="n">parse_md_stress</span><span class="p">,</span> <span class="n">parse_md_cell</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.vibration</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_vibration_freq_list</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Cp2kOutput"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput">[docs]</a><span class="k">class</span> <span class="nc">Cp2kOutput</span><span class="p">:</span>
+<div class="viewcode-block" id="Cp2kOutput"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Cp2kOutput</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for parsing cp2k output&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">output_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">run_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -529,10 +529,10 @@ document.write(`
         <span class="c1"># self.hirshfeld_pop_list = parse_hirshfeld_pop_list(self.output_file)</span>
         <span class="c1"># self.dft_plus_u_occ = parse_dft_plus_u_occ(self.output_file)</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">txt</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">txt</span> <span class="o">+=</span> <span class="s2">&quot;Cp2k Output Summary</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">txt</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -561,28 +561,28 @@ document.write(`
         <span class="n">txt</span> <span class="o">+=</span> <span class="s2">&quot;--------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="n">txt</span>
 
-<div class="viewcode-block" id="Cp2kOutput.get_version_string"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_version_string">[docs]</a>    <span class="k">def</span> <span class="nf">get_version_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="Cp2kOutput.get_version_string"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_version_string">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_version_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="o">.</span><span class="n">version</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_run_type"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_run_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_run_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="Cp2kOutput.get_run_type"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_run_type">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_run_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">run_type</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_init_cell"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_cell">[docs]</a>    <span class="k">def</span> <span class="nf">get_init_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_init_cell"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_cell">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_init_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_all_cells"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_all_cells">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_cells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_all_cells"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_all_cells">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all_cells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_energies_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_energies_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_energies_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_energies_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_energies_list">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_energies_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_atomic_kind"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atomic_kind">[docs]</a>    <span class="k">def</span> <span class="nf">get_atomic_kind</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_atomic_kind"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atomic_kind">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_atomic_kind</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;Unknown&quot;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_atom_num"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atom_num">[docs]</a>    <span class="k">def</span> <span class="nf">get_atom_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_atom_num"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atom_num">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_atom_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># kind idx is arrange from low to high</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;Unknown&quot;</span><span class="p">]</span>
@@ -593,68 +593,68 @@ document.write(`
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">counts</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_atom_kinds_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atom_kinds_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_atom_kinds_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_atom_kinds_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atom_kinds_list">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_atom_kinds_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;Unknown&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_chemical_symbols"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_chemical_symbols">[docs]</a>    <span class="k">def</span> <span class="nf">get_chemical_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_chemical_symbols"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_chemical_symbols">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_chemical_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_chemical_symbols_fake"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_chemical_symbols_fake">[docs]</a>    <span class="k">def</span> <span class="nf">get_chemical_symbols_fake</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_chemical_symbols_fake"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_chemical_symbols_fake">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_chemical_symbols_fake</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;Unknown&quot;</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_init_atomic_coordinates"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_atomic_coordinates">[docs]</a>    <span class="k">def</span> <span class="nf">get_init_atomic_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_init_atomic_coordinates"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_init_atomic_coordinates">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_init_atomic_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;Unknown&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_num_atoms"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_num_atoms">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_num_atoms"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_num_atoms">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_num_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_num_frames"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_num_frames">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_frames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_num_frames"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_num_frames">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_num_frames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;Unknown&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_atomic_forces_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atomic_forces_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_atomic_forces_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_atomic_forces_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_atomic_forces_list">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_atomic_forces_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.has_force"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.has_force">[docs]</a>    <span class="k">def</span> <span class="nf">has_force</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.has_force"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.has_force">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">has_force</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_force_status"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_force_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_force_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_force_status"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_force_status">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_force_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_force</span><span class="p">():</span>
             <span class="k">return</span> <span class="s2">&quot;Yes&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;No&quot;</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_stress_tensor_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_stress_tensor_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_stress_tensor_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_stress_tensor_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_stress_tensor_list">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_stress_tensor_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.has_stress"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.has_stress">[docs]</a>    <span class="k">def</span> <span class="nf">has_stress</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.has_stress"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.has_stress">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">has_stress</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_stress_status"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_stress_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_stress_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_stress_status"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_stress_status">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_stress_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_stress</span><span class="p">():</span>
             <span class="k">return</span> <span class="s2">&quot;Yes&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;No&quot;</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_ase_atoms"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_ase_atoms">[docs]</a>    <span class="k">def</span> <span class="nf">get_ase_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atoms</span>
+<div class="viewcode-block" id="Cp2kOutput.get_ase_atoms"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_ase_atoms">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_ase_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">ase</span><span class="w"> </span><span class="kn">import</span> <span class="n">Atoms</span>
         <span class="n">symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
         <span class="n">positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_init_cell</span><span class="p">()</span>
@@ -663,14 +663,14 @@ document.write(`
         <span class="k">return</span> <span class="n">ase_atoms</span></div>
 
     <span class="nd">@cached_property</span>
-    <span class="k">def</span> <span class="nf">mulliken_pop_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mulliken_pop_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># use cached property to prase only once</span>
         <span class="k">return</span> <span class="n">parse_mulliken_pop_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dft_info</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Cp2kOutput.get_mulliken_pop_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_mulliken_pop_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_mulliken_pop_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_mulliken_pop_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_mulliken_pop_list">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_mulliken_pop_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mulliken_pop_list</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_spin_moment_mulliken_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_spin_moment_mulliken_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_spin_moment_mulliken_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_spin_moment_mulliken_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_spin_moment_mulliken_list">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_spin_moment_mulliken_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">mulliken_pop_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mulliken_pop_list</span><span class="p">()</span>
         <span class="n">spin_moment_mulliken_list</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -682,7 +682,7 @@ document.write(`
 
         <span class="k">return</span> <span class="n">spin_moment_mulliken_list</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_spin_moment_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_spin_moment_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_spin_moment_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mulliken&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_spin_moment_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_spin_moment_list">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_spin_moment_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mulliken&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;mulliken&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_spin_moment_mulliken_list</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -695,10 +695,10 @@ document.write(`
     <span class="c1"># def get_dft_plus_u_occ(self):</span>
     <span class="c1">#     return self.dft_plus_u_occ</span>
 
-<div class="viewcode-block" id="Cp2kOutput.get_geo_opt_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_geo_opt_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_geo_opt_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_geo_opt_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_geo_opt_info">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_geo_opt_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">geo_opt_info</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.get_geo_opt_info_plot"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_geo_opt_info_plot">[docs]</a>    <span class="k">def</span> <span class="nf">get_geo_opt_info_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logscale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_geo_opt_info_plot"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_geo_opt_info_plot">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_geo_opt_info_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logscale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">run_type</span> <span class="o">==</span> <span class="s2">&quot;GEO_OPT&quot;</span>
             <span class="n">geo_opt_info_plot</span><span class="p">(</span>
@@ -708,11 +708,11 @@ document.write(`
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">run_type</span><span class="si">}</span><span class="s2"> can&#39;t use this method!&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.to_ase_atoms"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.to_ase_atoms">[docs]</a>    <span class="k">def</span> <span class="nf">to_ase_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.to_ase_atoms"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.to_ase_atoms">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_ase_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;haven&#39;t implemented yet&quot;</span><span class="p">)</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.parse_energy_force"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_energy_force">[docs]</a>    <span class="k">def</span> <span class="nf">parse_energy_force</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.parse_energy_force"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_energy_force">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">parse_energy_force</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geo_opt_info</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_init_atomic_coordinates</span><span class="p">(</span>
@@ -724,10 +724,10 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="n">parse_atomic_forces_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="n">parse_stress_tensor_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.parse_vibrational_analysis"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_vibrational_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">parse_vibrational_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.parse_vibrational_analysis"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_vibrational_analysis">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">parse_vibrational_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parse_energy_force</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.parse_geo_opt"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_geo_opt">[docs]</a>    <span class="k">def</span> <span class="nf">parse_geo_opt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.parse_geo_opt"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_geo_opt">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">parse_geo_opt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_init_atomic_coordinates</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geo_opt_info</span> <span class="o">=</span> <span class="n">parse_geo_opt_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
@@ -736,7 +736,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="n">parse_atomic_forces_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="n">parse_stress_tensor_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.parse_cell_opt"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_cell_opt">[docs]</a>    <span class="k">def</span> <span class="nf">parse_cell_opt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.parse_cell_opt"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_cell_opt">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">parse_cell_opt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># initial information</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_init_atomic_coordinates</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
@@ -755,7 +755,7 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.parse_md"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_md">[docs]</a>    <span class="k">def</span> <span class="nf">parse_md</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.parse_md"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_md">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">parse_md</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">md_info</span> <span class="o">=</span> <span class="n">parse_md_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_md_type</span><span class="p">(</span><span class="n">md_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span><span class="p">)</span>
 
@@ -901,7 +901,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="o">=</span> <span class="n">parse_atomic_kinds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Cp2kOutput.organize_md_cell"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.organize_md_cell">[docs]</a>    <span class="k">def</span> <span class="nf">organize_md_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.organize_md_cell"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.organize_md_cell">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">organize_md_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># whether reserve the first cell is determined by the restart</span>
 
         <span class="n">WARNING_MSG</span> <span class="o">=</span> <span class="s2">&quot;cp2kdata obtains more than one initial cell from the output file, </span><span class="se">\</span>
@@ -920,16 +920,16 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">all_cells</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">first_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
     <span class="nd">@cached_property</span>
-    <span class="k">def</span> <span class="nf">vib_freq_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">vib_freq_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_info</span><span class="o">.</span><span class="n">run_type</span> <span class="o">==</span> <span class="s2">&quot;VIBRATIONAL_ANALYSIS&quot;</span><span class="p">,</span> <span class="s2">&quot;vibrational frequency is only available for VIBRATIONAL_ANALYSIS run type.&quot;</span>
         <span class="c1"># use cached property to prase only once</span>
         <span class="k">return</span> <span class="n">parse_vibration_freq_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Cp2kOutput.get_vib_freq_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_vib_freq_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_vib_freq_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kOutput.get_vib_freq_list"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_vib_freq_list">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_vib_freq_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vib_freq_list</span></div>
 
 <div class="viewcode-block" id="Cp2kOutput.drop_first_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.drop_first_info">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">drop_first_info</span><span class="p">(</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">drop_first_info</span><span class="p">(</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">):</span>
         <span class="c1"># drop first info parsed from output if it restart from preivous MD run</span>
         <span class="k">if</span> <span class="n">cp2k_info</span><span class="o">.</span><span class="n">restart</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
@@ -939,7 +939,7 @@ document.write(`
         <span class="k">return</span> <span class="n">array</span></div>
 
 <div class="viewcode-block" id="Cp2kOutput.drop_last_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.drop_last_info">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">drop_last_info</span><span class="p">(</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">drop_last_info</span><span class="p">(</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">):</span>
         <span class="c1"># drop last info parsed from output if it is terminated by request (touch EXIT)</span>
         <span class="k">if</span> <span class="n">cp2k_info</span><span class="o">.</span><span class="n">terminated_by_request</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span>
@@ -948,7 +948,7 @@ document.write(`
         <span class="k">return</span> <span class="n">array</span></div>
 
 <div class="viewcode-block" id="Cp2kOutput.get_global_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_global_info">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_global_info</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_global_info</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
             <span class="n">global_info</span> <span class="o">=</span> <span class="n">parse_global_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">run_type</span><span class="p">:</span>
@@ -958,7 +958,7 @@ document.write(`
         <span class="k">return</span> <span class="n">global_info</span></div>
 
 <div class="viewcode-block" id="Cp2kOutput.check_run_type"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.check_run_type">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">check_run_type</span><span class="p">(</span><span class="n">run_type</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_run_type</span><span class="p">(</span><span class="n">run_type</span><span class="p">):</span>
         <span class="n">implemented_run_type_parsers</span> <span class="o">=</span> \
             <span class="p">[</span><span class="s2">&quot;ENERGY_FORCE&quot;</span><span class="p">,</span> <span class="s2">&quot;ENERGY&quot;</span><span class="p">,</span> <span class="s2">&quot;MD&quot;</span><span class="p">,</span> <span class="s2">&quot;GEO_OPT&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;CELL_OPT&quot;</span><span class="p">,</span> <span class="s2">&quot;VIBRATIONAL_ANALYSIS&quot;</span><span class="p">]</span>
@@ -969,7 +969,7 @@ document.write(`
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Cp2kOutput.check_md_type"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.check_md_type">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">check_md_type</span><span class="p">(</span><span class="n">md_type</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_md_type</span><span class="p">(</span><span class="n">md_type</span><span class="p">):</span>
         <span class="n">implemented_ensemble_type_parsers</span> <span class="o">=</span> \
             <span class="p">[</span><span class="s2">&quot;NVE&quot;</span><span class="p">,</span> <span class="s2">&quot;NVT&quot;</span><span class="p">,</span> <span class="s2">&quot;NPT_F&quot;</span><span class="p">,</span> <span class="s2">&quot;NPT_I&quot;</span><span class="p">,</span> <span class="s2">&quot;REFTRAJ&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">md_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">implemented_ensemble_type_parsers</span><span class="p">:</span>

@@ -385,16 +385,16 @@ document.write(`
                   
   <h1>Source code for cp2kdata.test_input</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Generate Cp2k Test Inputs</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">create_path</span>
-<span class="kn">from</span> <span class="nn">pycp2k</span> <span class="kn">import</span> <span class="n">CP2K</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pycp2k</span><span class="w"> </span><span class="kn">import</span> <span class="n">CP2K</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
-<div class="viewcode-block" id="remove_section"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.remove_section">[docs]</a><span class="k">def</span> <span class="nf">remove_section</span><span class="p">(</span><span class="n">sec_obj</span><span class="p">):</span>
+<div class="viewcode-block" id="remove_section"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.remove_section">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">remove_section</span><span class="p">(</span><span class="n">sec_obj</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;remove pycp2k section to prevent it print in cp2k input file</span>
 
 <span class="sd">    Args:</span>
@@ -411,7 +411,7 @@ document.write(`
         <span class="n">remove_section</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="copy_file_list"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.copy_file_list">[docs]</a><span class="k">def</span> <span class="nf">copy_file_list</span><span class="p">(</span><span class="n">file_list</span><span class="p">,</span> <span class="n">target_dir</span><span class="p">):</span>
+<div class="viewcode-block" id="copy_file_list"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.copy_file_list">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">copy_file_list</span><span class="p">(</span><span class="n">file_list</span><span class="p">,</span> <span class="n">target_dir</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
         <span class="n">src</span> <span class="o">=</span> <span class="n">file</span>
         <span class="n">dst</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
@@ -421,13 +421,13 @@ document.write(`
             <span class="n">shutil</span><span class="o">.</span><span class="n">copy2</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_CP2K"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.get_CP2K">[docs]</a><span class="k">def</span> <span class="nf">get_CP2K</span><span class="p">(</span><span class="n">cp2k_input_file</span><span class="p">):</span>
+<div class="viewcode-block" id="get_CP2K"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.get_CP2K">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_CP2K</span><span class="p">(</span><span class="n">cp2k_input_file</span><span class="p">):</span>
     <span class="n">inp</span> <span class="o">=</span> <span class="n">CP2K</span><span class="p">()</span>
     <span class="n">inp</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">cp2k_input_file</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">inp</span></div>
 
 
-<div class="viewcode-block" id="get_batch_inp"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.get_batch_inp">[docs]</a><span class="k">def</span> <span class="nf">get_batch_inp</span><span class="p">(</span>
+<div class="viewcode-block" id="get_batch_inp"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.get_batch_inp">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_batch_inp</span><span class="p">(</span>
     <span class="n">cp2k</span><span class="p">:</span> <span class="n">CP2K</span><span class="p">,</span>
     <span class="n">stc_list</span><span class="p">:</span> <span class="nb">list</span>
 <span class="p">):</span>
@@ -449,7 +449,7 @@ document.write(`
     <span class="k">return</span> <span class="n">cp2k_list</span></div>
 
 
-<div class="viewcode-block" id="batch_sub"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.batch_sub">[docs]</a><span class="k">def</span> <span class="nf">batch_sub</span><span class="p">(</span>
+<div class="viewcode-block" id="batch_sub"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.batch_sub">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">batch_sub</span><span class="p">(</span>
     <span class="n">sub_cmd</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;bsub&lt;cp2k&quot;</span><span class="p">,</span>
     <span class="n">target_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
     <span class="n">sub_dir_name_list</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span>
@@ -466,7 +466,7 @@ document.write(`
         <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">sub_cmd</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="write_batch_inp"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.write_batch_inp">[docs]</a><span class="k">def</span> <span class="nf">write_batch_inp</span><span class="p">(</span>
+<div class="viewcode-block" id="write_batch_inp"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.write_batch_inp">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">write_batch_inp</span><span class="p">(</span>
     <span class="n">cp2k_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
     <span class="n">target_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
     <span class="n">dir_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;calc&quot;</span><span class="p">,</span>
@@ -488,7 +488,7 @@ document.write(`
         <span class="n">cp2k</span><span class="o">.</span><span class="n">write_input_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="write_cutoff_test_inp"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.write_cutoff_test_inp">[docs]</a><span class="k">def</span> <span class="nf">write_cutoff_test_inp</span><span class="p">(</span>
+<div class="viewcode-block" id="write_cutoff_test_inp"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.write_cutoff_test_inp">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">write_cutoff_test_inp</span><span class="p">(</span>
     <span class="n">cp2k</span><span class="p">:</span> <span class="n">CP2K</span><span class="p">,</span>
     <span class="n">target_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
     <span class="n">cutoff_range</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">601</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
@@ -561,7 +561,7 @@ document.write(`
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="write_basis_test_inp"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.write_basis_test_inp">[docs]</a><span class="k">def</span> <span class="nf">write_basis_test_inp</span><span class="p">(</span>
+<div class="viewcode-block" id="write_basis_test_inp"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.write_basis_test_inp">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">write_basis_test_inp</span><span class="p">(</span>
     <span class="n">cp2k</span><span class="p">:</span> <span class="n">CP2K</span><span class="p">,</span>
     <span class="n">target_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
     <span class="n">test_element</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span>
@@ -611,7 +611,7 @@ document.write(`
         <span class="n">cp2k</span><span class="o">.</span><span class="n">write_input_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="write_hubbard_U_test_inp"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.write_hubbard_U_test_inp">[docs]</a><span class="k">def</span> <span class="nf">write_hubbard_U_test_inp</span><span class="p">(</span>
+<div class="viewcode-block" id="write_hubbard_U_test_inp"><a class="viewcode-back" href="../../_api/cp2kdata.test_input.html#cp2kdata.test_input.write_hubbard_U_test_inp">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">write_hubbard_U_test_inp</span><span class="p">(</span>
     <span class="n">cp2k</span><span class="p">:</span> <span class="n">CP2K</span><span class="p">,</span>
     <span class="n">target_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
     <span class="n">u_range</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>

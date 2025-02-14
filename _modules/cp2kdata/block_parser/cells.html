@@ -384,13 +384,13 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.block_parser.cells</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">ase.geometry.cell</span> <span class="kn">import</span> <span class="n">cellpar_to_cell</span>
-<span class="kn">from</span> <span class="nn">ase.geometry.cell</span> <span class="kn">import</span> <span class="n">cell_to_cellpar</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">.header_info</span> <span class="kn">import</span> <span class="n">Cp2kInfo</span>
-<span class="kn">from</span> <span class="nn">..units</span> <span class="kn">import</span> <span class="n">au2A</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">regex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase.geometry.cell</span><span class="w"> </span><span class="kn">import</span> <span class="n">cellpar_to_cell</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ase.geometry.cell</span><span class="w"> </span><span class="kn">import</span> <span class="n">cell_to_cellpar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.header_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kInfo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..units</span><span class="w"> </span><span class="kn">import</span> <span class="n">au2A</span>
 
 <span class="n">ALL_CELL_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -417,7 +417,7 @@ document.write(`
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="parse_all_cells"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.cells.html#cp2kdata.block_parser.cells.parse_all_cells">[docs]</a><span class="k">def</span> <span class="nf">parse_all_cells</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_all_cells"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.cells.html#cp2kdata.block_parser.cells.parse_all_cells">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_all_cells</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
     <span class="n">all_cells</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">ALL_CELL_RE</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
         <span class="c1"># print(match)</span>
@@ -472,7 +472,7 @@ document.write(`
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="parse_all_md_cells"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.cells.html#cp2kdata.block_parser.cells.parse_all_md_cells">[docs]</a><span class="k">def</span> <span class="nf">parse_all_md_cells</span><span class="p">(</span><span class="n">output_file</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<div class="viewcode-block" id="parse_all_md_cells"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.cells.html#cp2kdata.block_parser.cells.parse_all_md_cells">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_all_md_cells</span><span class="p">(</span><span class="n">output_file</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
                        <span class="n">cp2k_info</span><span class="p">:</span> <span class="n">Cp2kInfo</span><span class="p">,</span>
                        <span class="n">init_cell_info</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="c1"># init_cell_info are used for npt_I parse.</span>

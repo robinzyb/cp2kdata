@@ -384,13 +384,13 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.block_parser.converge</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">monty.re</span> <span class="kn">import</span> <span class="n">regrep</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">regex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">monty.re</span><span class="w"> </span><span class="kn">import</span> <span class="n">regrep</span>
 
 
 <div class="viewcode-block" id="ConvergeInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.ConvergeInfo">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">ConvergeInfo</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConvergeInfo</span><span class="p">:</span>
     <span class="n">converge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
@@ -400,7 +400,7 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="parse_e_f_converge"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_e_f_converge">[docs]</a><span class="k">def</span> <span class="nf">parse_e_f_converge</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConvergeInfo</span><span class="p">:</span>
+<div class="viewcode-block" id="parse_e_f_converge"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_e_f_converge">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_e_f_converge</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConvergeInfo</span><span class="p">:</span>
 
     <span class="n">info_dict</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
@@ -416,7 +416,7 @@ document.write(`
     <span class="k">return</span> <span class="n">converge_info</span></div>
 
 
-<div class="viewcode-block" id="parse_md_converge"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_md_converge">[docs]</a><span class="k">def</span> <span class="nf">parse_md_converge</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_md_converge"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.converge.html#cp2kdata.block_parser.converge.parse_md_converge">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_md_converge</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 
     <span class="n">info_dict</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>

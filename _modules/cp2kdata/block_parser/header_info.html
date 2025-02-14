@@ -384,16 +384,16 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.block_parser.header_info</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">regex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 <span class="c1"># use monty.re because it can terminate on match</span>
-<span class="kn">from</span> <span class="nn">monty.re</span> <span class="kn">import</span> <span class="n">regrep</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.log</span> <span class="kn">import</span> <span class="n">get_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">monty.re</span><span class="w"> </span><span class="kn">import</span> <span class="n">regrep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Cp2kInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.Cp2kInfo">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Cp2kInfo</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Cp2kInfo</span><span class="p">:</span>
     <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">restart</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">terminated_by_request</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span></div>
@@ -415,7 +415,7 @@ document.write(`
 <span class="sd">    ^\s\*{3}\sMD\srun\sterminated\sby\sexternal\srequest\s\*{3}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="parse_cp2k_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_cp2k_info">[docs]</a><span class="k">def</span> <span class="nf">parse_cp2k_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cp2kInfo</span><span class="p">:</span>
+<div class="viewcode-block" id="parse_cp2k_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_cp2k_info">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_cp2k_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cp2kInfo</span><span class="p">:</span>
 
     <span class="n">cp2k_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
@@ -462,7 +462,7 @@ document.write(`
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="GlobalInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.GlobalInfo">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">GlobalInfo</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GlobalInfo</span><span class="p">:</span>
     <span class="n">run_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">print_level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
 
@@ -478,7 +478,7 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="parse_global_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_global_info">[docs]</a><span class="k">def</span> <span class="nf">parse_global_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GlobalInfo</span><span class="p">:</span>
+<div class="viewcode-block" id="parse_global_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_global_info">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_global_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GlobalInfo</span><span class="p">:</span>
     <span class="n">global_info</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="n">global_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
@@ -495,7 +495,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="DFTInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.DFTInfo">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">DFTInfo</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DFTInfo</span><span class="p">:</span>
     <span class="n">ks_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">multiplicity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
 
@@ -515,7 +515,7 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="parse_dft_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_dft_info">[docs]</a><span class="k">def</span> <span class="nf">parse_dft_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DFTInfo</span><span class="p">:</span>
+<div class="viewcode-block" id="parse_dft_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_dft_info">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_dft_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DFTInfo</span><span class="p">:</span>
     <span class="n">dft_info</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="n">dft_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>
@@ -534,7 +534,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="MDInfo"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.MDInfo">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">MDInfo</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MDInfo</span><span class="p">:</span>
     <span class="n">ensemble_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 
@@ -545,7 +545,7 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="parse_md_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_md_info">[docs]</a><span class="k">def</span> <span class="nf">parse_md_info</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_md_info"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.header_info.html#cp2kdata.block_parser.header_info.parse_md_info">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_md_info</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="n">md_info</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="n">md_info</span> <span class="o">=</span> <span class="n">regrep</span><span class="p">(</span>

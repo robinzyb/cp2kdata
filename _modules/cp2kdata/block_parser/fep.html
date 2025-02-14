@@ -384,10 +384,10 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.block_parser.fep</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
-<div class="viewcode-block" id="parse_vertical_gap"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.fep.html#cp2kdata.block_parser.fep.parse_vertical_gap">[docs]</a><span class="k">def</span> <span class="nf">parse_vertical_gap</span><span class="p">(</span><span class="n">mix_ener_file</span><span class="p">,</span> <span class="n">r_col</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_vertical_gap"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.fep.html#cp2kdata.block_parser.fep.parse_vertical_gap">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_vertical_gap</span><span class="p">(</span><span class="n">mix_ener_file</span><span class="p">,</span> <span class="n">r_col</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">p_col</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
     <span class="n">r_ener</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">mix_ener_file</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">r_col</span><span class="p">)</span>
     <span class="n">p_ener</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">mix_ener_file</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">p_col</span><span class="p">)</span>
     <span class="n">v_gap</span> <span class="o">=</span> <span class="n">p_ener</span> <span class="o">-</span> <span class="n">r_ener</span>

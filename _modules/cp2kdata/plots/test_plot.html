@@ -384,14 +384,14 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.plots.test_plot</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kOutput</span>
-<span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kPdos</span>
-<span class="kn">from</span> <span class="nn">dpdata.unit</span> <span class="kn">import</span> <span class="n">EnergyConversion</span><span class="p">,</span> <span class="n">LengthConversion</span><span class="p">,</span> <span class="n">PressureConversion</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">yaml</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kOutput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kPdos</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dpdata.unit</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnergyConversion</span><span class="p">,</span> <span class="n">LengthConversion</span><span class="p">,</span> <span class="n">PressureConversion</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 <span class="n">AU_TO_EV</span> <span class="o">=</span> <span class="n">EnergyConversion</span><span class="p">(</span><span class="s2">&quot;hartree&quot;</span><span class="p">,</span> <span class="s2">&quot;eV&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
 <span class="n">AU_TO_ANG</span> <span class="o">=</span> <span class="n">LengthConversion</span><span class="p">(</span><span class="s2">&quot;bohr&quot;</span><span class="p">,</span> <span class="s2">&quot;angstrom&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
 <span class="n">EV_ANG_m3_TO_GPa</span> <span class="o">=</span> <span class="n">PressureConversion</span><span class="p">(</span><span class="s2">&quot;eV/angstrom^3&quot;</span><span class="p">,</span> <span class="s2">&quot;GPa&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
@@ -399,7 +399,7 @@ document.write(`
 
 <span class="c1"># -- plot cutoff results --#</span>
 
-<div class="viewcode-block" id="get_num_atoms"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_num_atoms">[docs]</a><span class="k">def</span> <span class="nf">get_num_atoms</span><span class="p">(</span><span class="n">cutoff_test_sub_dir_list</span><span class="p">):</span>
+<div class="viewcode-block" id="get_num_atoms"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_num_atoms">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_num_atoms</span><span class="p">(</span><span class="n">cutoff_test_sub_dir_list</span><span class="p">):</span>
     <span class="n">cutoff_test_sub_dir</span> <span class="o">=</span> <span class="n">cutoff_test_sub_dir_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">output_name</span> <span class="o">=</span> <span class="s2">&quot;output*&quot;</span>
     <span class="n">output_name_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
@@ -409,7 +409,7 @@ document.write(`
     <span class="k">return</span> <span class="n">num_atoms</span></div>
 
 
-<div class="viewcode-block" id="get_cutoff_list"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_cutoff_list">[docs]</a><span class="k">def</span> <span class="nf">get_cutoff_list</span><span class="p">(</span><span class="n">cutoff_test_sub_dir_list</span><span class="p">):</span>
+<div class="viewcode-block" id="get_cutoff_list"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_cutoff_list">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_cutoff_list</span><span class="p">(</span><span class="n">cutoff_test_sub_dir_list</span><span class="p">):</span>
     <span class="n">cutoff_list</span> <span class="o">=</span> <span class="p">[</span>
         <span class="nb">float</span><span class="p">(</span><span class="n">cutoff_test_sub_dir</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">cutoff_test_sub_dir</span> <span class="ow">in</span> <span class="n">cutoff_test_sub_dir_list</span>
@@ -417,7 +417,7 @@ document.write(`
     <span class="k">return</span> <span class="n">cutoff_list</span></div>
 
 
-<div class="viewcode-block" id="get_e_f_s"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_e_f_s">[docs]</a><span class="k">def</span> <span class="nf">get_e_f_s</span><span class="p">(</span><span class="n">cp2k_out_name</span><span class="p">):</span>
+<div class="viewcode-block" id="get_e_f_s"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_e_f_s">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_e_f_s</span><span class="p">(</span><span class="n">cp2k_out_name</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Get Infromation from: </span><span class="si">{</span><span class="n">cp2k_out_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">cutoff_out</span> <span class="o">=</span> <span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">cp2k_out_name</span><span class="p">)</span>
     <span class="n">ener</span> <span class="o">=</span> <span class="n">cutoff_out</span><span class="o">.</span><span class="n">get_energies_list</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -426,7 +426,7 @@ document.write(`
     <span class="k">return</span> <span class="n">ener</span><span class="p">,</span> <span class="n">forces</span><span class="p">,</span> <span class="n">stresses</span></div>
 
 
-<div class="viewcode-block" id="get_multiple_e_f_s"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_multiple_e_f_s">[docs]</a><span class="k">def</span> <span class="nf">get_multiple_e_f_s</span><span class="p">(</span><span class="n">cutoff_test_sub_dir_list</span><span class="p">):</span>
+<div class="viewcode-block" id="get_multiple_e_f_s"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_multiple_e_f_s">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_multiple_e_f_s</span><span class="p">(</span><span class="n">cutoff_test_sub_dir_list</span><span class="p">):</span>
     <span class="n">ener_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">forces_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">stresses_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -441,12 +441,12 @@ document.write(`
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ener_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">forces_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">stresses_list</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_err_per_atom"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_err_per_atom">[docs]</a><span class="k">def</span> <span class="nf">get_err_per_atom</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">num_atoms</span><span class="p">):</span>
+<div class="viewcode-block" id="get_err_per_atom"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_err_per_atom">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_err_per_atom</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">num_atoms</span><span class="p">):</span>
     <span class="n">err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">err</span><span class="o">/</span><span class="n">num_atoms</span></div>
 
 
-<div class="viewcode-block" id="get_matrix_rmse_and_max_err"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_matrix_rmse_and_max_err">[docs]</a><span class="k">def</span> <span class="nf">get_matrix_rmse_and_max_err</span><span class="p">(</span><span class="n">matrix_list</span><span class="p">):</span>
+<div class="viewcode-block" id="get_matrix_rmse_and_max_err"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_matrix_rmse_and_max_err">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_matrix_rmse_and_max_err</span><span class="p">(</span><span class="n">matrix_list</span><span class="p">):</span>
     <span class="n">err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">matrix_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
     <span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">se</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
@@ -457,7 +457,7 @@ document.write(`
     <span class="k">return</span> <span class="n">rmse</span><span class="p">,</span> <span class="n">max_abs_err</span></div>
 
 
-<div class="viewcode-block" id="plot_axes_cutoff"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_cutoff">[docs]</a><span class="k">def</span> <span class="nf">plot_axes_cutoff</span><span class="p">(</span><span class="n">cutoff_list</span><span class="p">,</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_axes_cutoff"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_cutoff">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">plot_axes_cutoff</span><span class="p">(</span><span class="n">cutoff_list</span><span class="p">,</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
     <span class="n">marker_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span>
     <span class="n">title_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Energy&quot;</span><span class="p">,</span> <span class="s2">&quot;Force&quot;</span><span class="p">,</span> <span class="s2">&quot;Stress&quot;</span><span class="p">]</span>
     <span class="n">ylabel_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;error per atom [eV/atom]&quot;</span><span class="p">,</span>
@@ -478,7 +478,7 @@ document.write(`
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel_cycle</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">fontdict</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="plot_cutoff_test"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_cutoff_test">[docs]</a><span class="k">def</span> <span class="nf">plot_cutoff_test</span><span class="p">(</span><span class="n">target_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_cutoff_test"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_cutoff_test">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">plot_cutoff_test</span><span class="p">(</span><span class="n">target_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
     <span class="n">cutoff_test_sub_dir_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span> <span class="s2">&quot;cutoff_*&quot;</span><span class="p">))</span>
     <span class="n">cutoff_test_sub_dir_list</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="n">num_atoms</span> <span class="o">=</span> <span class="n">get_num_atoms</span><span class="p">(</span><span class="n">cutoff_test_sub_dir_list</span><span class="p">)</span>
@@ -523,7 +523,7 @@ document.write(`
 <span class="c1"># -- plot basis results --#</span>
 
 
-<div class="viewcode-block" id="basis_dir_name_converter"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.basis_dir_name_converter">[docs]</a><span class="k">def</span> <span class="nf">basis_dir_name_converter</span><span class="p">(</span><span class="n">basis_test_sub_dir</span><span class="p">):</span>
+<div class="viewcode-block" id="basis_dir_name_converter"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.basis_dir_name_converter">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">basis_dir_name_converter</span><span class="p">(</span><span class="n">basis_test_sub_dir</span><span class="p">):</span>
     <span class="n">name_split_list</span> <span class="o">=</span> <span class="n">basis_test_sub_dir</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s2">&quot;SR&quot;</span> <span class="ow">in</span> <span class="n">name_split_list</span><span class="p">:</span>
         <span class="n">basis_name</span> <span class="o">=</span> <span class="n">name_split_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;-SR&quot;</span>
@@ -532,7 +532,7 @@ document.write(`
     <span class="k">return</span> <span class="n">basis_name</span></div>
 
 
-<div class="viewcode-block" id="basis_name_order"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.basis_name_order">[docs]</a><span class="k">def</span> <span class="nf">basis_name_order</span><span class="p">(</span><span class="n">basis_name</span><span class="p">):</span>
+<div class="viewcode-block" id="basis_name_order"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.basis_name_order">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">basis_name_order</span><span class="p">(</span><span class="n">basis_name</span><span class="p">):</span>
     <span class="n">BASIS_ORDER</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;SZV-SR&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">&quot;SZV&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -549,12 +549,12 @@ document.write(`
     <span class="k">return</span> <span class="n">BASIS_ORDER</span><span class="p">[</span><span class="n">basis_name</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="basis_dir_name_order"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.basis_dir_name_order">[docs]</a><span class="k">def</span> <span class="nf">basis_dir_name_order</span><span class="p">(</span><span class="n">basis_dir_name</span><span class="p">):</span>
+<div class="viewcode-block" id="basis_dir_name_order"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.basis_dir_name_order">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">basis_dir_name_order</span><span class="p">(</span><span class="n">basis_dir_name</span><span class="p">):</span>
     <span class="n">basis_name</span> <span class="o">=</span> <span class="n">basis_dir_name_converter</span><span class="p">(</span><span class="n">basis_dir_name</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">basis_name_order</span><span class="p">(</span><span class="n">basis_name</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_basis_name_list"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_basis_name_list">[docs]</a><span class="k">def</span> <span class="nf">get_basis_name_list</span><span class="p">(</span><span class="n">basis_test_sub_dir_list</span><span class="p">):</span>
+<div class="viewcode-block" id="get_basis_name_list"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_basis_name_list">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_basis_name_list</span><span class="p">(</span><span class="n">basis_test_sub_dir_list</span><span class="p">):</span>
 
     <span class="n">basis_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">basis_test_sub_dir</span> <span class="ow">in</span> <span class="n">basis_test_sub_dir_list</span><span class="p">:</span>
@@ -564,7 +564,7 @@ document.write(`
     <span class="k">return</span> <span class="n">basis_list</span></div>
 
 
-<div class="viewcode-block" id="plot_axes_basis"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_basis">[docs]</a><span class="k">def</span> <span class="nf">plot_axes_basis</span><span class="p">(</span><span class="n">basis_list</span><span class="p">,</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_axes_basis"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_basis">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">plot_axes_basis</span><span class="p">(</span><span class="n">basis_list</span><span class="p">,</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
     <span class="n">marker_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span>
     <span class="n">title_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Energy&quot;</span><span class="p">,</span> <span class="s2">&quot;Force&quot;</span><span class="p">,</span> <span class="s2">&quot;Stress&quot;</span><span class="p">]</span>
     <span class="n">ylabel_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;error per atom [eV/atom]&quot;</span><span class="p">,</span>
@@ -588,7 +588,7 @@ document.write(`
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel_cycle</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">fontdict</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="plot_basis_test"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_basis_test">[docs]</a><span class="k">def</span> <span class="nf">plot_basis_test</span><span class="p">(</span><span class="n">target_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_basis_test"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_basis_test">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">plot_basis_test</span><span class="p">(</span><span class="n">target_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
     <span class="n">target_dir</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
     <span class="n">basis_test_sub_dir_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span> <span class="s2">&quot;basis_*&quot;</span><span class="p">))</span>
     <span class="n">basis_test_sub_dir_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">basis_dir_name_order</span><span class="p">)</span>
@@ -635,7 +635,7 @@ document.write(`
 <span class="c1"># -- plot U results --#</span>
 
 
-<div class="viewcode-block" id="get_U_list"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_U_list">[docs]</a><span class="k">def</span> <span class="nf">get_U_list</span><span class="p">(</span><span class="n">U_test_sub_dir_list</span><span class="p">):</span>
+<div class="viewcode-block" id="get_U_list"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_U_list">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_U_list</span><span class="p">(</span><span class="n">U_test_sub_dir_list</span><span class="p">):</span>
     <span class="n">U_list</span> <span class="o">=</span> <span class="p">[</span>
         <span class="nb">float</span><span class="p">(</span><span class="n">U_test_sub_dir</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">U_test_sub_dir</span> <span class="ow">in</span> <span class="n">U_test_sub_dir_list</span>
@@ -643,15 +643,15 @@ document.write(`
     <span class="k">return</span> <span class="n">U_list</span></div>
 
 
-<div class="viewcode-block" id="get_cell_param"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_cell_param">[docs]</a><span class="k">def</span> <span class="nf">get_cell_param</span><span class="p">(</span><span class="n">cp2k_out</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">ase.cell</span> <span class="kn">import</span> <span class="n">Cell</span>
+<div class="viewcode-block" id="get_cell_param"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_cell_param">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_cell_param</span><span class="p">(</span><span class="n">cp2k_out</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">ase.cell</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cell</span>
     <span class="n">opt_cell</span> <span class="o">=</span> <span class="n">cp2k_out</span><span class="o">.</span><span class="n">get_all_cells</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">opt_cell</span> <span class="o">=</span> <span class="n">Cell</span><span class="p">(</span><span class="n">opt_cell</span><span class="p">)</span>
     <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span> <span class="o">=</span> <span class="n">opt_cell</span><span class="o">.</span><span class="n">cellpar</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span></div>
 
 
-<div class="viewcode-block" id="get_multiple_cell_param"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_multiple_cell_param">[docs]</a><span class="k">def</span> <span class="nf">get_multiple_cell_param</span><span class="p">(</span><span class="n">U_test_sub_dir_list</span><span class="p">):</span>
+<div class="viewcode-block" id="get_multiple_cell_param"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_multiple_cell_param">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_multiple_cell_param</span><span class="p">(</span><span class="n">U_test_sub_dir_list</span><span class="p">):</span>
     <span class="n">a_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">b_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">c_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -676,14 +676,14 @@ document.write(`
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">b_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">alpha_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">beta_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gamma_list</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_dos_param"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_dos_param">[docs]</a><span class="k">def</span> <span class="nf">get_dos_param</span><span class="p">(</span><span class="n">cp2k_pdos</span><span class="p">):</span>
+<div class="viewcode-block" id="get_dos_param"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_dos_param">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_dos_param</span><span class="p">(</span><span class="n">cp2k_pdos</span><span class="p">):</span>
 
     <span class="n">homo</span> <span class="o">=</span> <span class="n">cp2k_pdos</span><span class="o">.</span><span class="n">get_homo_ener</span><span class="p">()</span>
     <span class="n">lumo</span> <span class="o">=</span> <span class="n">cp2k_pdos</span><span class="o">.</span><span class="n">get_lumo_ener</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">homo</span><span class="p">,</span> <span class="n">lumo</span></div>
 
 
-<div class="viewcode-block" id="get_min_gap"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_min_gap">[docs]</a><span class="k">def</span> <span class="nf">get_min_gap</span><span class="p">(</span><span class="n">U_test_sub_dir</span><span class="p">):</span>
+<div class="viewcode-block" id="get_min_gap"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_min_gap">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_min_gap</span><span class="p">(</span><span class="n">U_test_sub_dir</span><span class="p">):</span>
     <span class="n">a_pdos_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">U_test_sub_dir</span><span class="p">,</span> <span class="s2">&quot;*ALPHA*pdos&quot;</span><span class="p">))</span>
     <span class="n">a_pdos</span> <span class="o">=</span> <span class="n">Cp2kPdos</span><span class="p">(</span><span class="n">a_pdos_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">a_homo</span><span class="p">,</span> <span class="n">a_lumo</span> <span class="o">=</span> <span class="n">get_dos_param</span><span class="p">(</span><span class="n">cp2k_pdos</span><span class="o">=</span><span class="n">a_pdos</span><span class="p">)</span>
@@ -702,7 +702,7 @@ document.write(`
     <span class="k">return</span> <span class="n">lumo</span> <span class="o">-</span> <span class="n">homo</span></div>
 
 
-<div class="viewcode-block" id="get_multiple_min_gap"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_multiple_min_gap">[docs]</a><span class="k">def</span> <span class="nf">get_multiple_min_gap</span><span class="p">(</span><span class="n">U_test_sub_dir_list</span><span class="p">):</span>
+<div class="viewcode-block" id="get_multiple_min_gap"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_multiple_min_gap">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_multiple_min_gap</span><span class="p">(</span><span class="n">U_test_sub_dir_list</span><span class="p">):</span>
     <span class="n">gap_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">U_test_sub_dir</span> <span class="ow">in</span> <span class="n">U_test_sub_dir_list</span><span class="p">:</span>
         <span class="n">gap</span> <span class="o">=</span> <span class="n">get_min_gap</span><span class="p">(</span><span class="n">U_test_sub_dir</span><span class="p">)</span>
@@ -714,7 +714,7 @@ document.write(`
     <span class="c1"># lumo_list = np.array(lumo_list)</span>
 
 
-<div class="viewcode-block" id="plot_axes_U"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_U">[docs]</a><span class="k">def</span> <span class="nf">plot_axes_U</span><span class="p">(</span><span class="n">U_list</span><span class="p">,</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_axes_U"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_U">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">plot_axes_U</span><span class="p">(</span><span class="n">U_list</span><span class="p">,</span> <span class="n">y_list</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
     <span class="n">marker_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">]</span>
     <span class="n">title_cycle</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;band gap&quot;</span><span class="p">,</span> <span class="s2">&quot;p1&quot;</span><span class="p">,</span> <span class="s2">&quot;p2&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span>
                    <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span><span class="p">,</span> <span class="s2">&quot;gamma&quot;</span><span class="p">]</span>
@@ -736,7 +736,7 @@ document.write(`
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel_cycle</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">fontdict</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="plot_axes_exp"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_exp">[docs]</a><span class="k">def</span> <span class="nf">plot_axes_exp</span><span class="p">(</span><span class="n">exp_value</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_axes_exp"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_axes_exp">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">plot_axes_exp</span><span class="p">(</span><span class="n">exp_value</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">exp_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">pass</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">exp_value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">exp_value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
@@ -745,7 +745,7 @@ document.write(`
         <span class="n">ax</span><span class="o">.</span><span class="n">axhspan</span><span class="p">(</span><span class="n">exp_value</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">exp_value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;C</span><span class="si">{</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="plot_U_test"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_U_test">[docs]</a><span class="k">def</span> <span class="nf">plot_U_test</span><span class="p">(</span>
+<div class="viewcode-block" id="plot_U_test"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.plot_U_test">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">plot_U_test</span><span class="p">(</span>
     <span class="n">target_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
     <span class="n">exp_collect</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 <span class="p">):</span>
@@ -787,7 +787,7 @@ document.write(`
     <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;results_U_test.pdf&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_exp_collect_from_yaml"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_exp_collect_from_yaml">[docs]</a><span class="k">def</span> <span class="nf">get_exp_collect_from_yaml</span><span class="p">(</span><span class="n">yaml_file</span><span class="p">):</span>
+<div class="viewcode-block" id="get_exp_collect_from_yaml"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.test_plot.html#cp2kdata.plots.test_plot.get_exp_collect_from_yaml">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_exp_collect_from_yaml</span><span class="p">(</span><span class="n">yaml_file</span><span class="p">):</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">yaml_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
         <span class="n">exp_dict</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
     <span class="n">exp_collect</span> <span class="o">=</span> <span class="p">(</span>

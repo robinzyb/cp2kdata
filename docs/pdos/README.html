@@ -486,7 +486,7 @@ document.write(`
 </section>
 <section id="processing-single-pdos-file">
 <h2>Processing Single PDOS File<a class="headerlink" href="#processing-single-pdos-file" title="Permalink to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kPdos</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kPdos</span>
 <span class="n">dosfile</span> <span class="o">=</span> <span class="s2">&quot;Universality-ALPHA_k2-1_50.pdos&quot;</span>
 <span class="n">mypdos</span> <span class="o">=</span> <span class="n">Cp2kPdos</span><span class="p">(</span><span class="n">dosfile</span><span class="p">)</span>
 <span class="n">dos</span><span class="p">,</span> <span class="n">ener</span> <span class="o">=</span> <span class="n">mypdos</span><span class="o">.</span><span class="n">get_dos</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dos_type</span><span class="o">=</span><span class="s2">&quot;total&quot;</span><span class="p">)</span>
@@ -501,7 +501,7 @@ document.write(`
 </section>
 <section id="quickplot-of-pdos-files-in-single-point-energy-calculation">
 <h2>Quickplot of  PDOS Files in Single Point Energy Calculation<a class="headerlink" href="#quickplot-of-pdos-files-in-single-point-energy-calculation" title="Permalink to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata.pdos</span> <span class="kn">import</span> <span class="n">quick_plot_uks</span><span class="p">,</span> <span class="n">quick_plot_rks</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.pdos</span><span class="w"> </span><span class="kn">import</span> <span class="n">quick_plot_uks</span><span class="p">,</span> <span class="n">quick_plot_rks</span>
 <span class="n">Calculation_dir</span> <span class="o">=</span> <span class="s2">&quot;./&quot;</span>
 <span class="c1"># if uks calculation use this</span>
 <span class="n">quick_plot_uks</span><span class="p">(</span><span class="n">Calculation_dir</span><span class="p">)</span>

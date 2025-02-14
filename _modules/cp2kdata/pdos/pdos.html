@@ -384,17 +384,17 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.pdos.pdos</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">matplotlib.gridspec</span> <span class="kn">import</span> <span class="n">GridSpec</span>
-<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">gaussian_filter1d</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">regex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSpec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_filter1d</span>
 
-<span class="kn">from</span> <span class="nn">cp2kdata.units</span> <span class="kn">import</span> <span class="n">au2eV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.units</span><span class="w"> </span><span class="kn">import</span> <span class="n">au2eV</span>
 
 <span class="n">atomic_color_map</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;Ac&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.39344</span><span class="p">,</span> <span class="mf">0.62101</span><span class="p">,</span> <span class="mf">0.45034</span><span class="p">),</span>
@@ -567,8 +567,8 @@ document.write(`
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="Cp2kPdos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos">[docs]</a><span class="k">class</span> <span class="nc">Cp2kPdos</span><span class="p">():</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">parse_file_name</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kPdos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Cp2kPdos</span><span class="p">():</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">parse_file_name</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_dos_element</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fermi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_dos_fermi</span><span class="p">()</span>
@@ -577,7 +577,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">project_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">spin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">listidx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestep</span> <span class="o">=</span> <span class="n">pdos_name_parser</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Cp2kPdos.get_dos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_dos">[docs]</a>    <span class="k">def</span> <span class="nf">get_dos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="Cp2kPdos.get_dos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_dos">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_dos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                 <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                 <span class="n">dos_type</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;total&quot;</span><span class="p">,</span>
                 <span class="n">usecols</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -600,7 +600,7 @@ document.write(`
 
         <span class="k">return</span> <span class="n">smth_dos</span><span class="p">,</span> <span class="n">ener</span></div>
 
-<div class="viewcode-block" id="Cp2kPdos.read_dos_element"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_element">[docs]</a>    <span class="k">def</span> <span class="nf">read_dos_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kPdos.read_dos_element"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_element">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">read_dos_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads the element from the first line of the file.</span>
 
@@ -612,7 +612,7 @@ document.write(`
             <span class="n">element</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">6</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">element</span></div>
 
-<div class="viewcode-block" id="Cp2kPdos.read_dos_fermi"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_fermi">[docs]</a>    <span class="k">def</span> <span class="nf">read_dos_fermi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kPdos.read_dos_fermi"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_fermi">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">read_dos_fermi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads the Fermi energy from the file.</span>
 
@@ -628,7 +628,7 @@ document.write(`
             <span class="n">fermi</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">fermi</span><span class="p">)</span><span class="o">*</span><span class="n">au2eV</span>
         <span class="k">return</span> <span class="n">fermi</span></div>
 
-<div class="viewcode-block" id="Cp2kPdos.read_dos_energies"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_energies">[docs]</a>    <span class="k">def</span> <span class="nf">read_dos_energies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kPdos.read_dos_energies"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.read_dos_energies">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">read_dos_energies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads the DOS energies from the file and converts them to electron volts (eV).</span>
 
@@ -640,12 +640,12 @@ document.write(`
         <span class="k">return</span> <span class="n">energies</span></div>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">occupation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">occupation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">occupation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">occupation</span>
 
-<div class="viewcode-block" id="Cp2kPdos.get_homo_ener"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_ener">[docs]</a>    <span class="k">def</span> <span class="nf">get_homo_ener</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kPdos.get_homo_ener"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_ener">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_homo_ener</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the energy of the highest occupied molecular orbital (HOMO).</span>
 
@@ -657,7 +657,7 @@ document.write(`
 
         <span class="k">return</span> <span class="n">homo_ener</span></div>
 
-<div class="viewcode-block" id="Cp2kPdos.get_lumo_ener"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_lumo_ener">[docs]</a>    <span class="k">def</span> <span class="nf">get_lumo_ener</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kPdos.get_lumo_ener"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_lumo_ener">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_lumo_ener</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the energy of the lowest unoccupied molecular orbital (LUMO).</span>
 
@@ -667,14 +667,14 @@ document.write(`
         <span class="n">lumo_ener</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">occupation</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">lumo_ener</span></div>
 
-<div class="viewcode-block" id="Cp2kPdos.get_homo_lumo_gap"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_lumo_gap">[docs]</a>    <span class="k">def</span> <span class="nf">get_homo_lumo_gap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kPdos.get_homo_lumo_gap"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_homo_lumo_gap">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_homo_lumo_gap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the lumo - homo gap from energy</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">gap_ener</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_lumo_ener</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_homo_ener</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">gap_ener</span></div>
 
-<div class="viewcode-block" id="Cp2kPdos.get_raw_dos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_raw_dos">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_dos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dos_type</span><span class="o">=</span><span class="s2">&quot;total&quot;</span><span class="p">,</span> <span class="n">steplen</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Cp2kPdos.get_raw_dos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.Cp2kPdos.get_raw_dos">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_raw_dos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dos_type</span><span class="o">=</span><span class="s2">&quot;total&quot;</span><span class="p">,</span> <span class="n">steplen</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="n">file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span>
         <span class="n">energies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energies</span>
@@ -718,7 +718,7 @@ document.write(`
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="pdos_name_parser"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.pdos_name_parser">[docs]</a><span class="k">def</span> <span class="nf">pdos_name_parser</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="pdos_name_parser"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.pdos_name_parser">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">pdos_name_parser</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="c1"># used to parse pdos filename</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="n">match</span> <span class="o">=</span> <span class="n">PDOS_NAME_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
@@ -732,7 +732,7 @@ document.write(`
     <span class="k">return</span> <span class="n">project_name</span><span class="p">,</span> <span class="n">spin</span><span class="p">,</span> <span class="n">listidx</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">step</span></div>
 
 
-<div class="viewcode-block" id="quick_plot_uks"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.quick_plot_uks">[docs]</a><span class="k">def</span> <span class="nf">quick_plot_uks</span><span class="p">(</span><span class="n">pdos_dir</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">replace_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="quick_plot_uks"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.quick_plot_uks">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">quick_plot_uks</span><span class="p">(</span><span class="n">pdos_dir</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">replace_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="c1"># default plot parameters setting</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>  <span class="c1"># controls default text size</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">titlesize</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>  <span class="c1"># fontsize of the title</span>
@@ -866,7 +866,7 @@ document.write(`
     <span class="c1"># fig.savefig(&quot;DOS_BETA.jpg&quot;, dpi=200)</span>
 
 
-<div class="viewcode-block" id="get_true_element"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.get_true_element">[docs]</a><span class="k">def</span> <span class="nf">get_true_element</span><span class="p">(</span><span class="n">pdosobj</span><span class="p">,</span> <span class="n">replace_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_true_element"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.get_true_element">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_true_element</span><span class="p">(</span><span class="n">pdosobj</span><span class="p">,</span> <span class="n">replace_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">replace_dict</span><span class="p">:</span>
         <span class="n">true_element</span> <span class="o">=</span> <span class="n">replace_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pdosobj</span><span class="o">.</span><span class="n">element</span><span class="p">,</span> <span class="n">pdosobj</span><span class="o">.</span><span class="n">element</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -874,7 +874,7 @@ document.write(`
     <span class="k">return</span> <span class="n">true_element</span></div>
 
 
-<div class="viewcode-block" id="plot_single_pdos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.plot_single_pdos">[docs]</a><span class="k">def</span> <span class="nf">plot_single_pdos</span><span class="p">(</span><span class="n">pdosobj</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">true_element</span><span class="p">,</span> <span class="n">spin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_single_pdos"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.plot_single_pdos">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">plot_single_pdos</span><span class="p">(</span><span class="n">pdosobj</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">true_element</span><span class="p">,</span> <span class="n">spin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
     <span class="n">to</span> <span class="o">=</span> <span class="n">typical_orbital</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">true_element</span><span class="p">)</span>
     <span class="n">label</span> <span class="o">=</span> <span class="n">true_element</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="n">to</span>
@@ -891,7 +891,7 @@ document.write(`
     <span class="k">return</span> <span class="n">l1</span><span class="p">,</span> <span class="n">label</span></div>
 
 
-<div class="viewcode-block" id="quick_plot_rks"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.quick_plot_rks">[docs]</a><span class="k">def</span> <span class="nf">quick_plot_rks</span><span class="p">(</span><span class="n">pdos_dir</span><span class="p">):</span>
+<div class="viewcode-block" id="quick_plot_rks"><a class="viewcode-back" href="../../../_api/cp2kdata.pdos.pdos.html#cp2kdata.pdos.pdos.quick_plot_rks">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">quick_plot_rks</span><span class="p">(</span><span class="n">pdos_dir</span><span class="p">):</span>
     <span class="c1"># parameter setting</span>
     <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span>
     <span class="n">lw</span> <span class="o">=</span> <span class="mf">1.5</span>

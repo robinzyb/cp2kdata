@@ -453,7 +453,7 @@ document.write(`
 <section id="basick-usage">
 <h2>Basick Usage<a class="headerlink" href="#basick-usage" title="Permalink to this heading">#</a></h2>
 <p>One can use <code class="docutils literal notranslate"><span class="pre">Cp2kOutput</span></code> class to parse cp2k <code class="docutils literal notranslate"><span class="pre">output</span> <span class="pre">file</span></code>, which is the standard output from cp2k code. Depending on run types, required files may be more than a standard output. For example, if you parse <code class="docutils literal notranslate"><span class="pre">md</span></code> outputs, you may ask to provide additional <code class="docutils literal notranslate"><span class="pre">Project-1.ener</span></code>, <code class="docutils literal notranslate"><span class="pre">Project-pos-1.xyz</span></code>, and <code class="docutils literal notranslate"><span class="pre">Project-frc-1.xyz</span></code> files to obtain <code class="docutils literal notranslate"><span class="pre">energies</span></code>, <code class="docutils literal notranslate"><span class="pre">position</span></code>, and <code class="docutils literal notranslate"><span class="pre">forces</span></code> information. Detail usages are provided in the following subsections.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kOutput</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kOutput</span>
 <span class="n">cp2k_output_file</span> <span class="o">=</span> <span class="s2">&quot;cp2k_output&quot;</span>
 <span class="n">cp2koutput</span> <span class="o">=</span> <span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">cp2k_output_file</span><span class="p">,</span> <span class="n">path_prefix</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
 <span class="c1"># path_prefix is the directory where the cp2k_output is</span>
@@ -486,7 +486,7 @@ Element Numb       : 6    6    18
 </section>
 <section id="parse-energy-force-outputs">
 <h2>Parse ENERGY_FORCE Outputs<a class="headerlink" href="#parse-energy-force-outputs" title="Permalink to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kOutput</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kOutput</span>
 <span class="n">cp2k_output_file</span> <span class="o">=</span> <span class="s2">&quot;output_energy_force&quot;</span>
 <span class="n">cp2koutput</span><span class="o">=</span><span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">cp2k_output_file</span><span class="p">)</span>
 <span class="c1"># get the version of cp2k</span>
@@ -503,7 +503,7 @@ Element Numb       : 6    6    18
 </section>
 <section id="parse-geo-opt-outputs">
 <h2>Parse GEO_OPT Outputs<a class="headerlink" href="#parse-geo-opt-outputs" title="Permalink to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kOutput</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kOutput</span>
 <span class="n">cp2k_output_file</span> <span class="o">=</span> <span class="s2">&quot;output_geo_opt&quot;</span>
 <span class="n">cp2koutput</span><span class="o">=</span><span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">cp2k_output_file</span><span class="p">)</span>
 <span class="c1"># get the version of cp2k</span>
@@ -530,13 +530,13 @@ Element Numb       : 6    6    18
 <h2>Parse MD outputs<a class="headerlink" href="#parse-md-outputs" title="Permalink to this heading">#</a></h2>
 <p>On parsing MD outputs, you can choose parse <em>with</em> or <em>without</em> standard outputs. Three additional files, <code class="docutils literal notranslate"><span class="pre">Project-1.ener</span></code>, <code class="docutils literal notranslate"><span class="pre">Project-pos-1.xyz</span></code>, and <code class="docutils literal notranslate"><span class="pre">Project-frc-1.xyz</span></code> files, are required to obtain <code class="docutils literal notranslate"><span class="pre">energies</span></code>, <code class="docutils literal notranslate"><span class="pre">position</span></code>, and <code class="docutils literal notranslate"><span class="pre">forces</span></code> information.</p>
 <p>If you parse with standard outputs, <code class="docutils literal notranslate"><span class="pre">Cp2kOutput</span></code> can collect full information from outputs. In specific, cell information and kind symbols can be obtained.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kOutput</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kOutput</span>
 <span class="n">cp2k_output_file</span> <span class="o">=</span> <span class="s2">&quot;output_md&quot;</span>
 <span class="n">cp2koutput</span><span class="o">=</span><span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">cp2k_output_file</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Alternatively, you may parse without standard outputs. Consequently, you will loss the <code class="docutils literal notranslate"><span class="pre">cell</span></code> and <code class="docutils literal notranslate"><span class="pre">atomic</span> <span class="pre">kind</span></code> infromations. When parsing without standard outputs, you must manually set the optional argument <code class="docutils literal notranslate"><span class="pre">run_type</span></code> as <code class="docutils literal notranslate"><span class="pre">md</span></code>, otherwise it will raise error.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kOutput</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kOutput</span>
 <span class="n">cp2k_output_file</span> <span class="o">=</span> <span class="s2">&quot;output_md&quot;</span>
 <span class="n">cp2koutput</span><span class="o">=</span><span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">run_type</span><span class="o">=</span><span class="s2">&quot;md&quot;</span><span class="p">)</span>
 </pre></div>
@@ -544,7 +544,7 @@ Element Numb       : 6    6    18
 </section>
 <section id="parse-vibrational-analysis-outputs">
 <h2>Parse VIBRATIONAL_ANALYSIS outputs<a class="headerlink" href="#parse-vibrational-analysis-outputs" title="Permalink to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kOutput</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kOutput</span>
 <span class="n">cp2k_output_file</span> <span class="o">=</span> <span class="s2">&quot;output&quot;</span>
 <span class="n">cp2koutput</span><span class="o">=</span><span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">cp2k_output_file</span><span class="p">)</span>
 </pre></div>

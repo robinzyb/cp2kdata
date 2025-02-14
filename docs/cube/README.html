@@ -461,7 +461,7 @@ document.write(`
 <section id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>Import the necessary modules and load a cube file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kdata</span> <span class="kn">import</span> <span class="n">Cp2kCube</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kCube</span>
 <span class="n">cube_file_path</span> <span class="o">=</span> <span class="s2">&quot;slab-ELECTRON_DENSITY-1_0.cube&quot;</span>
 <span class="n">mycube</span> <span class="o">=</span> <span class="n">Cp2kCube</span><span class="p">(</span><span class="n">cube_file_path</span><span class="p">)</span>
 </pre></div>
@@ -545,7 +545,7 @@ The method <code class="docutils literal notranslate"><span class="pre">get_mav(
 <section id="addition-and-subtraction-of-cp2kcube">
 <h2>Addition and Subtraction of Cp2kCube<a class="headerlink" href="#addition-and-subtraction-of-cp2kcube" title="Permalink to this heading">#</a></h2>
 <p>Cp2kCube provides a convenient way to perform addition and subtraction operations on CP2K cube files, allowing you to manipulate the data contained within them. This method is extremly useful, if you would like to obtain the charge difference</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cp2kcube</span> <span class="kn">import</span> <span class="n">Cp2kCube</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cp2kcube</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cp2kCube</span>
 
 <span class="c1"># Load the first cube file</span>
 <span class="n">cube1</span> <span class="o">=</span> <span class="n">Cp2kCube</span><span class="p">(</span><span class="s2">&quot;path/to/cube1.cube&quot;</span><span class="p">)</span>

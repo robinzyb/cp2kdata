@@ -384,19 +384,19 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for cp2kdata.plots.fep_plot</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">cp2kdata.block_parser.fep</span> <span class="kn">import</span> <span class="n">parse_vertical_gap</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
-<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
-<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="p">(</span><span class="n">MultipleLocator</span><span class="p">,</span> <span class="n">AutoMinorLocator</span><span class="p">)</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.fep</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_vertical_gap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">integrate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cycler</span><span class="w"> </span><span class="kn">import</span> <span class="n">cycler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">MultipleLocator</span><span class="p">,</span> <span class="n">AutoMinorLocator</span><span class="p">)</span>
 
 <span class="n">au2eV</span> <span class="o">=</span> <span class="mf">2.72113838565563E+01</span>
 
 
-<div class="viewcode-block" id="get_cum_mean"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.fep_plot.html#cp2kdata.plots.fep_plot.get_cum_mean">[docs]</a><span class="k">def</span> <span class="nf">get_cum_mean</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+<div class="viewcode-block" id="get_cum_mean"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.fep_plot.html#cp2kdata.plots.fep_plot.get_cum_mean">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_cum_mean</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
     <span class="n">tot</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">cum_mean_array</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
@@ -406,14 +406,14 @@ document.write(`
     <span class="k">return</span> <span class="n">cum_mean_array</span></div>
 
 
-<div class="viewcode-block" id="plot_ti"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.fep_plot.html#cp2kdata.plots.fep_plot.plot_ti">[docs]</a><span class="k">def</span> <span class="nf">plot_ti</span><span class="p">(</span><span class="n">fig_name</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_ti"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.fep_plot.html#cp2kdata.plots.fep_plot.plot_ti">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">plot_ti</span><span class="p">(</span><span class="n">fig_name</span><span class="p">):</span>
     <span class="n">eta_sub_dir_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;[0-1].*&quot;</span><span class="p">)</span>
     <span class="n">eta_sub_dir_list</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="n">vgap_list</span><span class="p">,</span> <span class="n">cum_vgap_list</span><span class="p">,</span> <span class="n">ave_vgap_list</span> <span class="o">=</span> <span class="n">get_fep_gaps</span><span class="p">(</span><span class="n">eta_sub_dir_list</span><span class="p">)</span>
     <span class="n">_plot_ti</span><span class="p">(</span><span class="n">eta_sub_dir_list</span><span class="p">,</span> <span class="n">cum_vgap_list</span><span class="p">,</span> <span class="n">ave_vgap_list</span><span class="p">,</span> <span class="n">fig_name</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_fep_gaps"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.fep_plot.html#cp2kdata.plots.fep_plot.get_fep_gaps">[docs]</a><span class="k">def</span> <span class="nf">get_fep_gaps</span><span class="p">(</span><span class="n">eta_sub_dir_list</span><span class="p">):</span>
+<div class="viewcode-block" id="get_fep_gaps"><a class="viewcode-back" href="../../../_api/cp2kdata.plots.fep_plot.html#cp2kdata.plots.fep_plot.get_fep_gaps">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_fep_gaps</span><span class="p">(</span><span class="n">eta_sub_dir_list</span><span class="p">):</span>
     <span class="n">vgap_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">cum_vgap_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">ave_vgap_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -429,7 +429,7 @@ document.write(`
     <span class="k">return</span> <span class="n">vgap_list</span><span class="p">,</span> <span class="n">cum_vgap_list</span><span class="p">,</span> <span class="n">ave_vgap_list</span></div>
 
 
-<span class="k">def</span> <span class="nf">_plot_ti</span><span class="p">(</span><span class="n">eta_sub_dir_list</span><span class="p">,</span> <span class="n">cum_vgap_list</span><span class="p">,</span> <span class="n">ave_vgap_list</span><span class="p">,</span> <span class="n">fig_name</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_plot_ti</span><span class="p">(</span><span class="n">eta_sub_dir_list</span><span class="p">,</span> <span class="n">cum_vgap_list</span><span class="p">,</span> <span class="n">ave_vgap_list</span><span class="p">,</span> <span class="n">fig_name</span><span class="p">):</span>
 
     <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.0005</span>
 
