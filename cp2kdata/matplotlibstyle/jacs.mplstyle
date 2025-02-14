@@ -1,5 +1,5 @@
-# the following settings are compliant with JCP standards
-# https://publishing.aip.org/resources/researchers/author-instructions/#graphics
+# the following settings are compliant with JACS standards
+# https://researcher-resources.acs.org/publish/author_guidelines?coden=jacsat#appendix2
 axes.titlesize : 8
 axes.labelsize : 8 # for x y labels
 axes.linewidth : 0.8
@@ -8,7 +8,7 @@ font.size: 6
 patch.linewidth : 0.8
 
 figure.dpi: 300
-figure.figsize: 3.37, 1.89
+figure.figsize: 3.25, 1.89
 
 legend.fontsize: 8
 
