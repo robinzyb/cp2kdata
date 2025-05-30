@@ -394,7 +394,7 @@ document.write(`
 <span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.plots.geo_opt_plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">geo_opt_info_plot</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_logger</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.header_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">GlobalInfo</span><span class="p">,</span> <span class="n">Cp2kInfo</span><span class="p">,</span> <span class="n">DFTInfo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.header_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">GlobalInfo</span><span class="p">,</span> <span class="n">Cp2kInfo</span><span class="p">,</span> <span class="n">DFTInfo</span><span class="p">,</span> <span class="n">MDInfo</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.dft_plus_u</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_dft_plus_u_occ</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.forces</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_atomic_forces_list</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">cp2kdata.block_parser.geo_opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_geo_opt_info</span>
@@ -479,7 +479,10 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span> <span class="o">=</span> <span class="n">parse_cp2k_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dft_info</span> <span class="o">=</span> <span class="n">parse_dft_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span> <span class="o">=</span> <span class="n">Cp2kInfo</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="s2">&quot;Unknown&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ensemble_type</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ensemble_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="c1"># overwrite the restart if users provide restart information</span>
         <span class="c1"># restart should be true or false</span>
@@ -756,7 +759,8 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Cp2kOutput.parse_md"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.parse_md">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">parse_md</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">md_info</span> <span class="o">=</span> <span class="n">parse_md_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">md_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_md_info</span><span class="p">(</span><span class="n">ensemble_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ensemble_type</span><span class="p">,</span>
+                                        <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_md_type</span><span class="p">(</span><span class="n">md_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">md_info</span><span class="o">.</span><span class="n">ensemble_type</span><span class="p">)</span>
 
         <span class="c1"># parse md energies</span>
@@ -807,8 +811,10 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_forces_list</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;forces&quot;</span><span class="p">)</span>
 
+        <span class="c1"># stress tensor part</span>
         <span class="n">stress_file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_prefix</span><span class="p">,</span> <span class="s2">&quot;*.stress&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">stress_file_list</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;cp2kdata found a file recording stresses: </span><span class="si">{</span><span class="n">stress_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -818,11 +824,12 @@ document.write(`
             <span class="c1"># TODO: however, covert bar to GPa is not consistent with the output file!</span>
             <span class="c1"># TODO: check this latter</span>
             <span class="c1"># self.stress_tensor_list = parse_md_stress(stress_file_list[0])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">else</span><span class="p">:</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">:</span>
             <span class="n">format_logger</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;Stresses&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="n">parse_stress_tensor_list</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
 
             <span class="c1"># stress tensor could be None if the output file doesn&#39;t contain stress information</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -831,6 +838,8 @@ document.write(`
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last_info</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">cp2k_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stress_tensor_list</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;stresses&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;No stress tensor information found, omitted.&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energies_list</span><span class="p">)</span>
 
@@ -897,9 +906,10 @@ document.write(`
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">organize_md_cell</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_init_atomic_coordinates</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="o">=</span> <span class="n">parse_atomic_kinds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_atomic_coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom_kind_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">parse_init_atomic_coordinates</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">atomic_kind</span> <span class="o">=</span> <span class="n">parse_atomic_kinds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Cp2kOutput.organize_md_cell"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.organize_md_cell">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">organize_md_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># whether reserve the first cell is determined by the restart</span>
@@ -956,6 +966,16 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cp2kdata dosen&#39;t know your run type!&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">global_info</span></div>
+
+<div class="viewcode-block" id="Cp2kOutput.get_md_info"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.get_md_info">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_md_info</span><span class="p">(</span><span class="n">ensemble_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">md_info</span> <span class="o">=</span> <span class="n">parse_md_info</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">ensemble_type</span><span class="p">:</span>
+            <span class="n">md_info</span> <span class="o">=</span> <span class="n">MDInfo</span><span class="p">(</span><span class="n">ensemble_type</span><span class="o">=</span><span class="n">ensemble_type</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cp2kdata dosen&#39;t know your MD ensemble type!&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">md_info</span></div>
 
 <div class="viewcode-block" id="Cp2kOutput.check_run_type"><a class="viewcode-back" href="../../_api/cp2kdata.output.html#cp2kdata.output.Cp2kOutput.check_run_type">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">check_run_type</span><span class="p">(</span><span class="n">run_type</span><span class="p">):</span>

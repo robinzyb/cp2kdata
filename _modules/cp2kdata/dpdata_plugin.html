@@ -471,14 +471,17 @@ document.write(`
         <span class="n">true_symbols</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;true_symbols&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">cells</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cells&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">cp2k_output_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cp2k_output_name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">ensemble_type</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ensemble_type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="c1"># -- start parsing --</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">WRAPPER</span><span class="p">)</span>
 
         <span class="n">cp2kmd</span> <span class="o">=</span> <span class="n">Cp2kOutput</span><span class="p">(</span><span class="n">output_file</span><span class="o">=</span><span class="n">cp2k_output_name</span><span class="p">,</span>
                             <span class="n">run_type</span><span class="o">=</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span>
+                            <span class="n">ensemble_type</span><span class="o">=</span><span class="n">ensemble_type</span><span class="p">,</span>
                             <span class="n">path_prefix</span><span class="o">=</span><span class="n">path_prefix</span><span class="p">,</span>
-                            <span class="n">restart</span><span class="o">=</span><span class="n">restart</span><span class="p">)</span>
+                            <span class="n">restart</span><span class="o">=</span><span class="n">restart</span>
+                            <span class="p">)</span>
 
         <span class="n">num_frames</span> <span class="o">=</span> <span class="n">cp2kmd</span><span class="o">.</span><span class="n">get_num_frames</span><span class="p">()</span>
 
