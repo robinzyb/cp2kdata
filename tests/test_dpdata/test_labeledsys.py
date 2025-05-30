@@ -1,6 +1,8 @@
 import numpy as np
 import pytest
-from pytest import approx
+import json
+
+#from pytest import approx
 import dpdata
 import os
 
@@ -24,7 +26,8 @@ aimd_output_path_list = [
     "tests/test_dpdata/v2023.1/aimd_nvt",
     "tests/test_dpdata/v2023.1/aimd_npt_f",
     "tests/test_dpdata/v2023.2/aimd_nvt_restart",
-    "tests/test_dpdata/v2024.1/aimd_npt_i_restart"
+    "tests/test_dpdata/v2024.1/aimd_npt_i_restart",
+    "tests/test_dpdata/v_undefined/aimd_nvt_no_output",
 ]
 
 e_f_dpdata_list = [
@@ -41,13 +44,38 @@ e_f_dpdata_ref_list = [
         ) for path in e_f_output_path_list
 ]
 
-aimd_dpdata_list = [
-   dpdata.LabeledSystem(
-        file_name = path,
-        cp2k_output_name="output",
-        fmt="cp2kdata/md"
-        ) for path in aimd_output_path_list
-]
+
+# Test cases for AIMD are complicated. Sometimes they don't have output files
+aimd_dpdata_list = []
+
+for path in aimd_output_path_list:
+    if os.path.exists(os.path.join(path, "output")):
+        aimd_dpdata_list.append(
+            dpdata.LabeledSystem(
+                file_name = path,
+                cp2k_output_name="output",
+                fmt="cp2kdata/md",
+            )
+       )
+    # if no ouput file is found, we will find some parameter from the dpdata_input_param.json
+    else:
+        dpdata_input_param_path = os.path.join(path, "dpdata_input_param.json")
+        with open(dpdata_input_param_path, "r") as f:
+            dpdata_param = json.load(f)
+        cells = dpdata_param.get("cells", None)
+        cells = np.array(cells)
+        ensemble_type = dpdata_param.get("ensemble_type", None)
+        aimd_dpdata_list.append(
+            dpdata.LabeledSystem(
+                file_name = path,
+                cp2k_output_name=None,
+                cells = cells,
+                ensemble_type = ensemble_type,
+                fmt="cp2kdata/md",
+            )
+        )
+
+
 
 aimd_dpdata_ref_list = [
     dpdata.LabeledSystem(

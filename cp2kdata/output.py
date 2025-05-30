@@ -8,7 +8,7 @@ from functools import cached_property
 from cp2kdata.plots.geo_opt_plot import geo_opt_info_plot
 from cp2kdata.log import get_logger
 from cp2kdata.utils import format_logger
-from cp2kdata.block_parser.header_info import GlobalInfo, Cp2kInfo, DFTInfo
+from cp2kdata.block_parser.header_info import GlobalInfo, Cp2kInfo, DFTInfo, MDInfo
 from cp2kdata.block_parser.dft_plus_u import parse_dft_plus_u_occ
 from cp2kdata.block_parser.forces import parse_atomic_forces_list
 from cp2kdata.block_parser.geo_opt import parse_geo_opt_info
@@ -93,7 +93,10 @@ class Cp2kOutput:
             self.cp2k_info = parse_cp2k_info(self.filename)
             self.dft_info = parse_dft_info(self.filename)
         else:
+            self.output_file = None
             self.cp2k_info = Cp2kInfo(version="Unknown")
+
+        self.ensemble_type = kwargs.get("ensemble_type", None)
 
         # overwrite the restart if users provide restart information
         # restart should be true or false
@@ -370,7 +373,8 @@ class Cp2kOutput:
         self.num_frames = len(self.energies_list)
 
     def parse_md(self):
-        self.md_info = parse_md_info(self.filename)
+        self.md_info = self.get_md_info(ensemble_type=self.ensemble_type,
+                                        filename=self.filename)
         self.check_md_type(md_type=self.md_info.ensemble_type)
 
         # parse md energies
@@ -421,8 +425,10 @@ class Cp2kOutput:
             self.atomic_forces_list = self.drop_last_info(
                 self.cp2k_info, self.atomic_forces_list, info="forces")
 
+        # stress tensor part
         stress_file_list = glob.glob(
             os.path.join(self.path_prefix, "*.stress"))
+        self.stress_tensor_list = None
         if stress_file_list:
             logger.warning(
                 f"cp2kdata found a file recording stresses: {stress_file_list[0]}"
@@ -432,11 +438,12 @@ class Cp2kOutput:
             # TODO: however, covert bar to GPa is not consistent with the output file!
             # TODO: check this latter
             # self.stress_tensor_list = parse_md_stress(stress_file_list[0])
-            self.stress_tensor_list = None
-        else:
+
+        elif self.output_file:
             format_logger(info="Stresses", filename=self.filename)
+
             self.stress_tensor_list = parse_stress_tensor_list(
-                self.output_file)
+                    self.output_file)
 
             # stress tensor could be None if the output file doesn't contain stress information
             if self.stress_tensor_list is not None:
@@ -445,6 +452,8 @@ class Cp2kOutput:
 
                 self.stress_tensor_list = self.drop_last_info(
                     self.cp2k_info, self.stress_tensor_list, info="stresses")
+        else:
+            logger.debug("No stress tensor information found, omitted.")
 
         self.num_frames = len(self.energies_list)
 
@@ -511,9 +520,10 @@ class Cp2kOutput:
 
                 self.organize_md_cell()
 
-        self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
-            self.output_file)
-        self.atomic_kind = parse_atomic_kinds(self.output_file)
+        if self.output_file:
+            self.init_atomic_coordinates, self.atom_kind_list, self.chemical_symbols = parse_init_atomic_coordinates(
+                self.output_file)
+            self.atomic_kind = parse_atomic_kinds(self.output_file)
 
     def organize_md_cell(self):
         # whether reserve the first cell is determined by the restart
@@ -570,6 +580,16 @@ class Cp2kOutput:
         else:
             raise ValueError("cp2kdata dosen't know your run type!")
         return global_info
+
+    @staticmethod
+    def get_md_info(ensemble_type=None, filename=None):
+        if filename:
+            md_info = parse_md_info(filename)
+        elif ensemble_type:
+            md_info = MDInfo(ensemble_type=ensemble_type.upper())
+        else:
+            raise ValueError("cp2kdata dosen't know your MD ensemble type!")
+        return md_info
 
     @staticmethod
     def check_run_type(run_type):

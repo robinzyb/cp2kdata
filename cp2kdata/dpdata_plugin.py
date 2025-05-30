@@ -85,14 +85,17 @@ class CP2KMDFormat(Format):
         true_symbols = kwargs.get('true_symbols', False)
         cells = kwargs.get('cells', None)
         cp2k_output_name = kwargs.get('cp2k_output_name', None)
+        ensemble_type = kwargs.get('ensemble_type', None)
 
         # -- start parsing --
         logger.debug(WRAPPER)
 
         cp2kmd = Cp2kOutput(output_file=cp2k_output_name,
                             run_type="MD",
+                            ensemble_type=ensemble_type,
                             path_prefix=path_prefix,
-                            restart=restart)
+                            restart=restart
+                            )
 
         num_frames = cp2kmd.get_num_frames()
 
