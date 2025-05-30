@@ -1,4 +1,4 @@
-# CP2KData Plugin for dpdata
+# CP2KData plugin for dpdata
 
 `CP2KData` supports a plugin for `dpdata`. When you install `CP2KData` using `pip`, the plugin for `dpdata` is automatically installed as well.
 
@@ -6,6 +6,7 @@ For instructions on how to use `dpdata`, please refer to the official repository
 
 In the following, we provide two exmples that demonstrate how to use `Cp2kData` with `dpdata` to parse data from CP2K simulations in specified formats.
 
+## Parse Energy_Force
 Currently, `CP2KData` supports two formats for use with `dpdata`:
 
 1. `cp2kdata/e_f` format for parsing `ENERGY_FORCE` outputs.
@@ -70,7 +71,9 @@ Currently, `CP2KData` supports two formats for use with `dpdata`:
 
    ```
 
-2. `cp2kdata/md` format for parsing `MD` outputs.
+## Parse MD
+### MD including CP2K output/log files
+  `cp2kdata/md` format for parsing `MD` outputs.
 
    Example for parsing `MD` outputs:
    ```python
@@ -87,7 +90,7 @@ Currently, `CP2KData` supports two formats for use with `dpdata`:
    @SET frequency 100
    &FORCE_EVAL
       # if stress tensor is not need to computed, comment out the below line.
-      STRESS_TENSOR ANALYTICAL 
+      STRESS_TENSOR ANALYTICAL
       &PRINT
          # if stress tensor is not need to computed, comment out the below line
          &STRESS_TENSOR ON
@@ -131,8 +134,24 @@ Currently, `CP2KData` supports two formats for use with `dpdata`:
    &END MOTION
    ```
 
+### MD without CP2K output/log files
+   In some cases, users only keep `*-pos-*.xyz` and `*-frc-*.xyz` files. To convert the CP2K files into dpdata, users must explicitly tells dpdata the cell and ensemble information.
 
-   In some cases, cp2k md simulations are restarted from `-1.restart` file in which the initial structure will not be evaluated again.
+   ```python
+   import dpdata
+   import numpy as np
+
+   cp2kmd_dir = "./test/"
+   cp2kmd_output_name = None
+
+   cells = np.array([[8.66,0,0],
+                    [0,8.66,0],
+                    [0,0,22.83]])
+   dp = dpdata.LabeledSystem(cp2kmd_dir, cp2k_output_name=cp2kmd_output_name, cells=cells, ensemble_type="NVT", fmt="cp2kdata/md")
+   ```
+
+### MD missing restart information in header
+   In some cases, CP2K md simulations are restarted from `-1.restart` file in which the initial structure will not be evaluated again.
    Therefore, the initial cell information should not be parsed again. Otherwise, the number of frames for cells is inconsistent with those for `poses`, `forces`, and `energies`.
    Cp2kdata can automatically check whether the simulations are restarted or not through the header information of output:
    ```

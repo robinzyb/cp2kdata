@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>CP2KData Plugin for dpdata &#8212; CP2KData Reference</title>
+    <title>CP2KData plugin for dpdata &#8212; CP2KData Reference</title>
   
   
   
@@ -179,7 +179,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Plugin</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">CP2KData Plugin for dpdata</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">CP2KData plugin for dpdata</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -409,7 +409,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -420,11 +422,25 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>CP2KData Plugin for dpdata</h1>
+    <h1>CP2KData plugin for dpdata</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-energy-force">Parse Energy_Force</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-md">Parse MD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#md-including-cp2k-output-log-files">MD including CP2K output/log files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#md-without-cp2k-output-log-files">MD without CP2K output/log files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#md-missing-restart-information-in-header">MD missing restart information in header</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -435,10 +451,12 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="cp2kdata-plugin-for-dpdata">
-<h1>CP2KData Plugin for dpdata<a class="headerlink" href="#cp2kdata-plugin-for-dpdata" title="Permalink to this heading">#</a></h1>
+<h1>CP2KData plugin for dpdata<a class="headerlink" href="#cp2kdata-plugin-for-dpdata" title="Permalink to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">CP2KData</span></code> supports a plugin for <code class="docutils literal notranslate"><span class="pre">dpdata</span></code>. When you install <code class="docutils literal notranslate"><span class="pre">CP2KData</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code>, the plugin for <code class="docutils literal notranslate"><span class="pre">dpdata</span></code> is automatically installed as well.</p>
 <p>For instructions on how to use <code class="docutils literal notranslate"><span class="pre">dpdata</span></code>, please refer to the official repository: <a class="github reference external" href="https://github.com/deepmodeling/dpdata">deepmodeling/dpdata</a>.</p>
 <p>In the following, we provide two exmples that demonstrate how to use <code class="docutils literal notranslate"><span class="pre">Cp2kData</span></code> with <code class="docutils literal notranslate"><span class="pre">dpdata</span></code> to parse data from CP2K simulations in specified formats.</p>
+<section id="parse-energy-force">
+<h2>Parse Energy_Force<a class="headerlink" href="#parse-energy-force" title="Permalink to this heading">#</a></h2>
 <p>Currently, <code class="docutils literal notranslate"><span class="pre">CP2KData</span></code> supports two formats for use with <code class="docutils literal notranslate"><span class="pre">dpdata</span></code>:</p>
 <ol class="arabic">
 <li><p><code class="docutils literal notranslate"><span class="pre">cp2kdata/e_f</span></code> format for parsing <code class="docutils literal notranslate"><span class="pre">ENERGY_FORCE</span></code> outputs.</p>
@@ -500,7 +518,13 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cp2kdata/md</span></code> format for parsing <code class="docutils literal notranslate"><span class="pre">MD</span></code> outputs.</p>
+</ol>
+</section>
+<section id="parse-md">
+<h2>Parse MD<a class="headerlink" href="#parse-md" title="Permalink to this heading">#</a></h2>
+<section id="md-including-cp2k-output-log-files">
+<h3>MD including CP2K output/log files<a class="headerlink" href="#md-including-cp2k-output-log-files" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">cp2kdata/md</span></code> format for parsing <code class="docutils literal notranslate"><span class="pre">MD</span></code> outputs.</p>
 <p>Example for parsing <code class="docutils literal notranslate"><span class="pre">MD</span></code> outputs:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">dpdata</span>
 
@@ -514,7 +538,7 @@ document.write(`
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>@SET<span class="w"> </span>frequency<span class="w"> </span><span class="m">100</span>
 <span class="p">&amp;</span>FORCE_EVAL
 <span class="w">   </span><span class="c1"># if stress tensor is not need to computed, comment out the below line.</span>
-<span class="w">   </span>STRESS_TENSOR<span class="w"> </span>ANALYTICAL<span class="w"> </span>
+<span class="w">   </span>STRESS_TENSOR<span class="w"> </span>ANALYTICAL
 <span class="w">   </span><span class="p">&amp;</span>PRINT
 <span class="w">      </span><span class="c1"># if stress tensor is not need to computed, comment out the below line</span>
 <span class="w">      </span><span class="p">&amp;</span>STRESS_TENSOR<span class="w"> </span>ON
@@ -558,7 +582,26 @@ document.write(`
 <span class="p">&amp;</span>END<span class="w"> </span>MOTION
 </pre></div>
 </div>
-<p>In some cases, cp2k md simulations are restarted from <code class="docutils literal notranslate"><span class="pre">-1.restart</span></code> file in which the initial structure will not be evaluated again.
+</section>
+<section id="md-without-cp2k-output-log-files">
+<h3>MD without CP2K output/log files<a class="headerlink" href="#md-without-cp2k-output-log-files" title="Permalink to this heading">#</a></h3>
+<p>In some cases, users only keep <code class="docutils literal notranslate"><span class="pre">*-pos-*.xyz</span></code> and <code class="docutils literal notranslate"><span class="pre">*-frc-*.xyz</span></code> files. To convert the CP2K files into dpdata, users must explicitly tells dpdata the cell and ensemble information.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">dpdata</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">cp2kmd_dir</span> <span class="o">=</span> <span class="s2">&quot;./test/&quot;</span>
+<span class="n">cp2kmd_output_name</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">8.66</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">8.66</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">22.83</span><span class="p">]])</span>
+<span class="n">dp</span> <span class="o">=</span> <span class="n">dpdata</span><span class="o">.</span><span class="n">LabeledSystem</span><span class="p">(</span><span class="n">cp2kmd_dir</span><span class="p">,</span> <span class="n">cp2k_output_name</span><span class="o">=</span><span class="n">cp2kmd_output_name</span><span class="p">,</span> <span class="n">cells</span><span class="o">=</span><span class="n">cells</span><span class="p">,</span> <span class="n">ensemble_type</span><span class="o">=</span><span class="s2">&quot;NVT&quot;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;cp2kdata/md&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="md-missing-restart-information-in-header">
+<h3>MD missing restart information in header<a class="headerlink" href="#md-missing-restart-information-in-header" title="Permalink to this heading">#</a></h3>
+<p>In some cases, CP2K md simulations are restarted from <code class="docutils literal notranslate"><span class="pre">-1.restart</span></code> file in which the initial structure will not be evaluated again.
 Therefore, the initial cell information should not be parsed again. Otherwise, the number of frames for cells is inconsistent with those for <code class="docutils literal notranslate"><span class="pre">poses</span></code>, <code class="docutils literal notranslate"><span class="pre">forces</span></code>, and <code class="docutils literal notranslate"><span class="pre">energies</span></code>.
 Cp2kdata can automatically check whether the simulations are restarted or not through the header information of output:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">*******************************************************************************</span>
@@ -598,8 +641,8 @@ Cp2kdata can automatically check whether the simulations are restarted or not th
 <span class="n">dp</span> <span class="o">=</span> <span class="n">dpdata</span><span class="o">.</span><span class="n">LabeledSystem</span><span class="p">(</span><span class="n">cp2kmd_dir</span><span class="p">,</span> <span class="n">cp2k_output_name</span><span class="o">=</span><span class="n">cp2kmd_output_name</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;cp2kdata/md&quot;</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-</li>
-</ol>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -656,6 +699,26 @@ Cp2kdata can automatically check whether the simulations are restarted or not th
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-energy-force">Parse Energy_Force</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-md">Parse MD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#md-including-cp2k-output-log-files">MD including CP2K output/log files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#md-without-cp2k-output-log-files">MD without CP2K output/log files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#md-missing-restart-information-in-header">MD missing restart information in header</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
