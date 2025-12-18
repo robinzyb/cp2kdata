@@ -1,6 +1,8 @@
 import logging
 import os
 
+_LOGGER_NAME = "cp2kdata"
+
 level_name = os.environ.get('CP2KDATA_LOG_LEVEL', 'INFO')
 level = logging._nameToLevel.get(level_name, logging.INFO)
 
