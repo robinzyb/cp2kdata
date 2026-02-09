@@ -405,6 +405,11 @@ document.write(`
     <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span>
 <span class="p">)</span>
 
+<span class="n">FORCES_HEADER_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="s2">&quot;^\s*FORCES\|\s+Atomic\s+forces\s+\[.*\]\s*$&quot;</span><span class="p">,</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span>
+<span class="p">)</span>
+
 
 <div class="viewcode-block" id="parse_atomic_forces_list"><a class="viewcode-back" href="../../../_api/cp2kdata.block_parser.forces.html#cp2kdata.block_parser.forces.parse_atomic_forces_list">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parse_atomic_forces_list</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
     <span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -415,8 +420,36 @@ document.write(`
         <span class="n">atomic_forces_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atomic_forces</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">atomic_forces_list</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atomic_forces_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="n">atomic_forces_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">output_file</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+    <span class="n">in_block</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">FORCES_HEADER_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+            <span class="n">in_block</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">in_block</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;FORCES|&quot;</span><span class="p">):</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                    <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="mi">4</span><span class="p">]])</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;Sum&quot;</span><span class="p">,</span> <span class="s2">&quot;Total&quot;</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">current</span><span class="p">:</span>
+                        <span class="n">atomic_forces_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+                    <span class="n">in_block</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">current</span><span class="p">:</span>
+                    <span class="n">atomic_forces_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+                <span class="n">in_block</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">in_block</span> <span class="ow">and</span> <span class="n">current</span><span class="p">:</span>
+        <span class="n">atomic_forces_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">atomic_forces_list</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atomic_forces_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
 </pre></div>
 
                 </article>

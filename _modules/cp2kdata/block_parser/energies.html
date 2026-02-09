@@ -389,9 +389,11 @@ document.write(`
 
 <span class="n">ENERGIES_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    \sENERGY\|\sTotal\sFORCE_EVAL\s\(\sQS\s\)\senergy\s\S{6}:\s+(?P&lt;energy&gt;[\s-]\d+\.\d+)</span>
+<span class="sd">    ^\s*ENERGY\|\s+Total\s+FORCE_EVAL\s+\(\s*QS\s*\)\s+energy</span>
+<span class="sd">    (?:\s+[\[\(][^\]\)]+[\]\)])?</span>
+<span class="sd">    \s*:?\s+(?P&lt;energy&gt;[-+]?\d+\.\d+(?:[Ee][+-]?\d+)?)</span>
 <span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span>
-    <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span>
 <span class="p">)</span>
 
 
